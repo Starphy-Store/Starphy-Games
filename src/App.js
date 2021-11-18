@@ -7,7 +7,9 @@ import './App.css';
 
 function App() {
   return (
+    <div className="bg">
     <Header></Header>
+    </div>
   );
 }
 
