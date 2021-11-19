@@ -1,3 +1,5 @@
+/*Se agrego animación al index.css para h1 del Slide*/
+/*Se agrega cdn de animate.css*/
 import React from 'react'
 
 const Slide = () => {
