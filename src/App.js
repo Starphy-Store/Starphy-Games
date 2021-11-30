@@ -1,14 +1,17 @@
-//DOCUMENTACION!
-//https://react-bootstrap.github.io/getting-started/introduction
-
-import Header from  "./Components/Header"
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import { useState } from "react";
+import Header from "./Components/Nav/Header";
+import CardList from "./Components/Home/CardList";
+import getGames from "./utils/getGames";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import "react-multi-carousel/lib/styles.css";
 
 function App() {
+  const [games, setGames] = useState(getGames);
   return (
-    <div className="bg">
-    <Header></Header>
+    <div>
+      <Header />
+      <CardList games={games} setGames={setGames} />
     </div>
   );
 }
