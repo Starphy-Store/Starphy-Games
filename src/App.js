@@ -1,17 +1,23 @@
 import { useState } from "react";
-import Header from "./Components/Nav/Header";
-import CardList from "./Components/Home/CardList";
-import getGames from "./utils/getGames";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import "react-multi-carousel/lib/styles.css";
+
+//importacion del header
+import Header from "./Components/Nav/Header"
+
+//importacion de las Cards
+import Slider from "./Home/Slider"
+
+//Slider de recomendaciones
+import Recomendations1 from "./Home/Recomendations1";
 
 function App() {
-  const [games, setGames] = useState(getGames);
+
   return (
     <div>
       <Header />
-      <CardList games={games} setGames={setGames} />
+      <Slider />
+      <Recomendations1 />
     </div>
   );
 }
