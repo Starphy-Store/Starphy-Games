@@ -1,4 +1,8 @@
 import { Form, Button } from "react-bootstrap";
+import withFirebaseAuth from 'react- with-firebase-auth'
+import * as firebase from 'firebase/app'
+import 'firebase/auth';
+import  firebase from '../Firebase/Data'; 
 import { Link } from "react-router-dom";
 import "./login.css";
 import { eyeIcon, facebook, google } from "./assets/index";

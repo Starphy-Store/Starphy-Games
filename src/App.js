@@ -5,9 +5,10 @@ import "./App.css";
 //importacion del Home
 import Home from "./Home/Home"
 
-import Login from "./Components/login/Login";
+//importacion del Login
+import Login from "./LoginPage/Login";
 
-
+//importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
