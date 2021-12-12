@@ -6,7 +6,7 @@ import "./App.css";
 import Home from "./Home/Home"
 
 //importacion del Login
-import Login from "./LoginPage/Login";
+import Login from "./LoginPage/Login.js";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,7 +19,7 @@ function App() {
 
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/LoginUser" element={<Login />} />
+      <Route path="/Login" element={<Login />} />
     </Routes> 
     </>
   );
