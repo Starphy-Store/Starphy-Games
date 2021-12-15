@@ -1,7 +1,6 @@
 import { Form, Button} from "react-bootstrap";
 
 import React from 'react';
-import  { Redirect } from 'react-router-dom'
 import "./login.css";
 import { eyeIcon, facebook, google } from "./assets/index";
 import { initializeApp } from "firebase/app";
@@ -80,7 +79,6 @@ function Login() {
       
       if (user) {
       if (user.emailVerified){
-        return <Redirect to='/Home'/>
       console.log("activo")
     }
       
