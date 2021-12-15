@@ -1,23 +1,19 @@
-/* DOCUMENTACION */
-/* https://firebase.google.com/docs/auth/web/facebook-login 
-   https://firebase.google.com/docs/auth/web/google-signin*/
-
 import { Form, Button } from "react-bootstrap";
 import React, { useState } from "react";
+
 import { useLocation } from "wouter";
 import { useNavigate } from "react-router-dom";
-import "./login.css";
-import { eyeIcon, facebook, google } from "./assets/index";
+//Se va a usar el mismo css para ahorrar codigo
+
+import "../LoginPage/login.css";
+import { eyeIcon, facebook, google } from "../LoginPage/assets/index";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
-  updateEmail,
-  emailVerified,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -29,67 +25,33 @@ const firebaseConfig = {
   appId: "1:779291947290:web:9bed27d795c7d614183ca3",
   measurementId: "${config.measurementId}",
 };
+
 const app = initializeApp(firebaseConfig);
-function Login() {
-  // Initialize Firebase
+
+function Register() {
   const auth = getAuth(app);
+  const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
   const provider2 = new FacebookAuthProvider();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-  /*  const [, navigate] = useLocation(); */
-  const navigate = useNavigate();
-  /* const emailVerified = user.emailVerified; */
-  function probar(event) {
+  const [usernameReg, setUsernameReg] = useState("");
+  const [passwordReg, setPasswordReg] = useState("");
+  const [emailReg, setEmailReg] = useState("");
+
+  function Register(event) {
     event.preventDefault();
-    console.log("funciona2");
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, usernameReg, emailReg, passwordReg)
       .then((userCredential) => {
-        // Signed in a
-        console.log("funciona");
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
+        // Signed in
         const user = userCredential.user;
         // ...
-        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode + errorMessage);
+        // ..
       });
   }
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      //return <Redirect to='/Home'/>
-
-      const uid = user.uid;
-    } else {
-      console.log("no");
-    }
-  });
-  /*    document.getElementById("register").addEventListener('click', function(){
-        const email= document.getElementById("email").value
-        const password= document.getElementById("password").value
-  createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-            // Signed in 
-            verificar()
-       const user = userCredential.user;
-            // ...
-            console.log("created")
-         })
-      .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-           // ..
-           console.log(errorCode + errorMessage)
-});
-
-  }); */
 
   const gugle = function () {
     signInWithPopup(auth, provider)
@@ -138,30 +100,65 @@ function Login() {
         // ...
       });
   };
-
+  const updateUsername = function (event) {
+    setUsernameReg(event.target.value);
+  };
   const updateEmail = function (event) {
-    setEmail(event.target.value);
+    setEmailReg(event.target.value);
   };
   const updatePassword = function (event) {
-    setPassword(event.target.value);
+    setPasswordReg(event.target.value);
   };
 
   return (
     <div className="main-container">
       <div className="main">
         <h1>Bienvenido a Starphy</h1>
-        {/* onSubmit={(e)=>e.preventDefault()} */}
-        <Form onSubmit={probar} className="form-container">
+        <hr
+          style={{
+            color: "white",
+            width: "50%",
+            margin: "auto",
+            marginTop: "15px",
+          }}
+        ></hr>{" "}
+        <div className="buttons-content mt-5">
+          <Button onClick={fasebuk} className="buttons">
+            <img className="me-2" src={facebook} alt="facebook-icon" />
+            Facebook
+          </Button>
+          <Button onClick={gugle} className="buttons">
+            <img className="me-2" src={google} alt="google-icon" />
+            Google
+          </Button>
+        </div>
+        <p className="text-center mt-3" style={{ color: "#C4C4C4" }}>
+          O registrate con
+        </p>
+        <Form onSubmit={Register} className="form-container">
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Label className="ms-3 mt-3" style={{ color: "#E5E5E5" }}>
+              Nombre
+            </Form.Label>{" "}
+            <Form.Control
+              className="p-3"
+              type="name"
+              placeholder="Ingresa tu apodo"
+              style={{ backgroundColor: "#C4C4C4" }}
+              value={usernameReg}
+              onChange={updateUsername}
+            />
+          </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="ms-3 mt-5" style={{ color: "#E5E5E5" }}>
+            <Form.Label className="ms-3 mt-3" style={{ color: "#E5E5E5" }}>
               Email
-            </Form.Label>
+            </Form.Label>{" "}
             <Form.Control
               className="p-3"
               type="email"
               placeholder="Ingresa tu Email"
               style={{ backgroundColor: "#C4C4C4" }}
-              value={email}
+              value={emailReg}
               onChange={updateEmail}
             />
           </Form.Group>
@@ -170,17 +167,6 @@ function Login() {
               <Form.Label className="ms-3 mb-0" style={{ color: "#E5E5E5" }}>
                 Contraseña
               </Form.Label>
-              <button
-                type="button"
-                onClick={() => {
-                  navigate("/RecoverPassword");
-                }}
-                className="recoverPassword"
-              >
-                <a src="/" className="me-2" style={{ color: "#868484" }}>
-                  ¿Haz olvidado tu contraseña?
-                </a>
-              </button>
             </div>
             <div style={{ position: "relative" }}>
               <button
@@ -198,7 +184,7 @@ function Login() {
                 type={show ? "text" : "password"}
                 placeholder="Ingresa tu contraseña"
                 style={{ backgroundColor: "#C4C4C4" }}
-                value={password}
+                value={passwordReg}
                 onChange={updatePassword}
               />
             </div>
@@ -210,28 +196,15 @@ function Login() {
               size="lg"
               id="ingreso"
             >
-              Iniciar sesion
+              Registrarse
             </Button>
           </div>
         </Form>
-        <p className="text-center" style={{ color: "#C4C4C4" }}>
-          O inicia sesion con
-        </p>
-        <div className="buttons-content">
-          <Button onClick={fasebuk} className="buttons">
-            <img className="me-2" src={facebook} alt="facebook-icon" />
-            Facebook
-          </Button>
-          <Button onClick={gugle} className="buttons">
-            <img className="me-2" src={google} alt="google-icon" />
-            Google
-          </Button>
-        </div>
-        <p className="text-center mt-5 text-light">
-          ¿Todavia no tienes una cuenta?{" "}
+        <p className="text-center text-light">
+          ¿Ya tienes una cuenta?{" "}
           <button
             onClick={() => {
-              navigate("/register");
+              navigate("/loginUser");
             }}
             className="createAccount"
           >
@@ -245,7 +218,7 @@ function Login() {
               to="/crearcuenta"
             >
               {" "}
-              Crea una ahora
+              Inicia sesión
             </a>
           </button>
         </p>
@@ -254,12 +227,4 @@ function Login() {
   );
 }
 
-// Import the functions you need from the SDKs you need
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-export default Login;
+export default Register;
