@@ -6,10 +6,13 @@ import "./App.css";
 import Home from "./Home/Home";
 
 //importacion del Login
+
 import Login from "./LoginPage/Login";
 import Recuperar from "./LoginPage/Recover";
 import CreatePass from "./LoginPage/CreatePassword.js";
 import Register from "./RegisterPage/Register.js";
+import Login from "./LoginPage/Login.js";
+
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
