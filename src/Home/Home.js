@@ -1,20 +1,20 @@
-import React from "react"
+import React from "react";
 //importacion del header
-import Header from "../Components/Nav/Header"
+import Header from "../Components/Nav/Header";
 
 //importacion de las Cards
-import Slider from "./Slider"
+import Slider from "./Slider";
 
 //Slider de recomendaciones
 import Recomendations1 from "./Recomendations1";
 
-function Home(){
-    return(
+function Home() {
+  return (
     <div>
-      <Header />
       <Slider />
+      <Header />
       <Recomendations1 />
     </div>
-    )
+  );
 }
- export default Home;
+export default Home;

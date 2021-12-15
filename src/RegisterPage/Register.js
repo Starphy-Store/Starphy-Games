@@ -1,7 +1,7 @@
 import { Form, Button } from "react-bootstrap";
 import React, { useState } from "react";
-
-import { useLocation } from "wouter";
+/* import { getDatabase } from "firebase/database";
+import { useLocation } from "wouter"; */
 import { useNavigate } from "react-router-dom";
 //Se va a usar el mismo css para ahorrar codigo
 
@@ -14,6 +14,8 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -29,27 +31,49 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 function Register() {
+  /* const database = getDatabase(app); */
   const auth = getAuth(app);
+
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
   const provider2 = new FacebookAuthProvider();
   const [show, setShow] = useState(false);
+
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
 
   function Register(event) {
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, usernameReg, emailReg, passwordReg)
+    console.log("funciona?");
+    createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        sendEmailVerification(auth.currentUser).then(() => {
+          // Email verification sent!
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              // User is signed in, see docs for a list of available properties
+              // https://firebase.google.com/docs/reference/js/firebase.User
+              const uid = user.uid;
+              navigate("/loginUser");
+              // ...
+            } else {
+              // User is signed out
+              // ...
+            }
+          });
+        });
+        const user = userCredential.emailReg;
+
         // ...
+        console.log("si claro");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // ..
+        console.log("no sory");
       });
   }
 

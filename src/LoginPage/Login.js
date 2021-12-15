@@ -4,7 +4,7 @@
 
 import { Form, Button } from "react-bootstrap";
 import React, { useState } from "react";
-import { useLocation } from "wouter";
+
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { eyeIcon, facebook, google } from "./assets/index";
@@ -38,19 +38,26 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-  /*  const [, navigate] = useLocation(); */
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
-  /* const emailVerified = user.emailVerified; */
+
   function probar(event) {
     event.preventDefault();
-    console.log("funciona2");
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in a
         console.log("funciona");
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
+        onAuthStateChanged(auth, (user) => {
+          if (user.emailVerified) {
+            setTimeout(() => {
+              navigate("/");
+            }, 1000);
+
+            const uid = user.uid;
+          }
+        });
+
         const user = userCredential.user;
         // ...
         console.log(user);
@@ -71,25 +78,6 @@ function Login() {
       console.log("no");
     }
   });
-  /*    document.getElementById("register").addEventListener('click', function(){
-        const email= document.getElementById("email").value
-        const password= document.getElementById("password").value
-  createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-            // Signed in 
-            verificar()
-       const user = userCredential.user;
-            // ...
-            console.log("created")
-         })
-      .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-           // ..
-           console.log(errorCode + errorMessage)
-});
-
-  }); */
 
   const gugle = function () {
     signInWithPopup(auth, provider)
