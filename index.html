@@ -49,7 +49,8 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        document.getElementById("register").addEventListener('click', function(){
+       {/* document.getElementById("register").addEventListener('click', function(){
+        var el=document.getElementById("register").addEventListener('click', function() */}
               const email= document.getElementById("email").value
               const password= document.getElementById("password").value
         createUserWithEmailAndPassword(auth, email, password)
