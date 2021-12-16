@@ -227,7 +227,7 @@ function Login() {
               Crea una ahora
             </a>
           </button>
-          <button
+          <button /* todo esto el volver */
             onClick={() => {
               navigate("/");
             }}
