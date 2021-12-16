@@ -4,7 +4,6 @@
 
 import { Form, Button, Alert } from "react-bootstrap";
 import React, { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { eyeIcon, facebook, google } from "./assets/index";
@@ -50,9 +49,6 @@ function Login() {
         console.log("funciona");
 
         onAuthStateChanged(auth, (user) => {
-          <Alert variant="success">
-            Ey revisa tu correo electronica para verificar tu cuenta
-          </Alert>;
           if (user.emailVerified) {
             setTimeout(() => {
               navigate("/");
@@ -229,6 +225,24 @@ function Login() {
             >
               {" "}
               Crea una ahora
+            </a>
+          </button>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+            className="Back"
+          >
+            <a
+              style={{
+                background: "transparent",
+                fontWeight: "999",
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              {" "}
+              Volver
             </a>
           </button>
         </p>

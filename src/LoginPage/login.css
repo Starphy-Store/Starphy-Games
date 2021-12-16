@@ -66,6 +66,12 @@ h1 {
   background: transparent;
 }
 
+.Back {
+  appearance: none;
+  border: 0;
+  background: transparent;
+}
+
 .buttons-content {
   background-color: #474343;
   display: flex;
