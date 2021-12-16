@@ -2,7 +2,7 @@
 /* https://firebase.google.com/docs/auth/web/facebook-login 
    https://firebase.google.com/docs/auth/web/google-signin*/
 
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -48,7 +48,11 @@ function Login() {
       .then((userCredential) => {
         // Signed in a
         console.log("funciona");
+
         onAuthStateChanged(auth, (user) => {
+          <Alert variant="success">
+            Ey revisa tu correo electronica para verificar tu cuenta
+          </Alert>;
           if (user.emailVerified) {
             setTimeout(() => {
               navigate("/");
@@ -62,22 +66,13 @@ function Login() {
         // ...
         console.log(user);
       })
+      /* alerta de error*/
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode + errorMessage);
       });
   }
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      //return <Redirect to='/Home'/>
-
-      const uid = user.uid;
-    } else {
-      console.log("no");
-    }
-  });
 
   const gugle = function () {
     signInWithPopup(auth, provider)

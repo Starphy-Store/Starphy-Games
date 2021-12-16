@@ -1,8 +1,9 @@
 .Slider {
   top: 0;
-  height: 1vh;
+  height: 0vh;
 }
 .sliderImg {
   height: 80vh;
   width: 100%;
+  object-fit: cover;
 }
