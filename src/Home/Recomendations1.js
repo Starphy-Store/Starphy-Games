@@ -9,7 +9,7 @@ import "./Home.css";
 
 function Recomendations1() {
   return (
-    <Carousel variant="dark" style={{ marginTop: "70vh" }}>
+    <Carousel variant="dark" style={{ marginTop: "70vh" }} indicators={false}>
       <Carousel.Item>
         <Container>
           <Row>

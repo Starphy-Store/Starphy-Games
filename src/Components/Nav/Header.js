@@ -20,9 +20,9 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div className="xd">
-      <Navbar expand="lg" className="header">
+      <Navbar expand="lg" className="header" variant="dark">
         <Container fluid>
-          <Navbar.Brand href="#">
+          <Navbar.Brand href="#" className="ayudaa">
             <img
               src={logo}
               class="navImage"
@@ -51,9 +51,6 @@ function Header() {
                   Something else here
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="#" disabled>
-                Link
-              </Nav.Link>
             </Nav>
             <Container>
               <Row>
@@ -61,7 +58,7 @@ function Header() {
                 <Col md={1}>
                   <Link to="/LoginUser">
                     <Button
-                      variant="outline-dark"
+                      variant="outline-light"
                       style={{
                         float: "right",
                         paddingRight: "20px",
@@ -75,7 +72,7 @@ function Header() {
                 <Col md={1}>
                   <Link to="/register">
                     <Button
-                      variant="outline-dark"
+                      variant="outline-light"
                       style={{
                         float: "right",
                       }}
