@@ -83,6 +83,27 @@ function Login() {
             >
               Recuperar contraseña
             </Button>
+            <button /* todo esto el volver */
+              onClick={() => {
+                navigate("/");
+              }}
+              className="Back"
+            >
+              <a
+                style={{
+                  background: "transparent",
+                  fontWeight: "999",
+                  color: "white",
+                  textDecoration: "underline",
+                  position: "relative",
+                  bottom: "640px",
+                  right: "57vw",
+                }}
+              >
+                {" "}
+                Volver
+              </a>
+            </button>
           </div>
         </Form>
       </div>

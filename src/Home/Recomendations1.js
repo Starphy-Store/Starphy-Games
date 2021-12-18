@@ -7,62 +7,54 @@ import { Carousel, Container, Row, Col } from "react-bootstrap";
 import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
 
-function Recomendations1() {
+/* function PrintCards(props) {
+  for (var i = props.numCol; props.numCol == 12; i = props.numCol + props.numCol) {
+    return (
+      <Col sm={6} md={i}>
+        <CardStyle />
+      </Col>
+    );
+  }
+} */
+
+function CarouselContent(props) {
   return (
-    <Carousel variant="dark" style={{ marginTop: "70vh" }} indicators={false}>
+    <Row>
+      <Col sm={6} md={props.numCol}>
+        <CardStyle />
+      </Col>
+      <Col sm={6} md={props.numCol}>
+        <CardStyle />
+      </Col>
+      <Col sm={6} md={0}>
+        <CardStyle />
+      </Col>
+      <Col sm={6} md={0}>
+        <CardStyle />
+      </Col>
+    </Row>
+  );
+}
+
+function Recomendations1(props) {
+  return (
+    <Carousel variant="dark" indicators={false} className="mt-5">
       <Carousel.Item>
         <Container>
-          <Row>
-            {/*En pantallas pequenias se ve 2 cards y en grandes 4 */}
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-          </Row>
+          {/* es la funcion de arriba jasja */}
+          <CarouselContent />
         </Container>
       </Carousel.Item>
       <Carousel.Item>
         <Container>
-          <Row>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-          </Row>
+          {/* es la funcion de arriba jasja */}
+          <CarouselContent />
         </Container>
       </Carousel.Item>
       <Carousel.Item>
         <Container>
-          <Row>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-          </Row>
+          {/* es la funcion de arriba jasja */}
+          <CarouselContent />
         </Container>
       </Carousel.Item>
     </Carousel>
