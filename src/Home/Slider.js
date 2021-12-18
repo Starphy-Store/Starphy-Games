@@ -23,7 +23,7 @@ function Slider() {
           <img
             className="d-block w-100 h-70"
             src={MinecraftImg2}
-            alt="First slide"
+            alt="Second slide"
             className="sliderImg"
           />
         </Carousel.Item>
@@ -31,7 +31,7 @@ function Slider() {
           <img
             className="d-block w-100 h-70"
             src={MinecraftImg3}
-            alt="First slide"
+            alt="Third slide"
             className="sliderImg"
           />
         </Carousel.Item>
