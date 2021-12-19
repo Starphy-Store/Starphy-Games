@@ -1,0 +1,27 @@
+.Slider {
+  top: 0;
+  height: 0vh;
+}
+.sliderImg {
+  height: 80vh;
+  width: 100%;
+  object-fit: cover;
+}
+.carousel {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(33, 37, 38, 1) 100%
+  );
+}
+
+/* .slider {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(33, 37, 38, 1) 100%
+  );
+}
+ */
