@@ -1,5 +1,6 @@
 import { Form, Button } from "react-bootstrap";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 //import  { Redirect } from 'react-router-dom'
 import "./login.css";
 import { initializeApp } from "firebase/app";
@@ -27,6 +28,7 @@ function Login() {
   const auth = getAuth(app);
   const [email, setEmail] = useState("");
   const user = auth.currentUser;
+  const navigate = useNavigate();
 
   const recoverPassword = function () {
     sendPasswordResetEmail(auth, email)
@@ -83,7 +85,7 @@ function Login() {
             >
               Recuperar contraseña
             </Button>
-            <button /* todo esto el volver */
+            <button
               onClick={() => {
                 navigate("/");
               }}

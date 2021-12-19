@@ -12,6 +12,7 @@ import Recuperar from "./LoginPage/Recover";
 import CreatePass from "./LoginPage/CreatePassword.js";
 import Register from "./RegisterPage/Register.js";
 import Error404 from "./pages/Error404";
+import GamesShow from "./GamesShow/GamesShow";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/GamesShow" element={<GamesShow />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>

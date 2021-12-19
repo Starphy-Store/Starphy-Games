@@ -7,30 +7,14 @@ import { Carousel, Container, Row, Col } from "react-bootstrap";
 import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
 
-/* function PrintCards(props) {
-  for (var i = props.numCol; props.numCol == 12; i = props.numCol + props.numCol) {
-    return (
-      <Col sm={6} md={i}>
-        <CardStyle />
-      </Col>
-    );
-  }
-} */
-
 function CarouselContent(props) {
   return (
     <Row>
-      <Col sm={6} md={props.numCol}>
+      <Col sm={1} md={props.numCol}>
         <CardStyle />
       </Col>
       <Col sm={6} md={props.numCol}>
-        <CardStyle />
-      </Col>
-      <Col sm={6} md={0}>
-        <CardStyle />
-      </Col>
-      <Col sm={6} md={0}>
-        <CardStyle />
+        {/* <CardStyle /> */}
       </Col>
     </Row>
   );
@@ -41,19 +25,16 @@ function Recomendations1(props) {
     <Carousel variant="dark" indicators={false} className="mt-5">
       <Carousel.Item>
         <Container>
-          {/* es la funcion de arriba jasja */}
           <CarouselContent />
         </Container>
       </Carousel.Item>
       <Carousel.Item>
         <Container>
-          {/* es la funcion de arriba jasja */}
           <CarouselContent />
         </Container>
       </Carousel.Item>
       <Carousel.Item>
         <Container>
-          {/* es la funcion de arriba jasja */}
           <CarouselContent />
         </Container>
       </Carousel.Item>
@@ -61,4 +42,4 @@ function Recomendations1(props) {
   );
 }
 
-export default Recomendations1;
+export default CarouselContent;

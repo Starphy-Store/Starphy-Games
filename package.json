@@ -19,6 +19,7 @@
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
     "styled-components": "^5.3.3",
+    "videogame_search": "^1.0.2",
     "web-vitals": "^1.1.2",
     "wouter": "^2.8.0-alpha.2"
   },

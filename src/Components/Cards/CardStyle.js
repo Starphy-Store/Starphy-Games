@@ -2,63 +2,53 @@
 //https://react-bootstrap.github.io/components/cards/
 
 import React, { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import Creadores from "./PruebasApi.js";
 //importacion de la imagen
 import MinecraftImg from "../../Assets/MinecraftImg.jpg";
 
 const TopGames = function () {
+  const [game, setGame] = useState([]);
+
+  const apiurl =
+    "https://api.rawg.io/api/games?key=8be7428a65a94da0849bced3aa5ef6b3&platform=4&page=1";
+  const fetchApi = (url) => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setGame(data.results))
+      .catch((error) => console.log(error));
+  };
   useEffect(() => {
-    fetchGames();
+    console.log("2 veces");
+    fetchApi(apiurl);
   }, []);
 
-  const [games, setGames] = useState([]);
-
-  const fetchGames = () => {
-    console.log("aaaaaaa");
-    fetch("https://rawg.io/api/collections/must-play/games")
-      .then((resp) => resp.json())
-      .then(({ results }) => setGames(results));
-  };
   return (
-    <div>
-      <ul>
-        {games.map((game) => (
-          <li key={game.id}>
-            <h3
-              to={{
-                pathname: `/game/${game.name}`,
-                gameProps: {
-                  game: game,
-                },
-              }} /* porque esploto? jasj */
-            ></h3>
-            <h3 style={{ color: "white" }}>{game.name}</h3>
-            <img
-              src={game.background_image}
-              alt="game"
-              style={{ width: "20vw", height: "auto" }}
-            ></img>
-          </li>
+    <>
+      <Container>
+        {game.map((item, index) => (
+          <Card key={index} className="border-0" style={{ width: "100%" }}>
+            <Card.Img
+              variant="top"
+              src={item.background_image}
+              className="img-fluid"
+            />
+            <Card.Body>
+              <Card.Title>
+                $11.99
+                <p>
+                  {item.name}
+
+                  <h6>Rating {item.rating}</h6>
+                </p>
+              </Card.Title>
+            </Card.Body>
+          </Card>
         ))}
-      </ul>
-    </div>
+      </Container>
+    </>
   );
 };
 
-function CardStyle() {
-  <Card className="border-0" style={{ width: "100%" }}>
-    <Card.Img variant="top" src={MinecraftImg} />
-    <Card.Body>
-      <Card.Title>
-        $11.99
-        <p>
-          Minecraft Launcher
-          <h6>Mojang</h6>
-        </p>
-      </Card.Title>
-    </Card.Body>
-  </Card>;
-}
 export default TopGames;
