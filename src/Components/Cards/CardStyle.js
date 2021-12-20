@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import Creadores from "./PruebasApi.js";
 //importacion de la imagen
 import MinecraftImg from "../../Assets/MinecraftImg.jpg";
+import "./CardEstilo.css";
+import { Carousel, Form } from "react-bootstrap";
 
 const TopGames = function () {
   const [game, setGame] = useState([]);
@@ -28,27 +30,68 @@ const TopGames = function () {
     <>
       <Container>
         {game.map((item, index) => (
-          <Card key={index} className="border-0" style={{ width: "100%" }}>
-            <Card.Img
-              variant="top"
-              src={item.background_image}
-              className="img-fluid"
-            />
-            <Card.Body>
-              <Card.Title>
-                $11.99
-                <p>
-                  {item.name}
-
-                  <h6>Rating {item.rating}</h6>
-                </p>
-              </Card.Title>
-            </Card.Body>
-          </Card>
+          <Container className="carousel5">
+            <Card key={index} className="border-0" style={{ width: "200%" }}>
+              <Link to={`/${item.slug}`}>
+                <Card.Img
+                  variant="top"
+                  src={item.background_image}
+                  className="img-fluid"
+                />
+              </Link>
+              <Card.Body>
+                <Card.Title>
+                  $11.99
+                  <p>
+                    {item.name}
+                    <h6></h6>
+                    <h6>Rating {item.rating}⭐</h6>
+                  </p>
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          </Container>
         ))}
       </Container>
     </>
   );
 };
 
+/*     <>
+      <div>
+        {game.map((item, index) => (
+          <Carousel
+            variant="dark"
+            indicators={false}
+            className="carousel5"
+            style={{ position: "absolute" }}
+          >
+            <Carousel.Item className="carousel">
+              <img
+                className="d-block w-100 h-70"
+                src={item.background_image}
+                className="sliderImg"
+                alt="First slide"
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100 h-70"
+                src={item.background_image}
+                alt="Second slide"
+                className="sliderImg"
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100 h-70"
+                src={item.background_image}
+                alt="Third slide"
+                className="sliderImg"
+              />
+            </Carousel.Item>
+          </Carousel>
+        ))}
+      </div>
+    </> */
 export default TopGames;
