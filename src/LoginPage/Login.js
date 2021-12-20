@@ -37,7 +37,6 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
