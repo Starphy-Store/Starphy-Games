@@ -1,7 +1,6 @@
 //Documentacion!
 //https://react-bootstrap.netlify.app/components/navbar/#navbars
 
-import React from "react";
 import {
   Navbar,
   Nav,
@@ -16,8 +15,41 @@ import {
 import logo from "../../Assets/logo_sin_fondo.png";
 import "../Components.css";
 import { Link } from "react-router-dom";
+import { logout, useAuth } from "../../RegisterPage/AuthState";
+import React, { useEffect, useState } from "react";
+import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  emailVerified,
+} from "firebase/auth";
 
-function Header() {
+const firebaseConfig = {
+  apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
+  authDomain: "usuarios-b78e1.firebaseapp.com",
+  projectId: "usuarios-b78e1",
+  storageBucket: "usuarios-b78e1.appspot.com",
+  messagingSenderId: "779291947290",
+  appId: "1:779291947290:web:9bed27d795c7d614183ca3",
+  measurementId: "${config.measurementId}",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const Header = () => {
+  const [cua, setcua] = useState(false);
+  function a() {
+    onAuthStateChanged(auth, setcua, (user) => {
+      if (user.emailVerified) {
+        const uid = user.uid;
+      }
+    });
+  }
+
+  a();
+
   return (
     <div className="xd">
       <Navbar expand="lg" className="header" variant="dark">
@@ -52,12 +84,23 @@ function Header() {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
+
             <Container>
               <Row>
                 <Col></Col>
-                <Col md={1}>
-                  <Link to="/LoginUser">
+                {cua ? (
+                  <Col md={1}>
                     <Button
+                      onClick={() => {
+                        console.log("funciona???");
+                        signOut(auth)
+                          .then(() => {
+                            // Sign-out successful.
+                          })
+                          .catch((error) => {
+                            // An error happened.
+                          });
+                      }}
                       variant="outline-light"
                       style={{
                         float: "right",
@@ -65,22 +108,40 @@ function Header() {
                       }}
                       className="pr-3"
                     >
-                      Login
+                      Log out
                     </Button>
-                  </Link>
-                </Col>
-                <Col md={1}>
-                  <Link to="/register">
-                    <Button
-                      variant="outline-light"
-                      style={{
-                        float: "right",
-                      }}
-                    >
-                      Register
-                    </Button>
-                  </Link>
-                </Col>
+                  </Col>
+                ) : (
+                  <>
+                    <Col md={1}>
+                      <Link to="/register">
+                        <Button
+                          variant="outline-light"
+                          style={{
+                            float: "right",
+                          }}
+                        >
+                          Register
+                        </Button>
+                        )
+                      </Link>
+                    </Col>
+                    <Col md={1}>
+                      <Link to="/LoginUser">
+                        <Button
+                          variant="outline-light"
+                          style={{
+                            float: "right",
+                            paddingRight: "20px",
+                          }}
+                          className="pr-3"
+                        >
+                          Login
+                        </Button>
+                      </Link>
+                    </Col>
+                  </>
+                )}
               </Row>
             </Container>
           </Navbar.Collapse>
@@ -88,6 +149,6 @@ function Header() {
       </Navbar>
     </div>
   );
-}
+};
 
 export default Header;

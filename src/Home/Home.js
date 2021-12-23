@@ -15,8 +15,8 @@ import Recomendations1 from "./Recomendations1";
 const Home = ({ game }) => {
   return (
     <div>
-      <Slider />
       <Header />
+      <Slider />
       <div style={{ marginTop: "70vh" }}>
         {/*  <img src={Barrita}></img> */}
         <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>

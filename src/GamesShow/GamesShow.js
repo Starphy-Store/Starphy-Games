@@ -41,6 +41,13 @@ function GamesShow() {
           <Col md={6}></Col>
         </Row>
       </Container>
+      <Container>
+        <Row>
+          <Col></Col>
+
+          <Col></Col>
+        </Row>
+      </Container>
     </>
   );
 }

@@ -14,6 +14,7 @@ import Register from "./RegisterPage/Register.js";
 import Error404 from "./pages/Error404";
 import GamesShow from "./GamesShow/GamesShow";
 import CardStyle from "../src/Components/Cards/CardStyle";
+import Payment from "../src/GamesShow/Payment";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,14 +25,15 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/:slug" element={<CardStyle />} />
+        <Route path="*" element={<Error404 />} />
+        <Route path="/games/:slug" element={<CardStyle />} />
         <Route path="/" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />
         <Route path="/GamesShow" element={<GamesShow />} />
-        <Route path="*" element={<Error404 />} />
+        <Route path="/GamesShow" element={<GamesShow />} />
       </Routes>
     </>
   );
