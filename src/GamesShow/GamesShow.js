@@ -8,8 +8,7 @@ import "./GamesShow.css";
 function GamesShow() {
   return (
     <>
-      <Slider></Slider>
-      <Header></Header>;
+      <Header></Header>;<Slider></Slider>
       <Container>
         <Row>
           <Col

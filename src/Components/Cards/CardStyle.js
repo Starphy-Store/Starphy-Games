@@ -9,6 +9,7 @@ import Creadores from "./PruebasApi.js";
 import MinecraftImg from "../../Assets/MinecraftImg.jpg";
 import "./CardEstilo.css";
 import { Carousel, Form } from "react-bootstrap";
+import Payment from "../../GamesShow/Payment.js";
 
 const TopGames = function () {
   const [game, setGame] = useState([]);
@@ -42,6 +43,7 @@ const TopGames = function () {
               <Card.Body>
                 <Card.Title>
                   $11.99
+                  <Payment> </Payment>
                   <p>
                     {item.name}
                     <h6></h6>

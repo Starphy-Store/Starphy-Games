@@ -89,10 +89,9 @@ const Header = () => {
               <Row>
                 <Col></Col>
                 {cua ? (
-                  <Col md={1}>
+                  <Col md={2}>
                     <Button
                       onClick={() => {
-                        console.log("funciona???");
                         signOut(auth)
                           .then(() => {
                             // Sign-out successful.
@@ -104,11 +103,12 @@ const Header = () => {
                       variant="outline-light"
                       style={{
                         float: "right",
-                        paddingRight: "20px",
+                        paddingRight: "13px",
+                        zIndex: "1",
                       }}
                       className="pr-3"
                     >
-                      Log out
+                      Salir
                     </Button>
                   </Col>
                 ) : (
@@ -121,9 +121,8 @@ const Header = () => {
                             float: "right",
                           }}
                         >
-                          Register
+                          Registar
                         </Button>
-                        )
                       </Link>
                     </Col>
                     <Col md={1}>
@@ -136,7 +135,7 @@ const Header = () => {
                           }}
                           className="pr-3"
                         >
-                          Login
+                          Inicia Sesion
                         </Button>
                       </Link>
                     </Col>

@@ -10,7 +10,7 @@ import MinecraftImg from "../Assets/MinecraftImg.jpg";
 function Slider() {
   return (
     <div className="Slider">
-      <Carousel variant="dark" indicators={false}>
+      <Carousel variant="dark" indicators={false} style={{ zIndex: "1" }}>
         <Carousel.Item>
           <img
             className="d-block w-100 h-70"
