@@ -11,13 +11,14 @@ import Slider from "./Slider";
 
 //Slider de recomendaciones
 import Recomendations1 from "./Recomendations1";
+import Pag from "./Pagination";
 
 const Home = ({ game }) => {
   return (
     <div>
       <Slider />
       <Header />
-
+      <Pag />
       <div style={{ marginTop: "70vh" }}>
         {/*  <img src={Barrita}></img> */}
         <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>

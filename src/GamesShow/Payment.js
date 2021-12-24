@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/* import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
@@ -30,3 +30,4 @@ function Payment() {
 }
 
 export default Payment;
+ */
