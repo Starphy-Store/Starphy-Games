@@ -42,6 +42,7 @@ function Login() {
 
   function probar(event) {
     event.preventDefault();
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in a

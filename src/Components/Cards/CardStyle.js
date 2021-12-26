@@ -8,7 +8,7 @@ import Creadores from "./PruebasApi.js";
 //importacion de la imagen
 import MinecraftImg from "../../Assets/MinecraftImg.jpg";
 import "./CardEstilo.css";
-import { Carousel, Form } from "react-bootstrap";
+import { Carousel, Form, Row, Col } from "react-bootstrap";
 import Payment from "../../GamesShow/Payment.js";
 
 const TopGames = function () {
@@ -58,41 +58,4 @@ const TopGames = function () {
   );
 };
 
-/*     <>
-      <div>
-        {game.map((item, index) => (
-          <Carousel
-            variant="dark"
-            indicators={false}
-            className="carousel5"
-            style={{ position: "absolute" }}
-          >
-            <Carousel.Item className="carousel">
-              <img
-                className="d-block w-100 h-70"
-                src={item.background_image}
-                className="sliderImg"
-                alt="First slide"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100 h-70"
-                src={item.background_image}
-                alt="Second slide"
-                className="sliderImg"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100 h-70"
-                src={item.background_image}
-                alt="Third slide"
-                className="sliderImg"
-              />
-            </Carousel.Item>
-          </Carousel>
-        ))}
-      </div>
-    </> */
 export default TopGames;

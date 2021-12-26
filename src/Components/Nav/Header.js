@@ -113,7 +113,7 @@ const Header = () => {
                   </Col>
                 ) : (
                   <>
-                    <Col md={1}>
+                    <Col sm={6} md={1}>
                       <Link to="/register">
                         <Button
                           variant="outline-light"
@@ -121,17 +121,19 @@ const Header = () => {
                             float: "right",
                           }}
                         >
-                          Registar
+                          Registarse
                         </Button>
                       </Link>
                     </Col>
-                    <Col md={1}>
+                    <Col sm={6} md={2}>
                       <Link to="/LoginUser">
                         <Button
                           variant="outline-light"
                           style={{
                             float: "right",
-                            paddingRight: "20px",
+                            paddingRight: "11px",
+                            width: "100%",
+                            textAlign: "center",
                           }}
                           className="pr-3"
                         >

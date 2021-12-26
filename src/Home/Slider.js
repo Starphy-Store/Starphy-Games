@@ -35,6 +35,7 @@ function Slider() {
             className="sliderImg"
           />
         </Carousel.Item>
+        4{" "}
       </Carousel>
     </div>
   );
