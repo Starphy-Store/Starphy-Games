@@ -21,7 +21,7 @@ const Home = ({ game }) => {
         {/*  <img src={Barrita}></img> */}
         <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
       </div>
-      <Recomendations1 numCol="3" />
+      <Recomendations1 />
       <h1>Juegos multijugador 👋</h1>
     </div>
   );

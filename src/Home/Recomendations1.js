@@ -8,16 +8,7 @@ import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
 
 function CarouselContent(props) {
-  return (
-    <Row>
-      <Col sm={1} md={props.numCol}>
-        <CardStyle />
-      </Col>
-      <Col sm={6} md={props.numCol}>
-        {/* <CardStyle /> */}
-      </Col>
-    </Row>
-  );
+  return <CardStyle />;
 }
 
 function Recomendations1(props) {
@@ -42,4 +33,4 @@ function Recomendations1(props) {
   );
 }
 
-export default CarouselContent;
+export default Recomendations1;

@@ -8,8 +8,7 @@ import "./GamesShow.css";
 function GamesShow() {
   return (
     <>
-      <Slider></Slider>
-      <Header></Header>;
+      <Header></Header>;<Slider></Slider>
       <Container>
         <Row>
           <Col
@@ -39,6 +38,13 @@ function GamesShow() {
             </p>
           </Col>
           <Col md={6}></Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row>
+          <Col></Col>
+
+          <Col></Col>
         </Row>
       </Container>
     </>
