@@ -20,7 +20,9 @@
     "react-router": "^6.1.1",
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
+    "react-toastify": "^8.1.0",
     "styled-components": "^5.3.3",
+    "toastify": "^2.0.1",
     "videogame_search": "^1.0.2",
     "web-vitals": "^1.1.2",
     "wouter": "^2.8.0-alpha.2"

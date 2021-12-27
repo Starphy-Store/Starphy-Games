@@ -1,9 +1,11 @@
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert, Toast, ToastContainer } from "react-bootstrap";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 /* import { getDatabase } from "firebase/database";
 import { useLocation } from "wouter"; */
 import { useNavigate } from "react-router-dom";
 import Validate from "./Validate";
+import "react-toastify/dist/ReactToastify.css";
 //Se va a usar el mismo css para ahorrar codigo
 
 import "../LoginPage/login.css";
@@ -35,7 +37,7 @@ const app = initializeApp(firebaseConfig);
 function Register() {
   /* const database = getDatabase(app); */
   const auth = getAuth(app);
-
+  toast.configure();
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
   const provider2 = new FacebookAuthProvider();
@@ -51,26 +53,34 @@ function Register() {
       event.preventDefault();
       event.stopPropagation();
     }
+
     event.preventDefault();
     console.log("funciona?");
 
     createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
+        toast.info("Verifique su correo electronico -> 📨", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "dark-toast",
+        });
         // Signed in
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
-          onAuthStateChanged(auth, (user) => {
-            if (user) {
+          if (user) {
+            onAuthStateChanged(auth, (user) => {
               // User is signed in, see docs for a list of available properties
               // https://firebase.google.com/docs/reference/js/firebase.User
               const uid = user.uid;
-              navigate("/loginUser");
+              /* navigate("/loginUser"); */
               // ...
-            } else {
-              // User is signed out
-              // ...
-            }
-          });
+            });
+          }
         });
         const user = userCredential.emailReg;
 
@@ -227,6 +237,7 @@ function Register() {
               >
                 <img className="eye-icon" src={eyeIcon} />
               </button>
+
               <Form.Control
                 className="p-3"
                 type={show ? "text" : "password"}
@@ -249,6 +260,7 @@ function Register() {
               type="submit"
               size="lg"
               id="ingreso"
+              onClick={Register}
             >
               Registrarse
             </Button>

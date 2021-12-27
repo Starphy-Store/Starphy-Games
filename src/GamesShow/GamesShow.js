@@ -8,7 +8,12 @@ import "./GamesShow.css";
 function GamesShow() {
   return (
     <>
-      <Header></Header>;<Slider></Slider>
+      <Header></Header>
+      <Container>
+        <div>
+          <Slider></Slider>
+        </div>
+      </Container>
       <Container>
         <Row>
           <Col
@@ -16,12 +21,12 @@ function GamesShow() {
             className="GamesShow"
             style={{
               position: "absolute",
-              paddingTop: "10vh",
+              paddingLeft: "100px",
+              paddingTop: "20vh",
               zIndex: "2",
               color: "white",
               align: "center",
               margin: "auto",
-              border: "1px solid red",
             }}
           >
             <img
