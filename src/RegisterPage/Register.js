@@ -1,8 +1,11 @@
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert, Toast, ToastContainer } from "react-bootstrap";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 /* import { getDatabase } from "firebase/database";
 import { useLocation } from "wouter"; */
 import { useNavigate } from "react-router-dom";
+import Validate from "./Validate";
+import "react-toastify/dist/ReactToastify.css";
 //Se va a usar el mismo css para ahorrar codigo
 
 import "../LoginPage/login.css";
@@ -17,6 +20,7 @@ import {
   sendEmailVerification,
   onAuthStateChanged,
 } from "firebase/auth";
+import { Formik } from "formik";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -33,36 +37,50 @@ const app = initializeApp(firebaseConfig);
 function Register() {
   /* const database = getDatabase(app); */
   const auth = getAuth(app);
-
+  toast.configure();
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
   const provider2 = new FacebookAuthProvider();
   const [show, setShow] = useState(false);
-
+  const [validated, setValidated] = useState(false);
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
 
   function Register(event) {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
     event.preventDefault();
     console.log("funciona?");
+
     createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
+        toast.info("Verifique su correo electronico -> 📨", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "dark-toast",
+        });
         // Signed in
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
-          onAuthStateChanged(auth, (user) => {
-            if (user) {
+          if (user) {
+            onAuthStateChanged(auth, (user) => {
               // User is signed in, see docs for a list of available properties
               // https://firebase.google.com/docs/reference/js/firebase.User
               const uid = user.uid;
-              navigate("/loginUser");
+              /* navigate("/loginUser"); */
               // ...
-            } else {
-              // User is signed out
-              // ...
-            }
-          });
+            });
+          }
         });
         const user = userCredential.emailReg;
 
@@ -75,6 +93,7 @@ function Register() {
         // ..
         console.log("no sory");
       });
+    setValidated(true);
   }
 
   const gugle = function () {
@@ -159,19 +178,29 @@ function Register() {
         <p className="text-center mt-3" style={{ color: "#C4C4C4" }}>
           O registrate con
         </p>
-        <Form onSubmit={Register} className="form-container">
+        <Form
+          noValidate
+          validated={validated}
+          onSubmit={Register}
+          className="form-container needs-validation"
+        >
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label className="ms-3 mt-3" style={{ color: "#E5E5E5" }}>
               Nombre
             </Form.Label>{" "}
             <Form.Control
               className="p-3"
+              required
               type="name"
               placeholder="Ingresa tu apodo"
               style={{ backgroundColor: "#C4C4C4" }}
               value={usernameReg}
               onChange={updateUsername}
+              onBlur={Register}
             />
+            <Form.Control.Feedback type="invalid">
+              Escribe un nickname
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label className="ms-3 mt-3" style={{ color: "#E5E5E5" }}>
@@ -180,11 +209,15 @@ function Register() {
             <Form.Control
               className="p-3"
               type="email"
-              placeholder="Ingresa tu Email"
+              placeholder="Ingresa tu email"
               style={{ backgroundColor: "#C4C4C4" }}
               value={emailReg}
               onChange={updateEmail}
+              required
             />
+            <Form.Control.Feedback type="invalid">
+              Email incorrecto
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <div className="form-label">
@@ -197,12 +230,14 @@ function Register() {
                 id="show-hide-passwd"
                 type="button"
                 className="btn-icon"
+                style={{ width: "57px" }}
                 onClick={() => {
                   setShow(!show);
                 }}
               >
                 <img className="eye-icon" src={eyeIcon} />
               </button>
+
               <Form.Control
                 className="p-3"
                 type={show ? "text" : "password"}
@@ -210,7 +245,13 @@ function Register() {
                 style={{ backgroundColor: "#C4C4C4" }}
                 value={passwordReg}
                 onChange={updatePassword}
+                minLength={6}
+                maxLength={30}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Minimo 6 caracteres
+              </Form.Control.Feedback>
             </div>
           </Form.Group>
           <div className="d-grid my-5 ">
@@ -219,6 +260,7 @@ function Register() {
               type="submit"
               size="lg"
               id="ingreso"
+              onClick={Register}
             >
               Registrarse
             </Button>

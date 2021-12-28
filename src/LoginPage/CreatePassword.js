@@ -7,6 +7,7 @@ import {
   sendPasswordResetEmail,
   reauthenticateWithCredential,
 } from "firebase/auth";
+import { useNavigate } from "react-router";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -24,6 +25,7 @@ const app = initializeApp(firebaseConfig);
 
 function Login() {
   const auth = getAuth(app);
+  const navigate = useNavigate();
 
   return (
     <div className="main-container">
@@ -60,6 +62,28 @@ function Login() {
             >
               Cambiar tu contraseña
             </Button>
+            <button /* todo esto el volver */
+              onClick={() => {
+                navigate("/RecoverPassword");
+              }}
+              className="Back"
+            >
+              {/* laio mira si puedes solucionar esto, intento cambiar la posicion y no me funciona */}
+              <a
+                style={{
+                  background: "transparent",
+                  fontWeight: "999",
+                  color: "white",
+                  textDecoration: "underline",
+                  position: "absolute",
+                  bottom: "800px",
+                  right: "1600px",
+                }}
+              >
+                {" "}
+                Volver
+              </a>
+            </button>
           </div>
         </Form>
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Carousel, Form } from "react-bootstrap";
-import "./Home.css";
+import "./GamesShow.css";
 
 //importacion de imagenes
 import MinecraftImg from "../Assets/MinecraftImg.jpg";
@@ -9,13 +9,9 @@ import MinecraftImg from "../Assets/MinecraftImg.jpg";
 
 function Slider() {
   return (
-    <div className="Slider" style={{ borderRadius: "100px" }}>
-      <Carousel
-        variant="dark"
-        indicators={false}
-        style={{ zIndex: "0", borderRadius: "100px" }}
-      >
-        <Carousel.Item>
+    <div className="Slider">
+      <Carousel variant="dark" indicators={false} className="carousel">
+        <Carousel.Item className="carousel">
           <img
             className="d-block w-100 h-70"
             src={MinecraftImg}
@@ -39,7 +35,6 @@ function Slider() {
             className="sliderImg"
           />
         </Carousel.Item>
-        4{" "}
       </Carousel>
     </div>
   );

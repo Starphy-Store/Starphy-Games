@@ -2,6 +2,7 @@ import { Form, Button } from "react-bootstrap";
 import React, { useState } from "react";
 //import  { Redirect } from 'react-router-dom'
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -27,6 +28,7 @@ function Login() {
   const auth = getAuth(app);
   const [email, setEmail] = useState("");
   const user = auth.currentUser;
+  const navigate = useNavigate();
 
   const recoverPassword = function () {
     sendPasswordResetEmail(auth, email)
@@ -83,6 +85,27 @@ function Login() {
             >
               Recuperar contraseña
             </Button>
+            <button /* todo esto el volver */
+              onClick={() => {
+                navigate("/");
+              }}
+              className="Back"
+            >
+              <a
+                style={{
+                  background: "transparent",
+                  fontWeight: "999",
+                  color: "white",
+                  textDecoration: "underline",
+                  position: "relative",
+                  bottom: "640px",
+                  right: "57vw",
+                }}
+              >
+                {" "}
+                Volver
+              </a>
+            </button>
           </div>
         </Form>
       </div>

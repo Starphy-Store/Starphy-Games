@@ -7,62 +7,26 @@ import { Carousel, Container, Row, Col } from "react-bootstrap";
 import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
 
-function Recomendations1() {
+function CarouselContent(props) {
+  return <CardStyle />;
+}
+
+function Recomendations1(props) {
   return (
-    <Carousel variant="dark" style={{ marginTop: "70vh" }} indicators={false}>
+    <Carousel variant="dark" indicators={false} className="mt-5">
       <Carousel.Item>
         <Container>
-          <Row>
-            {/*En pantallas pequenias se ve 2 cards y en grandes 4 */}
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-          </Row>
+          <CarouselContent />
         </Container>
       </Carousel.Item>
       <Carousel.Item>
         <Container>
-          <Row>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-          </Row>
+          <CarouselContent />
         </Container>
       </Carousel.Item>
       <Carousel.Item>
         <Container>
-          <Row>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-            <Col sm={6} md={3}>
-              <CardStyle />
-            </Col>
-          </Row>
+          <CarouselContent />
         </Container>
       </Carousel.Item>
     </Carousel>
