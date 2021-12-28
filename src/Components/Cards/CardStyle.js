@@ -28,41 +28,38 @@ const TopGames = function () {
   }, []);
 
   return (
-    <>
-      <Container>
-        {game.map((item, index) => (
-          <Container className="carousel5">
-            <Row>
-              <Col md={2}>
-                <Card
-                  key={index}
-                  className="border-0"
-                  style={{ width: "100%" }}
-                >
-                  <Link to={`/${item.slug}`}>
-                    <Card.Img
-                      variant="top"
-                      src={item.background_image}
-                      className="img-fluid"
-                    />
-                  </Link>
-                  <Card.Body>
-                    <Card.Title>
-                      $11.99
-                      <p>
-                        {item.name}
-                        <h6></h6>
-                        <h6>Rating {item.rating}⭐</h6>
-                      </p>
-                    </Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
-        ))}
-      </Container>
-    </>
+    <ul>
+      {game.map((item, index) => (
+        <li style={{ border: "1px solid red" }}>
+          <div>
+            <Container>
+              <Card
+                key={index}
+                className="border-0 mt-3"
+                style={{ width: "100%" }}
+              >
+                <Card.Img
+                  variant="top"
+                  src={item.background_image}
+                  className="img-fluid"
+                />
+
+                <Card.Body>
+                  <Card.Title>
+                    $11.99
+                    <p>
+                      {item.name}
+                      <h6></h6>
+                      <h6>Rating {item.rating}⭐</h6>
+                    </p>
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+            </Container>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 };
 
