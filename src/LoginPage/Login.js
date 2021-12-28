@@ -129,6 +129,14 @@ function Login() {
     <div className="main-container">
       <div className="main">
         <h1>Bienvenido a Starphy</h1>
+        <hr
+          style={{
+            color: "white",
+            width: "50%",
+            margin: "auto",
+            marginTop: "15px",
+          }}
+        ></hr>{" "}
         {/* onSubmit={(e)=>e.preventDefault()} */}
         <Form onSubmit={probar} className="form-container">
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -225,27 +233,6 @@ function Login() {
             >
               {" "}
               Crea una ahora
-            </a>
-          </button>
-          <button /* todo esto el volver */
-            onClick={() => {
-              navigate("/");
-            }}
-            className="Back"
-          >
-            <a
-              style={{
-                background: "transparent",
-                fontWeight: "999",
-                color: "white",
-                textDecoration: "underline",
-                position: "relative",
-                bottom: "640px",
-                right: "57vw",
-              }}
-            >
-              {" "}
-              Volver
             </a>
           </button>
         </p>
