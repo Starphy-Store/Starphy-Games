@@ -7,27 +7,34 @@ import { Carousel, Container, Row, Col } from "react-bootstrap";
 import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
 
-function CarouselContent(props) {
-  return <CardStyle />;
-}
-
 function Recomendations1(props) {
   return (
-    <Carousel variant="dark" indicators={false} className="mt-5">
+    <Carousel
+      variant="dark"
+      indicators={false}
+      className="mt-5"
+      style={{ border: "1px solid red" }}
+    >
       <Carousel.Item>
-        <Container>
-          <CarouselContent />
-        </Container>
+        <Row>
+          <Col md={12}>
+            <CardStyle />
+          </Col>
+        </Row>
       </Carousel.Item>
       <Carousel.Item>
-        <Container>
-          <CarouselContent />
-        </Container>
+        <Row>
+          <Col md={12}>
+            <CardStyle />
+          </Col>
+        </Row>
       </Carousel.Item>
       <Carousel.Item>
-        <Container>
-          <CarouselContent />
-        </Container>
+        <Row>
+          <Col md={12}>
+            <CardStyle />
+          </Col>
+        </Row>
       </Carousel.Item>
     </Carousel>
   );

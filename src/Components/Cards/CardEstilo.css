@@ -1,6 +1,6 @@
-.carousel5 {
-  flex-direction: row;
-  /* overflow-x: auto; */
-  /* position: absolute; */
-  /* margin: auto; */
+.container {
+  flex-wrap: wrap;
+  justify-content: center;
+  display: flex;
+  width: 100%;
 }
