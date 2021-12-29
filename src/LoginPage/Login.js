@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { eyeIcon, facebook, google } from "./assets/index";
+import { toast, ToastContainer } from "react-toastify";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -31,6 +32,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 function Login() {
   // Initialize Firebase
+  toast.configure();
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const provider2 = new FacebookAuthProvider();
@@ -46,7 +48,6 @@ function Login() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in a
-        console.log("funciona");
 
         onAuthStateChanged(auth, (user) => {
           if (user.emailVerified) {
@@ -55,6 +56,17 @@ function Login() {
             }, 1000);
 
             const uid = user.uid;
+          } else {
+            toast.warn("Verifica el email", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              className: "dark-toast",
+            });
           }
         });
 
@@ -64,6 +76,17 @@ function Login() {
       })
       /* alerta de error*/
       .catch((error) => {
+        toast.error("No existe", {
+          icon: "😅",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "dark-toast",
+        });
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode + errorMessage);

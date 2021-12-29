@@ -11,8 +11,7 @@ function Slider() {
   return (
     <div className="Slider">
       <Carousel variant="dark" indicators={false} className="carousel">
-        
-        <Carousel.Item className="carousel">
+        <Carousel.Item>
           <img
             className="d-block w-100 h-70"
             src={MinecraftImg}
@@ -29,7 +28,6 @@ function Slider() {
           />
         </Carousel.Item>
         <Carousel.Item>
-          
           <img
             className="d-block w-100 h-70"
             src={MinecraftImg}
@@ -37,7 +35,6 @@ function Slider() {
             className="sliderImg"
           />
         </Carousel.Item>
-        
       </Carousel>
     </div>
   );
