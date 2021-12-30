@@ -16,17 +16,17 @@ function Recomendations1(props) {
     <Carousel variant="dark" indicators={false} className="mt-5">
       <Carousel.Item>
         <Container>
-          <CarouselContent />
+          <CardStyle />
         </Container>
       </Carousel.Item>
       <Carousel.Item>
         <Container>
-          <CarouselContent />
+          <CardStyle />
         </Container>
       </Carousel.Item>
       <Carousel.Item>
         <Container>
-          <CarouselContent />
+          <CardStyle />
         </Container>
       </Carousel.Item>
     </Carousel>

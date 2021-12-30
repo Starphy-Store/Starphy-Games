@@ -7,6 +7,7 @@ import "./GamesShow.css";
 import Mojang from "../Assets/Mojang.png"
 import GamesCarousel from "./GamesCarousel"
 import Payment from "./Payment"
+import Estrellita from "../Assets/Star.png" 
 
 function GamesShow() {
   return (
@@ -46,12 +47,12 @@ function GamesShow() {
       </Container>
       <Container style={{paddingTop: "85vh", color: "white"}}>
         <Row>
-          <Col>
+          <Col md={7}>
             <GamesCarousel />
             <h6>Aventura | Construccion | Mundo abierto </h6>
             <Row className="pt-3">
-              <img src={Mojang} style={{width: "90px", borderRadius: "15%"}}></img>
-              <p>Fornite</p>    
+              <img src={Mojang} style={{width: "90px", borderRadius: "15%", align: "left"}}></img>
+              <h3>Fornite</h3>    
             </Row>
           </Col>
           <Col >
@@ -59,7 +60,13 @@ function GamesShow() {
             <img src={logoMinecraft} style={{width: "100%",heigth: "auto",}}/>
             <h5>Gratis csm</h5>
             <Payment></Payment>
-            <h1>⭐⭐⭐⭐</h1>
+            <hr></hr>
+            <h1>5.0</h1>
+            <img src={Estrellita} style={{float: "right"}}></img>
+            <img src={Estrellita} style={{float: "right"}}></img>
+            <img src={Estrellita} style={{float: "right"}}></img>
+            <img src={Estrellita} style={{float: "right"}}></img>
+            <img src={Estrellita} style={{float: "right"}}></img>
             </Container>
           </Col>
         </Row>

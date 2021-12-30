@@ -33,7 +33,7 @@ const TopGames = function () {
         {game.map((item, index) => (
           <Container className="carousel5">
             <Row>
-              <Col md={2}>
+              <Col md={6}>
                 <Card
                   key={index}
                   className="border-0"
