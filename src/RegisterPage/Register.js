@@ -1,6 +1,8 @@
-import { Form, Button, Alert, Toast, ToastContainer } from "react-bootstrap";
+import { Form, Button, Alert, Toast } from "react-bootstrap";
+
+import { toast, ToastContainer } from "react-toastify";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+
 /* import { getDatabase } from "firebase/database";
 import { useLocation } from "wouter"; */
 import { useNavigate } from "react-router-dom";
@@ -21,6 +23,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { Formik } from "formik";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -33,12 +36,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
+const db = getFirestore();
 function Register() {
   /* const database = getDatabase(app); */
   const auth = getAuth(app);
   toast.configure();
   const navigate = useNavigate();
+
   const provider = new GoogleAuthProvider();
   const provider2 = new FacebookAuthProvider();
   const [show, setShow] = useState(false);
@@ -59,7 +63,12 @@ function Register() {
 
     createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
-        toast.info("Verifique su correo electronico -> 📨", {
+        addDoc(collection(db, "users"), { usernameReg });
+        addDoc(collection(db, "users"), { emailReg });
+        addDoc(collection(db, "users"), { passwordReg });
+
+        toast.info("Verifique su correo electronico", {
+          icon: "📨",
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -92,6 +101,17 @@ function Register() {
         const errorMessage = error.message;
         // ..
         console.log("no sory");
+        toast.error("Ya existe correo", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+
+          className: "dark-toast",
+        });
       });
     setValidated(true);
   }
@@ -196,7 +216,6 @@ function Register() {
               style={{ backgroundColor: "#C4C4C4" }}
               value={usernameReg}
               onChange={updateUsername}
-              onBlur={Register}
             />
             <Form.Control.Feedback type="invalid">
               Escribe un nickname
@@ -264,6 +283,7 @@ function Register() {
             >
               Registrarse
             </Button>
+            <ToastContainer limit={2} />
           </div>
         </Form>
         <p className="text-center text-light">
