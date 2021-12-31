@@ -9,13 +9,13 @@ import Creadores from "./PruebasApi.js";
 import MinecraftImg from "../../Assets/MinecraftImg.jpg";
 import "./CardEstilo.css";
 import { Carousel, Form, Row, Col } from "react-bootstrap";
-import Payment from "../../GamesShow/Payment.js";
+import Payment from "../../GamesShow/Components/Payment.js";
 
 const TopGames = function () {
   const [game, setGame] = useState([]);
 
   const apiurl =
-    "https://api.rawg.io/api/games?key=8be7428a65a94da0849bced3aa5ef6b3&platform=4&page=1";
+    "https://api.rawg.io/api/games?key=8be7428a65a94da0849bced3aa5ef6b3&page_size=4&platform=4&page=1&genres=action";
   const fetchApi = (url) => {
     fetch(url)
       .then((response) => response.json())
@@ -28,13 +28,12 @@ const TopGames = function () {
   }, []);
 
   return (
-<<<<<<< HEAD
     <>
       <Container>
         {game.map((item, index) => (
           <Container className="carousel5">
             <Row>
-              <Col md={6}>
+              <Col>
                 <Card
                   key={index}
                   className="border-0"
@@ -44,7 +43,7 @@ const TopGames = function () {
                     <Card.Img
                       variant="top"
                       src={item.background_image}
-                      className="img-fluid"
+                      className="img-fluid img-card"
                     />
                   </Link>
                   <Card.Body>
@@ -64,40 +63,6 @@ const TopGames = function () {
         ))}
       </Container>
     </>
-=======
-    <ul>
-      {game.map((item, index) => (
-        <li style={{ border: "1px solid red" }}>
-          <div>
-            <Container>
-              <Card
-                key={index}
-                className="border-0 mt-3"
-                style={{ width: "100%" }}
-              >
-                <Card.Img
-                  variant="top"
-                  src={item.background_image}
-                  className="img-fluid"
-                />
-
-                <Card.Body>
-                  <Card.Title>
-                    $11.99
-                    <p>
-                      {item.name}
-                      <h6></h6>
-                      <h6>Rating {item.rating}⭐</h6>
-                    </p>
-                  </Card.Title>
-                </Card.Body>
-              </Card>
-            </Container>
-          </div>
-        </li>
-      ))}
-    </ul>
->>>>>>> 0458b79aa7ce8c22160ee9c16f86f1e0c4cc4008
   );
 };
 

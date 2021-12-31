@@ -85,7 +85,7 @@ const Header = () => {
               </NavDropdown>
             </Nav>
 
-            <Container>
+            <Container style={{justifyContent: "right"}}>
               <Row>
                 <Col></Col>
                 {cua ? (
@@ -125,7 +125,7 @@ const Header = () => {
                         </Button>
                       </Link>
                     </Col>
-                    <Col sm={6} md={2}>
+                    <Col sm={6} md={7}>
                       <Link to="/LoginUser">
                         <Button
                           variant="outline-light"

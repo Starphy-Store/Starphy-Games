@@ -14,7 +14,7 @@ import Register from "./RegisterPage/Register.js";
 import Error404 from "./pages/Error404";
 import GamesShow from "./GamesShow/GamesShow";
 import CardStyle from "../src/Components/Cards/CardStyle";
-import Payment from "../src/GamesShow/Payment";
+import Payment from "../src/GamesShow/Components/Payment";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";

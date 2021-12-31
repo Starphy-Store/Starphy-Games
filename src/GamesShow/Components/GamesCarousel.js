@@ -1,6 +1,6 @@
 import React from "react"
 import {Carousel, Row, Col} from "react-bootstrap"
-import MinecraftImg from "../Assets/MinecraftImg.jpg"
+import MinecraftImg from "../../Assets/MinecraftImg.jpg"
 
 function GamesCarousel() {
     return(
