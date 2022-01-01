@@ -233,7 +233,7 @@ export default function UploadGame() {
     id2();
     QueryDB();
   }, []);
-
+  //prueba
   return (
     <>
       <Header />
