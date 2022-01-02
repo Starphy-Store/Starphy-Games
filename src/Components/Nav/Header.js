@@ -85,7 +85,7 @@ const Header = () => {
               </NavDropdown>
             </Nav>
 
-            <Container style={{justifyContent: "right"}}>
+            <Container style={{ justifyContent: "right" }}>
               <Row>
                 <Col></Col>
                 {cua ? (

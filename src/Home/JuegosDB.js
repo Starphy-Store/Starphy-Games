@@ -1,6 +1,7 @@
-//Documentacion!
-//https://react-bootstrap.github.io/components/cards/
+/* // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import firebase, { initializeApp } from "firebase/firebase-app";
 
+import { useState, useEffect } from "react";
 import React, { useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -8,34 +9,27 @@ import Creadores from "./PruebasApi.js";
 //importacion de la imagen
 import MinecraftImg from "../../Assets/MinecraftImg.jpg";
 import "./CardEstilo.css";
-import { initializeApp } from "firebase/app";
 import { Carousel, Form, Row, Col } from "react-bootstrap";
 import Payment from "../../GamesShow/Components/Payment.js";
-import fortnite from "../../Components/Cards/fortnite.jpg";
-import firebase2 from "../../Home/Firebase2.js";
-import {
-  query,
-  collection,
-  onSnapshot,
-  getFirestore,
-  getDocs,
-  getDoc,
-  doc,
-} from "firebase/firestore";
+import fortnite from "../../src/Home/fornite.jpg";
+import { querySnapshot } from "firebase/firestore";
 
-const db = getFirestore(firebase2);
-const TopGames = function () {
-  const [game, setGame] = useState([]);
+
+
+firebaseian.initializeApp(firebaseConfig); 
+
+function firebaseian() {
+  const [games, setgames] = useState([]);
+
+   const ref = firebase.firestore().collection("games"); 
 
   function getGames() {
-    const ref = query(collection(db, "games"));
-
-    const unsub = onSnapshot(ref, (querySnapshot) => {
+    ref.onSnapshot((querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
         items.push(doc.data());
       });
-      setGame(items);
+      setgames(items);
     });
   }
   useEffect(() => {
@@ -45,28 +39,29 @@ const TopGames = function () {
   return (
     <>
       <Container>
-        {game.map((games) => (
+        {games.map((game) => (
           <Container className="carousel5">
             <Row>
               <Col>
                 <Card
-                  key={games.id}
+                  key={game.id}
                   className="border-0"
                   style={{ width: "100%" }}
                 >
-                  <Card.Img
-                    variant="top"
-                    src={games.imagen}
-                    className="img-fluid img-card"
-                  />
-
+                  <Link to={`/${item.slug}`}>
+                    <Card.Img
+                      variant="top"
+                      src={fortnite}
+                      className="img-fluid img-card"
+                    />
+                  </Link>
                   <Card.Body>
                     <Card.Title>
-                      {games.precio}
+                      {game.precio}
                       <p>
-                        {games.juego}
+                        {game.juego}
                         <h6></h6>
-                        <h6>Rating ⭐</h6>
+                        <h6>Rating⭐</h6>
                       </p>
                     </Card.Title>
                   </Card.Body>
@@ -78,6 +73,7 @@ const TopGames = function () {
       </Container>
     </>
   );
-};
+}
 
-export default TopGames;
+export default firebaseian;
+ */
