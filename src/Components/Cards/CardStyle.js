@@ -1,4 +1,5 @@
 //Documentacion!
+
 //https://react-bootstrap.github.io/components/cards/
 
 import React, { useEffect, useState } from "react";
@@ -54,20 +55,19 @@ const TopGames = function () {
                   className="border-0"
                   style={{ width: "100%" }}
                 >
-                  <Card.Img
-                    variant="top"
-                    src={games.imagen}
-                    className="img-fluid img-card"
-                  />
-
+                  {/* Aqui hay que poner la ruta para que el gameshow muestre el juego por id */}
+                  <Link to={{ pathname: games.id }}>
+                    <Card.Img
+                      variant="top"
+                      src={games.imagen}
+                      className="img-fluid img-card"
+                    />
+                  </Link>
                   <Card.Body>
                     <Card.Title>
                       {games.precio}
-                      <p>
-                        {games.juego}
-                        <h6></h6>
-                        <h6>Rating ⭐</h6>
-                      </p>
+                      <p>{games.juego}</p>
+                      <p>{games.descrip}</p>
                     </Card.Title>
                   </Card.Body>
                 </Card>
