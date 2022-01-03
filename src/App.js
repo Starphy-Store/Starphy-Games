@@ -26,13 +26,13 @@ function App() {
     <>
       <Routes>
         <Route path="*" element={<Error404 />} />
-        <Route path="/games/:slug" element={<CardStyle />} />
+        <Route path="/GamesShow/:games" element={<CardStyle />} />
         <Route path="/" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/GamesShow" element={<GamesShow />} />
+        <Route path="/GamesShow/:games" element={<GamesShow />} />
         <Route path="/Payment" element={<Payment />} />
       </Routes>
     </>

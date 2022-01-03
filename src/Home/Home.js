@@ -7,7 +7,7 @@ import Header from "../Components/Nav/Header";
 /* import Barrita from "https://i.postimg.cc/9f5R5HX9/Dise-o-sin-t-tulo-6-removebg-preview.png"; */
 
 //importacion de las Cards
-import Slider from "./Slider";
+import Slider from "../Components/Slider";
 
 //Slider de recomendaciones
 import Recomendations1 from "./Recomendations1";
