@@ -23,12 +23,22 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { Formik } from "formik";
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  doc,
+  setDoc,
+  currentUser,
+  get,
+} from "firebase/firestore";
+import { Database, set, ref } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
   authDomain: "usuarios-b78e1.firebaseapp.com",
   projectId: "usuarios-b78e1",
+
   storageBucket: "usuarios-b78e1.appspot.com",
   messagingSenderId: "779291947290",
   appId: "1:779291947290:web:9bed27d795c7d614183ca3",
@@ -63,10 +73,11 @@ function Register() {
 
     createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
-        addDoc(collection(db, "users"), { usernameReg });
-        addDoc(collection(db, "users"), { emailReg });
-        addDoc(collection(db, "users"), { passwordReg });
-
+        addDoc(collection(db, "users"), {
+          name: usernameReg,
+          email: emailReg,
+          pass: passwordReg,
+        });
         toast.info("Verifique su correo electronico", {
           icon: "📨",
           position: "top-right",

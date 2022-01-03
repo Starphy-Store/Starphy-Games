@@ -5,11 +5,9 @@
 }
 .sliderImg {
   /*height: 80vh;*/
-  border-radius: 27px;
   width: 100%;
-  
 }
-.InnerSlider{
+.InnerSlider {
   background: rgb(255, 255, 255);
   background: linear-gradient(
     270deg,
@@ -23,7 +21,10 @@
   border-radius: 10px;
 }
 
-
+.GamesInfo {
+  padding-top: 85vh;
+  color: white;
+}
 
 /* .slider {
   background: rgb(255, 255, 255);
