@@ -16,6 +16,7 @@ import GamesShow from "./GamesShow/GamesShow";
 import CardStyle from "../src/Components/Cards/CardStyle";
 import Payment from "../src/GamesShow/Components/Payment";
 import DataIndex from "../src/DataIndex/DataIndex";
+import Library from "./Library/Library";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -33,7 +34,7 @@ function App() {
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />
-
+        <Route path="/library" element={<Library />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/DataIndex" element={<DataIndex />} />
