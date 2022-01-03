@@ -55,8 +55,8 @@ const TopGames = function () {
                   className="border-0"
                   style={{ width: "100%" }}
                 >
-                  {/* Aqui hay que poner la ruta para que el gameshow muestre el juego por id */}
-                  <Link to={{ pathname: games.id }}>
+                  {/* Aqui hay que poner la ruta para que el gameshow muestre el juego por id*/}
+                  <Link to={`/GamesShow/${games.id}`}>
                     <Card.Img
                       variant="top"
                       src={games.imagen}

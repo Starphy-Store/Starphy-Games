@@ -30,39 +30,35 @@ const SecundaryImgs = () => {
       setGame(items);
     });
   }
-  useEffect(() => {
-    getGames();
-  }, []);
+
   return (
     <div>
       <Container className="GamesInfo">
-        {game.map((games) => (
-          <Row key={games.id}>
-            <Col md={7}>
-              <GamesCarousel />
+        <Row>
+          <Col md={7}>
+            <GamesCarousel />
 
-              <h6>Aventura | Construccion | Mundo abierto </h6>
-              <Row className="pt-3">
+            <h6>Aventura | Construccion | Mundo abierto </h6>
+            <Row className="pt-3">
+              <img
+                src={Mojang}
+                style={{ width: "90px", borderRadius: "15%", align: "left" }}
+              ></img>
+              <h3></h3>
+            </Row>
+          </Col>
+          <Col md={5}>
+            <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "10px" }}>
+              <Row>
                 <img
-                  src={Mojang}
-                  style={{ width: "90px", borderRadius: "15%", align: "left" }}
-                ></img>
-                <h3>{games.juego}</h3>
+                  src={logoMinecraft}
+                  style={{ width: "100%", heigth: "auto" }}
+                />
+                <h2>mainkra</h2>
               </Row>
             </Col>
-            <Col md={5}>
-              <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "10px" }}>
-                <Row>
-                  <img
-                    src={logoMinecraft}
-                    style={{ width: "100%", heigth: "auto" }}
-                  />
-                  <h2>mainkra</h2>
-                </Row>
-              </Col>
-            </Col>
-          </Row>
-        ))}
+          </Col>
+        </Row>
       </Container>
     </div>
   );
