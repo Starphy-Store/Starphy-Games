@@ -11,6 +11,8 @@ import {
   Button,
   Row,
   Col,
+  Dropdown,
+  DropdownButton,
 } from "react-bootstrap";
 import logo from "../../Assets/logo_sin_fondo.png";
 import "../Components.css";
@@ -55,14 +57,16 @@ const Header = () => {
       <Navbar expand="lg" className="header" variant="dark">
         <Container fluid>
           <Navbar.Brand href="#" className="ayudaa">
-            <img
-              src={logo}
-              class="navImage"
-              width="150"
-              height="auto"
-              className="d-inline-block align-top mx-auto ml-auto"
-              alt="React Bootstrap logo"
-            />
+            <Link to="/Home">
+              <img
+                src={logo}
+                class="navImage"
+                width="150"
+                height="auto"
+                className="d-inline-block align-top mx-auto ml-auto"
+                alt="React Bootstrap logo"
+              />
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -71,7 +75,7 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="#action1">Home</Nav.Link>
+              <Nav.Link href="/library">Biblioteca</Nav.Link>
               <Nav.Link href="#action2">Link</Nav.Link>
               <NavDropdown title="Link" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
@@ -89,27 +93,36 @@ const Header = () => {
               <Row>
                 <Col></Col>
                 {cua ? (
-                  <Col md={2}>
-                    <Button
-                      onClick={() => {
-                        signOut(auth)
-                          .then(() => {
-                            // Sign-out successful.
-                          })
-                          .catch((error) => {
-                            // An error happened.
-                          });
-                      }}
+                  <Col md={12} style={{ width: "200px" }}>
+                    <DropdownButton
+                      align="start"
+                      title="nombre de usuario"
+                      id="dropdown-menu-align-start"
                       variant="outline-light"
-                      style={{
-                        float: "right",
-                        paddingRight: "13px",
-                        zIndex: "1",
-                      }}
-                      className="pr-3"
                     >
-                      Salir
-                    </Button>
+                      <Dropdown.Item eventKey="1">
+                        <Link to="/Library">Tu biblioteca</Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="2">Perfil</Dropdown.Item>
+                      <Dropdown.Item eventKey="3">
+                        Actualizaciones
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        eventKey="4"
+                        onClick={() => {
+                          signOut(auth)
+                            .then(() => {
+                              // Sign-out successful.
+                            })
+                            .catch((error) => {
+                              // An error happened.
+                            });
+                        }}
+                      >
+                        Salir
+                      </Dropdown.Item>
+                    </DropdownButton>
                   </Col>
                 ) : (
                   <>

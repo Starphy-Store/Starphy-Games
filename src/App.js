@@ -28,14 +28,14 @@ function App() {
     <>
       <Routes>
         <Route path="*" element={<Error404 />} />
-        <Route path="/GamesShow/" element={<CardStyle />} />
+        <Route path="/GamesShow/:id" element={<GamesShow />} />
         <Route path="/" element={<Home />} />
+        <Route path="/Home" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />
         <Route path="/library" element={<Library />} />
-        <Route path="/GamesShow/:id" element={<GamesShow />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/DataIndex" element={<DataIndex />} />
       </Routes>
