@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import GamesCarousel from "./GamesCarousel";
 import Payment from "../../Payment/Payment";
 import Mojang from "../../Assets/Mojang.png";
@@ -21,19 +21,26 @@ import {
 const db = getFirestore(firebase2);
 
 const SecundaryImgs = () => {
-  const { doc } = useParams();
+  const { id } = useParams();
 
   console.log(doc);
   const [game, setGame] = useState([]);
 
+  function getGames() {
+    const ref = query(collection(db, "games"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [id];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data(), doc.id);
+      });
+      setGame(items);
+    });
+  }
+
   useEffect(() => {
     getGames();
   }, []);
-
-  function getGames() {
-    const juegos = query(collection(db, "games"));
-    setGame(juegos);
-  }
 
   return (
     <div>
@@ -58,11 +65,25 @@ const SecundaryImgs = () => {
                   src={logoMinecraft}
                   style={{ width: "100%", heigth: "auto" }}
                 />
-                <h1 style={{ textAlign: "center", paddingTop: "-20px" }}>
-                  sexo aaaa
-                </h1>
-                <p>$15</p>
-               <Payment></Payment> 
+                <div class="GamesPayment">
+                  <h4>$15</h4>
+
+                  {/* pilas que en el href va a el redireccionamiento */}
+                  <Button
+                    variant="light"
+                    size="lg"
+                    style={{ width: "100%" }}
+                    href="/payment"
+                  >
+                    Comprar ahora
+                  </Button>
+                  <h5
+                    style={{ textAlign: "center", color: "lightgreen" }}
+                    className="pt-3"
+                  >
+                    Tu ordenador puede jugarlo
+                  </h5>
+                </div>
               </Row>
             </Col>
           </Col>

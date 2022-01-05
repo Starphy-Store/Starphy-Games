@@ -31,14 +31,15 @@ const TopGames = function (doc) {
   function getGames() {
     const ref = query(collection(db, "games"));
 
-    const unsub = onSnapshot(ref, (querySnapshot) => {
+    onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+        items.push(doc.data(), doc.id);
       });
       setGame(items);
     });
   }
+
   useEffect(() => {
     getGames();
   }, []);
@@ -51,7 +52,7 @@ const TopGames = function (doc) {
             <Row>
               <Col>
                 <Card
-                  key={games.id}
+                  key={doc.id}
                   className="border-0"
                   style={{ width: "100%" }}
                 >

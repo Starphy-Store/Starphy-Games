@@ -10,37 +10,31 @@ import {
   getDoc,
   doc,
   setDoc,
+  addDoc,
 } from "firebase/firestore";
 const db = getFirestore(firebase2);
 
 function DataIndex() {
   const [Des, setDes] = useState("");
-  const [id, setid] = useState("");
   const [img, setimg] = useState("");
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState("");
 
   function DataIndex(event) {
     event.preventDefault();
-    const docum = doc(collection(db, "games"));
+
     console.log("render");
 
-    const docData = {
-      id: doc.id,
-      ...doc.data(),
-    };
-
-    setDoc(docum, docData);
-
-    console.log(docData);
-    return docData;
+    addDoc(collection(db, "games"), {
+      descrip: Des,
+      juego: game,
+      imagen: img,
+      precio: valor,
+    });
   }
 
   const updateDes = function (event) {
     setDes(event.target.value);
-  };
-  const updateid = function (event) {
-    setid(event.target.value);
   };
 
   const updateimg = function (event) {
@@ -73,12 +67,7 @@ function DataIndex() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Id:</Form.Label>
-              <Form.Control
-                type="text"
-                value={id}
-                onChange={updateid}
-                placeholder="Id"
-              />
+              <Form.Control type="text" placeholder="Id" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">

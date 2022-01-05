@@ -1,10 +1,5 @@
 import React from "react";
 import Header from "../Components/Nav/Header";
-<<<<<<< HEAD
-
-function Library() {
-  return <Header />;
-=======
 import { Container } from "react-bootstrap";
 
 function Library() {
@@ -35,6 +30,5 @@ function Library() {
       </div>
     </>
   );
->>>>>>> ddf1f0fad90b649ad720d1fdb2e19739e271db62
 }
 export default Library;
