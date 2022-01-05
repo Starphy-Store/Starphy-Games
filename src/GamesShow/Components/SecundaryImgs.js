@@ -58,9 +58,7 @@ const SecundaryImgs = () => {
                   src={logoMinecraft}
                   style={{ width: "100%", heigth: "auto" }}
                 />
-                <h2 style={{ textAlign: "center", paddingTop: "-20px" }}>
-                  sexo aaaa
-                </h2>
+                <h2 style={{ textAlign: "center" }}>sexo aaaa</h2>
               </Row>
             </Col>
           </Col>
