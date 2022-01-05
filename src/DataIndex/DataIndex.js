@@ -21,17 +21,21 @@ function DataIndex() {
   const [valor, setvalor] = useState("");
 
   function DataIndex(event) {
-    event.preventDefault(); /* Cambiar cada vez que se añada un juego o modificarlo */
-    const juegos = doc(db, "games", game);
+    event.preventDefault();
+    const docum = doc(collection(db, "games"));
     console.log("render");
-    setDoc(juegos, {
-      descrip: Des,
-      id: id,
-      imagen: img,
-      juego: game,
-      precio: valor,
-    });
+
+    const docData = {
+      id: doc.id,
+      ...doc.data(),
+    };
+
+    setDoc(docum, docData);
+
+    console.log(docData);
+    return docData;
   }
+
   const updateDes = function (event) {
     setDes(event.target.value);
   };
@@ -93,7 +97,7 @@ function DataIndex() {
                 type="text"
                 value={game}
                 onChange={updategame}
-                placeholder="Fornite"
+                placeholder="Ingresa el nombre de un juego"
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
