@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import GamesCarousel from "./GamesCarousel";
+import Payment from "../../Payment/Payment";
 import Mojang from "../../Assets/Mojang.png";
 import logoMinecraft from "../../Assets/1000.png";
 import "../GamesShow.css";
+import { useParams } from "react-router-dom";
 import firebase2 from "../../Home/Firebase2.js";
+
 import {
   query,
   collection,
@@ -14,21 +17,22 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
+
 const db = getFirestore(firebase2);
 
 const SecundaryImgs = () => {
+  const { doc } = useParams();
+
+  console.log(doc);
   const [game, setGame] = useState([]);
 
-  function getGames() {
-    const ref = query(collection(db, "games"));
+  useEffect(() => {
+    getGames();
+  }, []);
 
-    const unsub = onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
-      });
-      setGame(items);
-    });
+  function getGames() {
+    const juegos = query(collection(db, "games"));
+    setGame(juegos);
   }
 
   return (
@@ -44,7 +48,7 @@ const SecundaryImgs = () => {
                 src={Mojang}
                 style={{ width: "90px", borderRadius: "15%", align: "left" }}
               ></img>
-              <h3></h3>
+              <h3>sexooooo aa</h3>
             </Row>
           </Col>
           <Col md={5}>
@@ -54,7 +58,11 @@ const SecundaryImgs = () => {
                   src={logoMinecraft}
                   style={{ width: "100%", heigth: "auto" }}
                 />
-                <h2>mainkra</h2>
+                <h1 style={{ textAlign: "center", paddingTop: "-20px" }}>
+                  sexo aaaa
+                </h1>
+                <p>$15</p>
+               <Payment></Payment> 
               </Row>
             </Col>
           </Col>

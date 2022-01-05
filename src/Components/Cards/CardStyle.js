@@ -11,7 +11,7 @@ import MinecraftImg from "../../Assets/MinecraftImg.jpg";
 import "./CardEstilo.css";
 import { initializeApp } from "firebase/app";
 import { Carousel, Form, Row, Col } from "react-bootstrap";
-import Payment from "../../GamesShow/Components/Payment.js";
+
 import fortnite from "../../Components/Cards/fortnite.jpg";
 import firebase2 from "../../Home/Firebase2.js";
 import {
@@ -25,7 +25,7 @@ import {
 } from "firebase/firestore";
 
 const db = getFirestore(firebase2);
-const TopGames = function () {
+const TopGames = function (doc) {
   const [game, setGame] = useState([]);
 
   function getGames() {
@@ -56,7 +56,7 @@ const TopGames = function () {
                   style={{ width: "100%" }}
                 >
                   {/* Aqui hay que poner la ruta para que el gameshow muestre el juego por id*/}
-                  <Link to={`/GamesShow/${games.id}`}>
+                  <Link to={`/GamesShow/${doc.id}`}>
                     <Card.Img
                       variant="top"
                       src={games.imagen}
