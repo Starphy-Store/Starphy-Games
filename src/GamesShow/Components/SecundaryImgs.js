@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import GamesCarousel from "./GamesCarousel";
+import Payment from "../../Payment/Payment";
 import Mojang from "../../Assets/Mojang.png";
 import logoMinecraft from "../../Assets/1000.png";
 import "../GamesShow.css";
 import { useParams } from "react-router-dom";
 import firebase2 from "../../Home/Firebase2.js";
-import DataIndex from "../../DataIndex/DataIndex";
-import CardStyle from "../../Components/Cards/CardStyle";
+
 import {
   query,
   collection,
@@ -58,9 +58,11 @@ const SecundaryImgs = () => {
                   src={logoMinecraft}
                   style={{ width: "100%", heigth: "auto" }}
                 />
-                <h2 style={{ textAlign: "center", paddingTop: "-20px" }}>
+                <h1 style={{ textAlign: "center", paddingTop: "-20px" }}>
                   sexo aaaa
-                </h2>
+                </h1>
+                <p>$15</p>
+               <Payment></Payment> 
               </Row>
             </Col>
           </Col>

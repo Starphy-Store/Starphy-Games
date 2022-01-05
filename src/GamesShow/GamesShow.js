@@ -12,7 +12,6 @@ function GamesShow() {
       <Container>
         <Slider />
       </Container>
-
       <SecundaryImgs />
     </>
   );

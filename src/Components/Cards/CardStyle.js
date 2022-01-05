@@ -11,7 +11,7 @@ import MinecraftImg from "../../Assets/MinecraftImg.jpg";
 import "./CardEstilo.css";
 import { initializeApp } from "firebase/app";
 import { Carousel, Form, Row, Col } from "react-bootstrap";
-import Payment from "../../GamesShow/Components/Payment.js";
+
 import fortnite from "../../Components/Cards/fortnite.jpg";
 import firebase2 from "../../Home/Firebase2.js";
 import {

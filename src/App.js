@@ -14,7 +14,7 @@ import Register from "./RegisterPage/Register.js";
 import Error404 from "./pages/Error404";
 import GamesShow from "./GamesShow/GamesShow";
 import CardStyle from "../src/Components/Cards/CardStyle";
-import Payment from "../src/GamesShow/Components/Payment";
+import Payment from "../src/Payment/PayCheckout";
 import DataIndex from "../src/DataIndex/DataIndex";
 import Library from "./Library/Library";
 
