@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import firebase2 from "../../src/Home/Firebase2";
 import {
@@ -19,17 +19,18 @@ function DataIndex() {
   const [img, setimg] = useState("");
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState("");
+  const [esunjuego, setesunjuego] = useState("");
 
-  function DataIndex(event) {
+  function CrearJuego(event) {
     event.preventDefault();
-
     console.log("render");
 
     addDoc(collection(db, "games"), {
       descrip: Des,
-      juego: game,
       imagen: img,
+      juego: game,
       precio: valor,
+      esunjuego: esunjuego,
     });
   }
 
@@ -49,38 +50,17 @@ function DataIndex() {
     setvalor(event.target.value);
   };
 
+  const updateesunjuego = function (event) {
+    setesunjuego(event.target.value);
+  };
+
   return (
     <Container>
       <Row>
         <Col style={{ justifyContent: "left", color: "white", width: "600px" }}>
           <h1>Datos para firebase</h1>
-          <Form onSubmit={DataIndex} style={{ width: "100%" }}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Descripcion:</Form.Label>
-              <Form.Control
-                type="text"
-                value={Des}
-                onChange={updateDes}
-                placeholder="Descripcion"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Id:</Form.Label>
-              <Form.Control type="text" placeholder="Id" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Imagen</Form.Label>
-              <Form.Control
-                type="text"
-                value={img}
-                onChange={updateimg}
-                placeholder="URL de firestorage"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form onSubmit={CrearJuego} style={{ width: "100%" }}>
+            <Form.Group className="mb-4" controlId="formBasicPassword">
               <Form.Label>Nombre del juego:</Form.Label>
               <Form.Control
                 type="text"
@@ -90,12 +70,30 @@ function DataIndex() {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Imagen</Form.Label>
+              <Form.Control
+                type="text"
+                value={img}
+                onChange={updateimg}
+                placeholder="URL de firestorage"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Precio</Form.Label>
               <Form.Control
                 type="text"
                 value={valor}
                 onChange={updatevalor}
                 placeholder="$$$"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Descripcion:</Form.Label>
+              <Form.Control
+                type="text"
+                value={Des}
+                onChange={updateDes}
+                placeholder="Descripcion"
               />
             </Form.Group>
             <Button variant="success" type="submit">

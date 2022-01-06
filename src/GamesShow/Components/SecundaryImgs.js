@@ -22,17 +22,19 @@ const db = getFirestore(firebase2);
 
 const SecundaryImgs = () => {
   const { id } = useParams();
-
-  console.log(doc);
   const [game, setGame] = useState([]);
+
+  const filtrado = game.filter((x) => x.esunjuego == "si");
+
+  const filtrado2 = filtrado.filter((x) => x.juego == id);
 
   function getGames() {
     const ref = query(collection(db, "games"));
 
     onSnapshot(ref, (querySnapshot) => {
-      const items = [id];
+      const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data(), doc.id);
+        items.push(doc.data(), id);
       });
       setGame(items);
     });
@@ -45,49 +47,51 @@ const SecundaryImgs = () => {
   return (
     <div>
       <Container className="GamesInfo">
-        <Row>
-          <Col md={7}>
-            <GamesCarousel />
+        {filtrado2.map((item) => (
+          <Row>
+            <Col md={7}>
+              <GamesCarousel />
 
-            <h6>Aventura | Construccion | Mundo abierto </h6>
-            <Row className="pt-3">
-              <img
-                src={Mojang}
-                style={{ width: "90px", borderRadius: "15%", align: "left" }}
-              ></img>
-              <h3>sexooooo aa</h3>
-            </Row>
-          </Col>
-          <Col md={5}>
-            <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "10px" }}>
-              <Row>
+              <h6>Aventura | Construccion | Mundo abierto </h6>
+              <Row className="pt-3">
                 <img
-                  src={logoMinecraft}
-                  style={{ width: "100%", heigth: "auto" }}
-                />
-                <div class="GamesPayment">
-                  <h4>$15</h4>
-
-                  {/* pilas que en el href va a el redireccionamiento */}
-                  <Button
-                    variant="light"
-                    size="lg"
-                    style={{ width: "100%" }}
-                    href="/payment"
-                  >
-                    Comprar ahora
-                  </Button>
-                  <h5
-                    style={{ textAlign: "center", color: "lightgreen" }}
-                    className="pt-3"
-                  >
-                    Tu ordenador puede jugarlo
-                  </h5>
-                </div>
+                  src={Mojang}
+                  style={{ width: "90px", borderRadius: "15%", align: "left" }}
+                ></img>
+                <h3>{item.juego}</h3>
               </Row>
             </Col>
-          </Col>
-        </Row>
+            <Col md={5}>
+              <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "10px" }}>
+                <Row>
+                  <img
+                    src={item.imagen}
+                    style={{ width: "100%", heigth: "auto" }}
+                  />
+                  <div class="GamesPayment">
+                    <h4>{item.precio}</h4>
+
+                    {/* pilas que en el href va a el redireccionamiento */}
+                    <Button
+                      variant="light"
+                      size="lg"
+                      style={{ width: "100%" }}
+                      href="/payment"
+                    >
+                      Comprar ahora
+                    </Button>
+                    <h5
+                      style={{ textAlign: "center", color: "lightgreen" }}
+                      className="pt-3"
+                    >
+                      Tu ordenador puede jugarlo
+                    </h5>
+                  </div>
+                </Row>
+              </Col>
+            </Col>
+          </Row>
+        ))}
       </Container>
     </div>
   );

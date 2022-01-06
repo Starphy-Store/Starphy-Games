@@ -29,7 +29,9 @@ const db = getFirestore(firebase2);
 const TopGames = function (doc) {
   const [game, setGame] = useState([]);
 
-  const limitGame = game.slice(0,4);
+  const limitGame = game.slice(0, 4);
+
+  const filtros = game.filter((x) => x.esunjuego == "si");
 
   function getGames() {
     const ref = query(collection(db, "games"));
@@ -46,32 +48,27 @@ const TopGames = function (doc) {
   useEffect(() => {
     getGames();
   }, []);
-
+  //Usar filter
   return (
     <>
       <Container>
-        {limitGame.map((games) => (
+        {filtros.map((item) => (
           <Container className="carousel5">
-            <Row>
+            <Row key={item.id}>
               <Col>
-                <Card
-                  key={doc.id}
-                  className="border-0"
-                  style={{ width: "100%" }}
-                >
-                  {/* Aqui hay que poner la ruta para que el gameshow muestre el juego por id*/}
-                  <Link to={`/GamesShow/${doc.id}`}>
+                <Card className="border-0" style={{ width: "100%" }}>
+                  <Link to={`/GamesShow/${item.juego}`}>
                     <Card.Img
                       variant="top"
-                      src={games.imagen}
+                      src={item.imagen}
                       className="img-fluid img-card"
                     />
                   </Link>
                   <Card.Body>
                     <Card.Title>
-                      {games.precio}
-                      <p>{games.juego}</p>
-                      <p>{games.descrip}</p>
+                      {item.precio}
+                      <p>{item.juego}</p>
+                      <p>{item.descrip}</p>
                     </Card.Title>
                   </Card.Body>
                 </Card>
