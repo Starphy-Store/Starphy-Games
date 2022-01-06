@@ -12,6 +12,9 @@ import Slider from "../Components/Slider";
 //Slider de recomendaciones
 import Recomendations1 from "./Recomendations1";
 
+//Slider juegos compatibles y descargables
+import CompatibleGames from "../Components/compatibleDownloadGames/CompatibleGames";
+
 const Home = ({ game }) => {
   return (
     <div>
@@ -22,6 +25,7 @@ const Home = ({ game }) => {
         <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
       </div>
       <Recomendations1 />
+      <CompatibleGames />
       <h1>Juegos multijugador 👋</h1>
     </div>
   );

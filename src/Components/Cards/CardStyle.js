@@ -25,8 +25,11 @@ import {
 } from "firebase/firestore";
 
 const db = getFirestore(firebase2);
+
 const TopGames = function (doc) {
   const [game, setGame] = useState([]);
+
+  const limitGame = game.slice(0,4);
 
   function getGames() {
     const ref = query(collection(db, "games"));
@@ -47,7 +50,7 @@ const TopGames = function (doc) {
   return (
     <>
       <Container>
-        {game.map((games) => (
+        {limitGame.map((games) => (
           <Container className="carousel5">
             <Row>
               <Col>
