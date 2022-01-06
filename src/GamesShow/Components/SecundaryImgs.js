@@ -4,6 +4,7 @@ import GamesCarousel from "./GamesCarousel";
 import Payment from "../../Payment/Payment";
 import Mojang from "../../Assets/Mojang.png";
 import logoMinecraft from "../../Assets/1000.png";
+import { Link } from "react-router-dom";
 import "../GamesShow.css";
 import { useParams } from "react-router-dom";
 import firebase2 from "../../Home/Firebase2.js";
@@ -52,7 +53,7 @@ const SecundaryImgs = () => {
             <Col md={7}>
               <GamesCarousel />
 
-              <h6>Aventura | Construccion | Mundo abierto </h6>
+              <h6>{item.categoria}</h6>
               <Row className="pt-3">
                 <img
                   src={Mojang}
@@ -72,14 +73,15 @@ const SecundaryImgs = () => {
                     <h4>{item.precio}</h4>
 
                     {/* pilas que en el href va a el redireccionamiento */}
-                    <Button
-                      variant="light"
-                      size="lg"
-                      style={{ width: "100%" }}
-                      href="/payment"
-                    >
-                      Comprar ahora
-                    </Button>
+                    <Link to={`/payment/${item.juego}`}>
+                      <Button
+                        variant="light"
+                        size="lg"
+                        style={{ width: "100%" }}
+                      >
+                        Comprar ahora
+                      </Button>
+                    </Link>
                     <h5
                       style={{ textAlign: "center", color: "lightgreen" }}
                       className="pt-3"

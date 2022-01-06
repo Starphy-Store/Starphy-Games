@@ -60,7 +60,7 @@ const Header = () => {
             <Link to="/Home">
               <img
                 src={logo}
-                class="navImage"
+                className="navImage"
                 width="150"
                 height="auto"
                 className="d-inline-block align-top mx-auto ml-auto"

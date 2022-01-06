@@ -17,9 +17,13 @@ const db = getFirestore(firebase2);
 function DataIndex() {
   const [Des, setDes] = useState("");
   const [img, setimg] = useState("");
+  const [img2, setimg2] = useState("");
+  const [img3, setimg3] = useState("");
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState("");
   const [esunjuego, setesunjuego] = useState("");
+  const [categoria, setcategoria] = useState("");
+  const [creator, setcreator] = useState("");
 
   function CrearJuego(event) {
     event.preventDefault();
@@ -28,9 +32,13 @@ function DataIndex() {
     addDoc(collection(db, "games"), {
       descrip: Des,
       imagen: img,
+      imagen2: img2,
+      imagen3: img3,
       juego: game,
       precio: valor,
       esunjuego: esunjuego,
+      categoria: categoria,
+      creator: creator,
     });
   }
 
@@ -40,6 +48,14 @@ function DataIndex() {
 
   const updateimg = function (event) {
     setimg(event.target.value);
+  };
+
+  const updateimg2 = function (event) {
+    setimg2(event.target.value);
+  };
+
+  const updateimg3 = function (event) {
+    setimg3(event.target.value);
   };
 
   const updategame = function (event) {
@@ -52,6 +68,14 @@ function DataIndex() {
 
   const updateesunjuego = function (event) {
     setesunjuego(event.target.value);
+  };
+
+  const updatecategoria = function (event) {
+    setcategoria(event.target.value);
+  };
+
+  const updatecreator = function (event) {
+    setcreator(event.target.value);
   };
 
   return (
@@ -69,6 +93,30 @@ function DataIndex() {
                 placeholder="Ingresa el nombre de un juego"
               />
             </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Poner siempre que si:</Form.Label>
+              <Form.Control
+                type="text"
+                value={esunjuego}
+                onChange={updateesunjuego}
+                placeholder="PON SI 😡🤑 PON SI 😡🤑 PON SI 😡🤑 PON SI 😡🤑 PON SI 😡🤑"
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>
+                Las 3 categorias mas relevantes del juego, dejo esto aqui | para
+                ponerlo como en el ejemplo
+              </Form.Label>
+              <Form.Control
+                type="text"
+                value={categoria}
+                onChange={updatecategoria}
+                placeholder="Rol | MMORPG | Mundo Abierto"
+              />
+            </Form.Group>
+
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Imagen</Form.Label>
               <Form.Control
@@ -78,6 +126,37 @@ function DataIndex() {
                 placeholder="URL de firestorage"
               />
             </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Imagen2</Form.Label>
+              <Form.Control
+                type="text"
+                value={img2}
+                onChange={updateimg2}
+                placeholder="URL de firestorage 2"
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Creador o creadores</Form.Label>
+              <Form.Control
+                type="text"
+                value={creator}
+                onChange={updatecreator}
+                placeholder="Steve Jobs"
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Imagen3</Form.Label>
+              <Form.Control
+                type="text"
+                value={img3}
+                onChange={updateimg3}
+                placeholder="URL de firestorage 3"
+              />
+            </Form.Group>
+
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Precio</Form.Label>
               <Form.Control
@@ -87,6 +166,7 @@ function DataIndex() {
                 placeholder="$$$"
               />
             </Form.Group>
+
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Descripcion:</Form.Label>
               <Form.Control
@@ -96,6 +176,7 @@ function DataIndex() {
                 placeholder="Descripcion"
               />
             </Form.Group>
+
             <Button variant="success" type="submit">
               Enviar a Firebase Database
             </Button>

@@ -36,7 +36,7 @@ function App() {
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />
         <Route path="/library" element={<Library />} />
-        <Route path="/Payment" element={<Payment />} />
+        <Route path="/Payment/:id" element={<Payment />} />
         <Route path="/DataIndex" element={<DataIndex />} />
       </Routes>
     </>
