@@ -37,15 +37,15 @@ export default function Payment() {
   useEffect(() => {
     window.paypal
       .Buttons({
-        createOrder: (data, actions, err) => {
+        createOrder: (data, actions, err, filtrado2) => {
           return actions.order.create({
             intent: "CAPTURE",
             purchase_units: [
               {
-                description: "Asd",
+                description: filtrado2.descrip,
                 amount: {
                   currency_code: "USD",
-                  value: 200,
+                  value: filtrado2.precionumber,
                 },
               },
             ],
