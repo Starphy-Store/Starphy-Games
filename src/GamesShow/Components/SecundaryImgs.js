@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import "../GamesShow.css";
 import { useParams } from "react-router-dom";
 import firebase2 from "../../Home/Firebase2.js";
+import Star from "../../Assets/Star.png"
 
 import {
   query,
@@ -69,7 +70,7 @@ const SecundaryImgs = () => {
                     src={item.imagen}
                     style={{ width: "100%", heigth: "auto" }}
                   />
-                  <div class="GamesPayment">
+                  <div className="GamesPayment pt-4">
                     <h4>{item.precio}</h4>
 
                     {/* pilas que en el href va a el redireccionamiento */}
@@ -84,10 +85,20 @@ const SecundaryImgs = () => {
                     </Link>
                     <h5
                       style={{ textAlign: "center", color: "lightgreen" }}
-                      className="pt-3"
+                      className="pt-4"
                     >
                       Tu ordenador puede jugarlo
                     </h5>
+                    <hr></hr>
+                    <Col>
+                        <h2 style={{float: "left"}}>5.0</h2>
+                        <img src={Star} style={{float: "right"}}></img>
+                        <img src={Star} style={{float: "right"}}></img>
+                        <img src={Star} style={{float: "right"}}></img>
+                        <img src={Star} style={{float: "right"}}></img>
+                        <img src={Star} style={{float: "right"}}></img>
+                    </Col>
+                    
                   </div>
                 </Row>
               </Col>

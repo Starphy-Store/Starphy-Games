@@ -4,7 +4,7 @@ import CompatibleGamesCard from './CompatibleGamesCard'
 const CompatibleGames = () => {
     return (
         <div>
-            <h1>Hemos detectado que tu ordenador es compatible con los siguientes juegos</h1>
+            <h2 style={{color: "white"}} className='mt-5'>Hemos detectado que tu ordenador es compatible con los siguientes juegos</h2>
             <CompatibleGamesCard />
         </div>
     )
