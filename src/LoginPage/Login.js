@@ -3,7 +3,7 @@
    https://firebase.google.com/docs/auth/web/google-signin*/
 
 import { Form, Button, Alert } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { eyeIcon, facebook, google } from "./assets/index";
@@ -51,11 +51,8 @@ function Login() {
 
         onAuthStateChanged(auth, (user) => {
           if (user.emailVerified) {
-            setTimeout(() => {
-              navigate("/");
-            }, 1000);
-
             const uid = user.uid;
+            navigate(`/Home/${user.uid}`);
           } else {
             toast.warn("Verifica el email", {
               position: "top-right",

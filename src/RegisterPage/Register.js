@@ -296,7 +296,7 @@ function Register() {
             >
               Registrarse
             </Button>
-            <ToastContainer limit={2} />
+            <ToastContainer limit={1} />
           </div>
         </Form>
         <p className="text-center text-light">

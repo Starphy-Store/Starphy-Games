@@ -16,7 +16,7 @@ import {
 } from "react-bootstrap";
 import logo from "../../Assets/logo_sin_fondo.png";
 import "../Components.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { logout, useAuth } from "../../RegisterPage/AuthState";
 import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
@@ -26,6 +26,14 @@ import {
   signOut,
   emailVerified,
 } from "firebase/auth";
+import {
+  collection,
+  doc,
+  getFirestore,
+  query,
+  onSnapshot,
+} from "firebase/firestore";
+import firebase2 from "../../Home/Firebase2";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -39,19 +47,36 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(firebase2);
 
 const Header = () => {
+  const { id } = useParams([]);
+  console.log(id);
   const [cua, setcua] = useState(false);
+  const [users, setusers] = useState([]);
   function a() {
     onAuthStateChanged(auth, setcua, (user) => {
-      if (user.emailVerified) {
+      if (user.uid == id) {
+        const ref = query(collection(db, "users"));
+
+        onSnapshot(ref, (querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach((doc) => {
+            items.push(doc.data(), id);
+          });
+          setusers(items);
+          console.log(setusers);
+        });
+
         const uid = user.uid;
       }
     });
   }
+  useEffect(() => {
+    a();
+  }, []);
 
-  a();
-
+  /* Hacer cuando estes iniciado sesion se ponga tu nombre de perfil en el home */
   return (
     <div className="xd">
       <Navbar expand="lg" className="header" variant="dark">
@@ -103,7 +128,7 @@ const Header = () => {
                       <Dropdown.Item eventKey="1">
                         <Link to="/Library">Tu biblioteca</Link>
                       </Dropdown.Item>
-                      <Dropdown.Item eventKey="2">Perfil</Dropdown.Item>
+                      <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
                       <Dropdown.Item eventKey="3">
                         Actualizaciones
                       </Dropdown.Item>
