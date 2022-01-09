@@ -7,6 +7,8 @@ import "./Components.css";
 //importacion de imagenes
 
 import MinecraftImg from "../Assets/MinecraftImg.jpg";
+import payday2 from "../Assets/payday2.jpg";
+import thewitcher from "../Assets/thewitcher.jpg";
 
 function SliderDelHome() {
   return (
@@ -28,7 +30,7 @@ function SliderDelHome() {
         <Carousel.Item>
           <img
             className="d-block w-100 h-70"
-            src={MinecraftImg}
+            src={payday2}
             alt="Second slide"
             className="sliderImg"
           />
@@ -36,7 +38,7 @@ function SliderDelHome() {
         <Carousel.Item>
           <img
             className="d-block w-100 h-70"
-            src={MinecraftImg}
+            src={thewitcher}
             alt="Third slide"
             className="sliderImg"
           />

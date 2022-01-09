@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import "../GamesShow.css";
 import { useParams } from "react-router-dom";
 import firebase2 from "../../Home/Firebase2.js";
-import Star from "../../Assets/Star.png"
+import Star from "../../Assets/Star.png";
 
 import {
   query,
@@ -60,7 +60,8 @@ const SecundaryImgs = () => {
                   src={Mojang}
                   style={{ width: "90px", borderRadius: "15%", align: "left" }}
                 ></img>
-                <h3>{item.juego}</h3>
+
+                <p>{item.descrip}</p>
               </Row>
             </Col>
             <Col md={5}>
@@ -91,14 +92,13 @@ const SecundaryImgs = () => {
                     </h5>
                     <hr></hr>
                     <Col>
-                        <h2 style={{float: "left"}}>5.0</h2>
-                        <img src={Star} style={{float: "right"}}></img>
-                        <img src={Star} style={{float: "right"}}></img>
-                        <img src={Star} style={{float: "right"}}></img>
-                        <img src={Star} style={{float: "right"}}></img>
-                        <img src={Star} style={{float: "right"}}></img>
+                      <h2 style={{ float: "left" }}>5.0</h2>
+                      <img src={Star} style={{ float: "right" }}></img>
+                      <img src={Star} style={{ float: "right" }}></img>
+                      <img src={Star} style={{ float: "right" }}></img>
+                      <img src={Star} style={{ float: "right" }}></img>
+                      <img src={Star} style={{ float: "right" }}></img>
                     </Col>
-                    
                   </div>
                 </Row>
               </Col>

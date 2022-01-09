@@ -43,12 +43,17 @@ const TopGames = function (doc) {
       });
       setGame(items);
     });
+    if (game.juego >= 19) {
+      var gameName = game.juego + "...";
+      console.log(gameName);
+    }
   }
 
   useEffect(() => {
     getGames();
   }, []);
   //Usar filter
+
   return (
     <>
       <Container>
@@ -66,9 +71,9 @@ const TopGames = function (doc) {
                   </Link>
                   <Card.Body>
                     <Card.Title>
-                      {item.precio}
-                      <p>{item.juego}</p>
-                      <p>{item.descrip}</p>
+                      <h4>{item.gameName}</h4>
+                      <h6>Mojang</h6>
+                      <h6>{item.precio}</h6>
                     </Card.Title>
                   </Card.Body>
                 </Card>

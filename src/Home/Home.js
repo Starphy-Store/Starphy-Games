@@ -22,10 +22,10 @@ const Home = ({ game }) => {
       <Header />
       <div style={{ marginTop: "70vh" }}>
         {/*  <img src={Barrita}></img> */}
-        <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
+        <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>ç
       </div>
       <Recomendations1 />
-      <CompatibleGames />
+      {/* <CompatibleGames /> */}
       <h1>Juegos multijugador 👋</h1>
     </div>
   );

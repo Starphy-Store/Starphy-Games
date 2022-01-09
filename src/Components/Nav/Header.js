@@ -16,16 +16,11 @@ import {
 } from "react-bootstrap";
 import logo from "../../Assets/logo_sin_fondo.png";
 import "../Components.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { logout, useAuth } from "../../RegisterPage/AuthState";
 import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut,
-  emailVerified,
-} from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import {
   collection,
   doc,
@@ -48,30 +43,39 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(firebase2);
+const user = auth.currentUser;
 
+console.log(user);
 const Header = () => {
-  const { id } = useParams([]);
-  console.log(id);
   const [cua, setcua] = useState(false);
   const [users, setusers] = useState([]);
+  const navigate = useNavigate();
+
   function a() {
-    onAuthStateChanged(auth, setcua, (user) => {
-      if (user.uid == id) {
-        const ref = query(collection(db, "users"));
+    const ref = query(collection(db, "users"));
 
-        onSnapshot(ref, (querySnapshot) => {
-          const items = [];
-          querySnapshot.forEach((doc) => {
-            items.push(doc.data(), id);
-          });
-          setusers(items);
-          console.log(setusers);
-        });
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
 
-        const uid = user.uid;
+      setusers(items);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setcua(item);
       }
     });
   }
+  console.log(cua);
+
+  const filtrado = users.filter((x) => x.id == cua);
+
   useEffect(() => {
     a();
   }, []);
@@ -119,35 +123,38 @@ const Header = () => {
                 <Col></Col>
                 {cua ? (
                   <Col md={12} style={{ width: "200px" }}>
-                    <DropdownButton
-                      align="start"
-                      title="nombre de usuario"
-                      id="dropdown-menu-align-start"
-                      variant="outline-light"
-                    >
-                      <Dropdown.Item eventKey="1">
-                        <Link to="/Library">Tu biblioteca</Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
-                      <Dropdown.Item eventKey="3">
-                        Actualizaciones
-                      </Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item
-                        eventKey="4"
-                        onClick={() => {
-                          signOut(auth)
-                            .then(() => {
-                              // Sign-out successful.
-                            })
-                            .catch((error) => {
-                              // An error happened.
-                            });
-                        }}
+                    {filtrado.map((item) => (
+                      <DropdownButton
+                        align="start"
+                        title={item.name}
+                        id="dropdown-menu-align-start"
+                        variant="outline-light"
                       >
-                        Salir
-                      </Dropdown.Item>
-                    </DropdownButton>
+                        <Dropdown.Item eventKey="1">
+                          <Link to="/Library">Tu biblioteca</Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
+                        <Dropdown.Item eventKey="3">
+                          Actualizaciones
+                        </Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item
+                          eventKey="4"
+                          onClick={() => {
+                            signOut(auth)
+                              .then(() => {
+                                navigate("/Home/");
+                                // Sign-out successful.
+                              })
+                              .catch((error) => {
+                                // An error happened.
+                              });
+                          }}
+                        >
+                          Salir
+                        </Dropdown.Item>
+                      </DropdownButton>
+                    ))}
                   </Col>
                 ) : (
                   <>
