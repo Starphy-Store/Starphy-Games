@@ -9,21 +9,7 @@ import "./Home.css";
 
 function Recomendations1(props) {
   return (
-    <Carousel
-      variant="dark"
-      indicators={false}
-      className="mt-5"
-    >
-      <Carousel.Item>
-        <Container>
-          <CardStyle />
-        </Container>
-      </Carousel.Item>
-      <Carousel.Item>
-        <Container>
-          <CardStyle />
-        </Container>
-      </Carousel.Item>
+    <Carousel variant="dark" indicators={false} className="mt-5">
       <Carousel.Item>
         <Container>
           <CardStyle />

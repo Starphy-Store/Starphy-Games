@@ -69,7 +69,7 @@ const Header = () => {
         const uids = user.uid;
         item.push(uids);
         setcua(item);
-      }
+      } /* hola buenas ya revivi */
     });
   }
   console.log(cua);
@@ -79,7 +79,6 @@ const Header = () => {
   useEffect(() => {
     a();
   }, []);
-
   /* Hacer cuando estes iniciado sesion se ponga tu nombre de perfil en el home */
   return (
     <div className="xd">
@@ -125,8 +124,11 @@ const Header = () => {
                   <Col md={12} style={{ width: "200px" }}>
                     {filtrado.map((item) => (
                       <DropdownButton
+                        onSubmit={a}
                         align="start"
+                        type="button"
                         title={item.name}
+                        key={item.id}
                         id="dropdown-menu-align-start"
                         variant="outline-light"
                       >
@@ -143,7 +145,7 @@ const Header = () => {
                           onClick={() => {
                             signOut(auth)
                               .then(() => {
-                                navigate("/Home/");
+                                window.location.reload(false);
                                 // Sign-out successful.
                               })
                               .catch((error) => {
