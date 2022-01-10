@@ -29,7 +29,7 @@ function App() {
       <Routes>
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
-        <Route path="/" element={<Home />} />
+
         <Route path="/Home/" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />

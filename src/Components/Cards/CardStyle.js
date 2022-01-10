@@ -26,12 +26,15 @@ import {
 
 const db = getFirestore(firebase2);
 
-const TopGames = function (doc) {
+const TopGames = function () {
   const [game, setGame] = useState([]);
+  const [gameName, setgameName] = useState([]);
 
   const limitGame = game.slice(0, 4);
 
   const filtros = game.filter((x) => x.esunjuego == "si");
+
+  const tried = filtros.map((x) => x.juego);
 
   function getGames() {
     const ref = query(collection(db, "games"));
@@ -43,26 +46,27 @@ const TopGames = function (doc) {
       });
       setGame(items);
     });
-   
+
+    if (tried.length >= 4) {
+      const pusheado = [];
+      const lolitotequiero = tried + "...";
+      pusheado.push(lolitotequiero);
+      setgameName(pusheado);
+    }
+    console.log(tried);
   }
 
   useEffect(() => {
     getGames();
   }, []);
   //Usar filter
-  if (game.juego >= 19) {
-    const etesech =[];
-    var gameName = game.juego 
-    gameName.substr(0,19)
-    etesech.push(gameName)
-    console.log(gameName);
-  }
+
   return (
     <>
       <Container>
         {filtros.map((item) => (
           <Container className="carousel5">
-            <Row key={item.id}>
+            <Row>
               <Col>
                 <Card className="border-0" style={{ width: "100%" }}>
                   <Link to={`/GamesShow/${item.juego}`}>
@@ -74,7 +78,7 @@ const TopGames = function (doc) {
                   </Link>
                   <Card.Body>
                     <Card.Title>
-                      <h4>{game.juego}</h4>
+                      <h4>{item.juego}</h4>
                       <h6>Mojang</h6>
                       <h6>{item.precio}</h6>
                     </Card.Title>
