@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button,Image } from "react-bootstrap";
 import GamesCarousel from "./GamesCarousel";
 import Payment from "../../Payment/Payment";
 import Mojang from "../../Assets/Mojang.png";
@@ -55,26 +55,28 @@ const SecundaryImgs = () => {
               <GamesCarousel />
 
               <h6>{item.categoria}</h6>
-              <Row className="pt-3">
-                <img
+    
+                <Image
                   src={Mojang}
-                  style={{ width: "90px", borderRadius: "15%", align: "left" }}
-                ></img>
-
+                  style={{ width: "90px", align: "left" }}
+                  rounded
+                ></Image>
+                <div style={{align:"rigth"}}>
+                <h2 >Mojang</h2>
                 <p>{item.descrip}</p>
-              </Row>
+                </div>
+              
             </Col>
             <Col md={5}>
               <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "10px" }}>
                 <Row>
                   <img
                     src={item.imagen}
-                    style={{ width: "100%", heigth: "auto" }}
+                    style={{ width: "100%", heigth: "auto", borderRadius: "20px 20px 0 0"}}
                   />
                   <div className="GamesPayment pt-4">
                     <h4>{item.precio}</h4>
 
-                    {/* pilas que en el href va a el redireccionamiento */}
                     <Link to={`/payment/${item.juego}`}>
                       <Button
                         variant="light"

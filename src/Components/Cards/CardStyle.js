@@ -74,7 +74,7 @@ const TopGames = function (doc) {
                   </Link>
                   <Card.Body>
                     <Card.Title>
-                      <h4>{item.game.juego}</h4>
+                      <h4>{game.juego}</h4>
                       <h6>Mojang</h6>
                       <h6>{item.precio}</h6>
                     </Card.Title>
