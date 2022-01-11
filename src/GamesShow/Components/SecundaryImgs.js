@@ -53,24 +53,22 @@ const SecundaryImgs = () => {
           <Row>
             <Col md={7}>
               <GamesCarousel />
-
               <h6>{item.categoria}</h6>
               <Row className="pt-3">
-                <img
-                  src={Mojang}
-                  style={{ width: "90px", borderRadius: "15%", align: "left" }}
-                ></img>
-
+                <hr />
                 <p>{item.descrip}</p>
               </Row>
             </Col>
             <Col md={5}>
-              <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "10px" }}>
+              <Col
+                style={{
+                  backgroundColor: "#1f1f1f",
+                  borderRadius: "10px",
+                  width: "100%",
+                }}
+              >
                 <Row>
-                  <img
-                    src={item.imagen}
-                    style={{ width: "100%", heigth: "auto" }}
-                  />
+                  <img src={item.imagen} className="itemImage" />
                   <div className="GamesPayment pt-4">
                     <h4>{item.precio}</h4>
 

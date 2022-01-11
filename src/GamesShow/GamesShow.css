@@ -26,6 +26,10 @@
   color: white;
 }
 
+.itemImage {
+  width: "100%";
+  height: "auto";
+}
 .GamesPayment {
   padding-left: 30px;
   padding-right: 30px;
