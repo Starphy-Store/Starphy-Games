@@ -11,7 +11,7 @@ import MinecraftImg from "../../Assets/MinecraftImg.jpg";
 import "./CardEstilo.css";
 import { initializeApp } from "firebase/app";
 import { Carousel, Form, Row, Col } from "react-bootstrap";
-import Payment from "../../GamesShow/Components/Payment.js";
+
 import fortnite from "../../Components/Cards/fortnite.jpg";
 import firebase2 from "../../Home/Firebase2.js";
 import {
@@ -25,49 +25,62 @@ import {
 } from "firebase/firestore";
 
 const db = getFirestore(firebase2);
-const TopGames = function (doc) {
+
+const TopGames = function () {
   const [game, setGame] = useState([]);
+  const [gameName, setgameName] = useState([]);
+
+  const limitGame = game.slice(0, 4);
+
+  const filtros = game.filter((x) => x.esunjuego == "si");
+
+  const tried = filtros.map((x) => x.juego);
 
   function getGames() {
     const ref = query(collection(db, "games"));
 
-    const unsub = onSnapshot(ref, (querySnapshot) => {
+    onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+        items.push(doc.data(), doc.id);
       });
       setGame(items);
     });
+
+    if (tried.length >= 4) {
+      const pusheado = [];
+      const lolitotequiero = tried + "...";
+      pusheado.push(lolitotequiero);
+      setgameName(pusheado);
+    }
+    console.log(tried);
   }
+
   useEffect(() => {
     getGames();
   }, []);
+  //Usar filter
 
   return (
     <>
       <Container>
-        {game.map((games) => (
+        {filtros.map((item) => (
           <Container className="carousel5">
             <Row>
               <Col>
-                <Card
-                  key={games.id}
-                  className="border-0"
-                  style={{ width: "100%" }}
-                >
-                  {/* Aqui hay que poner la ruta para que el gameshow muestre el juego por id*/}
-                  <Link to={`/GamesShow/${doc.id}`}>
+                <Card className="border-0" style={{ width: "100%" }}>
+                  <Link to={`/GamesShow/${item.juego}`}>
                     <Card.Img
                       variant="top"
-                      src={games.imagen}
+                      src={item.imagen}
                       className="img-fluid img-card"
                     />
                   </Link>
                   <Card.Body>
                     <Card.Title>
-                      {games.precio}
-                      <p>{games.juego}</p>
-                      <p>{games.descrip}</p>
+                      <h4>{item.juego}</h4>
+                      <h6>Mojang</h6>
+                      <h6>{item.precio}</h6>
                     </Card.Title>
                   </Card.Body>
                 </Card>

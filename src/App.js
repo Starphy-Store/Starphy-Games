@@ -14,7 +14,7 @@ import Register from "./RegisterPage/Register.js";
 import Error404 from "./pages/Error404";
 import GamesShow from "./GamesShow/GamesShow";
 import CardStyle from "../src/Components/Cards/CardStyle";
-import Payment from "../src/GamesShow/Components/Payment";
+import Payment from "../src/Payment/PayCheckout";
 import DataIndex from "../src/DataIndex/DataIndex";
 import Library from "./Library/Library";
 
@@ -29,14 +29,14 @@ function App() {
       <Routes>
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/Home" element={<Home />} />
+
+        <Route path="/Home/" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />
         <Route path="/library" element={<Library />} />
-        <Route path="/Payment" element={<Payment />} />
+        <Route path="/Payment/:id" element={<Payment />} />
         <Route path="/DataIndex" element={<DataIndex />} />
       </Routes>
     </>

@@ -77,7 +77,9 @@ function Register() {
           name: usernameReg,
           email: emailReg,
           pass: passwordReg,
+          id: auth.currentUser.uid,
         });
+        console.log(auth);
         toast.info("Verifique su correo electronico", {
           icon: "📨",
           position: "top-right",
@@ -92,15 +94,14 @@ function Register() {
         // Signed in
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
-          if (user) {
-            onAuthStateChanged(auth, (user) => {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/firebase.User
-              const uid = user.uid;
-              /* navigate("/loginUser"); */
-              // ...
-            });
-          }
+
+          onAuthStateChanged(auth, (user) => {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            /* navigate("/loginUser"); */
+            // ...
+          });
         });
         const user = userCredential.emailReg;
 
@@ -294,7 +295,7 @@ function Register() {
             >
               Registrarse
             </Button>
-            <ToastContainer limit={2} />
+            <ToastContainer limit={1} />
           </div>
         </Form>
         <p className="text-center text-light">

@@ -3,7 +3,7 @@
    https://firebase.google.com/docs/auth/web/google-signin*/
 
 import { Form, Button, Alert } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { eyeIcon, facebook, google } from "./assets/index";
@@ -18,6 +18,8 @@ import {
   FacebookAuthProvider,
   updateEmail,
   emailVerified,
+  setPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -45,19 +47,39 @@ function Login() {
   function probar(event) {
     event.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in a
+    setPersistence(auth, browserSessionPersistence).then(() => {
+      return (
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Signed in a
 
-        onAuthStateChanged(auth, (user) => {
-          if (user.emailVerified) {
-            setTimeout(() => {
-              navigate("/");
-            }, 1000);
+            onAuthStateChanged(auth, (user) => {
+              console.log(user);
+              if (user.emailVerified) {
+                const uid = user.uid;
+                navigate("/Home/");
+              } else {
+                toast.warn("Verifica el email", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  className: "dark-toast",
+                });
+              }
+            });
 
-            const uid = user.uid;
-          } else {
-            toast.warn("Verifica el email", {
+            const user = userCredential.user;
+            // ...
+            console.log(user);
+          })
+          /* alerta de error*/
+          .catch((error) => {
+            toast.error("No existe", {
+              icon: "😅",
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -67,30 +89,12 @@ function Login() {
               progress: undefined,
               className: "dark-toast",
             });
-          }
-        });
-
-        const user = userCredential.user;
-        // ...
-        console.log(user);
-      })
-      /* alerta de error*/
-      .catch((error) => {
-        toast.error("No existe", {
-          icon: "😅",
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          className: "dark-toast",
-        });
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode + errorMessage);
-      });
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode + errorMessage);
+          })
+      );
+    });
   }
 
   const gugle = function () {

@@ -16,16 +16,19 @@ import {
 } from "react-bootstrap";
 import logo from "../../Assets/logo_sin_fondo.png";
 import "../Components.css";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { logout, useAuth } from "../../RegisterPage/AuthState";
 import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import {
-  getAuth,
-  onAuthStateChanged,
-  signOut,
-  emailVerified,
-} from "firebase/auth";
+  collection,
+  doc,
+  getFirestore,
+  query,
+  onSnapshot,
+} from "firebase/firestore";
+import firebase2 from "../../Home/Firebase2";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -39,19 +42,44 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(firebase2);
+const user = auth.currentUser;
 
+console.log(user);
 const Header = () => {
   const [cua, setcua] = useState(false);
+  const [users, setusers] = useState([]);
+  const navigate = useNavigate();
+
   function a() {
-    onAuthStateChanged(auth, setcua, (user) => {
-      if (user.emailVerified) {
-        const uid = user.uid;
-      }
+    const ref = query(collection(db, "users"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+
+      setusers(items);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setcua(item);
+      } /* hola buenas ya revivi */
     });
   }
+  console.log(cua);
 
-  a();
+  const filtrado = users.filter((x) => x.id == cua);
 
+  useEffect(() => {
+    a();
+  }, []);
+  /* Hacer cuando estes iniciado sesion se ponga tu nombre de perfil en el home */
   return (
     <div className="xd">
       <Navbar expand="lg" className="header" variant="dark">
@@ -60,7 +88,7 @@ const Header = () => {
             <Link to="/Home">
               <img
                 src={logo}
-                class="navImage"
+                className="navImage"
                 width="150"
                 height="auto"
                 className="d-inline-block align-top mx-auto ml-auto"
@@ -94,35 +122,41 @@ const Header = () => {
                 <Col></Col>
                 {cua ? (
                   <Col md={12} style={{ width: "200px" }}>
-                    <DropdownButton
-                      align="start"
-                      title="nombre de usuario"
-                      id="dropdown-menu-align-start"
-                      variant="outline-light"
-                    >
-                      <Dropdown.Item eventKey="1">
-                        <Link to="/Library">Tu biblioteca</Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="2">Perfil</Dropdown.Item>
-                      <Dropdown.Item eventKey="3">
-                        Actualizaciones
-                      </Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item
-                        eventKey="4"
-                        onClick={() => {
-                          signOut(auth)
-                            .then(() => {
-                              // Sign-out successful.
-                            })
-                            .catch((error) => {
-                              // An error happened.
-                            });
-                        }}
+                    {filtrado.map((item) => (
+                      <DropdownButton
+                        onSubmit={a}
+                        align="start"
+                        type="button"
+                        title={item.name}
+                        key={item.id}
+                        id="dropdown-menu-align-start"
+                        variant="outline-light"
                       >
-                        Salir
-                      </Dropdown.Item>
-                    </DropdownButton>
+                        <Dropdown.Item eventKey="1">
+                          <Link to="/Library">Tu biblioteca</Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
+                        <Dropdown.Item eventKey="3">
+                          Actualizaciones
+                        </Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item
+                          eventKey="4"
+                          onClick={() => {
+                            signOut(auth)
+                              .then(() => {
+                                window.location.reload(false);
+                                // Sign-out successful.
+                              })
+                              .catch((error) => {
+                                // An error happened.
+                              });
+                          }}
+                        >
+                          Salir
+                        </Dropdown.Item>
+                      </DropdownButton>
+                    ))}
                   </Col>
                 ) : (
                   <>
