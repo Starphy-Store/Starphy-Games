@@ -17,11 +17,13 @@ import CardStyle from "../src/Components/Cards/CardStyle";
 import Payment from "../src/Payment/PayCheckout";
 import DataIndex from "../src/DataIndex/DataIndex";
 import Library from "./Library/Library";
+import EditProfile from "./EditProfile/EditProfile";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import PrivateRoute from "./Components/RutasPrivadas/PrivateRoutes";
 
 function App() {
   return (
@@ -29,6 +31,9 @@ function App() {
       <Routes>
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
+        <Route path="/" element={<PrivateRoute />}>
+          <Route exact path="/EditProfile" element={<EditProfile />} />
+        </Route>
 
         <Route path="/Home/" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
