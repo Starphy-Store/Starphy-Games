@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button,Image } from "react-bootstrap";
 import GamesCarousel from "./GamesCarousel";
-import Payment from "../../Payment/Payment";
-import Mojang from "../../Assets/Mojang.png";
-import logoMinecraft from "../../Assets/1000.png";
 import { Link } from "react-router-dom";
 import "../GamesShow.css";
 import { useParams } from "react-router-dom";
@@ -47,24 +44,20 @@ const SecundaryImgs = () => {
   }, []);
 
   return (
+    
     <div>
       <Container className="GamesInfo">
         {filtrado2.map((item) => (
+        
           <Row>
             <Col md={7}>
               <GamesCarousel />
-
-              <h6>{item.categoria}</h6>
-    
-                <Image
-                  src={Mojang}
-                  style={{ width: "90px", align: "left" }}
-                  rounded
-                ></Image>
-                <div style={{align:"rigth"}}>
-                <h2 >Mojang</h2>
-                <p>{item.descrip}</p>
-                </div>
+              <h6 style={{color: "gray"}}>Categorias:</h6>
+              <h5>{item.categoria}</h5>
+              <h6 style={{color: "gray"}} className="pt-4">Descripcion:</h6>
+                <h5>{item.descrip}</h5>
+                <h6 style={{color: "gray"}} className="pt-4">Desarrolladora:</h6>
+                <h5><Link to="/payment">Mojang</Link></h5>
               
             </Col>
             <Col md={5}>
@@ -108,7 +101,8 @@ const SecundaryImgs = () => {
           </Row>
         ))}
       </Container>
-    </div>
+      
+    </div>  
   );
 };
 

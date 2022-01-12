@@ -103,18 +103,17 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/library">Biblioteca</Nav.Link>
-              <Nav.Link href="#action2">Link</Nav.Link>
-              <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Form className="d-flex">
+                <FormControl
+                  type="search"
+                  placeholder="Encuentra tus juegos "
+                  className="me-2"
+                  aria-label="Search"
+                  style={{width: "220px"}}
+                  variant="outline-light"
+                />
+                <Button variant="outline-light">Search</Button>
+              </Form>
             </Nav>
 
             <Container style={{ justifyContent: "right" }}>
@@ -131,6 +130,7 @@ const Header = () => {
                         key={item.id}
                         id="dropdown-menu-align-start"
                         variant="outline-light"
+                        style={{border:"0"}}
                       >
                         <Dropdown.Item eventKey="1">
                           <Link to="/Library">Tu biblioteca</Link>
@@ -166,6 +166,7 @@ const Header = () => {
                           variant="outline-light"
                           style={{
                             float: "right",
+                            border: "0"
                           }}
                         >
                           Registarse
@@ -181,6 +182,7 @@ const Header = () => {
                             paddingRight: "11px",
                             width: "100%",
                             textAlign: "center",
+                            border: "0"
                           }}
                           className="pr-3"
                         >
