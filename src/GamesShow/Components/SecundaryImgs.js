@@ -53,14 +53,23 @@ const SecundaryImgs = () => {
           <Row>
             <Col md={7}>
               <GamesCarousel />
-
+              <h6 style={{ color: "grey" }} className="pt-4">
+                Categorias:
+              </h6>
               <h6>{item.categoria}</h6>
               <Row className="pt-3">
-                <img
-                  src={Mojang}
-                  style={{ width: "90px", borderRadius: "15%", align: "left" }}
-                ></img>
-                <h3>{item.juego}</h3>
+                <h6 style={{ color: "grey" }} className="pt-4">
+                  Descripcion:
+                </h6>
+                <h6>{item.descrip}</h6>
+                <h6 style={{ color: "grey" }} className="pt-4">
+                  Desarrolladora:
+                </h6>
+                <h6>
+                  <a href="/DevProfile" style={{ color: "white" }}>
+                    Epic Games
+                  </a>
+                </h6>
               </Row>
             </Col>
             <Col md={5}>

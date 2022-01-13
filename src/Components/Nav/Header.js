@@ -88,7 +88,6 @@ const Header = () => {
             <Link to="/Home">
               <img
                 src={logo}
-                className="navImage"
                 width="150"
                 height="auto"
                 className="d-inline-block align-top mx-auto ml-auto"
@@ -103,18 +102,15 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/library">Biblioteca</Nav.Link>
-              <Nav.Link href="#action2">Link</Nav.Link>
-              <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Form className="d-flex" style={{ width: "300px" }}>
+                <FormControl
+                  type="search"
+                  placeholder="Busca tus juegos"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-light">Search</Button>
+              </Form>
             </Nav>
 
             <Container style={{ justifyContent: "right" }}>
@@ -136,15 +132,14 @@ const Header = () => {
                           <Link to="/Library">Tu biblioteca</Link>
                         </Dropdown.Item>
                         <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
-                        <Dropdown.Item eventKey="3">
-                          Actualizaciones
-                        </Dropdown.Item>
+                        <Dropdown.Item eventKey="3">Tu perfil</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item
                           eventKey="4"
                           onClick={() => {
                             signOut(auth)
                               .then(() => {
+                                navigate("/Home");
                                 window.location.reload(false);
                                 // Sign-out successful.
                               })

@@ -43,11 +43,29 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(firebase2);
 
-const PrivateRoute = () => {
-  const auth = null; // determine if authorized, from context or however you're doing it
+const PrivateRouteLibrary = () => {
+  const [verify, setverify] = useState();
+  const [verify2, setverify2] = useState();
 
-  // If authorized, return an outlet that will render child elements
-  // If not, return element that will navigate to login page
-  return auth ? <Outlet /> : <Navigate to="/Home/" />;
+  function privada() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setverify(item);
+        setverify2(item);
+      }
+    });
+  }
+
+  useEffect(() => {
+    privada();
+  }, []);
+
+  return verify ? <Outlet /> : <Navigate to="/library/" />;
+
+  verify2 ? <Outlet /> : <Navigate to="/EditProfile/" />;
 };
-export default PrivateRoute;
+
+export default PrivateRouteLibrary;
