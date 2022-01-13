@@ -69,7 +69,7 @@ const Header = () => {
         const uids = user.uid;
         item.push(uids);
         setcua(item);
-      } /* hola buenas ya revivi */
+      }
     });
   }
   console.log(cua);
