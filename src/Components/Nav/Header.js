@@ -127,6 +127,7 @@ const Header = () => {
                         key={item.id}
                         id="dropdown-menu-align-start"
                         variant="outline-light"
+                        style={{ border: "0" }}
                       >
                         <Dropdown.Item eventKey="1">
                           <Link to="/Library">Tu biblioteca</Link>
@@ -161,6 +162,7 @@ const Header = () => {
                           variant="outline-light"
                           style={{
                             float: "right",
+                            border: "0",
                           }}
                         >
                           Registarse
@@ -176,6 +178,7 @@ const Header = () => {
                             paddingRight: "11px",
                             width: "100%",
                             textAlign: "center",
+                            border: "0",
                           }}
                           className="pr-3"
                         >

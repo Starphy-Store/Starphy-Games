@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import GamesCarousel from "./GamesCarousel";
-import Payment from "../../Payment/Payment";
-import Mojang from "../../Assets/Mojang.png";
-import logoMinecraft from "../../Assets/1000.png";
 import { Link } from "react-router-dom";
 import "../GamesShow.css";
 import { useParams } from "react-router-dom";
