@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -31,27 +31,43 @@ import PrivateRoute, {
 } from "./Components/RutasPrivadas/PrivateRoutes";
 import { useAuth } from "./RegisterPage/AuthState";
 import { Redirect } from "wouter";
+import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+const firebaseConfig = {
+  apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
+  authDomain: "usuarios-b78e1.firebaseapp.com",
+  projectId: "usuarios-b78e1",
+  storageBucket: "usuarios-b78e1.appspot.com",
+  messagingSenderId: "779291947290",
+  appId: "1:779291947290:web:9bed27d795c7d614183ca3",
+  measurementId: "${config.measurementId}",
+};
 
-function RoutePrivate() {
-  const auth = useAuth;
-  return auth ? <Outlet /> : <Navigate to="/login" />;
-}
-
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 function App() {
+  const [id, setId] = useState(false);
+  function prueba() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setId(item);
+      }
+    });
+  }
+
+  useEffect(() => {
+    prueba();
+  }, []);
   return (
     <>
       <Routes>
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
-        <Route
-          path="/EditProfile"
-          element={
-            <PrivateRoute>
-              <EditProfile />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/library" element={<Library />} />
+        {id && <Route path="/EditProfile" element={<EditProfile />} />}
+        {id && <Route path="/library" element={<Library />} />}
         <Route path="/Home/" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
