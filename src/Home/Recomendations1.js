@@ -11,9 +11,7 @@ function Recomendations1(props) {
   return (
     <Carousel variant="dark" indicators={false} className="mt-5">
       <Carousel.Item>
-        <Container>
-          <CardStyle />
-        </Container>
+        <CardStyle />
       </Carousel.Item>
     </Carousel>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../Components/Nav/Header";
-import Slider from "../Home/Recomendations1";
+import CardStyle from "../Components/Cards/CardStyle";
 import "./DevProfile.css";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -21,10 +21,10 @@ export default function DevProfile() {
         </div>
       </Container>
       <div style={{ backgroundColor: "white", height: "70vh" }}>
-        <h6 className="px-3">3 juegos publicados</h6>
+        <h6 className="px-3 pt-3">3 juegos publicados</h6>
         <h6 className="px-3">+1.000 descargas</h6>
         <Container className="pt-5">
-          <Slider />
+          <CardStyle></CardStyle>
         </Container>
       </div>
     </>

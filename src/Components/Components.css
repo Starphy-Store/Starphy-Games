@@ -28,7 +28,7 @@ Nav.Link {
   width: 100%;
 }
 .sliderImg {
-  height: 80vh;
+  height: 100%;
   width: auto;
   object-fit: cover;
 }

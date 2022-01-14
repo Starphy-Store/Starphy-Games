@@ -15,8 +15,8 @@ import {
 import logo from "../../Assets/logo_sin_fondo.png";
 import "../Components.css";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { logout, useAuth } from "../../RegisterPage/AuthState";
-import React, { useEffect, useState } from "react";
+import { logout } from "../../RegisterPage/AuthState";
+import React, { createContext, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import {
@@ -28,6 +28,8 @@ import {
 } from "firebase/firestore";
 import firebase2 from "../../Home/Firebase2";
 import { Redirect } from "wouter";
+import { validate } from "uuid";
+import { child } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -41,31 +43,30 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
 const db = getFirestore(firebase2);
 
-const PrivateRouteLibrary = () => {
-  const [verify, setverify] = useState();
-  const [verify2, setverify2] = useState();
-
-  function privada() {
-    onAuthStateChanged(auth, (user) => {
+export const PrivateRoute = ({ children }) => {
+  function prueba() {
+    let status = false;
+    auth.onAuthStateChanged((user) => {
       if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setverify(item);
-        setverify2(item);
+        console.log("logged in user:", user.email);
+        status = true;
+      } else {
+        console.log("user is logged out");
       }
     });
+    return status;
   }
+  let userStatus = auth.prueba;
 
-  useEffect(() => {
-    privada();
-  }, []);
-
-  return verify ? <Outlet /> : <Navigate to="/library/" />;
-
-  verify2 ? <Outlet /> : <Navigate to="/EditProfile/" />;
+  const isAuthenticated = onAuthStateChanged;
+  console.log(userStatus);
+  if (prueba) {
+    return children;
+  }
+  return <Navigate to="/Home" />;
 };
 
-export default PrivateRouteLibrary;
+export default PrivateRoute;

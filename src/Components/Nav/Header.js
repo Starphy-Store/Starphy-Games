@@ -105,7 +105,7 @@ const Header = () => {
               <Form className="d-flex" style={{ width: "300px" }}>
                 <FormControl
                   type="search"
-                  placeholder="Busca tus juegos"
+                  placeholder="Busca tus juegos..."
                   className="me-2"
                   aria-label="Search"
                 />
@@ -133,7 +133,9 @@ const Header = () => {
                           <Link to="/Library">Tu biblioteca</Link>
                         </Dropdown.Item>
                         <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
-                        <Dropdown.Item eventKey="3">Tu perfil</Dropdown.Item>
+                        <Dropdown.Item eventKey="3">
+                          <Link to="EditProfile">Tu perfil</Link>
+                        </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item
                           eventKey="4"

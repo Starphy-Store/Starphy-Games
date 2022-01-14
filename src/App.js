@@ -19,17 +19,23 @@ import DataIndex from "../src/DataIndex/DataIndex";
 import Library from "./Library/Library";
 import EditProfile from "./EditProfile/EditProfile";
 import DevProfile from "../src/DevProfile/DevProfile";
+import CardsBacanas from "../src/Components/CardsBacanas/CardsBacanas";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import PrivateRouteEditProfile, {
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import PrivateRoute, {
   AuthContextProvider,
   useAuthState,
 } from "./Components/RutasPrivadas/PrivateRoutes";
 import { useAuth } from "./RegisterPage/AuthState";
 import { Redirect } from "wouter";
+
+function RoutePrivate() {
+  const auth = useAuth;
+  return auth ? <Outlet /> : <Navigate to="/login" />;
+}
 
 function App() {
   return (
@@ -37,18 +43,21 @@ function App() {
       <Routes>
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
-        <Route path="/" element={<PrivateRouteEditProfile />}>
-          <Route path="/EditProfile" element={<EditProfile />} />
-        </Route>
-
+        <Route
+          path="/EditProfile"
+          element={
+            <PrivateRoute>
+              <EditProfile />
+            </PrivateRoute>
+          }
+        />
         <Route path="/library" element={<Library />} />
-
         <Route path="/Home/" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
-        <Route path="/register" element={<Register />} />
-
+        <Route path="/register" element={<Register />} />r
+        <Route path="/CardsBacanas" element={<CardsBacanas />} />
         <Route path="/Payment/:id" element={<Payment />} />
         <Route path="/DataIndex" element={<DataIndex />} />
         <Route path="/DevProfile" element={<DevProfile />} />

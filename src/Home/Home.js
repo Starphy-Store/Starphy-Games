@@ -20,7 +20,7 @@ const Home = ({ game }) => {
     <div>
       <SliderDelHome />
       <Header />
-      <div style={{ marginTop: "70vh" }}>
+      <div style={{ marginTop: "73.5vh" }}>
         {/*  <img src={Barrita}></img> */}
         <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>ç
       </div>

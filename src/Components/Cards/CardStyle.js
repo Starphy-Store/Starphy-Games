@@ -60,14 +60,17 @@ const TopGames = function () {
     getGames();
   }, []);
   //Usar filter
-
+  function truncate(input) {
+    if (input.length > 20) return input.substring(0, 20) + "...";
+    else return input;
+  }
   return (
     <>
       <Container>
         {filtros.map((item) => (
           <Container className="carousel5">
             <Row>
-              <Col>
+              <Col md={12}>
                 <Card className="border-0" style={{ width: "100%" }}>
                   <Link to={`/GamesShow/${item.juego}`}>
                     <Card.Img
@@ -78,7 +81,7 @@ const TopGames = function () {
                   </Link>
                   <Card.Body>
                     <Card.Title>
-                      <h4>{item.juego}</h4>
+                      <h4>{truncate(item.juego)}</h4>
                       <h6>Mojang</h6>
                       <h6>{item.precio}</h6>
                     </Card.Title>
