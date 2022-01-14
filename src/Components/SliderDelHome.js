@@ -22,7 +22,7 @@ function SliderDelHome() {
         <Carousel.Item>
           <img
             className="d-block w-100 h-70"
-            src={MinecraftImg}
+            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Publica%20tus%20juegos%20gratis%20(1).png?alt=media&token=17af5675-45b7-4e7b-858e-70f5fbb6b3d1"
             className="sliderImg"
             alt="First slide"
           />

@@ -88,7 +88,6 @@ const Header = () => {
             <Link to="/Home">
               <img
                 src={logo}
-                className="navImage"
                 width="150"
                 height="auto"
                 className="d-inline-block align-top mx-auto ml-auto"
@@ -103,14 +102,12 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Form className="d-flex">
+              <Form className="d-flex" style={{ width: "300px" }}>
                 <FormControl
                   type="search"
-                  placeholder="Encuentra tus juegos "
+                  placeholder="Busca tus juegos..."
                   className="me-2"
                   aria-label="Search"
-                  style={{width: "220px"}}
-                  variant="outline-light"
                 />
                 <Button variant="outline-light">Search</Button>
               </Form>
@@ -130,14 +127,14 @@ const Header = () => {
                         key={item.id}
                         id="dropdown-menu-align-start"
                         variant="outline-light"
-                        style={{border:"0"}}
+                        style={{ border: "0" }}
                       >
                         <Dropdown.Item eventKey="1">
                           <Link to="/Library">Tu biblioteca</Link>
                         </Dropdown.Item>
                         <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
                         <Dropdown.Item eventKey="3">
-                          Actualizaciones
+                          <Link to="EditProfile">Tu perfil</Link>
                         </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item
@@ -145,6 +142,7 @@ const Header = () => {
                           onClick={() => {
                             signOut(auth)
                               .then(() => {
+                                navigate("/Home");
                                 window.location.reload(false);
                                 // Sign-out successful.
                               })
@@ -166,7 +164,7 @@ const Header = () => {
                           variant="outline-light"
                           style={{
                             float: "right",
-                            border: "0"
+                            border: "0",
                           }}
                         >
                           Registarse
@@ -182,7 +180,7 @@ const Header = () => {
                             paddingRight: "11px",
                             width: "100%",
                             textAlign: "center",
-                            border: "0"
+                            border: "0",
                           }}
                           className="pr-3"
                         >

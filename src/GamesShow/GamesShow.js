@@ -8,11 +8,11 @@ import SecundaryImgs from "./Components/SecundaryImgs";
 function GamesShow() {
   return (
     <>
-    <Container>
-      <Col>
-      <Header></Header>
-      </Col>
-    </Container>
+      <Container>
+        <Col>
+          <Header></Header>
+        </Col>
+      </Container>
       <Container>
         <Slider />
       </Container>
