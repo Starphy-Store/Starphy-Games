@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Container, Col } from "react-bootstrap";
 
 //importacion del header
 import Header from "../Components/Nav/Header";
@@ -18,9 +19,15 @@ import CompatibleGames from "../Components/compatibleDownloadGames/CompatibleGam
 const Home = ({ game }) => {
   return (
     <div>
-      <SliderDelHome />
-      <Header />
-      <div style={{ marginTop: "73.5vh" }}>
+      <Container>
+        <Col>
+          <Header />
+        </Col>
+      </Container>
+      <Container>
+        <SliderDelHome />
+      </Container>
+      <div style={{ paddingTop: "90vh" }}>
         {/*  <img src={Barrita}></img> */}
         <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>ç
       </div>

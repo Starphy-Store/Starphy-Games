@@ -1,11 +1,5 @@
 /* AQUI VA TODO EL CSS DE LA CARPETA COMPONENTES NADA MAS :D */
 
-.navImage {
-  width: 125px;
-
-  position: absolute;
-}
-
 .header {
   background: rgb(33, 37, 41);
   background: linear-gradient(
@@ -28,7 +22,7 @@ Nav.Link {
   width: 100%;
 }
 .sliderImg {
-  height: 100%;
+  height: 90vh;
   width: auto;
   object-fit: cover;
 }

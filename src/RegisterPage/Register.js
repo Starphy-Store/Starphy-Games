@@ -78,6 +78,7 @@ function Register() {
           email: emailReg,
           pass: passwordReg,
           id: auth.currentUser.uid,
+          rol: "user",
         });
         console.log(auth);
         toast.info("Verifique su correo electronico", {
