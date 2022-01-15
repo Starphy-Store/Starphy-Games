@@ -20,6 +20,7 @@ import Library from "./Library/Library";
 import EditProfile from "./EditProfile/EditProfile";
 import DevProfile from "../src/DevProfile/DevProfile";
 import CardsBacanas from "../src/Components/CardsBacanas/CardsBacanas";
+import DevRegister from "../src/DevRegister/DevRegister";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -77,6 +78,7 @@ function App() {
         <Route path="/Payment/:id" element={<Payment />} />
         <Route path="/DataIndex" element={<DataIndex />} />
         <Route path="/DevProfile" element={<DevProfile />} />
+        <Route path="/DevRegister" element={<DevRegister />} />
       </Routes>
     </>
   );

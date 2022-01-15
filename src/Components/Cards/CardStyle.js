@@ -44,6 +44,7 @@ const TopGames = function () {
       querySnapshot.forEach((doc) => {
         items.push(doc.data(), doc.id);
       });
+      console.log();
       setGame(items);
     });
 
@@ -68,9 +69,9 @@ const TopGames = function () {
     <>
       <Container>
         {filtros.map((item) => (
-          <Container className="carousel5">
+          <Container key={item.id} className="carousel5">
             <Row>
-              <Col md={12}>
+              <Col>
                 <Card className="border-0" style={{ width: "100%" }}>
                   <Link to={`/GamesShow/${item.juego}`}>
                     <Card.Img
