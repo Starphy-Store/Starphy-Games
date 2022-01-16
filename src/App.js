@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-//importacion del Home
+//importacion de todo ajsaj
 import Home from "./Home/Home";
-
-//importacion del Login
-
 import Login from "./LoginPage/Login";
 import Recuperar from "./LoginPage/Recover";
 import CreatePass from "./LoginPage/CreatePassword.js";
@@ -21,6 +18,8 @@ import EditProfile from "./EditProfile/EditProfile";
 import DevProfile from "../src/DevProfile/DevProfile";
 import CardsBacanas from "../src/Components/CardsBacanas/CardsBacanas";
 import DevRegister from "../src/DevRegister/DevRegister";
+import EditDevProfile from "../src/EditDevProfile/EditDevProfile";
+import DownloadGame from "../src/DownloadGame/DownloadGame";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -79,6 +78,8 @@ function App() {
         <Route path="/DataIndex" element={<DataIndex />} />
         <Route path="/DevProfile" element={<DevProfile />} />
         <Route path="/DevRegister" element={<DevRegister />} />
+        <Route path="/EditDevProfile" element={<EditDevProfile />} />
+        <Route path="/DownloadGame" element={<DownloadGame />} />
       </Routes>
     </>
   );

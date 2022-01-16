@@ -114,7 +114,7 @@ function Register() {
         const errorMessage = error.message;
         // ..
         console.log("no sory");
-        toast.error("Ya existe correo", {
+        toast.error("Ya existe esa cuenta", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
