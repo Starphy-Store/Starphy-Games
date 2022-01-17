@@ -23,7 +23,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -35,20 +35,30 @@ const firebaseConfig = {
   measurementId: "${config.measurementId}",
 };
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
-const db = getFirestore(firebase2);
-
+const auth = getAuth(app);
+const db = getFirestore();
+const storage = getStorage(app);
 export default function DevRegister() {
   const auth = getAuth(app);
-  const storage = getStorage(app);
+
   toast.configure();
-  const navigate = useNavigate();
+
+  let urlDescargar;
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
-  const [image, setImage] = useState("");
+
+  async function fileHandler(e) {
+    const archivolocal = e.target.files[0];
+
+    const archivoRef = ref(storage, `imagenesProfile/${archivolocal.name}`);
+
+    await uploadBytes(archivoRef, archivolocal);
+
+    urlDescargar = getDownloadURL(archivoRef);
+  }
 
   function RegisterDev(event) {
     const form = event.currentTarget;
@@ -56,25 +66,16 @@ export default function DevRegister() {
       event.preventDefault();
       event.stopPropagation();
     }
-
     event.preventDefault();
-
-    if (image == null) {
-      return storage.ref(`/images/${image.name}`).put(image);
-    }
-    console.log(image);
-
     createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
         addDoc(collection(db, "users"), {
           name: usernameReg,
           email: emailReg,
           pass: passwordReg,
-          imagen: image,
           id: auth.currentUser.uid,
-          rol: "dev",
+          photoProfile: urlDescargar,
         });
-
         toast.info("Verifique su correo electronico", {
           icon: "📨",
           position: "top-right",
@@ -108,7 +109,7 @@ export default function DevRegister() {
         const errorMessage = error.message;
         // ..
         console.log("no sory");
-        toast.error("Ya existe correo", {
+        toast.error("Ya existe esa cuenta", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -224,12 +225,7 @@ export default function DevRegister() {
               <Form.Label style={{ color: "#E5E5E5" }} className="pl-3">
                 Selecciona la foto de tu desarrolladora
               </Form.Label>
-              <Form.Control
-                type="file"
-                onChange={(e) => {
-                  setImage(e.target.files[0]);
-                }}
-              />
+              <Form.Control type="file" onChange={fileHandler} />
             </Form.Group>
             <div className="d-grid my-5 ">
               <Button
