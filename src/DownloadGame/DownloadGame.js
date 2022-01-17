@@ -14,7 +14,8 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 function download() {
   const storage = getStorage();
-  getDownloadURL(ref(storage, "UCH..v1.8.22.rar"))
+
+  getDownloadURL(ref(storage, "Publica tus juegos gratis (1).png"))
     .then((url) => {
       const xhr = new XMLHttpRequest();
       xhr.responseType = "blob";
@@ -23,9 +24,12 @@ function download() {
       };
       xhr.open("GET", url);
       xhr.send();
+      var filename = "XXX.zip";
+      xhr.href = url;
+      xhr.download = filename;
+      xhr.click();
+      window.URL.revokeObjectURL(url);
       // Or inserted into an <img> element
-      const img = document.getElementById("myimg");
-      img.setAttribute("src", url);
     })
     .catch((error) => {
       // Handle any errors
@@ -40,7 +44,7 @@ export default function DownloadGame() {
       <Button
         onClick={(e) => {
           e.preventDefault();
-          download(); /*ni idea ya no me sirve la cabeza jasja dale a mirmir taluego */
+          download();
         }}
       >
         descargar

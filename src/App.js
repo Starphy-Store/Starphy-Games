@@ -20,6 +20,7 @@ import CardsBacanas from "../src/Components/CardsBacanas/CardsBacanas";
 import DevRegister from "../src/DevRegister/DevRegister";
 import EditDevProfile from "../src/EditDevProfile/EditDevProfile";
 import DownloadGame from "../src/DownloadGame/DownloadGame";
+import SearchPage from "../src/SearchPage/SearchPage";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -80,6 +81,7 @@ function App() {
         <Route path="/DevRegister" element={<DevRegister />} />
         <Route path="/EditDevProfile" element={<EditDevProfile />} />
         <Route path="/DownloadGame" element={<DownloadGame />} />
+        <Route path="/SearchPage/:search" element={<SearchPage />} />
       </Routes>
     </>
   );
