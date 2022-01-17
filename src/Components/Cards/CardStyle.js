@@ -30,8 +30,6 @@ const TopGames = function () {
   const [game, setGame] = useState([]);
   const [gameName, setgameName] = useState([]);
 
-  const limitGame = game.slice(0, 4);
-
   const filtros = game.filter((x) => x.esunjuego == "si");
 
   const tried = filtros.map((x) => x.juego);
@@ -62,7 +60,7 @@ const TopGames = function () {
   }, []);
   //Usar filter
   function truncate(input) {
-    if (input.length > 20) return input.substring(0, 20) + "...";
+    if (input.length >14) return input.substring(0, 14) + "...";
     else return input;
   }
   return (

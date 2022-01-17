@@ -43,7 +43,7 @@ function GamesCarousel() {
   return (
     <div>
       {filtrado2.map((item) => (
-        <Carousel indicators={false} className="pb-4">
+        <Carousel indicators={false} className="pb-4 minicarousel">
           <Carousel.Item>
             <Row>
               <Col md={4}>
