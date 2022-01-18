@@ -72,12 +72,16 @@ const TopGames = function () {
           <Container key={item.id} className="carousel5">
             <Row>
               <Col>
-                <Card className="border-0" style={{ width: "100%" }}>
+                <Card
+                  className="border-0"
+                  style={{ width: "100%", borderRadius: "15px" }}
+                >
                   <Link to={`/GamesShow/${item.juego}`}>
                     <Card.Img
                       variant="top"
                       src={item.imagen}
                       className="img-fluid img-card"
+                      style={{ borderRadius: "15px 15px 0 0" }}
                     />
                   </Link>
                   <Card.Body>

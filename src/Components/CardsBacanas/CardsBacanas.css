@@ -18,6 +18,10 @@
   transition: all linear 0.25s;
   height: 100%;
   width: auto;
+  background: linear-gradient(70deg, black, white);
+}
+.img-responsive {
+  z-index: -1;
 }
 .profile-card-2 .profile-name {
   position: absolute;
@@ -64,7 +68,8 @@
   margin-bottom: 10px;
 }
 
-.background {
+.sexo {
   background-color: aqua;
   height: 100px;
+  z-index: 2;
 }

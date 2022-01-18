@@ -42,8 +42,8 @@ export default function DevRegister() {
   const auth = getAuth(app);
 
   toast.configure();
-
   let urlDescargar;
+
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [usernameReg, setUsernameReg] = useState("");
@@ -57,23 +57,26 @@ export default function DevRegister() {
 
     await uploadBytes(archivoRef, archivolocal);
 
-    urlDescargar = getDownloadURL(archivoRef);
+    urlDescargar = await getDownloadURL(archivoRef);
+    console.log(urlDescargar);
   }
 
-  function RegisterDev(event) {
+  async function RegisterDev(event) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, emailReg, passwordReg)
+
+    createUserWithEmailAndPassword(auth, emailReg, passwordReg, urlDescargar)
       .then((userCredential) => {
         addDoc(collection(db, "users"), {
           name: usernameReg,
           email: emailReg,
           pass: passwordReg,
           id: auth.currentUser.uid,
+          rol: "dev",
           photoProfile: urlDescargar,
         });
         toast.info("Verifique su correo electronico", {

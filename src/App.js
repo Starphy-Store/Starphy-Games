@@ -20,6 +20,8 @@ import CardsBacanas from "../src/Components/CardsBacanas/CardsBacanas";
 import DevRegister from "../src/DevRegister/DevRegister";
 import EditDevProfile from "../src/EditDevProfile/EditDevProfile";
 import DownloadGame from "../src/DownloadGame/DownloadGame";
+import SearchPage from "../src/SearchPage/SearchPage";
+import UploadGame from "../src/UploadGame/UploadGame.js";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -33,6 +35,13 @@ import { useAuth } from "./RegisterPage/AuthState";
 import { Redirect } from "wouter";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import firebase2 from "./Home/Firebase2";
+import {
+  getFirestore,
+  query,
+  onSnapshot,
+  collection,
+} from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
   authDomain: "usuarios-b78e1.firebaseapp.com",
@@ -45,19 +54,34 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 function App() {
-  const [id, setId] = useState(false);
+  const [user, setuser] = useState(false);
+  const [perfil, setPerfil] = useState([]);
+  const filtrardev = perfil.filter((x) => x.id == user);
+  console.log(filtrardev);
   function prueba() {
+    const ref = query(collection(db, "users"));
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+        console.log(items);
+      });
+      setPerfil(items);
+    });
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const item = [];
         const uids = user.uid;
         item.push(uids);
-        setId(item);
+        setuser(item);
       }
     });
   }
 
+  console.log(user);
   useEffect(() => {
     prueba();
   }, []);
@@ -66,8 +90,8 @@ function App() {
       <Routes>
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
-        {id && <Route path="/EditProfile" element={<EditProfile />} />}
-        {id && <Route path="/library" element={<Library />} />}
+        {user && <Route path="/EditProfile" element={<EditProfile />} />}
+        {user && <Route path="/library" element={<Library />} />}
         <Route path="/Home/" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
@@ -76,16 +100,14 @@ function App() {
         <Route path="/CardsBacanas" element={<CardsBacanas />} />
         <Route path="/Payment/:id" element={<Payment />} />
         <Route path="/DataIndex" element={<DataIndex />} />
-        <Route path="/DevProfile" element={<DevProfile />} />
+        <Route path="/DevProfile/:id" element={<DevProfile />} />
         <Route path="/DevRegister" element={<DevRegister />} />
         <Route path="/EditDevProfile" element={<EditDevProfile />} />
         <Route path="/DownloadGame" element={<DownloadGame />} />
+        <Route path="/SearchPage/:search" element={<SearchPage />} />
+        {filtrardev && <Route path="/UploadGame" element={<UploadGame />} />}
       </Routes>
     </>
   );
 }
-
-// <Container className="loginContainer">
-//   <Login />
-// </Container>
 export default App;

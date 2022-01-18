@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import firebase2 from "../../src/Home/Firebase2";
+import { initializeApp } from "firebase/app";
 import {
   query,
   collection,
@@ -12,19 +13,31 @@ import {
   setDoc,
   addDoc,
 } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+const firebaseConfig = {
+  apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
+  authDomain: "usuarios-b78e1.firebaseapp.com",
+  projectId: "usuarios-b78e1",
+
+  storageBucket: "usuarios-b78e1.appspot.com",
+  messagingSenderId: "779291947290",
+  appId: "1:779291947290:web:9bed27d795c7d614183ca3",
+  measurementId: "${config.measurementId}",
+};
 const db = getFirestore(firebase2);
+const app = initializeApp(firebaseConfig);
 
 function DataIndex() {
+  const auth = getAuth(app);
   const [Des, setDes] = useState("");
   const [img, setimg] = useState("");
   const [img2, setimg2] = useState("");
   const [img3, setimg3] = useState("");
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState("");
-  const [esunjuego, setesunjuego] = useState("");
   const [categoria, setcategoria] = useState("");
-  const [creator, setcreator] = useState("");
 
+  console.log(auth);
   function CrearJuego(event) {
     event.preventDefault();
     console.log("render");
@@ -36,9 +49,10 @@ function DataIndex() {
       imagen3: img3,
       juego: game,
       precio: valor,
-      esunjuego: esunjuego,
+      esunjuego: "si",
       categoria: categoria,
-      creator: creator,
+      nombredev: "nada",
+      idprofile: auth.currentUser.uid,
     });
   }
 
@@ -66,16 +80,8 @@ function DataIndex() {
     setvalor(event.target.value);
   };
 
-  const updateesunjuego = function (event) {
-    setesunjuego(event.target.value);
-  };
-
   const updatecategoria = function (event) {
     setcategoria(event.target.value);
-  };
-
-  const updatecreator = function (event) {
-    setcreator(event.target.value);
   };
 
   return (
@@ -91,16 +97,6 @@ function DataIndex() {
                 value={game}
                 onChange={updategame}
                 placeholder="Ingresa el nombre de un juego"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Poner siempre que si:</Form.Label>
-              <Form.Control
-                type="text"
-                value={esunjuego}
-                onChange={updateesunjuego}
-                placeholder="PON SI 😡🤑 PON SI 😡🤑 PON SI 😡🤑 PON SI 😡🤑 PON SI 😡🤑"
               />
             </Form.Group>
 
@@ -134,16 +130,6 @@ function DataIndex() {
                 value={img2}
                 onChange={updateimg2}
                 placeholder="URL de firestorage 2"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Creador o creadores</Form.Label>
-              <Form.Control
-                type="text"
-                value={creator}
-                onChange={updatecreator}
-                placeholder="Steve Jobs"
               />
             </Form.Group>
 

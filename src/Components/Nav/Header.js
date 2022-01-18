@@ -29,6 +29,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import firebase2 from "../../Home/Firebase2";
+import Regex from "./Regex";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -45,10 +46,13 @@ const auth = getAuth(app);
 const db = getFirestore(firebase2);
 const user = auth.currentUser;
 
-console.log(user);
 const Header = () => {
   const [cua, setcua] = useState(false);
   const [users, setusers] = useState([]);
+  const [juegos, setjuegos] = useState([]);
+  const [search, setsearch] = useState("");
+  const [result, setresult] = useState("");
+
   const navigate = useNavigate();
 
   function a() {
@@ -72,14 +76,47 @@ const Header = () => {
       }
     });
   }
-  console.log(cua);
+
+  function b() {
+    const ref = query(collection(db, "games"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const juegodb = [];
+      querySnapshot.forEach((doc) => {
+        juegodb.push(doc.data());
+      });
+
+      setjuegos(juegodb);
+    });
+  }
 
   const filtrado = users.filter((x) => x.id == cua);
 
+  console.log(juegos);
+
+  //barra de busqueda
+  const SearchGames = (e) => {
+    setsearch(e.target.value);
+    filterData(e.target.value);
+  };
+  console.log(result);
+
+  console.log(search);
+  const filterData = (search) => {
+    var resultadosBusqueda = juegos.filter((x) => {
+      if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
+        return x === true;
+      }
+    });
+
+    setresult(resultadosBusqueda);
+  };
+
   useEffect(() => {
     a();
+    b();
   }, []);
-  /* Hacer cuando estes iniciado sesion se ponga tu nombre de perfil en el home */
+
   return (
     <div className="xd">
       <Navbar expand="lg" className="header" variant="dark">
@@ -102,14 +139,18 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Form className="d-flex" style={{ width: "300px" }}>
+              {/* Barra de busqueda */}
+              <Form className="d-flex" style={{ width: "500px" }}>
                 <FormControl
                   type="search"
-                  placeholder="Busca tus juegos..."
+                  placeholder="Que tienes ganas de jugar hoy?"
                   className="me-2"
                   aria-label="Search"
+                  onChange={SearchGames}
                 />
-                <Button variant="outline-light">Search</Button>
+                <Link to={`/SearchPage/${search}`}>
+                  <Button variant="outline-light">Search</Button>
+                </Link>
               </Form>
             </Nav>
 
