@@ -45,31 +45,48 @@ export default function SearchPage() {
   useEffect(() => {
     getGames();
   }, []);
+  function truncate(input) {
+    if (input.length > 20) return input.substring(0, 20) + "...";
+    else return input;
+  }
   return (
     <>
       <Header></Header>
+      <Container style={{ justifyContent: "left" }}>
+        <h5 style={{ color: "white", alignText: "center" }} className="pt-5">
+          Resultados de: {search}
+        </h5>
+      </Container>
       <Container>
         {filtrado2.map((item) => (
-          <div className="container">
-            <div className="row">
-              <div className="col-md-3">
-                <h4 className="text-center">
-                  <strong>STYLE 1</strong>
-                </h4>
-                <hr />
-                <div className="profile-card-2">
-                  <img src={item.imagen} className="img img-responsive" />
-                  <div className="uno">
-                    <div className="profile-name">{item.juego}</div>
-                    <div className="profile-username">{item.creator}</div>
-                    <div className="profile-icons">
-                      <h5>{item.precio}</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Container
+            key={item.id}
+            className="carousel5"
+            style={{ justifyContent: "left" }}
+            className="pt-"
+          >
+            <br></br>
+            <Row>
+              <Col>
+                <Card className="border-0" style={{ width: "100%" }}>
+                  <Link to={`/GamesShow/${item.juego}`}>
+                    <Card.Img
+                      variant="top"
+                      src={item.imagen}
+                      className="img-fluid img-card"
+                    />
+                  </Link>
+                  <Card.Body>
+                    <Card.Title>
+                      <h4>{truncate(item.juego)}</h4>
+                      <h6>{item.creator}</h6>
+                      <h6>{item.precio}</h6>
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
         ))}
       </Container>
     </>

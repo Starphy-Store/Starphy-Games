@@ -17,11 +17,16 @@ const db = getFirestore(firebase2);
 export default function DevProfile() {
   const { id } = useParams();
   const [perfil, setPerfil] = useState([]);
+  const [juego, setJuegos] = useState([]);
 
   const filtradoPerfil = perfil.filter((x) => x.rol == "dev");
 
+  const filtrarJuego = juego.filter((x) => x.id == id);
+
+  console.log(juego);
   function DevPerfil() {
     const ref = query(collection(db, "users"));
+    const refgames = query(collection(db, "games"));
 
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
@@ -30,6 +35,15 @@ export default function DevProfile() {
         console.log(items);
       });
       setPerfil(items);
+    });
+
+    onSnapshot(refgames, (querySnapshot) => {
+      const item = [];
+      querySnapshot.forEach((doc) => {
+        item.push(doc.data());
+        console.log(item);
+      });
+      setJuegos(item);
     });
   }
 

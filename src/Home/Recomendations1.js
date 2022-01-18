@@ -9,7 +9,7 @@ import "./Home.css";
 
 function Recomendations1(props) {
   return (
-    <Carousel variant="dark" indicators={false} className="mt-5">
+    <Carousel variant="dark" indicators={false} className="mt-3">
       <Carousel.Item>
         <CardStyle />
       </Carousel.Item>

@@ -63,8 +63,11 @@ const SecundaryImgs = () => {
                   Desarrolladora:
                 </h6>
                 <h6>
-                  <a href="/DevProfile" style={{ color: "white" }}>
-                    Epic Games
+                  <a
+                    href={`/DevProfile/${item.creator}`}
+                    style={{ color: "white" }}
+                  >
+                    {item.creator}
                   </a>
                 </h6>
               </Row>
@@ -79,7 +82,6 @@ const SecundaryImgs = () => {
                   <div className="GamesPayment pt-4">
                     <h4>{item.precio}</h4>
 
-                    {/* pilas que en el href va a el redireccionamiento */}
                     <Link to={`/payment/${item.juego}`}>
                       <Button
                         variant="light"

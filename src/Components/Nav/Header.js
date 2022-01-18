@@ -29,6 +29,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import firebase2 from "../../Home/Firebase2";
+import Regex from "./Regex";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -51,6 +52,7 @@ const Header = () => {
   const [juegos, setjuegos] = useState([]);
   const [search, setsearch] = useState("");
   const [result, setresult] = useState("");
+
   const navigate = useNavigate();
 
   function a() {
@@ -92,6 +94,7 @@ const Header = () => {
 
   console.log(juegos);
 
+  //barra de busqueda
   const SearchGames = (e) => {
     setsearch(e.target.value);
     filterData(e.target.value);
@@ -102,9 +105,10 @@ const Header = () => {
   const filterData = (search) => {
     var resultadosBusqueda = juegos.filter((x) => {
       if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
-        return x;
+        return x === true;
       }
     });
+
     setresult(resultadosBusqueda);
   };
 

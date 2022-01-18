@@ -61,7 +61,7 @@ function Register() {
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
 
-  function Register(event) {
+  async function Register(event) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -71,7 +71,7 @@ function Register() {
     event.preventDefault();
     console.log("funciona?");
 
-    createUserWithEmailAndPassword(auth, emailReg, passwordReg)
+    await createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
         addDoc(collection(db, "users"), {
           name: usernameReg,

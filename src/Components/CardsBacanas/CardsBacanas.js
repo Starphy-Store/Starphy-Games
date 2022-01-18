@@ -5,7 +5,7 @@ export default function CardsBacanas() {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-3">
+        <div className="col">
           <h4 className="text-center">
             <strong>STYLE 1</strong>
           </h4>
@@ -13,9 +13,9 @@ export default function CardsBacanas() {
           <div className="profile-card-2">
             <img
               src="https://assets.puzzlefactory.pl/puzzle/260/444/original.webp"
-              className="img img-responsive"
+              className="img-responsive"
             />
-            <div className="sexo">
+            <div className="background">
               <div className="profile-name">Fornite</div>
               <div className="profile-username">Epic Games</div>
               <div className="profile-icons">

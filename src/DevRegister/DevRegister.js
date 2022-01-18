@@ -43,6 +43,7 @@ export default function DevRegister() {
 
   toast.configure();
   let urlDescargar;
+
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [usernameReg, setUsernameReg] = useState("");
@@ -57,6 +58,7 @@ export default function DevRegister() {
     await uploadBytes(archivoRef, archivolocal);
 
     urlDescargar = await getDownloadURL(archivoRef);
+    console.log(urlDescargar);
   }
 
   async function RegisterDev(event) {
@@ -66,6 +68,7 @@ export default function DevRegister() {
       event.stopPropagation();
     }
     event.preventDefault();
+
     createUserWithEmailAndPassword(auth, emailReg, passwordReg, urlDescargar)
       .then((userCredential) => {
         addDoc(collection(db, "users"), {
