@@ -8,5 +8,5 @@ El proyecto Starphy proviene de una necesidad, un problema y con ello una idea, 
 En esta **captura de pantalla** podemos apreciar mas de cerca y con mas detalle lo que seria la interfaz del proyecto donde se observan algunas caracteristicas, tales como la registracion, el selector de juegos, los nuevos lanzamientos, etc...
 
 [![unknown.png](https://i.postimg.cc/qqZ9trMs/unknown.png)
-[![unknown.png](https://cdn.discordapp.com/attachments/436625027119448065/933323399399370772/unknown.png)
-[![unknown.png](https://postimg.cc/BPHhydFb)
+![](https://cdn.discordapp.com/attachments/436625027119448065/933323399399370772/unknown.png)
+![](https://postimg.cc/BPHhydFb)
