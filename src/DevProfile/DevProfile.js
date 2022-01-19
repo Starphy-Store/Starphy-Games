@@ -20,10 +20,11 @@ export default function DevProfile() {
   const [juego, setJuegos] = useState([]);
 
   const filtradoPerfil = perfil.filter((x) => x.rol == "dev");
-
+  const filtradoPerfil2 = filtradoPerfil.filter((x) => x.id == id);
+  console.log(filtradoPerfil);
   const filtrarJuego = juego.filter((x) => x.id == id);
 
-  console.log(juego);
+  console.log(id);
   function DevPerfil() {
     const ref = query(collection(db, "users"));
     const refgames = query(collection(db, "games"));
@@ -32,7 +33,6 @@ export default function DevProfile() {
       const items = [];
       querySnapshot.forEach((doc) => {
         items.push(doc.data());
-        console.log(items);
       });
       setPerfil(items);
     });
@@ -40,7 +40,7 @@ export default function DevProfile() {
     onSnapshot(refgames, (querySnapshot) => {
       const item = [];
       querySnapshot.forEach((doc) => {
-        item.push(doc.data());
+        item.push(doc.data(), id);
         console.log(item);
       });
       setJuegos(item);
@@ -54,7 +54,7 @@ export default function DevProfile() {
   return (
     <>
       <Header />
-      {filtradoPerfil.map((item) => (
+      {filtradoPerfil2.map((item) => (
         <Container>
           <Row className="pb-5">
             <h1 className="pb-5">{item.name}</h1>

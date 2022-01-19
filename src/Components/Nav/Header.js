@@ -122,7 +122,7 @@ const Header = () => {
       <Navbar expand="lg" className="header" variant="dark">
         <Container fluid>
           <Navbar.Brand href="#" className="ayudaa">
-            <Link to="/Home">
+            <Link to="/">
               <img
                 src={logo}
                 width="150"
@@ -175,7 +175,7 @@ const Header = () => {
                         </Dropdown.Item>
                         <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
                         <Dropdown.Item eventKey="3">
-                          <Link to="EditProfile">Tu perfil</Link>
+                          <Link to="/EditProfile">Tu perfil</Link>
                         </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item

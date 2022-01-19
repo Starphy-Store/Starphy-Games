@@ -75,7 +75,7 @@ export default function DevRegister() {
           name: usernameReg,
           email: emailReg,
           pass: passwordReg,
-          id: auth.currentUser.uid,
+          uid: auth.currentUser.uid,
           rol: "dev",
           photoProfile: urlDescargar,
         });

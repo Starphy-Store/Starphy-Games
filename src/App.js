@@ -92,7 +92,7 @@ function App() {
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         {user && <Route path="/EditProfile" element={<EditProfile />} />}
         {user && <Route path="/library" element={<Library />} />}
-        <Route path="/Home/" element={<Home />} />
+        <Route path="/Home" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />

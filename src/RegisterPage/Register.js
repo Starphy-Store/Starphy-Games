@@ -77,7 +77,7 @@ function Register() {
           name: usernameReg,
           email: emailReg,
           pass: passwordReg,
-          id: auth.currentUser.uid,
+          uid: auth.currentUser.uid,
           rol: "user",
         });
         console.log(auth);

@@ -1,17 +1,5 @@
 /* AQUI VA TODO EL CSS DE LA CARPETA COMPONENTES NADA MAS :D */
 
-.header {
-  background: rgb(33, 37, 41);
-  background: linear-gradient(
-    180deg,
-    rgba(33, 37, 41, 1) 0%,
-    rgba(33, 37, 41, 0.7093107506674545) 56%,
-    rgba(33, 37, 41, 0.3199550083705357) 87%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  color: white;
-}
-
 Nav.Link {
   color: white;
 }

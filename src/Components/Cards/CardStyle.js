@@ -23,7 +23,7 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
-
+/* joder buenos dias */
 const db = getFirestore(firebase2);
 
 const TopGames = function () {
@@ -62,7 +62,7 @@ const TopGames = function () {
   }, []);
   //Usar filter
   function truncate(input) {
-    if (input.length > 20) return input.substring(0, 20) + "...";
+    if (input.length > 13) return input.substring(0, 13) + "...";
     else return input;
   }
   return (
