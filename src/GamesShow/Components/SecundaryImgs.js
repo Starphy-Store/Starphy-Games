@@ -70,11 +70,11 @@ const SecundaryImgs = () => {
               </Row>
             </Col>
             <Col md={5}>
-              <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "10px" }}>
+              <Col style={{ backgroundColor: "#1f1f1f",borderRadius: "20px" }}>
                 <Row>
                   <img
                     src={item.imagen}
-                    style={{ width: "100%", heigth: "auto" }}
+                    style={{ width: "100%", heigth: "auto", objectFit: "cover"}}
                   />
                   <div className="GamesPayment pt-4">
                     <h4>{item.precio}</h4>
