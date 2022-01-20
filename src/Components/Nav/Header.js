@@ -67,7 +67,7 @@ const Header = () => {
 
       setusers(items);
     });
-
+    console.log("hola");
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const item = [];
