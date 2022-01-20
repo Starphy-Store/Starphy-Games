@@ -58,7 +58,6 @@ export default function DevRegister() {
     await uploadBytes(archivoRef, archivolocal);
 
     urlDescargar = await getDownloadURL(archivoRef);
-    console.log(urlDescargar);
   }
 
   async function RegisterDev(event) {

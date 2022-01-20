@@ -22,6 +22,7 @@ import EditDevProfile from "../src/EditDevProfile/EditDevProfile";
 import DownloadGame from "../src/DownloadGame/DownloadGame";
 import SearchPage from "../src/SearchPage/SearchPage";
 import UploadGame from "../src/UploadGame/UploadGame.js";
+import ReactGA from "react-ga";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -55,18 +56,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const Tracking_id = "214457078";
+ReactGA.initialize(214457078);
 function App() {
   const [user, setuser] = useState(false);
   const [perfil, setPerfil] = useState([]);
   const filtrardev = perfil.filter((x) => x.id == user);
-  console.log(filtrardev);
+
   function prueba() {
     const ref = query(collection(db, "users"));
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
         items.push(doc.data());
-        console.log(items);
       });
       setPerfil(items);
     });
@@ -81,7 +83,6 @@ function App() {
     });
   }
 
-  console.log(user);
   useEffect(() => {
     prueba();
   }, []);
@@ -99,7 +100,7 @@ function App() {
         <Route path="/register" element={<Register />} />r
         <Route path="/CardsBacanas" element={<CardsBacanas />} />
         <Route path="/Payment/:id" element={<Payment />} />
-        <Route path="/DataIndex" element={<DataIndex />} />
+        {filtrardev && <Route path="/DataIndex" element={<DataIndex />} />}
         <Route path="/DevProfile/:id" element={<DevProfile />} />
         <Route path="/DevRegister" element={<DevRegister />} />
         <Route path="/EditDevProfile" element={<EditDevProfile />} />

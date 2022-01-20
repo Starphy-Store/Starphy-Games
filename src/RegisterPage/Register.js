@@ -80,7 +80,7 @@ function Register() {
           uid: auth.currentUser.uid,
           rol: "user",
         });
-        console.log(auth);
+
         toast.info("Verifique su correo electronico", {
           icon: "📨",
           position: "top-right",
@@ -137,7 +137,7 @@ function Register() {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        navigate("/");
+        navigate("/Home");
         console.log("Inicio correctamente");
       })
       .catch((error) => {
@@ -161,7 +161,7 @@ function Register() {
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
-        navigate("/");
+        navigate("/Home");
         // ...
       })
       .catch((error) => {

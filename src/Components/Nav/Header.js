@@ -92,16 +92,12 @@ const Header = () => {
 
   const filtrado = users.filter((x) => x.id == cua);
 
-  console.log(juegos);
-
   //barra de busqueda
   const SearchGames = (e) => {
     setsearch(e.target.value);
     filterData(e.target.value);
   };
-  console.log(result);
 
-  console.log(search);
   const filterData = (search) => {
     var resultadosBusqueda = juegos.filter((x) => {
       if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
@@ -122,7 +118,7 @@ const Header = () => {
       <Navbar expand="lg" className="header" variant="dark">
         <Container fluid>
           <Navbar.Brand href="#" className="ayudaa">
-            <Link to="/">
+            <Link to="/Home">
               <img
                 src={logo}
                 width="150"

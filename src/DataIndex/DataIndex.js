@@ -37,7 +37,6 @@ function DataIndex() {
   const [valor, setvalor] = useState("");
   const [categoria, setcategoria] = useState("");
 
-  console.log(auth);
   function CrearJuego(event) {
     event.preventDefault();
     console.log("render");

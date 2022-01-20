@@ -54,7 +54,6 @@ const TopGames = function () {
       pusheado.push(lolitotequiero);
       setgameName(pusheado);
     }
-    console.log(tried);
   }
 
   useEffect(() => {

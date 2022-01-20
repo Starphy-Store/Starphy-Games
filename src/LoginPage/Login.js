@@ -54,7 +54,6 @@ function Login() {
             // Signed in a
 
             onAuthStateChanged(auth, (user) => {
-              console.log(user);
               if (user.emailVerified) {
                 const uid = user.uid;
                 navigate("/Home/");
@@ -74,7 +73,6 @@ function Login() {
 
             const user = userCredential.user;
             // ...
-            console.log(user);
           })
           /* alerta de error*/
           .catch((error) => {
@@ -91,7 +89,6 @@ function Login() {
             });
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(errorCode + errorMessage);
           })
       );
     });
@@ -105,7 +102,7 @@ function Login() {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        navigate("/");
+        navigate("/Home");
         console.log("Inicio correctamente");
       })
       .catch((error) => {
@@ -129,7 +126,7 @@ function Login() {
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
-        navigate("/");
+        navigate("/Home");
         // ...
       })
       .catch((error) => {
@@ -191,7 +188,7 @@ function Login() {
                 }}
                 className="recoverPassword"
               >
-                <a src="/" className="me-2" style={{ color: "#868484" }}>
+                <a src="/Home" className="me-2" style={{ color: "#868484" }}>
                   ¿Haz olvidado tu contraseña?
                 </a>
               </button>

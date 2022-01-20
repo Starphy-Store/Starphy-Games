@@ -53,7 +53,6 @@ export default function Payment() {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture;
-          console.log(order);
         },
         onError: (err) => {
           console.log(err);
@@ -61,7 +60,7 @@ export default function Payment() {
       })
       .render(paypal.current);
   }, []);
-  console.log(filtrado2);
+
   return (
     <div>
       <div ref={paypal}></div>

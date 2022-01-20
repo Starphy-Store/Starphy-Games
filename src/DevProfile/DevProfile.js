@@ -17,14 +17,14 @@ const db = getFirestore(firebase2);
 export default function DevProfile() {
   const { id } = useParams();
   const [perfil, setPerfil] = useState([]);
+  const [cua, setcua] = useState(null);
   const [juego, setJuegos] = useState([]);
 
   const filtradoPerfil = perfil.filter((x) => x.rol == "dev");
   const filtradoPerfil2 = filtradoPerfil.filter((x) => x.id == id);
-  console.log(filtradoPerfil);
+
   const filtrarJuego = juego.filter((x) => x.id == id);
 
-  console.log(id);
   function DevPerfil() {
     const ref = query(collection(db, "users"));
     const refgames = query(collection(db, "games"));
@@ -41,9 +41,9 @@ export default function DevProfile() {
       const item = [];
       querySnapshot.forEach((doc) => {
         item.push(doc.data(), id);
-        console.log(item);
       });
       setJuegos(item);
+      setcua(item ? true : false);
     });
   }
 
@@ -70,7 +70,7 @@ export default function DevProfile() {
         <h6 className="px-3">+1.000 descargas</h6>
 
         <Container className="pt-5" style={{ marginTop: "50px" }}>
-          <CardStyle></CardStyle>
+          {cua ? <CardStyle /> : <p>No tiene juegos</p>}
         </Container>
       </div>
     </>

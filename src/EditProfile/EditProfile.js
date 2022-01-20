@@ -71,7 +71,7 @@ export default function EditProfile() {
       name: "sexoooooo aaaaaaaaaa",
     });
   }
-  console.log(filtrado);
+
   useEffect(() => {
     EditarPerfil();
   }, []);
