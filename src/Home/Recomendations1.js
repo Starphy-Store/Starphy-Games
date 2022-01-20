@@ -8,14 +8,13 @@ import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
 
 function Recomendations1(props) {
-  return (
-    <Carousel variant="dark" indicators={false} className="mt-5">
-      <Carousel.Item>
-        <Container>
+  return (   
+      <Carousel variant="dark" indicators={false} className="mt-3">
+        <Carousel.Item>
           <CardStyle />
-        </Container>
-      </Carousel.Item>
-    </Carousel>
+        </Carousel.Item>
+      </Carousel>
+
   );
 }
 

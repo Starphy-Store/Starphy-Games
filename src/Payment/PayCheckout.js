@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Payment from "./Payment";
 import MinecraftImg from "../Assets/MinecraftImg.jpg";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useParams } from "react-router";
 import firebase2 from "../Home/Firebase2";
 import {
@@ -40,7 +40,17 @@ export default function PayCheckout() {
   useEffect(() => {
     getGames();
   }, []);
-
+  function changebuttons(value) {
+    if (value == "Gratis") {
+      return (
+        <Button variant="success" size="lg" style={{ width: "90%" }}>
+          Descargar ahora
+        </Button>
+      );
+    } else {
+      return <Payment />;
+    }
+  }
   return (
     <div>
       {filtrado2.map((item) => (
@@ -60,20 +70,21 @@ export default function PayCheckout() {
                   src={item.imagen}
                   style={{
                     width: "auto",
-                    height: "150px",
+                    height: "300px",
                     objectFit: "cover",
                     borderRadius: "10px",
                   }}
                 />
-                <h2>{item.juego}</h2>
+
+                <h2 className="pt-3">{item.juego}</h2>
 
                 <h6>{item.creator}</h6>
               </Col>
               <Col>
                 <hr />
-                <h3 className="pt-4">Precio: {item.precio}</h3>
+                <h3 className="pt-2">Precio: {item.precio}</h3>
               </Col>
-              <Payment />
+              <div>{changebuttons(item.precio)}</div>
             </Col>
             <Col></Col>
           </Row>

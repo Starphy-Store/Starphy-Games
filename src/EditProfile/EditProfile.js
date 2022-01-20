@@ -104,7 +104,7 @@ export default function EditProfile() {
                 <Form.Control type="email" placeholder="Contrasenia" />
               </Form.Group>
               <Form.Text className="text-muted">
-                Nunca compartiremos tus credenciales con nadie.
+                Nunca compartiremos tus credenciales con nadie .
               </Form.Text>
               <p />
               <Button variant="primary" type="submit">

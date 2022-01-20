@@ -61,7 +61,7 @@ function Register() {
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
 
-  function Register(event) {
+  async function Register(event) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -71,13 +71,14 @@ function Register() {
     event.preventDefault();
     console.log("funciona?");
 
-    createUserWithEmailAndPassword(auth, emailReg, passwordReg)
+    await createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
         addDoc(collection(db, "users"), {
           name: usernameReg,
           email: emailReg,
           pass: passwordReg,
-          id: auth.currentUser.uid,
+          uid: auth.currentUser.uid,
+          rol: "user",
         });
         console.log(auth);
         toast.info("Verifique su correo electronico", {
@@ -113,7 +114,7 @@ function Register() {
         const errorMessage = error.message;
         // ..
         console.log("no sory");
-        toast.error("Ya existe correo", {
+        toast.error("Ya existe esa cuenta", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -128,15 +129,22 @@ function Register() {
     setValidated(true);
   }
 
-  const gugle = function () {
-    signInWithPopup(auth, provider)
+  const gugle = async function (event) {
+    event.preventDefault();
+    await signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        navigate("/");
+        addDoc(collection(db, "users"), {
+          name: user.displayName,
+          email: user.email,
+          id: auth.currentUser.uid,
+          rol: "user",
+        });
+        navigate("/Home");
         console.log("Inicio correctamente");
       })
       .catch((error) => {
@@ -156,11 +164,16 @@ function Register() {
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
-
+        addDoc(collection(db, "users"), {
+          name: user.displayName,
+          email: user.email,
+          id: auth.currentUser.uid,
+          rol: "user",
+        });
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
-        navigate("/");
+        navigate("/Home");
         // ...
       })
       .catch((error) => {

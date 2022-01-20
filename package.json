@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
     "@paypal/react-paypal-js": "^7.5.0",
     "@react-navigation/native": "^6.0.6",
     "@testing-library/jest-dom": "^5.15.0",
@@ -22,6 +25,7 @@
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
     "react-toastify": "^8.1.0",
+    "string-similarity": "^4.0.4",
     "styled-components": "^5.3.3",
     "toastify": "^2.0.1",
     "uuid": "^8.3.2",

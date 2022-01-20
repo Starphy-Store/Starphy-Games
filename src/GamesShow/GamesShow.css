@@ -19,10 +19,12 @@
 .GamesCarouselImg {
   width: 100%;
   border-radius: 10px;
+  height: 135px;
+  object-fit: cover;
 }
 
 .GamesInfo {
-  padding-top: 85vh;
+  padding-top: 95vh;
   color: white;
 }
 
@@ -34,3 +36,4 @@
   padding-left: 30px;
   padding-right: 30px;
 }
+

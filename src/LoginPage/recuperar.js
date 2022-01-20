@@ -87,7 +87,7 @@ function Login() {
             </Button>
             <button
               onClick={() => {
-                navigate("/");
+                navigate("/Home");
               }}
               className="Back"
             >

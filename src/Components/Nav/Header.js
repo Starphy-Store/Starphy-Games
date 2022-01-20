@@ -29,6 +29,8 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import firebase2 from "../../Home/Firebase2";
+import Regex from "./Regex";
+import { event } from "jquery";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
@@ -45,10 +47,13 @@ const auth = getAuth(app);
 const db = getFirestore(firebase2);
 const user = auth.currentUser;
 
-console.log(user);
 const Header = () => {
   const [cua, setcua] = useState(false);
   const [users, setusers] = useState([]);
+  const [juegos, setjuegos] = useState([]);
+  const [search, setsearch] = useState("");
+  const [result, setresult] = useState("");
+
   const navigate = useNavigate();
 
   function a() {
@@ -72,14 +77,51 @@ const Header = () => {
       }
     });
   }
-  console.log(cua);
+
+  function b() {
+    const ref = query(collection(db, "games"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const juegodb = [];
+      querySnapshot.forEach((doc) => {
+        juegodb.push(doc.data());
+      });
+
+      setjuegos(juegodb);
+    });
+  }
 
   const filtrado = users.filter((x) => x.id == cua);
 
+  console.log(juegos);
+
+  //barra de busqueda
+  const SearchGames = (e) => {
+    window.addEventListener("enter", e);
+    setsearch(e.target.value);
+    filterData(e.target.value);
+  };
+  console.log(result);
+
+  console.log(search);
+  const filterData = (search) => {
+    var resultadosBusqueda = juegos.filter((x) => {
+      if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
+        return x === true;
+      }
+    });
+    if (search === "") {
+      setresult([]);
+    } else {
+      setresult(resultadosBusqueda);
+    }
+  };
+
   useEffect(() => {
     a();
+    b();
   }, []);
-  /* Hacer cuando estes iniciado sesion se ponga tu nombre de perfil en el home */
+
   return (
     <div className="xd">
       <Navbar expand="lg" className="header" variant="dark">
@@ -88,7 +130,6 @@ const Header = () => {
             <Link to="/Home">
               <img
                 src={logo}
-                className="navImage"
                 width="150"
                 height="auto"
                 className="d-inline-block align-top mx-auto ml-auto"
@@ -103,18 +144,21 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/library">Biblioteca</Nav.Link>
-              <Nav.Link href="#action2">Link</Nav.Link>
-              <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
+              {/* Barra de busqueda */}
+              <Form className="d-flex" style={{ width: "500px" }}>
+                <FormControl
+                  type="search"
+                  placeholder="Que tienes ganas de jugar hoy?"
+                  className="me-2"
+                  aria-label="Search"
+                  onChange={SearchGames}
+                />
+                <Link to={`/SearchPage/${search}`}>
+                  <Button onKeyDown={SearchGames} variant="outline-light">
+                    Search
+                  </Button>
+                </Link>
+              </Form>
             </Nav>
 
             <Container style={{ justifyContent: "right" }}>
@@ -131,13 +175,14 @@ const Header = () => {
                         key={item.id}
                         id="dropdown-menu-align-start"
                         variant="outline-light"
+                        style={{ border: "0" }}
                       >
                         <Dropdown.Item eventKey="1">
                           <Link to="/Library">Tu biblioteca</Link>
                         </Dropdown.Item>
                         <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
                         <Dropdown.Item eventKey="3">
-                          Actualizaciones
+                          <Link to="/EditProfile">Tu perfil</Link>
                         </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item
@@ -145,6 +190,7 @@ const Header = () => {
                           onClick={() => {
                             signOut(auth)
                               .then(() => {
+                                navigate("/Home");
                                 window.location.reload(false);
                                 // Sign-out successful.
                               })
@@ -166,23 +212,24 @@ const Header = () => {
                           variant="outline-light"
                           style={{
                             float: "right",
+                            border: "0",
                           }}
                         >
                           Registarse
                         </Button>
                       </Link>
                     </Col>
-                    <Col sm={6} md={7}>
+                    <Col sm={6} md={3}>
                       <Link to="/LoginUser">
                         <Button
                           variant="outline-light"
                           style={{
                             float: "right",
-                            paddingRight: "11px",
                             width: "100%",
-                            textAlign: "center",
+                            textAlign: "right",
+                            border: "0",
                           }}
-                          className="pr-3"
+                          className=""
                         >
                           Inicia Sesion
                         </Button>

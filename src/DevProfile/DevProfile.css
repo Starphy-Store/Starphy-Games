@@ -1,0 +1,22 @@
+.IconBorder {
+  width: 200px;
+  height: 200px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  /* background: #7c77b9; */
+  border: 12px solid #212529;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  margin-top: 50px;
+  margin: "auto";
+}
+.ImgIcon {
+  width: 175px;
+  height: 175px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}

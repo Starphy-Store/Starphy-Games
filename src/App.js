@@ -1,12 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-//importacion del Home
+//importacion de todo ajsaj
 import Home from "./Home/Home";
-
-//importacion del Login
-
 import Login from "./LoginPage/Login";
 import Recuperar from "./LoginPage/Recover";
 import CreatePass from "./LoginPage/CreatePassword.js";
@@ -17,34 +14,100 @@ import CardStyle from "../src/Components/Cards/CardStyle";
 import Payment from "../src/Payment/PayCheckout";
 import DataIndex from "../src/DataIndex/DataIndex";
 import Library from "./Library/Library";
-import EditProfile from "../src/EditProfile/EditProfile";
+import EditProfile from "./EditProfile/EditProfile";
+import DevProfile from "../src/DevProfile/DevProfile";
+import CardsBacanas from "../src/Components/CardsBacanas/CardsBacanas";
+import DevRegister from "../src/DevRegister/DevRegister";
+import EditDevProfile from "../src/EditDevProfile/EditDevProfile";
+import DownloadGame from "../src/DownloadGame/DownloadGame";
+import SearchPage from "../src/SearchPage/SearchPage";
+import UploadGame from "../src/UploadGame/UploadGame.js";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import PrivateRoute, {
+  AuthContextProvider,
+  useAuthState,
+} from "./Components/RutasPrivadas/PrivateRoutes";
+import { useAuth } from "./RegisterPage/AuthState";
+import { Redirect } from "wouter";
+import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import firebase2 from "./Home/Firebase2";
+import {
+  getFirestore,
+  query,
+  onSnapshot,
+  collection,
+} from "firebase/firestore";
+const firebaseConfig = {
+  apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
+  authDomain: "usuarios-b78e1.firebaseapp.com",
+  projectId: "usuarios-b78e1",
+  storageBucket: "usuarios-b78e1.appspot.com",
+  messagingSenderId: "779291947290",
+  appId: "1:779291947290:web:9bed27d795c7d614183ca3",
+  measurementId: "${config.measurementId}",
+};
 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 function App() {
+  const [user, setuser] = useState(false);
+  const [perfil, setPerfil] = useState([]);
+  const filtrardev = perfil.filter((x) => x.id == user);
+  console.log(filtrardev);
+  function prueba() {
+    const ref = query(collection(db, "users"));
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+        console.log(items);
+      });
+      setPerfil(items);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setuser(item);
+      }
+    });
+  }
+
+  console.log(user);
+  useEffect(() => {
+    prueba();
+  }, []);
   return (
     <>
       <Routes>
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
-        <Route path="/Home/" element={<Home />} />
+        {user && <Route path="/EditProfile" element={<EditProfile />} />}
+        {user && <Route path="/library" element={<Library />} />}
+        <Route path="/Home" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/library" element={<Library />} />
+        <Route path="/register" element={<Register />} />r
+        <Route path="/CardsBacanas" element={<CardsBacanas />} />
         <Route path="/Payment/:id" element={<Payment />} />
         <Route path="/DataIndex" element={<DataIndex />} />
-        <Route path="/EditProfile" element={<EditProfile />} />
+        <Route path="/DevProfile/:id" element={<DevProfile />} />
+        <Route path="/DevRegister" element={<DevRegister />} />
+        <Route path="/EditDevProfile" element={<EditDevProfile />} />
+        <Route path="/DownloadGame" element={<DownloadGame />} />
+        <Route path="/SearchPage/:search" element={<SearchPage />} />
+        {filtrardev && <Route path="/UploadGame" element={<UploadGame />} />}
       </Routes>
     </>
   );
 }
-
-// <Container className="loginContainer">
-//   <Login />
-// </Container>
 export default App;

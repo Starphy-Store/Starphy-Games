@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Container, Col } from "react-bootstrap";
 
 //importacion del header
 import Header from "../Components/Nav/Header";
 
-//imagenes
-/* import Barrita from "https://i.postimg.cc/9f5R5HX9/Dise-o-sin-t-tulo-6-removebg-preview.png"; */
+import "./Home.css";
 
 //importacion de las Cards
 import SliderDelHome from "../Components/SliderDelHome";
@@ -18,13 +18,20 @@ import CompatibleGames from "../Components/compatibleDownloadGames/CompatibleGam
 const Home = ({ game }) => {
   return (
     <div>
-      <SliderDelHome />
-      <Header />
-      <div style={{ marginTop: "70vh" }}>
+      <Container>
+        <Col>
+          <Header />
+        </Col>
+      </Container>
+      <Container>
+        <SliderDelHome />
+      </Container>
+      <div style={{ paddingTop: "90vh" }} >
         {/*  <img src={Barrita}></img> */}
-        <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>ç
+        <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
       </div>
-      <Recomendations1 />
+        <Recomendations1 />
+      
       {/* <CompatibleGames /> */}
       <h1>Juegos multijugador 👋</h1>
     </div>

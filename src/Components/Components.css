@@ -1,28 +1,5 @@
 /* AQUI VA TODO EL CSS DE LA CARPETA COMPONENTES NADA MAS :D */
 
-.navImage {
-  width: 125px;
-
-  position: absolute;
-}
-
-.ayudaa {
-  background-color: white;
-  border-radius: 0px 0px 20px 0px;
-  background-position: absolute;
-}
-
-.header {
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 0, 0, 0) 4%,
-    rgba(33, 37, 38, 1) 100%
-  );
-  color: white;
-}
-
 Nav.Link {
   color: white;
 }
@@ -33,7 +10,7 @@ Nav.Link {
   width: 100%;
 }
 .sliderImg {
-  height: 80vh;
+  height: 100%;
   width: auto;
   object-fit: cover;
 }

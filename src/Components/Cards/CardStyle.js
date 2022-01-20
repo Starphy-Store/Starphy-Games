@@ -8,11 +8,10 @@ import { Link } from "react-router-dom";
 import Creadores from "./PruebasApi.js";
 //importacion de la imagen
 import MinecraftImg from "../../Assets/MinecraftImg.jpg";
-import "./CardEstilo.css";
 import { initializeApp } from "firebase/app";
-import { Carousel, Form, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+import "./CardsBacanas.css";
 
-import fortnite from "../../Components/Cards/fortnite.jpg";
 import firebase2 from "../../Home/Firebase2.js";
 import {
   query,
@@ -23,14 +22,12 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
-
+/* joder buenos dias */
 const db = getFirestore(firebase2);
 
 const TopGames = function () {
   const [game, setGame] = useState([]);
   const [gameName, setgameName] = useState([]);
-
-  const limitGame = game.slice(0, 4);
 
   const filtros = game.filter((x) => x.esunjuego == "si");
 
@@ -44,6 +41,7 @@ const TopGames = function () {
       querySnapshot.forEach((doc) => {
         items.push(doc.data(), doc.id);
       });
+      console.log();
       setGame(items);
     });
 
@@ -60,33 +58,31 @@ const TopGames = function () {
     getGames();
   }, []);
   //Usar filter
-
+  function truncate(input) {
+    if (input.length > 14) return input.substring(0, 14) + "...";
+    else return input;
+  }
   return (
     <>
-      <Container>
+      <Container className="d-flex">
         {filtros.map((item) => (
-          <Container className="carousel5">
-            <Row>
-              <Col>
-                <Card className="border-0" style={{ width: "100%" }}>
-                  <Link to={`/GamesShow/${item.juego}`}>
-                    <Card.Img
-                      variant="top"
-                      src={item.imagen}
-                      className="img-fluid img-card"
-                    />
-                  </Link>
-                  <Card.Body>
-                    <Card.Title>
-                      <h4>{item.juego}</h4>
-                      <h6>Mojang</h6>
-                      <h6>{item.precio}</h6>
-                    </Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
+          <Link to={`/GamesShow/${item.juego}`} className="w-25">
+            <Container key={item.id}>
+              <Row>
+                <Col>
+                  <div className="profile-card-2 ">
+                    <img src={item.imagen} className="img-responsive" />
+                    <div className="background "></div>
+                    <div className="profile-name">{truncate(item.juego)}</div>
+                    <div className="profile-username">{item.creator}</div>
+                    <div className="profile-icons">
+                      <h5>{item.precio}</h5>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </Link>
         ))}
       </Container>
     </>
