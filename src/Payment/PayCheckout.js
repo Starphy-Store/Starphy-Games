@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Payment from "./Payment";
+import Payment from "./Payment copy";
 import MinecraftImg from "../Assets/MinecraftImg.jpg";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router";
