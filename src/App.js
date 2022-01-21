@@ -58,8 +58,10 @@ const db = getFirestore(app);
 function App() {
   const [user, setuser] = useState(false);
   const [perfil, setPerfil] = useState([]);
+
   const filtrardev = perfil.filter((x) => x.id == user);
   console.log(filtrardev);
+
   function prueba() {
     const ref = query(collection(db, "users"));
     onSnapshot(ref, (querySnapshot) => {

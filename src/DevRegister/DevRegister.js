@@ -43,7 +43,7 @@ export default function DevRegister() {
 
   toast.configure();
   let urlDescargar;
-
+  let errors = {};
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [usernameReg, setUsernameReg] = useState("");
@@ -71,6 +71,14 @@ export default function DevRegister() {
 
     createUserWithEmailAndPassword(auth, emailReg, passwordReg, urlDescargar)
       .then((userCredential) => {
+        if (emailReg) {
+          errors.emailReg = "Requiere un email";
+        } else if (
+          !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i.test(emailReg)
+        ) {
+          errors.emailReg = "Introduce un direccion valida";
+          console.log(errors);
+        }
         addDoc(collection(db, "users"), {
           name: usernameReg,
           email: emailReg,
@@ -165,6 +173,8 @@ export default function DevRegister() {
                 type="name"
                 value={usernameReg}
                 onChange={updateUsername}
+                minLength={6}
+                maxLength={40}
                 placeholder="Tambien puedes escirbir tu nombre"
                 style={{ backgroundColor: "#C4C4C4" }}
               />
@@ -179,8 +189,10 @@ export default function DevRegister() {
               <Form.Control
                 className="p-3"
                 type="email"
+                minLength={2}
                 value={emailReg}
                 onChange={updateEmail}
+                maxLength={7}
                 placeholder="Ingresa tu email"
                 style={{ backgroundColor: "#C4C4C4" }}
                 required

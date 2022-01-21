@@ -13,7 +13,6 @@ import SliderDelHome from "../Components/SliderDelHome";
 import Recomendations1 from "./Recomendations1";
 
 //Slider juegos compatibles y descargables
-import CompatibleGames from "../Components/compatibleDownloadGames/CompatibleGames";
 
 const Home = ({ game }) => {
   return (
@@ -26,13 +25,11 @@ const Home = ({ game }) => {
       <Container>
         <SliderDelHome />
       </Container>
-      <div style={{ paddingTop: "90vh" }} >
+      <div style={{ paddingTop: "90vh" }}>
         {/*  <img src={Barrita}></img> */}
         <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
       </div>
-        <Recomendations1 />
-      
-      {/* <CompatibleGames /> */}
+      <Recomendations1 />
       <h1>Juegos multijugador 👋</h1>
     </div>
   );

@@ -241,6 +241,7 @@ function Register() {
               style={{ backgroundColor: "#C4C4C4" }}
               value={usernameReg}
               onChange={updateUsername}
+              maxLength={30}
             />
             <Form.Control.Feedback type="invalid">
               Escribe un nickname
@@ -257,6 +258,7 @@ function Register() {
               style={{ backgroundColor: "#C4C4C4" }}
               value={emailReg}
               onChange={updateEmail}
+              maxLength={50}
               required
             />
             <Form.Control.Feedback type="invalid">

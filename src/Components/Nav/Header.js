@@ -29,7 +29,6 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import firebase2 from "../../Home/Firebase2";
-import Regex from "./Regex";
 import { event } from "jquery";
 
 const firebaseConfig = {

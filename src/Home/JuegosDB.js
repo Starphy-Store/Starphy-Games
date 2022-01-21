@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import React, { useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Creadores from "./PruebasApi.js";
+
 //importacion de la imagen
 import MinecraftImg from "../../Assets/MinecraftImg.jpg";
 import "./CardEstilo.css";

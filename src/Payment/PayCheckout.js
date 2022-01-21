@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Payment from "./Payment";
+import Payment from "./Payment copy";
 import MinecraftImg from "../Assets/MinecraftImg.jpg";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useParams } from "react-router";
@@ -19,13 +19,13 @@ export default function PayCheckout() {
   const [checkout, setCheckOut] = useState(false);
 
   const { id } = useParams();
-  const [game, setGame] = useState([]);
+  const [juegos, setJuegos] = useState([]);
 
-  const filtrado = game.filter((x) => x.esunjuego == "si");
+  const filtrado = juegos.filter((x) => x.esunjuego == "si");
 
   const filtrado2 = filtrado.filter((x) => x.juego == id);
 
-  function getGames() {
+  function dameJuegos() {
     const ref = query(collection(db, "games"));
 
     onSnapshot(ref, (querySnapshot) => {
@@ -33,13 +33,10 @@ export default function PayCheckout() {
       querySnapshot.forEach((doc) => {
         items.push(doc.data(), id);
       });
-      setGame(items);
+      setJuegos(items);
     });
   }
 
-  useEffect(() => {
-    getGames();
-  }, []);
   function changebuttons(value) {
     if (value == "Gratis") {
       return (
@@ -51,6 +48,10 @@ export default function PayCheckout() {
       return <Payment />;
     }
   }
+
+  useEffect(() => {
+    dameJuegos();
+  }, []);
   return (
     <div>
       {filtrado2.map((item) => (
@@ -82,11 +83,15 @@ export default function PayCheckout() {
               </Col>
               <Col>
                 <hr />
-                <h3 className="pt-2">Precio: {item.precio}</h3>
+                <h3 className="pt-2" style={{ alignText: "rigth" }}>
+                  Precio: {item.precio}
+                </h3>
               </Col>
               <div>{changebuttons(item.precio)}</div>
             </Col>
-            <Col></Col>
+            <Col>
+              <h6>Regresar</h6>
+            </Col>
           </Row>
         </Container>
       ))}

@@ -60,6 +60,7 @@ export default function Payment() {
         },
       })
       .render(paypal.current);
+    z;
   }, []);
   console.log(filtrado2);
   return (
