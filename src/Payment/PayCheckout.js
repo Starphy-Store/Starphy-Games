@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Payment from "./Payment copy";
 import MinecraftImg from "../Assets/MinecraftImg.jpg";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import firebase2 from "../Home/Firebase2";
 import {
@@ -90,7 +91,9 @@ export default function PayCheckout() {
               <div>{changebuttons(item.precio)}</div>
             </Col>
             <Col>
-              <h6>Regresar</h6>
+              <Link to="/home">
+                <h6>Regresar</h6>
+              </Link>
             </Col>
           </Row>
         </Container>
