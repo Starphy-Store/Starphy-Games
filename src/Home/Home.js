@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Container, Col } from "react-bootstrap";
+import {
+  query,
+  collection,
+  onSnapshot,
+  getFirestore,
+  getDocs,
+  getDoc,
+  doc,
+} from "firebase/firestore";
+import firebase2 from "../Home/Firebase2.js";
 
 //importacion del header
 import Header from "../Components/Nav/Header";
@@ -13,8 +23,29 @@ import SliderDelHome from "../Components/SliderDelHome";
 import Recomendations1 from "./Recomendations1";
 
 //Slider juegos compatibles y descargables
+const db = getFirestore(firebase2);
 
-const Home = ({ game }) => {
+const Home = () => {
+  const [game, setGame] = useState([]);
+
+  const filtros = game.filter((x) => x.esunjuego == "si");
+  console.log(filtros);
+
+  function getGames() {
+    const ref = query(collection(db, "games"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data(), doc.id);
+      });
+      console.log();
+      setGame(items);
+    });
+  }
+  useEffect(() => {
+    getGames();
+  }, []);
   return (
     <div>
       <Container>

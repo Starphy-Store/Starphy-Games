@@ -183,28 +183,43 @@ const Header = () => {
                             <>
                               <Dropdown.Item eventKey="1">
                                 <Link to="/EditDevProfile">
-                                  Perfil como dev
+                                  Perfil desarrollador
                                 </Link>
                               </Dropdown.Item>
+                              <Dropdown.Divider />
                               <Dropdown.Item eventKey="1">
                                 <Link to="/Library">
                                   Tu biblioteca Como dev
                                 </Link>
                               </Dropdown.Item>
+                              <Dropdown.Item
+                                eventKey="4"
+                                onClick={() => {
+                                  signOut(auth)
+                                    .then(() => {
+                                      navigate("/Home");
+                                      window.location.reload(false);
+                                      // Sign-out successful.
+                                    })
+                                    .catch((error) => {
+                                      // An error happened.
+                                    });
+                                }}
+                              >
+                                Salir
+                              </Dropdown.Item>
                             </>
                           ) : (
                             <Dropdown.Item eventKey="3">
-                              <Link to="/EditProfile">Tu a</Link>
+                              <Link to="/EditProfile">Tu perfil</Link>
                             </Dropdown.Item>
                           )
                         )}
-                        <Dropdown.Item eventKey="1">
-                          <Link to="/Library">Tu biblioteca</Link>
-                        </Dropdown.Item>
-                        <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
+
                         <Dropdown.Item eventKey="3">
                           <Link to="/EditProfile">Tu perfil</Link>
                         </Dropdown.Item>
+                        <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item
                           eventKey="4"

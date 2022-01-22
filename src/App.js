@@ -95,13 +95,12 @@ function App() {
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         {user && <Route path="/EditProfile" element={<EditProfile />} />}
         {user && <Route path="/library" element={<Library />} />}
+        {user && <Route path="/Payment/:id" element={<Payment />} />}
         <Route path="/Home" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />r
-        <Route path="/CardsBacanas" element={<CardsBacanas />} />
-        {user && <Route path="/Payment/:id" element={<Payment />} />}
         <Route path="/DataIndex" element={<DataIndex />} />
         <Route path="/DevProfile/:id" element={<DevProfile />} />
         <Route path="/DevRegister" element={<DevRegister />} />
@@ -109,8 +108,12 @@ function App() {
         <Route path="/SearchPage/:search" element={<SearchPage />} />
         {Dev.map((item) =>
           item.rol == "dev" ? (
-            ((<Route path="/uploadgame" element={<UploadGame />} />),
-            (<Route path="/EditDevProfile" element={<EditDevProfile />} />))
+            <>
+              ((
+              <Route path="/uploadgame" element={<UploadGame />} />) (
+              <Route path="/EditDevProfile" element={<EditDevProfile />} />
+              ))
+            </>
           ) : (
             <Route path="*" element={<Error404 />} />
           )
