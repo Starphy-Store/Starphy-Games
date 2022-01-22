@@ -180,12 +180,21 @@ const Header = () => {
                       >
                         {Dev.map((item) =>
                           item.rol == "dev" ? (
-                            <Dropdown.Item eventKey="1">
-                              <Link to="/EditDevProfile">Perfil como dev</Link>
-                            </Dropdown.Item>
+                            <>
+                              <Dropdown.Item eventKey="1">
+                                <Link to="/EditDevProfile">
+                                  Perfil como dev
+                                </Link>
+                              </Dropdown.Item>
+                              <Dropdown.Item eventKey="1">
+                                <Link to="/Library">
+                                  Tu biblioteca Como dev
+                                </Link>
+                              </Dropdown.Item>
+                            </>
                           ) : (
                             <Dropdown.Item eventKey="3">
-                              <Link to="/EditProfile">Tu perfil</Link>
+                              <Link to="/EditProfile">Tu a</Link>
                             </Dropdown.Item>
                           )
                         )}
