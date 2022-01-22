@@ -38,6 +38,7 @@ export default function UploadGame() {
   const [Des, setDes] = useState("");
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState(0);
+  const [validated, setValidated] = useState(false);
   const [categoria1, setcategoria1] = useState("");
   const [categoria2, setcategoria2] = useState("");
   const [categoria3, setcategoria3] = useState("");
@@ -55,7 +56,7 @@ export default function UploadGame() {
 
     const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
 
-    await uploadBytes(archivoRef, archivolocal);
+    archivoRef.put(archivolocal);
 
     seturlDescargar(await getDownloadURL(archivoRef));
   }
@@ -86,6 +87,7 @@ export default function UploadGame() {
       videojuego: urlDescargar,
       idprofile: auth.currentUser.uid,
     });
+    setValidated(true);
   }
 
   const updateDes = function (event) {
@@ -130,7 +132,13 @@ export default function UploadGame() {
             style={{ justifyContent: "left", color: "white", width: "600px" }}
           >
             <h1>Datos para firebase</h1>
-            <Form onSubmit={CrearJuego} style={{ width: "100%" }}>
+            <Form
+              noValidate
+              validated={validated}
+              className="form-container needs-validation"
+              onSubmit={CrearJuego}
+              style={{ width: "100%" }}
+            >
               <Form.Group className="mb-4" controlId="formBasicPassword">
                 <Form.Label>Nombre del juego:</Form.Label>
                 <Form.Control
@@ -140,8 +148,10 @@ export default function UploadGame() {
                   placeholder="Ingresa el nombre de un juego"
                   required
                 />
-              </Form.Group>
-
+                <Form.Control.Feedback type="invalid">
+                  Escribe un nickname
+                </Form.Control.Feedback>
+              </Form.Group>{" "}
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Escoge 3 categorias</Form.Label>
                 <Form.Select
@@ -160,7 +170,6 @@ export default function UploadGame() {
                   <option value="Battle Royale">Battle Royale</option>
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Select
                   onChange={updatecategoria2}
@@ -178,7 +187,6 @@ export default function UploadGame() {
                   <option value="Battle Royale">Battle Royale</option>
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Select
                   onChange={updatecategoria3}
@@ -196,7 +204,6 @@ export default function UploadGame() {
                   <option value="Battle Royale">Battle Royale</option>
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Imagen para la portada</Form.Label>
                 <Form.Control
@@ -233,7 +240,6 @@ export default function UploadGame() {
                   placeholder="$$$"
                 />
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Descripcion:</Form.Label>
                 <Form.Control
@@ -245,7 +251,6 @@ export default function UploadGame() {
                   style={{ paddingBottom: "150px" }}
                 />
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>
                   Carga tu videojuego, o la carpeta de tu videojuego
@@ -257,7 +262,6 @@ export default function UploadGame() {
                   placeholder=""
                 />
               </Form.Group>
-
               <Button variant="success" type="submit">
                 Subir juego
               </Button>

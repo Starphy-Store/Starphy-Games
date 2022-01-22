@@ -21,7 +21,7 @@ export default function DevProfile() {
   const [juego, setJuegos] = useState([]);
 
   const filtradoPerfil = perfil.filter((x) => x.rol == "dev");
-  const filtradoPerfil2 = filtradoPerfil.filter((x) => x.id == id);
+  const filtradoPerfil2 = filtradoPerfil.filter((x) => x.uid == id);
   console.log(filtradoPerfil);
   const filtrarJuego = juego.filter((x) => x.id == id);
 

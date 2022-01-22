@@ -4,7 +4,7 @@
   border-radius: 10%;
 }
 .sliderImg {
-  /*height: 80vh;*/
+  height: 80vh;
   width: 100%;
 }
 .InnerSlider {
@@ -23,10 +23,10 @@
   object-fit: cover;
 }
 
-/* .GamesInfo {
-  padding-top: 95vh;
+.GamesInfo {
+  padding-top: 85vh;
   color: white;
-} */
+}
 
 .itemImage {
   width: "100%";
@@ -35,4 +35,9 @@
 .GamesPayment {
   padding-left: 30px;
   padding-right: 30px;
+}
+
+.banner {
+  border-radius: 30px/20px;
+  border-radius: 0 30px/20px 0 0;
 }

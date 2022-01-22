@@ -74,9 +74,10 @@ const SecundaryImgs = () => {
                 <Row>
                   <img
                     src={item.imagen}
+                    className="banner"
                     style={{
                       width: "100%",
-                      heigth: "auto",
+                      heigth: "300px",
                       objectFit: "cover",
                     }}
                   />

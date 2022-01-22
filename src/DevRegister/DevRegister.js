@@ -192,7 +192,7 @@ export default function DevRegister() {
                 minLength={2}
                 value={emailReg}
                 onChange={updateEmail}
-                maxLength={7}
+                maxLength={40}
                 placeholder="Ingresa tu email"
                 style={{ backgroundColor: "#C4C4C4" }}
                 required
@@ -228,7 +228,7 @@ export default function DevRegister() {
                   minLength={6}
                   onChange={updatePassword}
                   value={passwordReg}
-                  maxLength={30}
+                  maxLength={40}
                   required
                 />
                 <Form.Control.Feedback type="invalid">

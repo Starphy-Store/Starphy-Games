@@ -141,7 +141,7 @@ function Register() {
         addDoc(collection(db, "users"), {
           name: user.displayName,
           email: user.email,
-          id: auth.currentUser.uid,
+          uid: auth.currentUser.uid,
           rol: "user",
         });
         navigate("/Home");
@@ -167,7 +167,7 @@ function Register() {
         addDoc(collection(db, "users"), {
           name: user.displayName,
           email: user.email,
-          id: auth.currentUser.uid,
+          uid: auth.currentUser.uid,
           rol: "user",
         });
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.

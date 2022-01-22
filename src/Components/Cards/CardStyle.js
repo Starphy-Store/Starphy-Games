@@ -69,7 +69,7 @@ const TopGames = function () {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagen} className="img-responsive" />
                     <div className="background "></div>

@@ -55,6 +55,10 @@ const Header = () => {
 
   const navigate = useNavigate();
 
+  const filtrado = users.filter((x) => x.uid == cua);
+  const Dev = filtrado.filter((x) => x.rol == "dev");
+  console.log(filtrado);
+
   function a() {
     const ref = query(collection(db, "users"));
 
@@ -89,8 +93,6 @@ const Header = () => {
       setjuegos(juegodb);
     });
   }
-
-  const filtrado = users.filter((x) => x.id == cua);
 
   console.log(juegos);
 
@@ -171,11 +173,22 @@ const Header = () => {
                         align="start"
                         type="button"
                         title={item.name}
-                        key={item.id}
+                        key={item.uid}
                         id="dropdown-menu-align-start"
                         variant="outline-light"
-                        style={{ border: "0" }}
+                        style={{ border: "0", color: "white" }}
                       >
+                        {Dev.map((item) =>
+                          item.rol == "dev" ? (
+                            <Dropdown.Item eventKey="1">
+                              <Link to="/EditDevProfile">Perfil como dev</Link>
+                            </Dropdown.Item>
+                          ) : (
+                            <Dropdown.Item eventKey="3">
+                              <Link to="/EditProfile">Tu perfil</Link>
+                            </Dropdown.Item>
+                          )
+                        )}
                         <Dropdown.Item eventKey="1">
                           <Link to="/Library">Tu biblioteca</Link>
                         </Dropdown.Item>

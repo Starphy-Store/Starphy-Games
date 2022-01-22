@@ -18,7 +18,7 @@
   transition: all linear 0.25s;
   height: 100%;
   width: auto;
-  /* max-width: 100% */;
+  /* max-width: 100% */
   background: linear-gradient(70deg, black, white);
 }
 .img-responsive {
@@ -75,8 +75,12 @@
 }
 
 .background {
-  background: rgb(255,255,255);
-background: linear-gradient(180deg, rgba(255,255,255,0) 61%, rgba(23,23,23,1) 100%);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 61%,
+    rgba(23, 23, 23, 1) 100%
+  );
   position: absolute;
   height: 100%;
   width: 100%;

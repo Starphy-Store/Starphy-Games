@@ -3,7 +3,7 @@ import { Container, Col } from "react-bootstrap";
 
 //importacion del header
 import Header from "../Components/Nav/Header";
-
+import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
 
 //importacion de las Cards
@@ -25,12 +25,13 @@ const Home = ({ game }) => {
       <Container>
         <SliderDelHome />
       </Container>
-      <div style={{ paddingTop: "90vh" }}>
+      <div style={{ paddingTop: "78vh" }}>
         {/*  <img src={Barrita}></img> */}
         <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
       </div>
       <Recomendations1 />
       <h1>Juegos multijugador 👋</h1>
+      <CardStyle />
     </div>
   );
 };

@@ -45,7 +45,7 @@ export default function EditProfile() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
-  const filtrado = name.filter((x) => x.id == id);
+  const filtrado = name.filter((x) => x.uid == id);
 
   function EditarPerfil() {
     const ref = query(collection(db, "users"));

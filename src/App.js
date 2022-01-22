@@ -59,8 +59,11 @@ function App() {
   const [user, setuser] = useState(false);
   const [perfil, setPerfil] = useState([]);
 
-  const filtrardev = perfil.filter((x) => x.id == user);
-  console.log(filtrardev);
+  const filterId = perfil.filter((x) => x.uid == user);
+  const Dev = filterId.filter((x) => x.rol == "dev");
+
+  console.log(Dev);
+  console.log();
 
   function prueba() {
     const ref = query(collection(db, "users"));
@@ -68,7 +71,6 @@ function App() {
       const items = [];
       querySnapshot.forEach((doc) => {
         items.push(doc.data());
-        console.log(items);
       });
       setPerfil(items);
     });
@@ -83,7 +85,6 @@ function App() {
     });
   }
 
-  console.log(user);
   useEffect(() => {
     prueba();
   }, []);
@@ -100,14 +101,20 @@ function App() {
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />r
         <Route path="/CardsBacanas" element={<CardsBacanas />} />
-        <Route path="/Payment/:id" element={<Payment />} />
+        {user && <Route path="/Payment/:id" element={<Payment />} />}
         <Route path="/DataIndex" element={<DataIndex />} />
         <Route path="/DevProfile/:id" element={<DevProfile />} />
         <Route path="/DevRegister" element={<DevRegister />} />
-        <Route path="/EditDevProfile" element={<EditDevProfile />} />
         <Route path="/DownloadGame" element={<DownloadGame />} />
         <Route path="/SearchPage/:search" element={<SearchPage />} />
-        {filtrardev && <Route path="/UploadGame" element={<UploadGame />} />}
+        {Dev.map((item) =>
+          item.rol == "dev" ? (
+            ((<Route path="/uploadgame" element={<UploadGame />} />),
+            (<Route path="/EditDevProfile" element={<EditDevProfile />} />))
+          ) : (
+            <Route path="*" element={<Error404 />} />
+          )
+        )}
       </Routes>
     </>
   );
