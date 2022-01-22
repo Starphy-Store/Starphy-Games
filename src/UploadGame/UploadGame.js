@@ -43,7 +43,12 @@ export default function UploadGame() {
   const [categoria3, setcategoria3] = useState("");
   const [urlDescargar, seturlDescargar] = useState(null);
   const [urlImagenes, seturlImagenes] = useState(null);
-  const [añadir, setañadir] = useState(10);
+  const [añadir, setañadir] = useState([
+    <Form.Group className="mb-2" controlId="formBasicPassword">
+      <Form.Label>Imagenes de tu juego</Form.Label>
+      <Form.Control required type="file" placeholder="" />
+    </Form.Group>,
+  ]);
 
   async function CargarArchivo(e) {
     const archivolocal = e.target.files[0];
@@ -106,19 +111,16 @@ export default function UploadGame() {
     setcategoria3(event.target.value);
   };
 
-  function printUpload() {
-    setañadir(añadir + 1);
-    if (añadir > 1) {
-      console.log("bienvenido a oasis xddd peliculon");
-      return (
-        <Form.Group className="mb-2" controlId="formBasicPassword">
-          <Form.Label>Imagenes de tu juego</Form.Label>
-          <Form.Control required type="file" placeholder="" />
-        </Form.Group>
-      );
-    }
-  }
-
+  const añadirElemento = () => {
+    setañadir([
+      ...añadir,
+      <Form.Group className="mb-2" controlId="formBasicPassword">
+        <Form.Label>Imagenes de tu juego</Form.Label>
+        <Form.Control required type="file" placeholder="" />
+      </Form.Group>,
+    ]);
+    console.log(añadir);
+  };
   return (
     <>
       <Header />
@@ -213,7 +215,11 @@ export default function UploadGame() {
                   placeholder=""
                 />
               </Form.Group>
-              <Button variant="dark" onClick={printUpload}>
+              <Button
+                variant="dark"
+                className="add-btn"
+                onClick={añadirElemento}
+              >
                 <FontAwesomeIcon icon={faPlus} />
               </Button>
               <Form.Group className="mb-3 mt-3" controlId="formBasicPassword">

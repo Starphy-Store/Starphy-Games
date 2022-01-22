@@ -23,7 +23,7 @@ import {
 const db = getFirestore(firebase2);
 export default function Payment() {
   const { id } = useParams();
-  const hostedFields = usePayPalHostedFields();
+
   const [game, setGame] = useState([]);
 
   const filtrado = game.filter((x) => x.esunjuego == "si");
@@ -44,31 +44,11 @@ export default function Payment() {
   useEffect(() => {
     getGames();
   }, []);
-  const submitHandler = () => {
-    if (!typeof hostedFields.submit !== "function") return; // validate that `submit()` exists before using it
-    hostedFields
-      .submit({
-        // The full name as shown in the card and billing address
-        cardholderName: "John Wick",
-      })
-      .then((order) => {
-        fetch("/your-server-side-integration-endpoint/capture-payment-info")
-          .then((response) => response.json())
-          .then((data) => {
-            // Inside the data you can find all the information related to the payment
-          })
-          .catch((err) => {
-            // Handle any error
-          });
-      });
-  };
+
   return (
     <PayPalScriptProvider
       options={{
-        "client-id":
-          "EIxtNk3M5az16C3g0PW4I6gcd221s9R6E3EwMi0X6KAg2HC5EQ1qDx1RoWOjMqbkG21Ty5vlA53TatAe",
-        "data-client-token":
-          "AVJkvSNRo_sxUpTQ52LHUdGnjrD0Bq-5-6z1j9IayvktGEwQKDD2P2rPqLKOgRAqPs1A-lHLhlpkx7Qh",
+        "client-id": "test",
       }}
     >
       {filtrado2.map((item) => (
@@ -101,36 +81,6 @@ export default function Payment() {
           }}
         />
       ))}
-      <PayPalHostedFieldsProvider
-        createOrder={() => {
-          // Here define the call to create and order
-          return fetch("/your-server-side-integration-endpoint/orders")
-            .then((response) => response.json())
-            .then((order) => order.id)
-            .catch((err) => {
-              // Handle any error
-            });
-        }}
-      >
-        <PayPalHostedField
-          id="card-number"
-          hostedFieldType="number"
-          options={{ selector: "#card-number" }}
-        />
-        <PayPalHostedField
-          id="cvv"
-          hostedFieldType="cvv"
-          options={{ selector: "#cvv" }}
-        />
-        <PayPalHostedField
-          id="expiration-date"
-          hostedFieldType="expirationDate"
-          options={{
-            selector: "#expiration-date",
-            placeholder: "MM/YY",
-          }}
-        />
-      </PayPalHostedFieldsProvider>
     </PayPalScriptProvider>
   );
 }
