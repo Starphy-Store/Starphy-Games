@@ -145,8 +145,20 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
+               <NavDropdown
+          id="nav-dropdown-dark-example"
+          title="Categorias"
+          menuVariant="dark"
+          style={{paddingRight:"20px"}}
+        >
+          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+        </NavDropdown>
               {/* Barra de busqueda */}
-              <Form className="d-flex" style={{ width: "500px" }}>
+              <Form className="d-flex pl-5" style={{ width: "500px" }}>
                 <FormControl
                   type="search"
                   placeholder="Que tienes ganas de jugar hoy?"
@@ -219,7 +231,7 @@ const Header = () => {
                         <Dropdown.Item eventKey="3">
                           <Link to="/EditProfile">Tu perfil</Link>
                         </Dropdown.Item>
-                        <Dropdown.Item eventKey="2">aaa</Dropdown.Item>
+                        <Dropdown.Item eventKey="2">Libreria de juegos</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item
                           eventKey="4"
@@ -262,7 +274,7 @@ const Header = () => {
                           style={{
                             float: "right",
                             width: "100%",
-                            textAlign: "right",
+                            textAlign: "center",
                             border: "0",
                           }}
                           className=""

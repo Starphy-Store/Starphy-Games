@@ -3,8 +3,6 @@ import Header from "../Components/Nav/Header";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import firebase2 from "../../src/Home/Firebase2";
 import { initializeApp } from "firebase/app";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   query,
   collection,
@@ -226,9 +224,7 @@ export default function UploadGame() {
                 variant="dark"
                 className="add-btn"
                 onClick={añadirElemento}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </Button>
+              >+</Button>
               <Form.Group className="mb-3 mt-3" controlId="formBasicPassword">
                 <Form.Label>Precio</Form.Label>
                 <Form.Control
