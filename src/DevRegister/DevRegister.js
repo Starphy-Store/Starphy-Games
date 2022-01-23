@@ -174,7 +174,7 @@ export default function DevRegister() {
                 type="name"
                 value={usernameReg}
                 onChange={updateUsername}
-                minLength={6}
+                minLength={2}
                 maxLength={40}
                 placeholder="Tambien puedes escirbir tu nombre"
                 style={{ backgroundColor: "#C4C4C4" }}

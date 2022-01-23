@@ -92,6 +92,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         {user && <Route path="/EditProfile" element={<EditProfile />} />}
         {user && <Route path="/library" element={<Library />} />}
@@ -116,7 +117,6 @@ function App() {
             <Route path="*" element={<Error404 />} />
           )
         )}
-        <Route path="*" element={<Error404 />} />
       </Routes>
     </>
   );
