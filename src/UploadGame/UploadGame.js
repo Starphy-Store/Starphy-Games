@@ -14,28 +14,33 @@ import {
   setDoc,
   addDoc,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+
+import { toast, ToastContainer } from "react-toastify";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
-  authDomain: "usuarios-b78e1.firebaseapp.com",
-  projectId: "usuarios-b78e1",
-  storageBucket: "usuarios-b78e1.appspot.com",
-  messagingSenderId: "779291947290",
-  appId: "1:779291947290:web:9bed27d795c7d614183ca3",
-  measurementId: "${config.measurementId}",
+  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASEURL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(firebase2);
 const storage = getStorage(app);
 
 export default function UploadGame() {
   const auth = getAuth(app);
+  const navigate = useNavigate();
   const [Des, setDes] = useState("");
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState(0);
+  const [id, setId] = useState("");
   const [validated, setValidated] = useState(false);
   const [categoria1, setcategoria1] = useState("");
   const [categoria2, setcategoria2] = useState("");
@@ -48,13 +53,17 @@ export default function UploadGame() {
       <Form.Control required type="file" placeholder="" />
     </Form.Group>,
   ]);
+  const [nombrecreador, setnombrecreador] = useState([]);
+
+  const filtrado = nombrecreador.filter((x) => x.uid == id);
+  const nombre = filtrado.map((item) => item.name);
 
   async function CargarArchivo(e) {
     const archivolocal = e.target.files[0];
 
     const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
 
-    archivoRef.put(archivolocal);
+    await uploadBytes(archivoRef, archivolocal);
 
     seturlDescargar(await getDownloadURL(archivoRef));
   }
@@ -70,22 +79,56 @@ export default function UploadGame() {
   }
 
   async function CrearJuego(event) {
+    const ref = query(collection(db, "users"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+
+      setnombrecreador(items);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setId(item);
+      }
+    });
+
     event.preventDefault();
     console.log("render");
+    toast.success("Juego creado", {
+      icon: "📨",
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      className: "dark-toast",
+    });
 
     addDoc(collection(db, "games"), {
       descrip: Des,
       juego: game,
       precio: valor,
       esunjuego: "si",
-      imagenesjuego: urlImagenes,
+      imagenportada: urlImagenes,
       categoria1: categoria1,
       categoria2: categoria2,
       categoria3: categoria3,
       videojuego: urlDescargar,
       idprofile: auth.currentUser.uid,
+      creador: nombre,
     });
+
     setValidated(true);
+    navigate("/Home");
   }
 
   const updateDes = function (event) {
@@ -224,7 +267,9 @@ export default function UploadGame() {
                 variant="dark"
                 className="add-btn"
                 onClick={añadirElemento}
-              >+</Button>
+              >
+                +
+              </Button>
               <Form.Group className="mb-3 mt-3" controlId="formBasicPassword">
                 <Form.Label>Precio</Form.Label>
                 <Form.Control
@@ -232,8 +277,9 @@ export default function UploadGame() {
                   required
                   type="number"
                   value={valor}
+                  limit={30}
                   onChange={updatevalor}
-                  placeholder="$$$"
+                  placeholder="$"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -253,7 +299,6 @@ export default function UploadGame() {
                 </Form.Label>
                 <Form.Control
                   type="file"
-                  required
                   onChange={CargarArchivo}
                   placeholder=""
                 />

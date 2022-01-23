@@ -42,7 +42,13 @@ const SecundaryImgs = () => {
   useEffect(() => {
     getGames();
   }, []);
-
+  function dollarsign(input) {
+    if (input == "Gratis") {
+      return input;
+    } else {
+      return "$" + input;
+    }
+  }
   return (
     <div>
       <Container className="GamesInfo">
@@ -82,7 +88,7 @@ const SecundaryImgs = () => {
                     }}
                   />
                   <div className="GamesPayment pt-4">
-                    <h4>{item.precio}</h4>
+                    <h4>{dollarsign(item.precio)}</h4>
 
                     <Link to={`/payment/${item.juego}`}>
                       <Button

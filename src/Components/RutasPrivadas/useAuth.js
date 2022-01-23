@@ -30,13 +30,13 @@ import firebase2 from "../../Home/Firebase2";
 import { Redirect } from "wouter";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
-  authDomain: "usuarios-b78e1.firebaseapp.com",
-  projectId: "usuarios-b78e1",
-  storageBucket: "usuarios-b78e1.appspot.com",
-  messagingSenderId: "779291947290",
-  appId: "1:779291947290:web:9bed27d795c7d614183ca3",
-  measurementId: "${config.measurementId}",
+  apiKey: REACT_APP_FIREBASE_APIKEY,
+  authDomain: REACT_APP_FIREBASE_AUTHDOMAIN,
+  projectId: REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: REACT_APP_FIREBASE_APPID,
+  measurementId: REACT_APP_FIREBASE_MEASUREMENTID,
 };
 
 export const app = initializeApp(firebaseConfig);

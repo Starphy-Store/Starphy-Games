@@ -62,6 +62,13 @@ const TopGames = function () {
     if (input.length > 14) return input.substring(0, 14) + "...";
     else return input;
   }
+  function dollarsign(input) {
+    if (input == "Gratis") {
+      return input;
+    } else {
+      return "$" + input;
+    }
+  }
   return (
     <>
       <Container className="d-flex">
@@ -71,12 +78,12 @@ const TopGames = function () {
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
-                    <img src={item.imagen} className="img-responsive" />
+                    <img src={item.imagenesjuego} className="img-responsive" />
                     <div className="background "></div>
                     <div className="profile-name">{truncate(item.juego)}</div>
                     <div className="profile-username">{item.creator}</div>
                     <div className="profile-icons">
-                      <h5>{item.precio}</h5>
+                      <h5>{dollarsign(item.precio)}</h5>
                     </div>
                   </div>
                 </Col>

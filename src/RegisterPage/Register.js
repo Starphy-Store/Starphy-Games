@@ -35,18 +35,17 @@ import {
 import { Database, set, ref } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB0aytR2kq9oV6_9DdeTLs2nGlQTzOxDAE",
-  authDomain: "usuarios-b78e1.firebaseapp.com",
-  projectId: "usuarios-b78e1",
-
-  storageBucket: "usuarios-b78e1.appspot.com",
-  messagingSenderId: "779291947290",
-  appId: "1:779291947290:web:9bed27d795c7d614183ca3",
-  measurementId: "${config.measurementId}",
+  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASEURL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
 };
-
 const app = initializeApp(firebaseConfig);
-const db = getFirestore();
+const db = getFirestore(app);
 function Register() {
   /* const database = getDatabase(app); */
   const auth = getAuth(app);
@@ -97,6 +96,7 @@ function Register() {
           // Email verification sent!
 
           onAuthStateChanged(auth, (user) => {
+            navigate("/Home");
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
             const uid = user.uid;
