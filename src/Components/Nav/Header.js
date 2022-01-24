@@ -149,7 +149,7 @@ const Header = () => {
                 id="nav-dropdown-dark-example"
                 title="Explorar"
                 menuVariant="dark"
-                style={{ paddingRight: "20px" }}
+                style={{ paddingRight: "20px",color: "white" }}
               >
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
@@ -163,6 +163,10 @@ const Header = () => {
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
+
+              <Button variant="outline-light" color="light" style={{border: "0"}}>Registra tu juego</Button>
+
+
               {/* Barra de busqueda */}
               <Form className="d-flex pl-5" style={{ width: "500px" }}>
                 <FormControl
