@@ -78,7 +78,7 @@ const TopGames = function () {
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
-                    <img src={item.imagen} className="img-responsive" />
+                    <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
                     <div className="profile-name">{truncate(item.juego)}</div>
                     <div className="profile-username">{item.creator}</div>

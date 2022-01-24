@@ -47,6 +47,8 @@ export default function UploadGame() {
   const [categoria3, setcategoria3] = useState("");
   const [urlDescargar, seturlDescargar] = useState(null);
   const [urlImagenes, seturlImagenes] = useState(null);
+  const [urlImagenes2, seturlImagenes2] = useState(null);
+  const [urlImagenes3, seturlImagenes3] = useState(null);
   const [añadir, setañadir] = useState([
     <Form.Group className="mb-2" controlId="formBasicPassword">
       <Form.Label>Imagenes de tu juego</Form.Label>
@@ -57,7 +59,7 @@ export default function UploadGame() {
 
   const filtrado = nombrecreador.filter((x) => x.uid == id);
   const nombre = filtrado.map((item) => item.name);
-
+  console.log(nombre);
   async function CargarArchivo(e) {
     const archivolocal = e.target.files[0];
 
@@ -78,7 +80,26 @@ export default function UploadGame() {
     seturlImagenes(await getDownloadURL(archivoRef));
   }
 
-  async function CrearJuego(event) {
+  async function CargarImagenes2(e) {
+    const archivolocal = e.target.files[0];
+
+    const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+
+    await uploadBytes(archivoRef, archivolocal);
+
+    seturlImagenes2(await getDownloadURL(archivoRef));
+  }
+
+  async function CargarImagenes3(e) {
+    const archivolocal = e.target.files[0];
+
+    const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+
+    await uploadBytes(archivoRef, archivolocal);
+
+    seturlImagenes3(await getDownloadURL(archivoRef));
+  }
+  function id2() {
     const ref = query(collection(db, "users"));
 
     onSnapshot(ref, (querySnapshot) => {
@@ -98,7 +119,8 @@ export default function UploadGame() {
         setId(item);
       }
     });
-
+  }
+  async function CrearJuego(event) {
     event.preventDefault();
     console.log("render");
     toast.success("Juego creado", {
@@ -119,12 +141,14 @@ export default function UploadGame() {
       precio: valor,
       esunjuego: "si",
       imagenportada: urlImagenes,
+      imagenjuego: urlImagenes2,
+      imagenjuego2: urlImagenes3,
       categoria1: categoria1,
       categoria2: categoria2,
       categoria3: categoria3,
       videojuego: urlDescargar,
       idprofile: auth.currentUser.uid,
-      creador: nombre,
+      creator: nombre,
     });
 
     setValidated(true);
@@ -164,6 +188,11 @@ export default function UploadGame() {
     ]);
     console.log(añadir);
   };
+
+  useEffect(() => {
+    id2();
+  }, []);
+
   return (
     <>
       <Header />
@@ -259,7 +288,16 @@ export default function UploadGame() {
                 <Form.Control
                   required
                   type="file"
-                  onChange={CargarImagenes}
+                  onChange={CargarImagenes2}
+                  placeholder=""
+                />
+              </Form.Group>
+              <Form.Group className="mb-2" controlId="formBasicPassword">
+                <Form.Label>Imagenes de tu juego 2</Form.Label>
+                <Form.Control
+                  required
+                  type="file"
+                  onChange={CargarImagenes3}
                   placeholder=""
                 />
               </Form.Group>

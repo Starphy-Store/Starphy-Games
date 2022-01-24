@@ -56,7 +56,7 @@ function Slider() {
           <Carousel.Item>
             <img
               className="d-block w-100 h-70"
-              src={item.imagen}
+              src={item.imagenportada}
               className="sliderImg"
               alt="First slide"
             />
@@ -64,7 +64,7 @@ function Slider() {
           <Carousel.Item>
             <img
               className="d-block w-100 h-70"
-              src={item.imagen2}
+              src={item.imagenjuego}
               alt="Second slide"
               className="sliderImg"
             />
@@ -72,8 +72,8 @@ function Slider() {
           <Carousel.Item>
             <img
               className="d-block w-100 h-70"
-              src={item.imagen3}
-              alt="Third slide"
+              src={item.imagenjuego2}
+              alt="Second slide"
               className="sliderImg"
             />
           </Carousel.Item>

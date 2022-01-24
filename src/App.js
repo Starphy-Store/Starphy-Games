@@ -22,6 +22,7 @@ import EditDevProfile from "../src/EditDevProfile/EditDevProfile";
 import DownloadGame from "../src/DownloadGame/DownloadGame";
 import SearchPage from "../src/SearchPage/SearchPage";
 import UploadGame from "../src/UploadGame/UploadGame.js";
+import Spinner from "./Home/spinner";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -92,6 +93,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="*" element={<Spinner />} />
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         {user && <Route path="/EditProfile" element={<EditProfile />} />}
