@@ -43,13 +43,13 @@ export default function DevRegister() {
   const auth = getAuth(app);
 
   toast.configure();
-  let urlDescargar;
-  let errors = {};
+
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
+  const [urlDescargar, seturlDescargar] = useState(null);
 
   async function fileHandler(e) {
     const archivolocal = e.target.files[0];
@@ -58,8 +58,7 @@ export default function DevRegister() {
 
     await uploadBytes(archivoRef, archivolocal);
 
-    urlDescargar = await getDownloadURL(archivoRef);
-    console.log(urlDescargar);
+    seturlDescargar(await getDownloadURL(archivoRef));
   }
 
   async function RegisterDev(event) {
@@ -70,16 +69,8 @@ export default function DevRegister() {
     }
     event.preventDefault();
 
-    createUserWithEmailAndPassword(auth, emailReg, passwordReg, urlDescargar)
+    createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
-        if (emailReg) {
-          errors.emailReg = "Requiere un email";
-        } else if (
-          !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i.test(emailReg)
-        ) {
-          errors.emailReg = "Introduce un direccion valida";
-          console.log(errors);
-        }
         addDoc(collection(db, "users"), {
           name: usernameReg,
           email: emailReg,

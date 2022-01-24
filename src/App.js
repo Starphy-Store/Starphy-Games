@@ -18,7 +18,7 @@ import EditProfile from "./EditProfile/EditProfile";
 import DevProfile from "../src/DevProfile/DevProfile";
 import CardsBacanas from "../src/Components/CardsBacanas/CardsBacanas";
 import DevRegister from "../src/DevRegister/DevRegister";
-import EditDevProfile from "../src/EditDevProfile/EditDevProfile";
+import Editdevprofile from "../src/EditDevProfile/EditDevProfile.js";
 import DownloadGame from "../src/DownloadGame/DownloadGame";
 import SearchPage from "../src/SearchPage/SearchPage";
 import UploadGame from "../src/UploadGame/UploadGame.js";
@@ -108,11 +108,11 @@ function App() {
         <Route path="/DevProfile/:id" element={<DevProfile />} />
         <Route path="/DevRegister" element={<DevRegister />} />
         <Route path="/DownloadGame" element={<DownloadGame />} />
+        <Route path="/editdevprofile" element={<Editdevprofile />} />
         <Route path="/SearchPage/:search" element={<SearchPage />} />
         {Dev.map((item) =>
           item.rol == "dev" ? (
             <>
-              <Route path="/EditDevProfile" element={<EditDevProfile />} />
               <Route path="/uploadgame" element={<UploadGame />} />)
             </>
           ) : (
