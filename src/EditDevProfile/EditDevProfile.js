@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Components/Nav/Header";
-import { Form, Container, Col, Button } from "react-bootstrap";
+import { Form, Container, Col, Button, Row } from "react-bootstrap";
 import { useParams } from "react-router";
-import { collection, query } from "firebase/firestore";
+import { collection, query, updateDoc } from "firebase/firestore";
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import firebase2 from "../Home/Firebase2";
 import ProfilePicture from "../Assets/icon.png";
 import { eyeIcon } from "../LoginPage/assets/index";
+import { toast, ToastContainer } from "react-toastify";
 
-import { onAuthStateChanged, getAuth } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  getAuth,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -30,12 +35,14 @@ export default function Editdevprofile() {
   const [id, setId] = useState([]);
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
 
   const filtradoPerfil = perfil.filter((x) => x.rol == "dev");
   const filterid = filtradoPerfil.filter((x) => x.uid == id);
 
   console.log(filterid);
-  function devedit() {
+  async function devedit() {
     const ref = query(collection(db, "users"));
 
     onSnapshot(ref, (querySnapshot) => {
@@ -53,12 +60,89 @@ export default function Editdevprofile() {
         setId(item);
       }
     });
+
+    updateEmail(auth.currentUser, email)
+      .then(() => {
+        // Email updated!
+        toast.success("Correo cambiado", {
+          icon: "📨",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "dark-toast",
+        });
+        // ...
+      })
+      .catch((error) => {
+        toast.error("Ya existe ese correo", {
+          icon: "😮",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "dark-toast",
+        });
+        // An error occurred
+        // ...
+      });
+
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        toast.info("Verifica tu correo", {
+          icon: "📨",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "dark-toast",
+        });
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        toast.error("Error", {
+          icon: "😮",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "dark-toast",
+        });
+        // ..
+      });
+
+    updateDoc(collection(db, "users"), {
+      name: username,
+      email: email,
+      pass: password,
+    });
   }
 
   useEffect(() => {
     devedit();
   }, []);
 
+  const updateUsername = function (event) {
+    setUsername(event.target.value);
+  };
+  const updateEmail = async function (event) {
+    await setEmail(event.target.value);
+  };
   const updatePassword = function (event) {
     setPassword(event.target.value);
   };
@@ -76,16 +160,28 @@ export default function Editdevprofile() {
       >
         {filterid.map((item) => (
           <Container className="pt-5">
-            <Col>
+            <Col md={4}>
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Editar nombre de desarrollador/a</Form.Label>
-                  <Form.Control type="text" placeholder={item.name} />
+                  <Form.Control
+                    onChange={updateUsername}
+                    type="text"
+                    placeholder={item.name}
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Editar correo</Form.Label>
-                  <Form.Control type="email" placeholder={item.email} />
+                  <Form.Control
+                    onChange={updateEmail}
+                    type="email"
+                    placeholder={item.email}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Email incorrecto
+                  </Form.Control.Feedback>
                 </Form.Group>
+
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   Editar contraseña
                   <div style={{ position: "relative" }}>
@@ -121,7 +217,8 @@ export default function Editdevprofile() {
               </Form>
             </Col>
             <Col md={8}>
-              <img src={ProfilePicture}></img>
+              wtf
+              <img src={item.photoProfile}></img>
             </Col>
           </Container>
         ))}

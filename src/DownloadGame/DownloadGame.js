@@ -1,6 +1,9 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import firebase2 from "../Home/Firebase2.js";
+import React, { useEffect, useReducer, useState } from "react";
+import Header from "../Components/Nav/Header";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import firebase2 from "../../src/Home/Firebase2";
+import { initializeApp } from "firebase/app";
+
 import {
   query,
   collection,
@@ -9,46 +12,80 @@ import {
   getDocs,
   getDoc,
   doc,
+  setDoc,
+  addDoc,
 } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
-function download() {
-  const storage = getStorage();
+import { toast, ToastContainer } from "react-toastify";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
 
-  getDownloadURL(ref(storage, "Publica tus juegos gratis (1).png"))
-    .then((url) => {
-      const xhr = new XMLHttpRequest();
-      xhr.responseType = "blob";
-      xhr.onload = (event) => {
-        const blob = xhr.response;
-      };
-      xhr.open("GET", url);
-      xhr.send();
-      var filename = "XXX.zip";
-      xhr.href = url;
-      xhr.download = filename;
-      xhr.click();
-      window.URL.revokeObjectURL(url);
-      // Or inserted into an <img> element
-    })
-    .catch((error) => {
-      // Handle any errors
-    });
-}
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASEURL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(firebase2);
+const storage = getStorage(app);
 
-export default function DownloadGame() {
-  const verify = true;
+export default function UploadGame() {
+  const [urlDescargar, seturlDescargar] = useState(null);
+
+  async function CargarArchivo(e) {
+    const archivolocal = e.target.files[0];
+    if (archivolocal.size >= 10) {
+      console.log("Aaaa");
+      return <div class="spinner-border"></div>;
+    } else {
+      console.log("como estamos");
+      const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
+
+      await uploadBytes(archivoRef, archivolocal);
+
+      seturlDescargar(await getDownloadURL(archivoRef));
+    }
+    console.log(archivolocal.size);
+  }
+
   return (
     <>
-      <h1>Descargar weas</h1>
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          download();
-        }}
-      >
-        descargar
-      </Button>
+      <Header />
+
+      <Container>
+        <Row>
+          <Col
+            style={{ justifyContent: "left", color: "white", width: "600px" }}
+          >
+            <h1>Prueba para cargar archivos</h1>
+            <Form
+              className="form-container"
+              onSubmit={CargarArchivo}
+              style={{ width: "100%" }}
+            >
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>
+                  Carga tu videojuego, o la carpeta de tu videojuego
+                </Form.Label>
+                <Form.Control
+                  type="file"
+                  onChange={CargarArchivo}
+                  placeholder=""
+                />
+              </Form.Group>
+              <Button variant="success" type="submit">
+                Subir juego
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }
