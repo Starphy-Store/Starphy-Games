@@ -59,9 +59,9 @@ const SecundaryImgs = () => {
               <h6 style={{ color: "grey" }} className="pt-4">
                 Categorias:
               </h6>
-              <h6>{item.categoria1}</h6>
-              <h6>{item.categoria2}</h6>
-              <h6>{item.categoria3}</h6>
+              <h6>
+                {item.categoria1} | {item.categoria2} | {item.categoria3}
+              </h6>
               <Row className="pt-3">
                 <h6 style={{ color: "grey" }} className="pt-4">
                   Descripcion:

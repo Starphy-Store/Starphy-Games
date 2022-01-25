@@ -33,7 +33,7 @@ import PrivateRoute, {
   useAuthState,
 } from "./Components/RutasPrivadas/PrivateRoutes";
 import { useAuth } from "./RegisterPage/AuthState";
-import { Redirect } from "wouter";
+import { Link, Redirect } from "wouter";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import firebase2 from "./Home/Firebase2";
@@ -93,6 +93,14 @@ function App() {
   return (
     <>
       <Routes>
+        <Route
+          path="/"
+          element={
+            <Link to="/Home">
+              <Home />
+            </Link>
+          }
+        />
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         {user && <Route path="/EditProfile" element={<EditProfile />} />}

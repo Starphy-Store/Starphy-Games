@@ -16,6 +16,7 @@ function GamesShow() {
       <Container>
         <Slider />
       </Container>
+      <div className="pt-5"></div>
       <SecundaryImgs />
     </>
   );
