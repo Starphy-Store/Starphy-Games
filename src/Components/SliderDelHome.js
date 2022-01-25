@@ -12,7 +12,7 @@ import thewitcher from "../Assets/thewitcher.jpg";
 
 function SliderDelHome() {
   return (
-    <div className="Slider">
+    <div className="sliderdelhome">
       <Carousel
         variant="dark"
         indicators={false}

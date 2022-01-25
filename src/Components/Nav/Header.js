@@ -145,30 +145,10 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <NavDropdown
-                id="nav-dropdown-dark-example"
-                title="Explorar"
-                menuVariant="dark"
-                style={{ paddingRight: "20px",color: "white" }}
-              >
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-
-              <Button variant="outline-light" color="light" style={{border: "0"}}>Registra tu juego</Button>
-
-
+                
+              
               {/* Barra de busqueda */}
-              <Form className="d-flex pl-5" style={{ width: "500px" }}>
+              <Form className="d-flex" style={{ width: "500px" }}>
                 <FormControl
                   type="search"
                   placeholder="Que tienes ganas de jugar hoy?"
@@ -188,8 +168,10 @@ const Header = () => {
               <Row>
                 <Col></Col>
                 {cua ? (
-                  <Col md={12} style={{ width: "200px" }}>
+                  <Col md={12} style={{ width: "89px" }}>
                     {filtrado.map((item) => (
+                      <>
+                      
                       <DropdownButton
                         onSubmit={a}
                         align="start"
@@ -204,42 +186,23 @@ const Header = () => {
                           item.rol == "dev" ? (
                             <>
                               <Dropdown.Item eventKey="1">
-                                <Link to="/EditDevProfile">
-                                  Perfil desarrollador
+                                <Link to='/DevProfile$' style={{textDecoration: "none", color: "black"}}>
+                                  Tu perfil
                                 </Link>
                               </Dropdown.Item>
-                              <Dropdown.Divider />
-                              <Dropdown.Item eventKey="1">
-                                <Link to="/Library">
-                                  Tu biblioteca Como dev
-                                </Link>
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                eventKey="4"
-                                onClick={() => {
-                                  signOut(auth)
-                                    .then(() => {
-                                      navigate("/Home");
-                                      window.location.reload(false);
-                                      // Sign-out successful.
-                                    })
-                                    .catch((error) => {
-                                      // An error happened.
-                                    });
-                                }}
-                              >
-                                Salir
-                              </Dropdown.Item>
+                              <Dropdown.Item eventKey="3">
+                              <Link to="/uploadgame" style={{textDecoration: "none", color: "black"}}>Sube tu juego</Link>
+                            </Dropdown.Item>
                             </>
                           ) : (
                             <Dropdown.Item eventKey="3">
-                              <Link to="/EditProfile">Tu perfil</Link>
+                              <Link to="/EditDevProfile" style={{textDecoration: "none", color: "black"}}>Edita tu perfil</Link>
                             </Dropdown.Item>
                           )
                         )}
 
                         <Dropdown.Item eventKey="3">
-                          <Link to="/EditProfile">Tu perfil</Link>
+                          <Link to="/EditProfile" style={{textDecoration: "none", color: "black"}}>Tu perfil</Link>
                         </Dropdown.Item>
                         <Dropdown.Item eventKey="2">
                           Libreria de juegos
@@ -262,10 +225,16 @@ const Header = () => {
                           Salir
                         </Dropdown.Item>
                       </DropdownButton>
+                      </>
                     ))}
                   </Col>
                 ) : (
                   <>
+                    <Col md={5}>
+                    <Link to="/devregister" style={{width: "180px"}} >
+                       <Button variant="outline-light" color="light" style={{border: "0", color: "grey"}}>Publica tu juego</Button>
+                    </Link>
+                    </Col>
                     <Col sm={6} md={1}>
                       <Link to="/register">
                         <Button
