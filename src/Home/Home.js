@@ -76,10 +76,7 @@ const Home = () => {
       <Container>
         <SliderDelHome />
       </Container>
-      <div style={{ paddingTop: "78vh" }}>
-        {/*  <img src={Barrita}></img> */}
-        <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
-      </div>
+      <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
       <Recomendations1 />
       <h1>Juegos multijugador 👋</h1>
       <Container className="d-flex">

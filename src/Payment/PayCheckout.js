@@ -66,10 +66,10 @@ export default function PayCheckout() {
         >
           <Row>
             <Col style={{ width: "70vw" }} className="pt-5">
-              <h6>Metodos de pago </h6>
+              <h6>Metodos de pago 💰</h6>
               <Col>
                 <img
-                  src={item.imagen}
+                  src={item.imagenportada}
                   style={{
                     width: "auto",
                     height: "300px",
