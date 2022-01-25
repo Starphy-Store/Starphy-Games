@@ -71,7 +71,10 @@ const SecundaryImgs = () => {
                   Desarrolladora:
                 </h6>
                 <h6>
-                  <a href={`/DevProfile/${item.id}`} style={{ color: "white" }}>
+                  <a
+                    href={`/DevProfile/${item.idprofile}`}
+                    style={{ color: "white" }}
+                  >
                     {item.creator}
                   </a>
                 </h6>

@@ -22,7 +22,7 @@ import Editdevprofile from "../src/EditDevProfile/EditDevProfile.js";
 import DownloadGame from "../src/DownloadGame/DownloadGame";
 import SearchPage from "../src/SearchPage/SearchPage";
 import UploadGame from "../src/UploadGame/UploadGame.js";
-import Spinner from "./Home/spinner";
+import SendEmail from "./SendEmail/SendEmail";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -93,7 +93,6 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="*" element={<Spinner />} />
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         {user && <Route path="/EditProfile" element={<EditProfile />} />}
@@ -105,11 +104,12 @@ function App() {
         <Route path="/CreatePassword" element={<CreatePass />} />
         <Route path="/register" element={<Register />} />r
         <Route path="/DataIndex" element={<DataIndex />} />
-        <Route path="/DevProfile/:id" element={<DevProfile />} />
+        <Route path="/DevProfile/:idprofile" element={<DevProfile />} />
         <Route path="/DevRegister" element={<DevRegister />} />
         <Route path="/DownloadGame" element={<DownloadGame />} />
         <Route path="/editdevprofile" element={<Editdevprofile />} />
         <Route path="/SearchPage/:search" element={<SearchPage />} />
+        <Route path="/SendEmail" element={<SendEmail />} />
         {Dev.map((item) =>
           item.rol == "dev" ? (
             <>

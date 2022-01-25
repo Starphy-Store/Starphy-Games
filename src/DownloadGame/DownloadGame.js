@@ -3,7 +3,7 @@ import Header from "../Components/Nav/Header";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import firebase2 from "../../src/Home/Firebase2";
 import { initializeApp } from "firebase/app";
-
+import spinner from "../Assets/spinner.gif";
 import {
   query,
   collection,
@@ -37,14 +37,20 @@ const storage = getStorage(app);
 
 export default function UploadGame() {
   const [urlDescargar, seturlDescargar] = useState(null);
+  const [loadingSize, setloadingSize] = useState(false);
 
   async function CargarArchivo(e) {
     const archivolocal = e.target.files[0];
     if (archivolocal.size >= 10) {
-      console.log("Aaaa");
-      return <div class="spinner-border"></div>;
+      console.log("Si");
+      return (
+        <div class="spinner-border">
+          <img src={spinner}></img>
+          <p>Funciona</p>
+        </div>
+      );
     } else {
-      console.log("como estamos");
+      console.log("No");
       const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
 
       await uploadBytes(archivoRef, archivolocal);
@@ -64,11 +70,7 @@ export default function UploadGame() {
             style={{ justifyContent: "left", color: "white", width: "600px" }}
           >
             <h1>Prueba para cargar archivos</h1>
-            <Form
-              className="form-container"
-              onSubmit={CargarArchivo}
-              style={{ width: "100%" }}
-            >
+            <Form className="form-container" style={{ width: "100%" }}>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>
                   Carga tu videojuego, o la carpeta de tu videojuego

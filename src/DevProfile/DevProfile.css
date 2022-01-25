@@ -5,12 +5,14 @@
   -webkit-border-radius: 50%;
   border-radius: 50%;
   /* background: #7c77b9; */
-  border: 12px solid #212529;
+  background-color: #4ab790;
+  border: 12px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
   margin: "auto";
 }
 .ImgIcon {
