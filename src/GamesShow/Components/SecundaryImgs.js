@@ -16,11 +16,15 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { initializeApp } from "firebase/app";
 
+const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
 
 const SecundaryImgs = () => {
   const { id } = useParams();
+  const [user, setuser] = useState(false);
   const [game, setGame] = useState([]);
 
   const filtrado = game.filter((x) => x.esunjuego == "si");
@@ -36,6 +40,15 @@ const SecundaryImgs = () => {
         items.push(doc.data(), id);
       });
       setGame(items);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setuser(item);
+      }
     });
   }
 
@@ -95,15 +108,27 @@ const SecundaryImgs = () => {
                   <div className="GamesPayment pt-4">
                     <h4>{dollarsign(item.precio)}</h4>
 
-                    <Link to={`/payment/${item.juego}`}>
-                      <Button
-                        variant="light"
-                        size="lg"
-                        style={{ width: "100%" }}
-                      >
-                        Comprar ahora
-                      </Button>
-                    </Link>
+                    {user ? (
+                      <Link to={`/payment/${item.juego}`}>
+                        <Button
+                          variant="light"
+                          size="lg"
+                          style={{ width: "100%" }}
+                        >
+                          Comprar ahora
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Link to={"/Loginuser"}>
+                        <Button
+                          variant="light"
+                          size="lg"
+                          style={{ width: "100%" }}
+                        >
+                          Comprar ahora
+                        </Button>
+                      </Link>
+                    )}
                     <h5
                       style={{ textAlign: "center", color: "lightgreen" }}
                       className="pt-4"

@@ -105,7 +105,11 @@ function App() {
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         {user && <Route path="/EditProfile" element={<EditProfile />} />}
         {user && <Route path="/library" element={<Library />} />}
-        {user && <Route path="/Payment/:id" element={<Payment />} />}
+        {user ? (
+          <Route path="/Payment/:id" element={<Payment />} />
+        ) : (
+          <Route path="/LoginUser" element={<Login />} />
+        )}
         <Route path="/Home" element={<Home />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
