@@ -23,6 +23,7 @@ import DownloadGame from "../src/DownloadGame/DownloadGame";
 import SearchPage from "../src/SearchPage/SearchPage";
 import UploadGame from "../src/UploadGame/UploadGame.js";
 import SendEmail from "./SendEmail/SendEmail";
+import BillPayment from "./Payment/BillPayment";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -121,6 +122,7 @@ function App() {
           <Route path="/LoginUser" element={<Login />} />
         )}
         <Route path="/Home" element={<Home />} />
+        <Route path="/BillPayment" element={<BillPayment />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />
