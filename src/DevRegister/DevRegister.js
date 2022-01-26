@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Container, Button, Alert, Toast } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../RegisterPage/notify.css";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -43,7 +44,7 @@ export default function DevRegister() {
   const auth = getAuth(app);
 
   toast.configure();
-
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [usernameReg, setUsernameReg] = useState("");
@@ -71,14 +72,6 @@ export default function DevRegister() {
 
     createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
-        addDoc(collection(db, "users"), {
-          name: usernameReg,
-          email: emailReg,
-          pass: passwordReg,
-          uid: auth.currentUser.uid,
-          rol: "dev",
-          photoProfile: urlDescargar,
-        });
         toast.info("Verifique su correo electronico", {
           icon: "📨",
           position: "top-right",
@@ -90,11 +83,20 @@ export default function DevRegister() {
           progress: undefined,
           className: "dark-toast",
         });
+        addDoc(collection(db, "users"), {
+          name: usernameReg,
+          email: emailReg,
+          pass: passwordReg,
+          uid: auth.currentUser.uid,
+          rol: "dev",
+          photoProfile: urlDescargar,
+        });
         // Signed in
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
 
           onAuthStateChanged(auth, (user) => {
+            navigate("/Home");
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
             const uid = user.uid;
@@ -255,18 +257,18 @@ export default function DevRegister() {
               }} */
               className="createAccount"
             >
-              <a
+              <Link
                 style={{
                   background: "transparent",
                   fontWeight: "999",
                   color: "white",
                   textDecoration: "none",
                 }}
-                to="/crearcuenta"
+                to="/loginuser"
               >
                 {" "}
                 Inicia sesión
-              </a>
+              </Link>
             </button>
           </p>
         </div>

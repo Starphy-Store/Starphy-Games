@@ -21,6 +21,7 @@ import {
   setPersistence,
   browserSessionPersistence,
 } from "firebase/auth";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -33,6 +34,7 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
 };
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 function Login() {
   // Initialize Firebase
   toast.configure();
@@ -106,6 +108,13 @@ function Login() {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        addDoc(collection(db, "users"), {
+          name: user.displayName,
+          email: user.email,
+          uid: auth.currentUser.uid,
+          rol: "user",
+        });
+
         navigate("/Home");
         console.log("Inicio correctamente");
       })
@@ -130,6 +139,13 @@ function Login() {
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
+        addDoc(collection(db, "users"), {
+          name: user.displayName,
+          email: user.email,
+          uid: auth.currentUser.uid,
+          rol: "user",
+        });
+        navigate("/Home");
         navigate("/Home");
         // ...
       })

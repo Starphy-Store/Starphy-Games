@@ -31,6 +31,7 @@ const Home = () => {
   const [game, setGame] = useState([]);
 
   const filtros = game.filter((x) => x.esunjuego == "si");
+
   const filteronline = filtros.filter((x) => {
     if (x.categoria1 == "Online") return true;
     if (x.categoria2 == "Online") return true;

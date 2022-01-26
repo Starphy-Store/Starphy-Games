@@ -17,7 +17,8 @@
 .profile-card-2 img {
   transition: all linear 0.25s;
   height: 100%;
-  width: auto;
+  width: 100%;
+  object-fit: cover;
   /* max-width: 100% */
   background: linear-gradient(70deg, black, white);
 }

@@ -72,13 +72,6 @@ function Register() {
 
     await createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
-        addDoc(collection(db, "users"), {
-          name: usernameReg,
-          email: emailReg,
-          pass: passwordReg,
-          uid: auth.currentUser.uid,
-          rol: "user",
-        });
         console.log(auth);
         toast.info("Verifique su correo electronico", {
           icon: "📨",
@@ -90,6 +83,13 @@ function Register() {
           draggable: true,
           progress: undefined,
           className: "dark-toast",
+        });
+        addDoc(collection(db, "users"), {
+          name: usernameReg,
+          email: emailReg,
+          pass: passwordReg,
+          uid: auth.currentUser.uid,
+          rol: "user",
         });
         // Signed in
         sendEmailVerification(auth.currentUser).then(() => {

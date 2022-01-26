@@ -60,12 +60,13 @@ const db = getFirestore(app);
 function App() {
   const [user, setuser] = useState(false);
   const [perfil, setPerfil] = useState([]);
+  const [juego, setJuegos] = useState([]);
 
   const filterId = perfil.filter((x) => x.uid == user);
   const Dev = filterId.filter((x) => x.rol == "dev");
 
   console.log(Dev);
-  console.log();
+  console.log(juego);
 
   function prueba() {
     const ref = query(collection(db, "users"));
@@ -75,6 +76,15 @@ function App() {
         items.push(doc.data());
       });
       setPerfil(items);
+    });
+
+    const refe = query(collection(db, "games"));
+    onSnapshot(refe, (querySnapshot) => {
+      const iteme = [];
+      querySnapshot.forEach((doc) => {
+        iteme.push(doc.data());
+      });
+      setJuegos(iteme);
     });
 
     onAuthStateChanged(auth, (user) => {

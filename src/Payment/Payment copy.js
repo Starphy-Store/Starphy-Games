@@ -46,35 +46,39 @@ export default function Payment() {
   }, []);
 
   return (
-    <PayPalScriptProvider options={{ "client-id": "test" }}>
-      <PayPalButtons
-        style={{
-          layout: "horizontal",
-          size: "small",
-          color: "black",
-          tagline: "true",
-          shape: "pill",
-          fundingicons: "true",
-          funding: "allowed",
-        }}
-        createOrder={(data, actions) => {
-          return actions.order.create({
-            purchase_units: [
-              {
-                amount: {
-                  value: "1.99",
+    <PayPalScriptProvider
+      options={{ "client-id": process.env.REACT_APP_APIPAYPAL }}
+    >
+      {filtrado2.map((item) => (
+        <PayPalButtons
+          style={{
+            layout: "horizontal",
+            size: "small",
+            color: "black",
+            tagline: "true",
+            shape: "pill",
+            fundingicons: "true",
+            funding: "allowed",
+          }}
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: item.precio,
+                  },
                 },
-              },
-            ],
-          });
-        }}
-        onApprove={(data, actions) => {
-          return actions.order.capture().then((details) => {
-            const name = details.payer.name.given_name;
-            alert(`Transaction completed by ${name}`);
-          });
-        }}
-      />
+              ],
+            });
+          }}
+          onApprove={(data, actions) => {
+            return actions.order.capture().then((details) => {
+              const name = details.payer.name.given_name;
+              alert(`Transaction completed by ${name}`);
+            });
+          }}
+        />
+      ))}
     </PayPalScriptProvider>
   );
 }

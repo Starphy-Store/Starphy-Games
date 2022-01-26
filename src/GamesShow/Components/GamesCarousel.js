@@ -47,16 +47,13 @@ function GamesCarousel() {
           <Carousel.Item>
             <Row>
               <Col md={4}>
-                <img
-                  src={item.imagenportada}
-                  className="GamesCarouselImg"
-                ></img>
-              </Col>
-              <Col md={4}>
                 <img src={item.imagenjuego} className="GamesCarouselImg"></img>
               </Col>
               <Col md={4}>
                 <img src={item.imagenjuego2} className="GamesCarouselImg"></img>
+              </Col>
+              <Col md={4}>
+                <img src={item.imagenjuego3} className="GamesCarouselImg"></img>
               </Col>
             </Row>
           </Carousel.Item>
