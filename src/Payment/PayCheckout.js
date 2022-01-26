@@ -49,6 +49,13 @@ export default function PayCheckout() {
       return <Payment />;
     }
   }
+  function dollarsign(input) {
+    if (input == "Gratis") {
+      return input;
+    } else {
+      return "$" + input;
+    }
+  }
 
   useEffect(() => {
     dameJuegos();
