@@ -1,7 +1,7 @@
 import { Form, Button, Alert, Toast } from "react-bootstrap";
 
 import { toast, ToastContainer } from "react-toastify";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 /* import { getDatabase } from "firebase/database";
 import { useLocation } from "wouter"; */
@@ -59,6 +59,18 @@ function Register() {
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
+  const [id, setId] = useState([]);
+
+  function ids() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setId(item);
+      }
+    });
+  }
 
   async function Register(event) {
     const form = event.currentTarget;
@@ -138,12 +150,38 @@ function Register() {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        addDoc(collection(db, "users"), {
-          name: user.displayName,
-          email: user.email,
-          uid: auth.currentUser.uid,
-          rol: "user",
-        });
+        if (user.uid == id) {
+          toast.success("Adelante", {
+            icon: "👾",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          navigate("/Home");
+        } else {
+          toast.success("Bienvenido/a!!", {
+            icon: "✨",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          addDoc(collection(db, "users"), {
+            name: user.displayName,
+            email: user.email,
+            uid: auth.currentUser.uid,
+            rol: "user",
+          });
+        }
         navigate("/Home");
         console.log("Inicio correctamente");
       })
@@ -164,12 +202,38 @@ function Register() {
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
-        addDoc(collection(db, "users"), {
-          name: user.displayName,
-          email: user.email,
-          uid: auth.currentUser.uid,
-          rol: "user",
-        });
+        if (user.uid == id) {
+          toast.success("Adelante", {
+            icon: "👾",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          navigate("/Home");
+        } else {
+          toast.success("Bienvenido/a!!", {
+            icon: "✨",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          addDoc(collection(db, "users"), {
+            name: user.displayName,
+            email: user.email,
+            uid: auth.currentUser.uid,
+            rol: "user",
+          });
+        }
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
@@ -197,6 +261,10 @@ function Register() {
   const updatePassword = function (event) {
     setPasswordReg(event.target.value);
   };
+
+  useEffect(() => {
+    ids();
+  }, []);
 
   return (
     <div className="main-container">

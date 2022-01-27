@@ -22,6 +22,7 @@ import {
   browserSessionPersistence,
 } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
+import pepo from "../Assets/pepo.gif";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -120,13 +121,36 @@ function Login() {
         // The signed-in user info.
         const user = result.user;
         if (user.uid == id) {
+          toast.success("Adelante", {
+            icon: "👾",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          navigate("/Home");
+        } else {
+          toast.success("Bienvenido/a!!", {
+            icon: "✨",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
           addDoc(collection(db, "users"), {
             name: user.displayName,
             email: user.email,
             uid: auth.currentUser.uid,
             rol: "user",
           });
-        } else {
         }
         console.log(user.uid);
         console.log("Inicio correctamente");
@@ -152,14 +176,39 @@ function Login() {
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
-        addDoc(collection(db, "users"), {
-          name: user.displayName,
-          email: user.email,
-          uid: auth.currentUser.uid,
-          rol: "user",
-        });
+        if (user.uid == id) {
+          toast.success("Adelante", {
+            icon: "👾",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          navigate("/Home");
+        } else {
+          toast.success("Bienvenido/a!!", {
+            icon: "✨",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          addDoc(collection(db, "users"), {
+            name: user.displayName,
+            email: user.email,
+            uid: auth.currentUser.uid,
+            rol: "user",
+          });
+        }
 
-        navigate("/Home");
         // ...
       })
       .catch((error) => {
