@@ -82,32 +82,40 @@ function Library() {
         <h1 style={{ textAlign: "left" }}> Tu libreria</h1>
         <hr style={{ color: "white" }} />
       </Container>
-      <Container>
-        <h2 style={{ color: "white" }} className="pt-3">
-          No hay juegos por aqui...
-        </h2>
-      </Container>
-      <Container>
-        <p style={{ color: "white" }}>Anda mira uno que te guste :)</p>
-      </Container>
-      <Container className="d-flex">
-        {filtradojuego.map((item) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
-              <Row>
-                <Col md={12}>
-                  <div className="profile-card-2 ">
-                    <img src={item.imagenportada} className="img-responsive" />
-                    <div className="background "></div>
-                    <div className="profile-name">{item.juego}</div>
-                    <div className="profile-username">{item.creator}</div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Link>
-        ))}
-      </Container>
+      {filterbuy.length == 0 ? (
+        <>
+          <Container>
+            <h2 style={{ color: "white" }} className="pt-3">
+              No hay juegos por aqui...
+            </h2>
+          </Container>
+          <Container>
+            <p style={{ color: "white" }}>Anda mira uno que te guste :)</p>
+          </Container>
+        </>
+      ) : (
+        <Container className="d-flex">
+          {filtradojuego.map((item) => (
+            <Link to={`/GamesShow/${item.juego}`} className="w-25">
+              <Container key={item.id}>
+                <Row>
+                  <Col md={12}>
+                    <div className="profile-card-2 ">
+                      <img
+                        src={item.imagenportada}
+                        className="img-responsive"
+                      />
+                      <div className="background "></div>
+                      <div className="profile-name">{item.juego}</div>
+                      <div className="profile-username">{item.creator}</div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </Link>
+          ))}
+        </Container>
+      )}
       )
     </>
   );

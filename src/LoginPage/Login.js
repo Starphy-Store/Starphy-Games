@@ -44,9 +44,20 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-
+  const [id, setId] = useState([]);
+  console.log(id);
   const navigate = useNavigate();
 
+  function ids() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setId(item);
+      }
+    });
+  }
   function probar(event) {
     event.preventDefault();
 
@@ -108,15 +119,16 @@ function Login() {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        addDoc(collection(db, "users"), {
-          name: user.displayName,
-          email: user.email,
-          uid: auth.currentUser.uid,
-          rol: "user",
-          juegoscomprados: [],
-        });
-
-        navigate("/Home");
+        if (user.uid == id) {
+          addDoc(collection(db, "users"), {
+            name: user.displayName,
+            email: user.email,
+            uid: auth.currentUser.uid,
+            rol: "user",
+          });
+        } else {
+        }
+        console.log(user.uid);
         console.log("Inicio correctamente");
       })
       .catch((error) => {
@@ -145,9 +157,8 @@ function Login() {
           email: user.email,
           uid: auth.currentUser.uid,
           rol: "user",
-          juegoscomprados: [],
         });
-        navigate("/Home");
+
         navigate("/Home");
         // ...
       })
@@ -170,6 +181,10 @@ function Login() {
   const updatePassword = function (event) {
     setPassword(event.target.value);
   };
+
+  useEffect(() => {
+    ids();
+  }, []);
 
   return (
     <div className="main-container">

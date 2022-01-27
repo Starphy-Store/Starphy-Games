@@ -90,7 +90,6 @@ function Register() {
           pass: passwordReg,
           uid: auth.currentUser.uid,
           rol: "user",
-          juegoscomprados: [],
         });
         // Signed in
         sendEmailVerification(auth.currentUser).then(() => {
@@ -144,7 +143,6 @@ function Register() {
           email: user.email,
           uid: auth.currentUser.uid,
           rol: "user",
-          juegoscomprados: [],
         });
         navigate("/Home");
         console.log("Inicio correctamente");
@@ -171,7 +169,6 @@ function Register() {
           email: user.email,
           uid: auth.currentUser.uid,
           rol: "user",
-          juegoscomprados: [],
         });
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
