@@ -90,6 +90,7 @@ export default function DevRegister() {
           uid: auth.currentUser.uid,
           rol: "dev",
           photoProfile: urlDescargar,
+          juegoscomprado: [],
         });
         // Signed in
         sendEmailVerification(auth.currentUser).then(() => {

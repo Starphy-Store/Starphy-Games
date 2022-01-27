@@ -1,33 +1,114 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Nav/Header";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+import { useParams } from "react-router";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  collection,
+  getFirestore,
+  onSnapshot,
+  query,
+} from "firebase/firestore";
+import firebase2 from "../Home/Firebase2";
+import { Link } from "react-router-dom";
+
+const auth = getAuth(firebase2);
+const db = getFirestore(firebase2);
 
 function Library() {
+  const [perfil, setPerfil] = useState([]);
+  const [id, setId] = useState([]);
+  const [juegos, setJuegos] = useState([]);
+  const [juegosbuy, setJuegobuy] = useState([]);
+
+  const filtradoperfil = perfil.filter((x) => x.uid == id);
+  const idperfil = filtradoperfil.map((x) => x.uid);
+
+  const filterbuy = juegosbuy.filter((x) => x.idusuariocompra == idperfil);
+  const filtradojueguito = filterbuy.map((x) => x.juegoscomprado);
+
+  const filtradojuego = juegos.filter((x) =>
+    filtradojueguito.includes(x.juego)
+  );
+
+  console.log(filterbuy);
+
+  function getGames() {
+    const ref = query(collection(db, "games"));
+    const refe = query(collection(db, "users"));
+    const refere = query(collection(db, "juegoscomprados"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+      setJuegos(items);
+    });
+    onSnapshot(refe, (querySnapshot) => {
+      const ite = [];
+      querySnapshot.forEach((doc) => {
+        ite.push(doc.data());
+      });
+      setPerfil(ite);
+    });
+
+    onSnapshot(refere, (querySnapshot) => {
+      const cagaste = [];
+      querySnapshot.forEach((doc) => {
+        cagaste.push(doc.data());
+      });
+      setJuegobuy(cagaste);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setId(item);
+      }
+    });
+  }
+
+  useEffect(() => {
+    getGames();
+  }, []);
+
   return (
     <>
-      <Header />
-      <h1 style={{ textAlign: "left", paddingLeft: "40px" }}> Tu libreria</h1>
-      <div
-        style={{ backgroundColor: "#7C77B9", height: "70vh", color: "white" }}
-      >
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/barri.png?alt=media&token=356f03fb-0e69-4002-992c-58839d8c8373"
-          style={{ width: "100%", height: "65px" }}
-        />
-        <Container className="pt-5">
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Dise%C3%B1o_sin_t%C3%ADtulo__7_-removebg-preview.png?alt=media&token=125448d6-ddd0-4f8c-9856-ff7ff77fae1e"
-            alt="deadicon"
-            style={{ width: "200px" }}
-          />
-        </Container>
-        <Container>
-          <h2>No hay juegos por aqui...</h2>
-        </Container>
-        <Container>
-          <p>Anda mira uno que te guste :)</p>
-        </Container>
-      </div>
+      <Container>
+        <Header />
+        <h1 style={{ textAlign: "left" }}> Tu libreria</h1>
+        <hr style={{ color: "white" }} />
+      </Container>
+      <Container>
+        <h2 style={{ color: "white" }} className="pt-3">
+          No hay juegos por aqui...
+        </h2>
+      </Container>
+      <Container>
+        <p style={{ color: "white" }}>Anda mira uno que te guste :)</p>
+      </Container>
+      <Container className="d-flex">
+        {filtradojuego.map((item) => (
+          <Link to={`/GamesShow/${item.juego}`} className="w-25">
+            <Container key={item.id}>
+              <Row>
+                <Col md={12}>
+                  <div className="profile-card-2 ">
+                    <img src={item.imagenportada} className="img-responsive" />
+                    <div className="background "></div>
+                    <div className="profile-name">{item.juego}</div>
+                    <div className="profile-username">{item.creator}</div>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </Link>
+        ))}
+      </Container>
+      )
     </>
   );
 }

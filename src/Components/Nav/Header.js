@@ -166,7 +166,13 @@ const Header = () => {
               <Row>
                 <Col></Col>
                 {cua ? (
-                  <Col md={12} style={{ width: "89px" }}>
+                  <Col
+                    md={12}
+                    style={{
+                      border: "1px solid red",
+                      justifyItems: "rigth",
+                    }}
+                  >
                     {filtrado.map((item) => (
                       <>
                         <DropdownButton
@@ -177,7 +183,10 @@ const Header = () => {
                           key={item.uid}
                           id="dropdown-menu-align-start"
                           variant="outline-light"
-                          style={{ border: "0", color: "white" }}
+                          style={{
+                            border: "0",
+                            color: "white",
+                          }}
                         >
                           {Dev.map((item) =>
                             item.rol == "dev" ? (

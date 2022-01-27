@@ -113,6 +113,7 @@ function Login() {
           email: user.email,
           uid: auth.currentUser.uid,
           rol: "user",
+          juegoscomprados: [],
         });
 
         navigate("/Home");
@@ -144,6 +145,7 @@ function Login() {
           email: user.email,
           uid: auth.currentUser.uid,
           rol: "user",
+          juegoscomprados: [],
         });
         navigate("/Home");
         navigate("/Home");
