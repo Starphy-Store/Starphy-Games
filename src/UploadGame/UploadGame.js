@@ -14,6 +14,7 @@ import {
   setDoc,
   addDoc,
 } from "firebase/firestore";
+import Loading from "../Home/spinner";
 
 import { toast, ToastContainer } from "react-toastify";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -41,14 +42,19 @@ export default function UploadGame() {
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState(0);
   const [id, setId] = useState("");
-  const [validated, setValidated] = useState(false);
+
+  const [validated, setValidated] = useState(null);
+
   const [categoria1, setcategoria1] = useState("");
   const [categoria2, setcategoria2] = useState("");
   const [categoria3, setcategoria3] = useState("");
+
   const [urlDescargar, seturlDescargar] = useState(null);
   const [urlImagenes, seturlImagenes] = useState(null);
   const [urlImagenes2, seturlImagenes2] = useState(null);
   const [urlImagenes3, seturlImagenes3] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(null);
   const [añadir, setañadir] = useState([
     <Form.Group className="mb-2" controlId="formBasicPassword">
       <Form.Label>Imagenes de tu juego</Form.Label>
@@ -59,8 +65,9 @@ export default function UploadGame() {
 
   const filtrado = nombrecreador.filter((x) => x.uid == id);
   const nombre = filtrado.map((item) => item.name);
-  console.log(nombre);
+
   async function CargarArchivo(e) {
+    setIsLoading(true);
     const archivolocal = e.target.files[0];
 
     const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
@@ -68,6 +75,7 @@ export default function UploadGame() {
     await uploadBytes(archivoRef, archivolocal);
 
     seturlDescargar(await getDownloadURL(archivoRef));
+    setIsLoading(false);
   }
 
   async function CargarImagenes(e) {
@@ -120,6 +128,19 @@ export default function UploadGame() {
       }
     });
   }
+
+  const isInvalid = () => {};
+
+  const buttonEnable = [
+    Des,
+    valor,
+    game,
+    urlImagenes,
+    urlImagenes2,
+    urlImagenes3,
+  ].some(isInvalid)
+    ? false
+    : true;
   async function CrearJuego(event) {
     event.preventDefault();
     console.log("render");
@@ -135,47 +156,49 @@ export default function UploadGame() {
       className: "dark-toast",
     });
 
-    addDoc(collection(db, "games"), {
-      descrip: Des,
-      juego: game,
-      precio: valor,
-      esunjuego: "si",
-      imagenportada: urlImagenes,
-      imagenjuego: urlImagenes2,
-      imagenjuego2: urlImagenes3,
-      categoria1: categoria1,
-      categoria2: categoria2,
-      categoria3: categoria3,
-      videojuego: urlDescargar,
-      idprofile: auth.currentUser.uid,
-      creator: nombre,
-    });
-
-    setValidated(true);
-    navigate("/Home");
+    if (setValidated == false) {
+      console.log("PorAquiNoPasas");
+    } else {
+      console.log("si");
+      addDoc(collection(db, "games"), {
+        descrip: Des,
+        juego: game,
+        precio: valor,
+        esunjuego: "si",
+        imagenportada: urlImagenes,
+        imagenjuego: urlImagenes2,
+        imagenjuego2: urlImagenes3,
+        categoria1: categoria1,
+        categoria2: categoria2,
+        categoria3: categoria3,
+        videojuego: urlDescargar,
+        idprofile: auth.currentUser.uid,
+        creator: nombre,
+      });
+    }
   }
 
   const updateDes = function (event) {
     setDes(event.target.value);
   };
-
   const updategame = function (event) {
     setgame(event.target.value);
+    setValidated(false);
   };
-
   const updatevalor = function (event) {
     setvalor(event.target.value);
   };
   const updatecategoria1 = function (event) {
     setcategoria1(event.target.value);
+    setValidated(false);
   };
-
   const updatecategoria2 = function (event) {
     setcategoria2(event.target.value);
+    setValidated(false);
   };
-
   const updatecategoria3 = function (event) {
     setcategoria3(event.target.value);
+    setValidated(false);
   };
 
   const añadirElemento = () => {
@@ -209,6 +232,16 @@ export default function UploadGame() {
               onSubmit={CrearJuego}
               style={{ width: "100%" }}
             >
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>
+                  Carga tu videojuego o el archivo rar de tu videojuego
+                </Form.Label>
+                <Form.Control
+                  type="file"
+                  onChange={CargarArchivo}
+                  placeholder=""
+                />
+              </Form.Group>
               <Form.Group className="mb-4" controlId="formBasicPassword">
                 <Form.Label>Nombre del juego:</Form.Label>
                 <Form.Control
@@ -311,11 +344,10 @@ export default function UploadGame() {
               <Form.Group className="mb-3 mt-3" controlId="formBasicPassword">
                 <Form.Label>Precio</Form.Label>
                 <Form.Control
-                  type="text"
                   required
                   type="number"
                   value={valor}
-                  limit={30}
+                  max={100}
                   onChange={updatevalor}
                   placeholder="$"
                 />
@@ -331,19 +363,16 @@ export default function UploadGame() {
                   style={{ paddingBottom: "150px" }}
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>
-                  Carga tu videojuego, o la carpeta de tu videojuego
-                </Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={CargarArchivo}
-                  placeholder=""
-                />
-              </Form.Group>
-              <Button variant="success" type="submit">
-                Subir juego
-              </Button>
+              {isLoading ? (
+                <div>
+                  <Loading />
+                  <p>Espera a que carge su juego</p>
+                </div>
+              ) : (
+                <Button variant="success" type="submit" disabled={buttonEnable}>
+                  Subir juego
+                </Button>
+              )}
             </Form>
           </Col>
         </Row>

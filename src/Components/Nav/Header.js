@@ -238,7 +238,7 @@ const Header = () => {
                             </Link>
                           </Dropdown.Item>
                           <Dropdown.Item eventKey="2">
-                            Libreria de juegos
+                            <Link to="/library">Libreria de juegos</Link>
                           </Dropdown.Item>
                           <Dropdown.Divider />
                           <Dropdown.Item

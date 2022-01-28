@@ -3,7 +3,7 @@ import Header from "../Components/Nav/Header";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import firebase2 from "../../src/Home/Firebase2";
 import { initializeApp } from "firebase/app";
-import spinner from "../Assets/spinner.gif";
+
 import {
   query,
   collection,
@@ -20,6 +20,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Home/spinner";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -37,27 +38,18 @@ const storage = getStorage(app);
 
 export default function UploadGame() {
   const [urlDescargar, seturlDescargar] = useState(null);
-  const [loadingSize, setloadingSize] = useState(false);
+  const [isLoading, setIsLoading] = useState(null);
 
   async function CargarArchivo(e) {
+    setIsLoading(true);
     const archivolocal = e.target.files[0];
-    if (archivolocal.size >= 10) {
-      console.log("Si");
-      return (
-        <div class="spinner-border">
-          <img src={spinner}></img>
-          <p>Funciona</p>
-        </div>
-      );
-    } else {
-      console.log("No");
-      const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
 
-      await uploadBytes(archivoRef, archivolocal);
+    const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
 
-      seturlDescargar(await getDownloadURL(archivoRef));
-    }
-    console.log(archivolocal.size);
+    await uploadBytes(archivoRef, archivolocal);
+
+    seturlDescargar(await getDownloadURL(archivoRef));
+    setIsLoading(false);
   }
 
   return (
@@ -81,9 +73,16 @@ export default function UploadGame() {
                   placeholder=""
                 />
               </Form.Group>
-              <Button variant="success" type="submit">
-                Subir juego
-              </Button>
+              {isLoading ? (
+                <div>
+                  <Loading />
+                  <p>Espera a que carge su juego</p>
+                </div>
+              ) : (
+                <Button variant="success" type="submit">
+                  Subir juego
+                </Button>
+              )}
             </Form>
           </Col>
         </Row>
