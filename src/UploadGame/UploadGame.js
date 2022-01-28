@@ -129,6 +129,18 @@ export default function UploadGame() {
     });
   }
 
+  const isInvalid = (text) => !Boolean(text.trim());
+
+  const buttonEnable = [
+    Des,
+    game,
+    urlImagenes,
+    urlImagenes2,
+    urlImagenes3,
+  ].some(isInvalid)
+    ? true
+    : false;
+
   async function CrearJuego(event) {
     event.preventDefault();
     console.log("render");
@@ -166,22 +178,18 @@ export default function UploadGame() {
   };
   const updategame = function (event) {
     setgame(event.target.value);
-    setValidated(false);
   };
   const updatevalor = function (event) {
     setvalor(event.target.value);
   };
   const updatecategoria1 = function (event) {
     setcategoria1(event.target.value);
-    setValidated(false);
   };
   const updatecategoria2 = function (event) {
     setcategoria2(event.target.value);
-    setValidated(false);
   };
   const updatecategoria3 = function (event) {
     setcategoria3(event.target.value);
-    setValidated(false);
   };
 
   const añadirElemento = () => {
@@ -327,6 +335,7 @@ export default function UploadGame() {
               <Form.Group className="mb-3 mt-3" controlId="formBasicPassword">
                 <Form.Label>Precio</Form.Label>
                 <Form.Control
+                  required
                   type="number"
                   value={valor}
                   max={100}
@@ -351,7 +360,7 @@ export default function UploadGame() {
                   <p>Espera a que carge su juego</p>
                 </div>
               ) : (
-                <Button variant="success" type="submit" disabled={validated}>
+                <Button variant="success" type="submit" disabled={buttonEnable}>
                   Subir juego
                 </Button>
               )}
