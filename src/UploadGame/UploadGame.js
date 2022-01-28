@@ -129,18 +129,6 @@ export default function UploadGame() {
     });
   }
 
-  const isInvalid = () => {};
-
-  const buttonEnable = [
-    Des,
-    valor,
-    game,
-    urlImagenes,
-    urlImagenes2,
-    urlImagenes3,
-  ].some(isInvalid)
-    ? false
-    : true;
   async function CrearJuego(event) {
     event.preventDefault();
     console.log("render");
@@ -156,26 +144,21 @@ export default function UploadGame() {
       className: "dark-toast",
     });
 
-    if (setValidated == false) {
-      console.log("PorAquiNoPasas");
-    } else {
-      console.log("si");
-      addDoc(collection(db, "games"), {
-        descrip: Des,
-        juego: game,
-        precio: valor,
-        esunjuego: "si",
-        imagenportada: urlImagenes,
-        imagenjuego: urlImagenes2,
-        imagenjuego2: urlImagenes3,
-        categoria1: categoria1,
-        categoria2: categoria2,
-        categoria3: categoria3,
-        videojuego: urlDescargar,
-        idprofile: auth.currentUser.uid,
-        creator: nombre,
-      });
-    }
+    addDoc(collection(db, "games"), {
+      descrip: Des,
+      juego: game,
+      precio: valor,
+      esunjuego: "si",
+      imagenportada: urlImagenes,
+      imagenjuego: urlImagenes2,
+      imagenjuego2: urlImagenes3,
+      categoria1: categoria1,
+      categoria2: categoria2,
+      categoria3: categoria3,
+      videojuego: urlDescargar,
+      idprofile: auth.currentUser.uid,
+      creator: nombre,
+    });
   }
 
   const updateDes = function (event) {
@@ -344,7 +327,6 @@ export default function UploadGame() {
               <Form.Group className="mb-3 mt-3" controlId="formBasicPassword">
                 <Form.Label>Precio</Form.Label>
                 <Form.Control
-                  required
                   type="number"
                   value={valor}
                   max={100}
@@ -369,7 +351,7 @@ export default function UploadGame() {
                   <p>Espera a que carge su juego</p>
                 </div>
               ) : (
-                <Button variant="success" type="submit" disabled={buttonEnable}>
+                <Button variant="success" type="submit" disabled={validated}>
                   Subir juego
                 </Button>
               )}
