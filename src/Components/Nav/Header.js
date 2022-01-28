@@ -167,10 +167,10 @@ const Header = () => {
                 <Col></Col>
                 {cua ? (
                   <Col
-                    md={12}
+                    md={5}
                     style={{
-                      border: "1px solid red",
-                      justifyItems: "rigth",
+                      justifyItems: "right",
+                      marginLeft: "425px",
                     }}
                   >
                     {filtrado.map((item) => (
@@ -230,15 +230,15 @@ const Header = () => {
                           )}
 
                           <Dropdown.Item eventKey="3">
-                            <Link
-                              to="/EditProfile"
-                              style={{ textDecoration: "none", color: "black" }}
-                            >
-                              Tu perfil
-                            </Link>
+                            <Link to="/EditProfile">Tu perfil</Link>
                           </Dropdown.Item>
                           <Dropdown.Item eventKey="2">
-                            <Link to="/library">Libreria de juegos</Link>
+                            <Link
+                              to="/library"
+                              style={{ textDecoration: "none", color: "black" }}
+                            >
+                              Libreria de juegos
+                            </Link>
                           </Dropdown.Item>
                           <Dropdown.Divider />
                           <Dropdown.Item

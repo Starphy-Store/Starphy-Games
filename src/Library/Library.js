@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Components/Nav/Header";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -96,23 +96,30 @@ function Library() {
       ) : (
         <Container className="d-flex">
           {filtradojuego.map((item) => (
-            <Link to={`/GamesShow/${item.juego}`} className="w-25">
-              <Container key={item.id}>
-                <Row>
-                  <Col md={12}>
-                    <div className="profile-card-2 ">
-                      <img
-                        src={item.imagenportada}
-                        className="img-responsive"
-                      />
-                      <div className="background "></div>
-                      <div className="profile-name">{item.juego}</div>
-                      <div className="profile-username">{item.creator}</div>
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </Link>
+            <>
+              <div>
+                <Container key={item.id}>
+                  <Row>
+                    <Col md={12}>
+                      <div className="profile-card-2 ">
+                        <img
+                          src={item.imagenportada}
+                          className="img-responsive"
+                        />
+                        <div className="background "></div>
+                        <div className="profile-name">{item.juego}</div>
+                        <div className="profile-username">{item.creator}</div>
+                        <div className="profile-icons">
+                          <a href={item.videojuego}>
+                            Dale click para empezar la descarga
+                          </a>{" "}
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+            </>
           ))}
         </Container>
       )}
