@@ -193,7 +193,7 @@ const Header = () => {
                               <>
                                 <Dropdown.Item eventKey="1">
                                   <Link
-                                    to="/DevProfile$"
+                                    to={`/DevProfile/${item.uid}`}
                                     style={{
                                       textDecoration: "none",
                                       color: "black",

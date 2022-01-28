@@ -364,6 +364,7 @@ export default function UploadGame() {
                   Subir juego
                 </Button>
               )}
+              <p>Asegurate que esta todo correcto...</p>
             </Form>
           </Col>
         </Row>
