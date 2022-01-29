@@ -144,6 +144,9 @@ export default function Payment() {
                   addDoc(collection(db, "juegoscomprados"), {
                     juegoscomprado: item.juego,
                     idusuariocompra: items.uid,
+                    preciodeljuego: item.precio,
+                    enviarpago: item.idprofile,
+                    nombrecreador: item.creator,
                   });
                 });
               }}
