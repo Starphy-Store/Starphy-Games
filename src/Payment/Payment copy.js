@@ -28,36 +28,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebase2);
 const auth = getAuth(firebase2);
 
-function MyVerticallyCenteredModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton variant="dark">
-        <Modal.Title id="contained-modal-title-vcenter">
-          Compra realizada con exito🎉🎉
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <p>Muchas gracias por colaborar en sacarme de latam😳👌</p>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button href="/library">Ir a tu biblioteca</Button>
-        <Button
-          onClick={props.onHide}
-          variant="success"
-          style={{ backgroundColor: "" }}
-        >
-          Descargar ahora
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
 export default function Payment() {
   const [modalShow, setModalShow] = React.useState(false);
   const { id } = useParams();
@@ -71,6 +41,36 @@ export default function Payment() {
   const filteruser = perfil.filter((x) => x.uid == iduser);
 
   console.log(filteruser);
+
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton variant="dark">
+          <Modal.Title id="contained-modal-title-vcenter">
+            Compra realizada con exito🎉🎉
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Muchas gracias por colaborar en sacarme de latam😳👌</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button href="/library">Ir a tu biblioteca</Button>
+          <Button
+            onClick={props.onHide}
+            variant="success"
+            style={{ backgroundColor: "" }}
+          >
+            Descargar ahora
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
   function getGames() {
     const ref = query(collection(db, "games"));
     const refe = query(collection(db, "users"));
@@ -117,19 +117,15 @@ export default function Payment() {
           {filtrado2.map((item) => (
             <PayPalButtons
               style={{
-                layout: "horizontal",
-                size: "small",
-                color: "black",
-                tagline: "true",
-                shape: "pill",
-                fundingicons: "true",
-                funding: "allowed",
+                layout: "vertical",
               }}
+              disabled={false}
               createOrder={(data, actions) => {
                 return actions.order.create({
                   purchase_units: [
                     {
                       amount: {
+                        currency_code: "USD",
                         value: item.precio,
                       },
                     },
@@ -140,7 +136,7 @@ export default function Payment() {
                 return actions.order.capture().then((details) => {
                   const name = details.payer.name.given_name;
                   setModalShow(true);
-                  navigate("/home");
+
                   addDoc(collection(db, "juegoscomprados"), {
                     juegoscomprado: item.juego,
                     idusuariocompra: items.uid,
