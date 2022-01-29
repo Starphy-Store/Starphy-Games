@@ -166,7 +166,13 @@ const Header = () => {
               <Row>
                 <Col></Col>
                 {cua ? (
-                  <Col md={12} style={{ width: "89px" }}>
+                  <Col
+                    md={5}
+                    style={{
+                      justifyItems: "right",
+                      marginLeft: "425px",
+                    }}
+                  >
                     {filtrado.map((item) => (
                       <>
                         <DropdownButton
@@ -177,14 +183,17 @@ const Header = () => {
                           key={item.uid}
                           id="dropdown-menu-align-start"
                           variant="outline-light"
-                          style={{ border: "0", color: "white" }}
+                          style={{
+                            border: "0",
+                            color: "white",
+                          }}
                         >
                           {Dev.map((item) =>
                             item.rol == "dev" ? (
                               <>
                                 <Dropdown.Item eventKey="1">
                                   <Link
-                                    to="/DevProfile$"
+                                    to={`/DevProfile/${item.uid}`}
                                     style={{
                                       textDecoration: "none",
                                       color: "black",
@@ -221,15 +230,15 @@ const Header = () => {
                           )}
 
                           <Dropdown.Item eventKey="3">
-                            <Link
-                              to="/EditProfile"
-                              style={{ textDecoration: "none", color: "black" }}
-                            >
-                              Tu perfil
-                            </Link>
+                            <Link to="/EditProfile">Tu perfil</Link>
                           </Dropdown.Item>
                           <Dropdown.Item eventKey="2">
-                            Libreria de juegos
+                            <Link
+                              to="/library"
+                              style={{ textDecoration: "none", color: "black" }}
+                            >
+                              Libreria de juegos
+                            </Link>
                           </Dropdown.Item>
                           <Dropdown.Divider />
                           <Dropdown.Item

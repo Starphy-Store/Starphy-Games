@@ -22,6 +22,7 @@ import {
   browserSessionPersistence,
 } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
+import pepo from "../Assets/pepo.gif";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -44,9 +45,20 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-
+  const [id, setId] = useState([]);
+  console.log(id);
   const navigate = useNavigate();
 
+  function ids() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setId(item);
+      }
+    });
+  }
   function probar(event) {
     event.preventDefault();
 
@@ -108,14 +120,39 @@ function Login() {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        addDoc(collection(db, "users"), {
-          name: user.displayName,
-          email: user.email,
-          uid: auth.currentUser.uid,
-          rol: "user",
-        });
-
-        navigate("/Home");
+        if (user.uid == id) {
+          toast.success("Adelante", {
+            icon: "👾",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          navigate("/Home");
+        } else {
+          toast.success("Bienvenido/a!!", {
+            icon: "✨",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          addDoc(collection(db, "users"), {
+            name: user.displayName,
+            email: user.email,
+            uid: auth.currentUser.uid,
+            rol: "user",
+          });
+        }
+        console.log(user.uid);
         console.log("Inicio correctamente");
       })
       .catch((error) => {
@@ -139,14 +176,39 @@ function Login() {
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
-        addDoc(collection(db, "users"), {
-          name: user.displayName,
-          email: user.email,
-          uid: auth.currentUser.uid,
-          rol: "user",
-        });
-        navigate("/Home");
-        navigate("/Home");
+        if (user.uid == id) {
+          toast.success("Adelante", {
+            icon: "👾",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          navigate("/Home");
+        } else {
+          toast.success("Bienvenido/a!!", {
+            icon: "✨",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          addDoc(collection(db, "users"), {
+            name: user.displayName,
+            email: user.email,
+            uid: auth.currentUser.uid,
+            rol: "user",
+          });
+        }
+
         // ...
       })
       .catch((error) => {
@@ -168,6 +230,10 @@ function Login() {
   const updatePassword = function (event) {
     setPassword(event.target.value);
   };
+
+  useEffect(() => {
+    ids();
+  }, []);
 
   return (
     <div className="main-container">

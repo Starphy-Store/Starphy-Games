@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Payment from "./Payment copy";
+/* import BillPayment from "./BillPayment"; */
 import MinecraftImg from "../Assets/MinecraftImg.jpg";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -49,6 +50,13 @@ export default function PayCheckout() {
       return <Payment />;
     }
   }
+  function dollarsign(input) {
+    if (input == "Gratis") {
+      return input;
+    } else {
+      return "$" + input;
+    }
+  }
 
   useEffect(() => {
     dameJuegos();
@@ -88,12 +96,13 @@ export default function PayCheckout() {
                   Precio: {item.precio}
                 </h3>
               </Col>
-              <div>{changebuttons(item.precio)}</div>
             </Col>
             <Col>
               <Link to="/home">
                 <h6>Regresar</h6>
               </Link>
+              {/* <BillPayment /> */}
+              <div>{changebuttons(item.precio)}</div>
             </Col>
           </Row>
         </Container>

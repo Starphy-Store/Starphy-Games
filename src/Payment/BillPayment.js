@@ -1,203 +1,155 @@
-import { useState, useEffect, useRef } from "react";
 import {
   PayPalScriptProvider,
-  PayPalHostedFieldsProvider,
+  PayPalButtons,
   PayPalHostedField,
   usePayPalHostedFields,
+  PayPalHostedFieldsProvider,
+  BraintreePayPalButtons,
 } from "@paypal/react-paypal-js";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { ReactDOM } from "react-dom";
+import firebase2 from "../Home/Firebase2";
 
-const CUSTOM_FIELD_STYLE = {
-  border: "1px solid #606060",
-  boxShadow: "2px 2px 10px 2px rgba(0,0,0,0.1)",
-};
-const INVALID_COLOR = {
-  color: "#dc3545",
-};
+import {
+  query,
+  collection,
+  onSnapshot,
+  getFirestore,
+  getDocs,
+  getDoc,
+  doc,
+  updateDoc,
+  addDoc,
+} from "firebase/firestore";
+import { Button, Modal } from "react-bootstrap";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-// Example of custom component to handle form submit
-const SubmitPayment = ({ customStyle }) => {
-  const [paying, setPaying] = useState(false);
-  const cardHolderName = useRef(null);
-  const hostedField = usePayPalHostedFields();
+const db = getFirestore(firebase2);
+const auth = getAuth(firebase2);
 
-  const handleClick = () => {
-    if (hostedField) {
-      if (
-        Object.values(hostedField.getState().fields).some(
-          (field) => !field.isValid
-        ) ||
-        !cardHolderName?.current?.value
-      ) {
-        return alert(
-          "The payment form is invalid, please check it before execute the payment"
-        );
-      }
-      setPaying(true);
-      hostedField
-        .submit({
-          cardholderName: cardHolderName?.current?.value,
-        })
-        .then((data) => {
-          // Your logic to capture the transaction
-          fetch("url_to_capture_transaction", {
-            method: "post",
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              // Here use the captured info
-            })
-            .catch((err) => {
-              // Here handle error
-            })
-            .finally(() => {
-              setPaying(false);
-            });
-        })
-        .catch((err) => {
-          // Here handle error
-          setPaying(false);
-        });
-    }
-  };
-
+function MyVerticallyCenteredModal(props) {
   return (
-    <>
-      <label title="This represents the full name as shown in the card">
-        Card Holder Name
-        <input
-          id="card-holder"
-          ref={cardHolderName}
-          className="card-field"
-          style={{ ...customStyle, outline: "none" }}
-          type="text"
-          placeholder="Full name"
-        />
-      </label>
-      <button
-        className={`btn${paying ? "" : " btn-primary"}`}
-        style={{ float: "right" }}
-        onClick={handleClick}
-      >
-        {paying ? <div className="spinner tiny" /> : "Pay"}
-      </button>
-    </>
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton variant="dark">
+        <Modal.Title id="contained-modal-title-vcenter">
+          Compra realizada con exito🎉🎉
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>Muchas gracias por colaborar en sacarme de latam😳👌</p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button href="/library">Ir a tu biblioteca</Button>
+        <Button
+          onClick={props.onHide}
+          variant="success"
+          style={{ backgroundColor: "" }}
+        >
+          Descargar ahora
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
-};
+}
 
-export default function App() {
-  const [clientToken, setClientToken] = useState(null);
+export default function Payment() {
+  const [modalShow, setModalShow] = React.useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [game, setGame] = useState([]);
+  const [perfil, setPerfil] = useState([]);
+  const [iduser, setId] = useState();
+
+  const filtrado = game.filter((x) => x.esunjuego == "si");
+  const filtrado2 = filtrado.filter((x) => x.juego == id);
+  const filteruser = perfil.filter((x) => x.uid == iduser);
+
+  console.log(filteruser);
+  function getGames() {
+    const ref = query(collection(db, "games"));
+    const refe = query(collection(db, "users"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data(), id);
+      });
+      setGame(items);
+    });
+    onSnapshot(refe, (querySnapshot) => {
+      const ite = [];
+      querySnapshot.forEach((doc) => {
+        ite.push(doc.data());
+      });
+      setPerfil(ite);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const item = [];
+        const uids = user.uid;
+        item.push(uids);
+        setId(item);
+      }
+    });
+  }
 
   useEffect(() => {
-    (async () => {
-      const response = await (
-        await fetch(
-          "https://braintree-sdk-demo.herokuapp.com/api/paypal/hosted-fields/auth"
-        )
-      ).json();
-      setClientToken(response?.client_token || response?.clientToken);
-    })();
+    getGames();
   }, []);
 
   return (
     <>
-      {clientToken ? (
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+      {filteruser.map((items) => (
         <PayPalScriptProvider
-          options={{
-            "client-id":
-              "AdOu-W3GPkrfuTbJNuW9dWVijxvhaXHFIRuKrLDwu14UDwTTHWMFkUwuu9D8I1MAQluERl9cFOd7Mfqe",
-            components: "buttons,hosted-fields",
-            "data-client-token": clientToken,
-            intent: "capture",
-            vault: false,
-          }}
+          options={{ "client-id": process.env.REACT_APP_APIPAYPAL }}
         >
-          <PayPalHostedFieldsProvider
-            styles={{
-              ".valid": { color: "#28a745" },
-              ".invalid": { color: "#dc3545" },
-              input: { "font-family": "monospace", "font-size": "16px" },
-            }}
-            createOrder={function () {
-              return fetch("your_custom_server_to_create_orders", {
-                method: "post",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
+          {filtrado2.map((item) => (
+            <PayPalButtons
+              style={{
+                layout: "vertical",
+              }}
+              disabled={false}
+              createOrder={(data, actions) => {
+                return actions.order.create({
                   purchase_units: [
                     {
                       amount: {
-                        value: "2", // Here change the amount if needed
-                        currency_code: "undefined", // Here change the currency if needed
+                        currency_code: "USD",
+                        value: item.precio,
                       },
                     },
                   ],
-                  intent: "capture",
-                }),
-              })
-                .then((response) => response.json())
-                .then((order) => {
-                  // Your code here after create the order
-                  return order.id;
-                })
-                .catch((err) => {
-                  alert(err);
                 });
-            }}
-          >
-            <label htmlFor="card-number">
-              Card Number
-              <span style={INVALID_COLOR}>*</span>
-            </label>
-            <PayPalHostedField
-              id="card-number"
-              className="card-field"
-              style={CUSTOM_FIELD_STYLE}
-              hostedFieldType="number"
-              options={{
-                selector: "#card-number",
-                placeholder: "4111 1111 1111 1111",
+              }}
+              onApprove={(data, actions) => {
+                return actions.order.capture().then((details) => {
+                  const name = details.payer.name.given_name;
+                  setModalShow(true);
+                  navigate("/home");
+                  addDoc(collection(db, "juegoscomprados"), {
+                    juegoscomprado: item.juego,
+                    idusuariocompra: items.uid,
+                    preciodeljuego: item.precio,
+                    enviarpago: item.idprofile,
+                    nombrecreador: item.creator,
+                  });
+                });
               }}
             />
-            <label htmlFor="cvv">
-              CVV<span style={INVALID_COLOR}>*</span>
-            </label>
-            <PayPalHostedField
-              id="cvv"
-              className="card-field"
-              style={CUSTOM_FIELD_STYLE}
-              hostedFieldType="cvv"
-              options={{
-                selector: "#cvv",
-                placeholder: "123",
-                maskInput: true,
-              }}
-            />
-            <label htmlFor="expiration-date">
-              Expiration Date
-              <span style={INVALID_COLOR}>*</span>
-            </label>
-            <PayPalHostedField
-              id="expiration-date"
-              className="card-field"
-              style={CUSTOM_FIELD_STYLE}
-              hostedFieldType="expirationDate"
-              options={{
-                selector: "#expiration-date",
-                placeholder: "MM/YYYY",
-              }}
-            />
-            <SubmitPayment
-              customStyle={{
-                border: "1px solid #606060",
-                boxShadow: "2px 2px 10px 2px rgba(0,0,0,0.1)",
-              }}
-            />
-          </PayPalHostedFieldsProvider>
+          ))}
         </PayPalScriptProvider>
-      ) : (
-        <h1>Loading token...</h1>
-      )}
+      ))}
     </>
   );
 }
