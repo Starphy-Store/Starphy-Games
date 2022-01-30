@@ -135,6 +135,7 @@ function App() {
         <Route path="/editdevprofile" element={<Editdevprofile />} />
         <Route path="/SearchPage/:search" element={<SearchPage />} />
         <Route path="/SendEmail" element={<SendEmail />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
         {Dev.map((item) =>
           item.rol == "dev" ? (
             <>
