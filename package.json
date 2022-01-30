@@ -17,6 +17,7 @@
     "bootstrap": "^5.1.3",
     "cloudmersive-virus-api-client": "^1.2.5",
     "database": "^0.0.2",
+    "datejs": "^1.0.0-rc3",
     "dotenv": "^14.2.0",
     "env": "^0.0.2",
     "env-cmd": "^10.1.0",

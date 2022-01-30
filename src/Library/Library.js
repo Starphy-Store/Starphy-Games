@@ -31,8 +31,6 @@ function Library() {
     filtradojueguito.includes(x.juego)
   );
 
-  console.log(filterbuy);
-
   function getGames() {
     const ref = query(collection(db, "games"));
     const refe = query(collection(db, "users"));
@@ -97,7 +95,7 @@ function Library() {
         <Container className="d-flex">
           {filtradojuego.map((item) => (
             <>
-              <div>
+              <Link to={item.videojuego}>
                 <Container key={item.id}>
                   <Row>
                     <Col md={12}>
@@ -110,15 +108,13 @@ function Library() {
                         <div className="profile-name">{item.juego}</div>
                         <div className="profile-username">{item.creator}</div>
                         <div className="profile-icons">
-                          <a href={item.videojuego}>
-                            Dale click para empezar la descarga
-                          </a>{" "}
+                          <h6> Dale click para empezar la descarga</h6>
                         </div>
                       </div>
                     </Col>
                   </Row>
                 </Container>
-              </div>
+              </Link>
             </>
           ))}
         </Container>

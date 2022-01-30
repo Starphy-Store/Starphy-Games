@@ -24,6 +24,7 @@ import SearchPage from "../src/SearchPage/SearchPage";
 import UploadGame from "../src/UploadGame/UploadGame.js";
 import SendEmail from "./SendEmail/SendEmail";
 import BillPayment from "./Payment/BillPayment";
+import AboutUs from "./AboutUs/AboutUs";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";

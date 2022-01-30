@@ -23,6 +23,7 @@ import {
   onSnapshot,
   setDoc,
   updateDoc,
+  doc,
 } from "firebase/firestore";
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -83,20 +84,24 @@ export default function DevRegister() {
           progress: undefined,
           className: "dark-toast",
         });
-        addDoc(collection(db, "users"), {
+        setDoc(doc(db, "users", auth.currentUser.uid), {
           name: usernameReg,
           email: emailReg,
           pass: passwordReg,
           uid: auth.currentUser.uid,
           rol: "dev",
           photoProfile: urlDescargar,
+          FechaDeModificacion: null,
         });
         // Signed in
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
 
           onAuthStateChanged(auth, (user) => {
-            navigate("/Home");
+            setTimeout(() => {
+              navigate("/Home");
+            }, 5000);
+
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
             const uid = user.uid;

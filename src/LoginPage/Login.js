@@ -21,7 +21,13 @@ import {
   setPersistence,
   browserSessionPersistence,
 } from "firebase/auth";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore";
 import pepo from "../Assets/pepo.gif";
 
 const firebaseConfig = {
@@ -72,7 +78,9 @@ function Login() {
               console.log(user);
               if (user.emailVerified) {
                 const uid = user.uid;
-                navigate("/Home/");
+                setTimeout(() => {
+                  navigate("/Home");
+                }, 1000);
               } else {
                 toast.warn("Verifica el email", {
                   position: "top-right",
@@ -132,7 +140,9 @@ function Login() {
             progress: undefined,
             className: "dark-toast",
           });
-          navigate("/Home");
+          setTimeout(() => {
+            navigate("/Home");
+          }, 2000);
         } else {
           toast.success("Bienvenido/a!!", {
             icon: "✨",
@@ -145,11 +155,15 @@ function Login() {
             progress: undefined,
             className: "dark-toast",
           });
-          addDoc(collection(db, "users"), {
+          setTimeout(() => {
+            navigate("/Home");
+          }, 2000);
+          setDoc(doc(db, "users", auth.currentUser.uid), {
             name: user.displayName,
             email: user.email,
             uid: auth.currentUser.uid,
             rol: "user",
+            FechaDeModificacion: null,
           });
         }
         console.log(user.uid);
@@ -188,7 +202,9 @@ function Login() {
             progress: undefined,
             className: "dark-toast",
           });
-          navigate("/Home");
+          setTimeout(() => {
+            navigate("/Home");
+          }, 2000);
         } else {
           toast.success("Bienvenido/a!!", {
             icon: "✨",
@@ -201,12 +217,16 @@ function Login() {
             progress: undefined,
             className: "dark-toast",
           });
-          addDoc(collection(db, "users"), {
+          setDoc(doc(db, "users", auth.currentUser.uid), {
             name: user.displayName,
             email: user.email,
             uid: auth.currentUser.uid,
             rol: "user",
+            FechaDeModificacion: null,
           });
+          setTimeout(() => {
+            navigate("/Home");
+          }, 2000);
         }
 
         // ...

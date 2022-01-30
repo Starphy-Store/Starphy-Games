@@ -14,6 +14,7 @@ import firebase2 from "../Home/Firebase2.js";
 import { Link } from "react-router-dom";
 //importacion del headee
 
+import Footer from "../Footer/Footer";
 import Header from "../Components/Nav/Header";
 import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
@@ -125,7 +126,9 @@ const Home = () => {
           </Link>
         ))}
       </Container>
+      <Footer></Footer>
     </div>
   );
 };
+
 export default Home;
