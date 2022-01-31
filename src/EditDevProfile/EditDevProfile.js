@@ -3,7 +3,7 @@ import Header from "../Components/Nav/Header";
 import { Form, Container, Col, Button, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 import { collection, query, updateDoc } from "firebase/firestore";
-import { getFirestore, onSnapshot } from "firebase/firestore";
+import { getFirestore, onSnapshot, doc } from "firebase/firestore";
 import firebase2 from "../Home/Firebase2";
 import ProfilePicture from "../Assets/icon.png";
 import { eyeIcon } from "../LoginPage/assets/index";
@@ -40,8 +40,48 @@ export default function Editdevprofile() {
 
   const filtradoPerfil = perfil.filter((x) => x.rol == "dev");
   const filterid = filtradoPerfil.filter((x) => x.uid == id);
+  const filterpass = filterid.map((x) => x.pass);
 
   console.log(filterid);
+
+  const SendEmail = function (e) {
+    e.preventDefault();
+
+    sendPasswordResetEmail(auth, auth.currentUser.email)
+      .then(() => {
+        console.log("golaaaa");
+        toast.success("Revisa tu email ", {
+          icon: "👾",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "dark-toast",
+        });
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        toast.warning("NOOO", {
+          icon: "👾",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "dark-toast",
+        });
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  };
+
   async function devedit() {
     const ref = query(collection(db, "users"));
 
@@ -60,79 +100,53 @@ export default function Editdevprofile() {
         setId(item);
       }
     });
-
-    updateEmail(auth.currentUser, email)
-      .then(() => {
-        // Email updated!
-        toast.success("Correo cambiado", {
-          icon: "📨",
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          className: "dark-toast",
-        });
-        // ...
-      })
-      .catch((error) => {
-        toast.error("Ya existe ese correo", {
-          icon: "😮",
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          className: "dark-toast",
-        });
-        // An error occurred
-        // ...
-      });
-
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        toast.info("Verifica tu correo", {
-          icon: "📨",
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          className: "dark-toast",
-        });
-        // Password reset email sent!
-        // ..
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        toast.error("Error", {
-          icon: "😮",
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          className: "dark-toast",
-        });
-        // ..
-      });
-
-    updateDoc(collection(db, "users"), {
-      name: username,
-      email: email,
-      pass: password,
-    });
   }
 
+  const EmailOnSubmit = (e) => {
+    e.preventDefault();
+
+    if (password == filterpass) {
+      updateEmail(auth.currentUser.email, email)
+        .then(() => {
+          updateDoc(doc(db, "users", auth.current.uid), {
+            email: email,
+          });
+
+          // Email updated!
+          toast.success("Correo cambiado", {
+            icon: "📨",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          // ...
+        })
+
+        .catch((error) => {
+          console.log("nofunciona");
+          toast.error("Ya existe ese correo", {
+            icon: "😮",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          // An error occurred
+          // ...
+        });
+    } else {
+      console.log("contraseña erronea");
+    }
+  };
   useEffect(() => {
     devedit();
   }, []);
@@ -148,20 +162,18 @@ export default function Editdevprofile() {
   };
   return (
     <>
-      <Header />
+      <Container>
+        <Header />
+      </Container>
       <Container className="justify-content-left">
         <h1 className="pb-5">Edita tu perfil de desarrollador</h1>
       </Container>
-      <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-        }}
-      >
-        {filterid.map((item) => (
-          <Container className="pt-5">
-            <Col md={4}>
-              <Form>
+
+      {filterid.map((item) => (
+        <Container className="pt-5" style={{ color: "white" }}>
+          <Row>
+            <Col md={5}>
+              <Form onSubmit={EmailOnSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Editar nombre de desarrollador/a</Form.Label>
                   <Form.Control
@@ -181,31 +193,27 @@ export default function Editdevprofile() {
                     Email incorrecto
                   </Form.Control.Feedback>
                 </Form.Group>
-
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  Editar contraseña
-                  <div style={{ position: "relative" }}>
-                    <button
-                      id="show-hide-passwd"
-                      type="button"
-                      className="btn-icon"
-                      onClick={() => {
-                        setShow(!show);
-                      }}
-                    >
-                      <img className="eye-icon" src={eyeIcon} />
-                    </button>
-                    <Form.Control
-                      className="mb-3"
-                      type={show ? "text" : "password"}
-                      placeholder="Cambiar contraseña"
-                      style={{ backgroundColor: "#C4C4C4" }}
-                      value={password}
-                      minLength={6}
-                      maxLength={30}
-                      onChange={updatePassword}
-                    />
-                  </div>
+                  <Form.Label>Contraseña para cambiar correo</Form.Label>
+                  <Form.Control
+                    onChange={updatePassword}
+                    type="password"
+                    placeholder="********"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Contraseña Incorrecta
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Editar contraseña</Form.Label>
+                  <Button
+                    onClick={SendEmail}
+                    variant="outline-light"
+                    className="boton"
+                    type="submit"
+                  >
+                    Enviar correo para cambiar contraseña
+                  </Button>
                 </Form.Group>
                 <Form.Text className="text-muted">
                   Nunca compartiremos tus credenciales con nadie .
@@ -216,13 +224,27 @@ export default function Editdevprofile() {
                 </Button>
               </Form>
             </Col>
-            <Col md={8}>
-              wtf
-              <img src={item.photoProfile}></img>
+            <Col md={1}></Col>
+            <Col md={5}>
+              <img
+                src={item.photoProfile}
+                style={{
+                  width: "250px",
+                  height: "auto",
+                  maxHeight: "250px",
+                  borderRadius: "20px",
+                }}
+              ></img>
+              <Form.Group controlId="formFile" className="mb-3 ">
+                <Form.Label className="pl-3 pt-3">
+                  Selecciona la nueva foto de tu desarrolladora
+                </Form.Label>
+                <Form.Control type="file" />
+              </Form.Group>
             </Col>
-          </Container>
-        ))}
-      </div>
+          </Row>
+        </Container>
+      ))}
     </>
   );
 }

@@ -30,6 +30,8 @@ import {
 } from "firebase/firestore";
 import firebase2 from "../../Home/Firebase2";
 import { event } from "jquery";
+import investigacion from "../../Assets/investigacion.png";
+import { Search, PeopleCircle } from "react-bootstrap-icons";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -156,7 +158,7 @@ const Header = () => {
                 />
                 <Link to={`/SearchPage/${search}`}>
                   <Button onKeyDown={SearchGames} variant="outline-light">
-                    Search
+                    <Search />
                   </Button>
                 </Link>
               </Form>
@@ -170,7 +172,6 @@ const Header = () => {
                     md={5}
                     style={{
                       justifyItems: "right",
-                      marginLeft: "425px",
                     }}
                   >
                     {filtrado.map((item) => (

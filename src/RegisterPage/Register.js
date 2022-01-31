@@ -96,19 +96,22 @@ function Register() {
           progress: undefined,
           className: "dark-toast",
         });
-        addDoc(collection(db, "users"), {
+        setTimeout(() => {
+          navigate("/Home");
+        }, 5000);
+        setDoc(doc(db, "users", auth.currentUser.uid), {
           name: usernameReg,
           email: emailReg,
           pass: passwordReg,
           uid: auth.currentUser.uid,
           rol: "user",
+          FechaDeModificacion: null,
         });
         // Signed in
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
 
           onAuthStateChanged(auth, (user) => {
-            navigate("/Home");
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
             const uid = user.uid;
@@ -162,7 +165,9 @@ function Register() {
             progress: undefined,
             className: "dark-toast",
           });
-          navigate("/Home");
+          setTimeout(() => {
+            navigate("/Home");
+          }, 5000);
         } else {
           toast.success("Bienvenido/a!!", {
             icon: "✨",
@@ -175,14 +180,18 @@ function Register() {
             progress: undefined,
             className: "dark-toast",
           });
-          addDoc(collection(db, "users"), {
+          setDoc(doc(db, "users", auth.currentUser.uid), {
             name: user.displayName,
             email: user.email,
             uid: auth.currentUser.uid,
             rol: "user",
+            FechaDeModificacion: null,
           });
+          setTimeout(() => {
+            navigate("/Home");
+          }, 5000);
         }
-        navigate("/Home");
+
         console.log("Inicio correctamente");
       })
       .catch((error) => {
@@ -214,7 +223,9 @@ function Register() {
             progress: undefined,
             className: "dark-toast",
           });
-          navigate("/Home");
+          setTimeout(() => {
+            navigate("/Home");
+          }, 5000);
         } else {
           toast.success("Bienvenido/a!!", {
             icon: "✨",
@@ -227,12 +238,16 @@ function Register() {
             progress: undefined,
             className: "dark-toast",
           });
-          addDoc(collection(db, "users"), {
+          setDoc(doc(db, "users", auth.currentUser.uid), {
             name: user.displayName,
             email: user.email,
             uid: auth.currentUser.uid,
             rol: "user",
+            FechaDeModificacion: null,
           });
+          setTimeout(() => {
+            navigate("/Home");
+          }, 5000);
         }
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
