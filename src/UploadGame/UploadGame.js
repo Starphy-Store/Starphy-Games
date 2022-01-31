@@ -42,6 +42,7 @@ export default function UploadGame() {
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState(0);
   const [id, setId] = useState("");
+  const [Juegos, setJuegos] = useState([]);
 
   const [validated, setValidated] = useState(null);
 
@@ -65,6 +66,8 @@ export default function UploadGame() {
 
   const filtrado = nombrecreador.filter((x) => x.uid == id);
   const nombre = filtrado.map((item) => item.name);
+
+  const mapNameGames = Juegos.map((x) => x.juego);
 
   async function CargarArchivo(e) {
     setIsLoading(true);
@@ -141,36 +144,60 @@ export default function UploadGame() {
     ? true
     : false;
 
+  const QueryDB = () => {
+    const ref = query(collection(db, "games"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+      setJuegos(items);
+    });
+  };
+  console.log(mapNameGames.includes(game));
   async function CrearJuego(event) {
     event.preventDefault();
     console.log("render");
-    toast.success("Juego creado", {
-      icon: "📨",
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      className: "dark-toast",
-    });
-
-    addDoc(collection(db, "games"), {
-      descrip: Des,
-      juego: game,
-      precio: valor,
-      esunjuego: "si",
-      imagenportada: urlImagenes,
-      imagenjuego: urlImagenes2,
-      imagenjuego2: urlImagenes3,
-      categoria1: categoria1,
-      categoria2: categoria2,
-      categoria3: categoria3,
-      videojuego: urlDescargar,
-      idprofile: auth.currentUser.uid,
-      creator: nombre,
-    });
+    if (mapNameGames.includes(game)) {
+      toast.error("El nombre de ese juego esta en uso", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+    } else {
+      toast.success("Juego creado", {
+        icon: "📨",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+      addDoc(collection(db, "games"), {
+        descrip: Des,
+        juego: game,
+        precio: valor,
+        esunjuego: "si",
+        imagenportada: urlImagenes,
+        imagenjuego: urlImagenes2,
+        imagenjuego2: urlImagenes3,
+        categoria1: categoria1,
+        categoria2: categoria2,
+        categoria3: categoria3,
+        videojuego: urlDescargar,
+        idprofile: auth.currentUser.uid,
+        creator: nombre,
+      });
+    }
   }
 
   const updateDes = function (event) {
@@ -200,11 +227,11 @@ export default function UploadGame() {
         <Form.Control required type="file" placeholder="" />
       </Form.Group>,
     ]);
-    console.log(añadir);
   };
 
   useEffect(() => {
     id2();
+    QueryDB();
   }, []);
 
   return (
@@ -215,7 +242,8 @@ export default function UploadGame() {
           <Col
             style={{ justifyContent: "left", color: "white", width: "600px" }}
           >
-            <h1>Datos para firebase</h1>
+            <h1>Datos para tu juego</h1>
+            <p> </p>
             <Form
               noValidate
               validated={validated}
@@ -223,17 +251,23 @@ export default function UploadGame() {
               onSubmit={CrearJuego}
               style={{ width: "100%" }}
             >
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>
-                  Carga tu videojuego o el archivo rar de tu videojuego
-                </Form.Label>
+              <Form.Group
+                className="mb-3"
+                controlId="formBasicPassword"
+                style={{ width: "300px" }}
+              >
+                <Form.Label>Archivo rar de tu videojuego</Form.Label>
                 <Form.Control
                   type="file"
                   onChange={CargarArchivo}
                   placeholder=""
                 />
               </Form.Group>
-              <Form.Group className="mb-4" controlId="formBasicPassword">
+              <Form.Group
+                className="mb-4"
+                controlId="formBasicPassword"
+                style={{ width: "500px" }}
+              >
                 <Form.Label>Nombre del juego:</Form.Label>
                 <Form.Control
                   type="text"
@@ -246,7 +280,11 @@ export default function UploadGame() {
                   Escribe un nickname
                 </Form.Control.Feedback>
               </Form.Group>{" "}
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group
+                className="mb-3"
+                controlId="formBasicPassword"
+                style={{ width: "400px" }}
+              >
                 <Form.Label>Escoge 3 categorias</Form.Label>
                 <Form.Select
                   onChange={updatecategoria1}
@@ -264,7 +302,11 @@ export default function UploadGame() {
                   <option value="Battle Royale">Battle Royale</option>
                 </Form.Select>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group
+                className="mb-3"
+                controlId="formBasicPassword"
+                style={{ width: "400px" }}
+              >
                 <Form.Select
                   onChange={updatecategoria2}
                   required
@@ -272,29 +314,33 @@ export default function UploadGame() {
                 >
                   <option>Selecciona una categoria</option>
                   <option value="Acción">Acción</option>
-                  <option value="Arcade">Arcade</option>
-                  <option value="Estrategia">Estrategia</option>
-                  <option value="Cooperativo">Cooperativo</option>
-                  <option value="Online">Online</option>
-                  <option value="Supervivencia">Supervivencia</option>
-                  <option value="Simulacion">Simulacion</option>
-                  <option value="Battle Royale">Battle Royale</option>
+                  <option value="RPG">RPG</option>
+                  <option value="Carreras">Carreras</option>
+                  <option value="FPS">FPS</option>
+                  <option value="Puzle">Puzle</option>
+                  <option value="Lucha">Lucha</option>
+                  <option value="MMORPG">MMORPG</option>
+                  <option value="MOBA">MOBA</option>
                 </Form.Select>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group
+                className="mb-3"
+                controlId="formBasicPassword"
+                style={{ width: "400px" }}
+              >
                 <Form.Select
                   onChange={updatecategoria3}
                   required
                   aria-label="Default select example"
                 >
                   <option>Selecciona una categoria</option>
-                  <option value="Acción">Acción</option>
-                  <option value="Arcade">Arcade</option>
-                  <option value="Estrategia">Estrategia</option>
-                  <option value="Cooperativo">Cooperativo</option>
-                  <option value="Online">Online</option>
-                  <option value="Supervivencia">Supervivencia</option>
-                  <option value="Simulacion">Simulacion</option>
+                  <option value="RPG">RPG</option>
+                  <option value="Agilidad mental">Agilidad mental</option>
+                  <option value="Shooter">Shooter</option>
+                  <option value="Terror">Terror</option>
+                  <option value="Mundo abierto">Mundo abierto</option>
+                  <option value="Minijuegos">Minijuegos</option>
+                  <option value="Sigilo">Sigilo</option>
                   <option value="Battle Royale">Battle Royale</option>
                 </Form.Select>
               </Form.Group>
@@ -305,9 +351,14 @@ export default function UploadGame() {
                   type="file"
                   onChange={CargarImagenes}
                   placeholder=""
+                  style={{ width: "243px" }}
                 />
               </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
+              <Form.Group
+                className="mb-2"
+                controlId="formBasicPassword"
+                style={{ width: "243px" }}
+              >
                 <Form.Label>Imagenes de tu juego</Form.Label>
                 <Form.Control
                   required
@@ -316,7 +367,11 @@ export default function UploadGame() {
                   placeholder=""
                 />
               </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
+              <Form.Group
+                className="mb-2"
+                controlId="formBasicPassword"
+                style={{ width: "243px" }}
+              >
                 <Form.Label>Imagenes de tu juego 2</Form.Label>
                 <Form.Control
                   required
@@ -332,7 +387,11 @@ export default function UploadGame() {
               >
                 +
               </Button>
-              <Form.Group className="mb-3 mt-3" controlId="formBasicPassword">
+              <Form.Group
+                className="mb-3 mt-3"
+                controlId="formBasicPassword"
+                style={{ width: "100px" }}
+              >
                 <Form.Label>Precio</Form.Label>
                 <Form.Control
                   required
@@ -340,7 +399,7 @@ export default function UploadGame() {
                   value={valor}
                   max={100}
                   onChange={updatevalor}
-                  placeholder="$"
+                  placeholder="7.99$"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -350,7 +409,7 @@ export default function UploadGame() {
                   value={Des}
                   required
                   onChange={updateDes}
-                  placeholder="Descripcion"
+                  placeholder="Mi juego..."
                   style={{ paddingBottom: "150px" }}
                 />
               </Form.Group>
@@ -364,7 +423,10 @@ export default function UploadGame() {
                   Subir juego
                 </Button>
               )}
-              <p>Asegurate que esta todo correcto...</p>
+              <p style={{ float: "right" }}>
+                Asegurate que esta todo correcto...
+              </p>
+              <p></p>
             </Form>
           </Col>
         </Row>

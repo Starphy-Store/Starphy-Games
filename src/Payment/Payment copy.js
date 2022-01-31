@@ -38,9 +38,10 @@ export default function Payment() {
 
   const filtrado = game.filter((x) => x.esunjuego == "si");
   const filtrado2 = filtrado.filter((x) => x.juego == id);
-  const filteruser = perfil.filter((x) => x.uid == iduser);
+  const mapprecio = filtrado2.map((x) => x.precio);
 
-  console.log(filteruser);
+  const filteruser = perfil.filter((x) => x.uid == iduser);
+  const uiduser = filteruser.map((x) => x.uid);
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -99,10 +100,37 @@ export default function Payment() {
       }
     });
   }
-
   useEffect(() => {
     getGames();
   }, []);
+
+  console.log(uiduser.toString());
+  const modaltrue = () => {
+    {
+      filtrado2.map((item) =>
+        addDoc(collection(db, "juegoscomprados"), {
+          juegoscomprado: item.juego,
+          idusuariocompra: uiduser.toString(),
+          preciodeljuego: item.precio,
+          enviarpago: item.idprofile,
+          nombrecreador: item.creator,
+        })
+      );
+    }
+  };
+
+  if (mapprecio.includes(0)) {
+    return (
+      <Button
+        onClick={modaltrue}
+        variant="success"
+        size="lg"
+        style={{ width: "90%" }}
+      >
+        Agregar a la libreria
+      </Button>
+    );
+  }
 
   return (
     <>

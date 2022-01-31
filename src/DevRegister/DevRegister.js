@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Container, Button, Alert, Toast } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../RegisterPage/notify.css";
@@ -26,6 +26,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
+import { eyeIcon } from "../LoginPage/assets/index";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -50,8 +51,11 @@ export default function DevRegister() {
   const [validated, setValidated] = useState(false);
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
+  const [perfiles, setPerfiles] = useState([]);
   const [emailReg, setEmailReg] = useState("");
   const [urlDescargar, seturlDescargar] = useState(null);
+
+  const filtradoNombre = perfiles.map((x) => x.name);
 
   async function fileHandler(e) {
     const archivolocal = e.target.files[0];
@@ -63,6 +67,19 @@ export default function DevRegister() {
     seturlDescargar(await getDownloadURL(archivoRef));
   }
 
+  const QueryDB = () => {
+    const ref = query(collection(db, "users"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+      setPerfiles(items);
+    });
+  };
+  console.log(filtradoNombre.includes(usernameReg));
+
   async function RegisterDev(event) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -71,68 +88,86 @@ export default function DevRegister() {
     }
     event.preventDefault();
 
-    createUserWithEmailAndPassword(auth, emailReg, passwordReg)
-      .then((userCredential) => {
-        toast.info("Verifique su correo electronico", {
-          icon: "📨",
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          className: "dark-toast",
-        });
-        setDoc(doc(db, "users", auth.currentUser.uid), {
-          name: usernameReg,
-          email: emailReg,
-          pass: passwordReg,
-          uid: auth.currentUser.uid,
-          rol: "dev",
-          photoProfile: urlDescargar,
-          FechaDeModificacion: null,
-        });
-        // Signed in
-        sendEmailVerification(auth.currentUser).then(() => {
-          // Email verification sent!
+    if (filtradoNombre.includes(usernameReg)) {
+      toast.error("Ese nombre ya esta usado", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+    } else {
+      createUserWithEmailAndPassword(auth, emailReg, passwordReg)
+        .then((userCredential) => {
+          toast.info("Verifique su correo electronico", {
+            icon: "📨",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
+          setDoc(doc(db, "users", auth.currentUser.uid), {
+            name: usernameReg,
+            email: emailReg,
+            pass: passwordReg,
+            uid: auth.currentUser.uid,
+            rol: "dev",
+            photoProfile: urlDescargar,
+            FechaDeModificacion: null,
+          });
+          // Signed in
+          sendEmailVerification(auth.currentUser).then(() => {
+            // Email verification sent!
 
-          onAuthStateChanged(auth, (user) => {
-            setTimeout(() => {
-              navigate("/Home");
-            }, 5000);
+            onAuthStateChanged(auth, (user) => {
+              setTimeout(() => {
+                navigate("/Home");
+              }, 5000);
 
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            const uid = user.uid;
-            /* navigate("/loginUser"); */
-            // ...
+              // User is signed in, see docs for a list of available properties
+              // https://firebase.google.com/docs/reference/js/firebase.User
+              const uid = user.uid;
+              /* navigate("/loginUser"); */
+              // ...
+            });
+          });
+          const user = userCredential.emailReg;
+
+          // ...
+          console.log("si claro");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          console.log("no sory");
+          toast.error("Ya existe esa cuenta", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+
+            className: "dark-toast",
           });
         });
-        const user = userCredential.emailReg;
-
-        // ...
-        console.log("si claro");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-        console.log("no sory");
-        toast.error("Ya existe esa cuenta", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-
-          className: "dark-toast",
-        });
-      });
+    }
     setValidated(true);
   }
+
+  useEffect(() => {
+    QueryDB();
+  }, []);
+
   const updateUsername = function (event) {
     setUsernameReg(event.target.value);
   };
@@ -216,7 +251,7 @@ export default function DevRegister() {
                     setShow(!show);
                   }}
                 >
-                  <img className="eye-icon" />
+                  <img className="eye-icon" src={eyeIcon} />
                 </button>
 
                 <Form.Control
@@ -224,10 +259,10 @@ export default function DevRegister() {
                   type={show ? "text" : "password"}
                   placeholder="Ingresa tu contraseña"
                   style={{ backgroundColor: "#C4C4C4" }}
-                  minLength={6}
-                  onChange={updatePassword}
                   value={passwordReg}
-                  maxLength={40}
+                  onChange={updatePassword}
+                  minLength={6}
+                  maxLength={30}
                   required
                 />
                 <Form.Control.Feedback type="invalid">
@@ -235,6 +270,7 @@ export default function DevRegister() {
                 </Form.Control.Feedback>
               </div>
             </Form.Group>
+
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label style={{ color: "#E5E5E5" }} className="pl-3">
                 Selecciona la foto de tu desarrolladora

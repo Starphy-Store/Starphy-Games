@@ -77,7 +77,7 @@ function Library() {
     <>
       <Container>
         <Header />
-        <h1 style={{ textAlign: "left" }}> Tu libreria</h1>
+        <h1 style={{ textAlign: "left" }}> Tu libreria </h1>
         <hr style={{ color: "white" }} />
       </Container>
       {filterbuy.length == 0 ? (
@@ -95,7 +95,7 @@ function Library() {
         <Container className="d-flex">
           {filtradojuego.map((item) => (
             <>
-              <Link to={item.videojuego}>
+              <a href={item.videojuego}>
                 <Container key={item.id}>
                   <Row>
                     <Col md={12}>
@@ -106,15 +106,14 @@ function Library() {
                         />
                         <div className="background "></div>
                         <div className="profile-name">{item.juego}</div>
-                        <div className="profile-username">{item.creator}</div>
                         <div className="profile-icons">
-                          <h6> Dale click para empezar la descarga</h6>
+                          <h6>Da click para empezar la descarga</h6>
                         </div>
                       </div>
                     </Col>
                   </Row>
                 </Container>
-              </Link>
+              </a>
             </>
           ))}
         </Container>

@@ -101,7 +101,7 @@ export default function Editdevprofile() {
       }
     });
   }
-  console.log(auth.currentUser.email);
+
   const EmailOnSubmit = (e) => {
     e.preventDefault();
 
