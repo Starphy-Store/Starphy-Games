@@ -25,6 +25,7 @@ import UploadGame from "../src/UploadGame/UploadGame.js";
 import SendEmail from "./SendEmail/SendEmail";
 import BillPayment from "./Payment/BillPayment";
 import AboutUs from "./AboutUs/AboutUs";
+import TerminosyCondiciones from "./LegalAdvertisement/TerminosyCondiciones";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";

@@ -9,7 +9,7 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
-
+import { ArrowBarRight } from "react-bootstrap-icons";
 import firebase2 from "../Home/Firebase2.js";
 import { Link } from "react-router-dom";
 //importacion del headee
@@ -104,7 +104,12 @@ const Home = () => {
       </Container>
 
       <h1>Juegos Cooperativo 🎊</h1>
-
+      <Container style={{ color: "white", justifyContent: "right" }}>
+        <a href="#">
+          Ver mas de esta categoria
+          <ArrowBarRight></ArrowBarRight>
+        </a>
+      </Container>
       <Container className="d-flex">
         {filtercoop.map((item) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
