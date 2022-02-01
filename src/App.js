@@ -26,6 +26,7 @@ import SendEmail from "./SendEmail/SendEmail";
 import BillPayment from "./Payment/BillPayment";
 import AboutUs from "./AboutUs/AboutUs";
 import TerminosyCondiciones from "./LegalAdvertisement/TerminosyCondiciones";
+import CategorySection from "./CategorySection/CategorySection";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -137,6 +138,7 @@ function App() {
         <Route path="/SearchPage/:search" element={<SearchPage />} />
         <Route path="/SendEmail" element={<SendEmail />} />
         <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/CategorySection" element={<CategorySection />} />
         {Dev.map((item) =>
           item.rol == "dev" ? (
             <>

@@ -42,6 +42,8 @@ const SecundaryImgs = () => {
 
   const filtradouser = perfiluser.filter((x) => x.uid == user);
 
+  const prueba = filtradouser.filter((x) => x);
+
   console.log(filtradouser);
 
   function getGames() {
@@ -186,7 +188,9 @@ const SecundaryImgs = () => {
           ))}
         </Container>
       ))}
-      <h1>Te puede interesar...</h1>
+      <Container style={{ color: "white" }} className="pt-5">
+        <h2>Algunos juegos parecidos</h2>
+      </Container>
       <Container className="d-flex">
         {categoria.map((item) => (
           <Link
