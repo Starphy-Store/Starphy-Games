@@ -43,7 +43,6 @@ const Home = () => {
     if (x.categoria2 == "Cooperativo") return true;
     if (x.categoria3 == "Cooperativo") return true;
   });
-  console.log(filteronline);
 
   function getGames() {
     const ref = query(collection(db, "games"));
@@ -53,7 +52,7 @@ const Home = () => {
       querySnapshot.forEach((doc) => {
         items.push(doc.data(), doc.id);
       });
-      console.log();
+
       setGame(items);
     });
   }

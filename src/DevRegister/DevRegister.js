@@ -78,7 +78,6 @@ export default function DevRegister() {
       setPerfiles(items);
     });
   };
-  console.log(filtradoNombre.includes(usernameReg));
 
   async function RegisterDev(event) {
     const form = event.currentTarget;

@@ -77,7 +77,7 @@ const SecundaryImgs = () => {
       }
     });
   }
-  console.log(auth.currentUser);
+
   const SendRatingDB = () => {
     if (auth.currentUser == null) {
       toast.error("Hazte una cuenta para valorarlo", {
@@ -186,7 +186,7 @@ const SecundaryImgs = () => {
                     <Col>
                       <h3>Valoraciones </h3>
                       <Rating
-                        onBlur={(event, newValue) => {
+                        onChange={(event, newValue) => {
                           setEstrellas(newValue);
                           SendRatingDB(event);
                         }}

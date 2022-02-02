@@ -69,9 +69,6 @@ function App() {
   const filterId = perfil.filter((x) => x.uid == user);
   const Dev = filterId.filter((x) => x.rol == "dev");
 
-  console.log(Dev);
-  console.log(juego);
-
   function prueba() {
     const ref = query(collection(db, "users"));
     onSnapshot(ref, (querySnapshot) => {

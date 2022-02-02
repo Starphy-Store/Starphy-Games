@@ -8,7 +8,7 @@ export default function TerminosyCondiciones() {
     <>
       <Container style={{ color: "white" }}>
         <Header></Header>
-        <h1>Terminos y Condiciones</h1>
+        <h1>Términos y Condiciones</h1>
         <ul>
           <li>
             Al acceder al sitio web en Starphy.com, usted acepta estar vinculado

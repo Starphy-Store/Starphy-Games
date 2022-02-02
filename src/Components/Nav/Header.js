@@ -59,7 +59,6 @@ const Header = () => {
 
   const filtrado = users.filter((x) => x.uid == cua);
   const Dev = filtrado.filter((x) => x.rol == "dev");
-  console.log(filtrado);
 
   function a() {
     const ref = query(collection(db, "users"));
@@ -72,7 +71,7 @@ const Header = () => {
 
       setusers(items);
     });
-    console.log("hola");
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const item = [];
@@ -96,17 +95,13 @@ const Header = () => {
     });
   }
 
-  console.log(juegos);
-
   //barra de busqueda
   const SearchGames = (e) => {
     window.addEventListener("enter", e);
     setsearch(e.target.value);
     filterData(e.target.value);
   };
-  console.log(result);
 
-  console.log(search);
   const filterData = (search) => {
     var resultadosBusqueda = juegos.filter((x) => {
       if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
@@ -119,7 +114,7 @@ const Header = () => {
       setresult(resultadosBusqueda);
     }
   };
-
+  console.log(search);
   useEffect(() => {
     a();
     b();
@@ -142,27 +137,55 @@ const Header = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0 md:w-full"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              {/* Barra de busqueda */}
-              <Form className="d-flex" style={{ width: "500px" }}>
-                <FormControl
-                  type="search"
-                  placeholder="Que tienes ganas de jugar hoy?"
-                  className="me-2"
-                  aria-label="Search"
-                  onChange={SearchGames}
-                />
-                <Link to={`/SearchPage/${search}`}>
-                  <Button onKeyDown={SearchGames} variant="outline-light">
-                    <Search />
-                  </Button>
-                </Link>
-              </Form>
-            </Nav>
+            {/* Barra de busqueda */}
+
+            {search == "" ? (
+              <Nav
+                className="me-auto my-2 my-lg-0 md:w-full"
+                style={{ maxHeight: "100px" }}
+                navbarScroll
+              >
+                <Form className="d-flex" style={{ width: "500px" }}>
+                  <FormControl
+                    type="search"
+                    placeholder="Que tienes ganas de jugar hoy?"
+                    className="me-2"
+                    aria-label="Search"
+                    onChange={SearchGames}
+                  />
+                  <Search />
+                  <Link to="/Home">
+                    <Button
+                      onKeyDown={SearchGames}
+                      variant="outline-light"
+                    ></Button>
+                  </Link>
+                </Form>
+              </Nav>
+            ) : (
+              <Nav
+                className="me-auto my-2 my-lg-0 md:w-full"
+                style={{ maxHeight: "100px" }}
+                navbarScroll
+              >
+                <Form className="d-flex" style={{ width: "500px" }}>
+                  <FormControl
+                    type="search"
+                    placeholder="Que tienes ganas de jugar hoy?"
+                    className="me-2"
+                    aria-label="Search"
+                    onChange={SearchGames}
+                  />
+                  <Search />
+                  <Link to={`/SearchPage/${search}`}>
+                    <Button
+                      onKeyDown={SearchGames}
+                      variant="outline-light"
+                    ></Button>
+                  </Link>
+                </Form>
+              </Nav>
+            )}
 
             <Container style={{ justifyContent: "right" }}>
               <Row>
