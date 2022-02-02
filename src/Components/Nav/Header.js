@@ -97,7 +97,7 @@ const Header = () => {
 
   //barra de busqueda
   const SearchGames = (e) => {
-    window.addEventListener("enter", e);
+    window.addEventListener("Enter", e);
     setsearch(e.target.value);
     filterData(e.target.value);
   };
@@ -155,10 +155,9 @@ const Header = () => {
                   />
                   <Search />
                   <Link to="/Home">
-                    <Button
-                      onKeyDown={SearchGames}
-                      variant="outline-light"
-                    ></Button>
+                    <Button onKeyDown={SearchGames} variant="outline-light">
+                      <Search />
+                    </Button>
                   </Link>
                 </Form>
               </Nav>
@@ -190,13 +189,12 @@ const Header = () => {
             <Container style={{ justifyContent: "right" }}>
               <Row>
                 <Col></Col>
+                <Col></Col>
+                <Col></Col>
+                <Col></Col>
+
                 {cua ? (
-                  <Col
-                    md={5}
-                    style={{
-                      justifyItems: "right",
-                    }}
-                  >
+                  <Col>
                     {filtrado.map((item) => (
                       <>
                         <DropdownButton
