@@ -21,6 +21,7 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { ArrowBarRight, ArrowBarUp } from "react-bootstrap-icons";
+import { toast, ToastContainer } from "react-toastify";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
@@ -29,6 +30,7 @@ const SecundaryImgs = () => {
   const { id } = useParams();
   const [user, setuser] = useState(false);
   const [perfiluser, setPerfiluser] = useState([]);
+  toast.configure();
   const [game, setGame] = useState([]);
   const [estrellas, setEstrellas] = useState(0);
 
@@ -75,13 +77,29 @@ const SecundaryImgs = () => {
       }
     });
   }
-
+  console.log(auth.currentUser);
   const SendRatingDB = () => {
-    filtrado2.map((item) =>
-      updateDoc(doc(db, "users", auth.currentUser.uid), {
-        valoraciones: estrellas,
-      })
-    );
+    if (auth.currentUser == null) {
+      toast.error("Hazte una cuenta para valorarlo", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+        limit: 2,
+      });
+    } else {
+      {
+        filtrado2.map((item) =>
+          updateDoc(doc(db, "users", auth.currentUser.uid), {
+            valoraciones: estrellas,
+          })
+        );
+      }
+    }
   };
   useEffect(() => {
     getGames();
@@ -95,99 +113,97 @@ const SecundaryImgs = () => {
   }
   return (
     <div>
-      {filtradouser.map((ite) => (
-        <Container className="GamesInfo">
-          {filtrado2.map((item) => (
-            <Row>
-              <Col md={7}>
-                <GamesCarousel />
+      <Container className="GamesInfo">
+        {filtrado2.map((item) => (
+          <Row>
+            <Col md={7}>
+              <GamesCarousel />
+              <h6 style={{ color: "grey" }} className="pt-4">
+                Categorias:
+              </h6>
+              <h6>
+                {item.categoria1} | {item.categoria2} | {item.categoria3}
+              </h6>
+              <Row className="pt-3">
                 <h6 style={{ color: "grey" }} className="pt-4">
-                  Categorias:
+                  Descripcion:
+                </h6>
+                <h6>{item.descrip}</h6>
+                <h6 style={{ color: "grey" }} className="pt-4">
+                  Desarrolladora:
                 </h6>
                 <h6>
-                  {item.categoria1} | {item.categoria2} | {item.categoria3}
+                  <a
+                    href={`/DevProfile/${item.idprofile}`}
+                    style={{ color: "white" }}
+                  >
+                    {item.creator}
+                  </a>
                 </h6>
-                <Row className="pt-3">
-                  <h6 style={{ color: "grey" }} className="pt-4">
-                    Descripcion:
-                  </h6>
-                  <h6>{item.descrip}</h6>
-                  <h6 style={{ color: "grey" }} className="pt-4">
-                    Desarrolladora:
-                  </h6>
-                  <h6>
-                    <a
-                      href={`/DevProfile/${item.idprofile}`}
-                      style={{ color: "white" }}
-                    >
-                      {item.creator}
-                    </a>
-                  </h6>
+              </Row>
+            </Col>
+            <Col md={5}>
+              <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "20px" }}>
+                <Row>
+                  <img
+                    src={item.imagenportada}
+                    className="banner"
+                    style={{
+                      width: "100%",
+                      heigth: "300px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div className="GamesPayment pt-4">
+                    <h4>{dollarsign(item.precio)}</h4>
+
+                    {user ? (
+                      <Link to={`/payment/${item.juego}`}>
+                        <Button
+                          variant="light"
+                          size="lg"
+                          style={{ width: "100%" }}
+                        >
+                          Comprar ahora
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Link to={"/Loginuser"}>
+                        <Button
+                          variant="light"
+                          size="lg"
+                          style={{ width: "100%" }}
+                        >
+                          Comprar ahora
+                        </Button>
+                      </Link>
+                    )}
+                    <h5
+                      style={{ textAlign: "center", color: "lightgreen" }}
+                      className="pt-4"
+                    ></h5>
+                    <hr></hr>
+                    <Col>
+                      <h3>Valoraciones </h3>
+                      <Rating
+                        onBlur={(event, newValue) => {
+                          setEstrellas(newValue);
+                          SendRatingDB(event);
+                        }}
+                        name="size-large"
+                        defaultValue={2}
+                        size="large"
+                      />
+                    </Col>
+                    <ToastContainer limit={1} />
+                  </div>
                 </Row>
               </Col>
-              <Col md={5}>
-                <Col
-                  style={{ backgroundColor: "#1f1f1f", borderRadius: "20px" }}
-                >
-                  <Row>
-                    <img
-                      src={item.imagenportada}
-                      className="banner"
-                      style={{
-                        width: "100%",
-                        heigth: "300px",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <div className="GamesPayment pt-4">
-                      <h4>{dollarsign(item.precio)}</h4>
+            </Col>
+          </Row>
+        ))}
+      </Container>
 
-                      {user ? (
-                        <Link to={`/payment/${item.juego}`}>
-                          <Button
-                            variant="light"
-                            size="lg"
-                            style={{ width: "100%" }}
-                          >
-                            Comprar ahora
-                          </Button>
-                        </Link>
-                      ) : (
-                        <Link to={"/Loginuser"}>
-                          <Button
-                            variant="light"
-                            size="lg"
-                            style={{ width: "100%" }}
-                          >
-                            Comprar ahora
-                          </Button>
-                        </Link>
-                      )}
-                      <h5
-                        style={{ textAlign: "center", color: "lightgreen" }}
-                        className="pt-4"
-                      ></h5>
-                      <hr></hr>
-                      <Col>
-                        <h3>Valoraciones </h3>
-                        <Rating
-                          onChange={(event, newValue) => {
-                            setEstrellas(newValue);
-                            SendRatingDB();
-                          }}
-                          name="size-large"
-                          defaultValue={2}
-                          size="large"
-                        />
-                      </Col>
-                    </div>
-                  </Row>
-                </Col>
-              </Col>
-            </Row>
-          ))}
-        </Container>
-      ))}
       <Container style={{ color: "white" }} className="pt-5">
         <h2>Algunos juegos parecidos</h2>
       </Container>

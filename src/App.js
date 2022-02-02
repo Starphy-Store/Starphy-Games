@@ -139,6 +139,10 @@ function App() {
         <Route path="/SendEmail" element={<SendEmail />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/CategorySection" element={<CategorySection />} />
+        <Route
+          path="/Terminosycondiciones"
+          element={<TerminosyCondiciones />}
+        />
         {Dev.map((item) =>
           item.rol == "dev" ? (
             <>

@@ -12,11 +12,9 @@ const Footer = () => (
       <div className="container-fluid text-center text-md-left pt-3">
         <div className="row">
           <div className="col-md-6 mt-md-0 mt-3">
-            <h5 className="text-uppercase">Footer Content</h5>
-            <p>
-              Here you can use rows and columns to organize your footer content.
-            </p>
-            <h6 style={{ fontSize: "12px", color: "gray" }}>
+            <h5 className="text-uppercase">No puedes escoger un videojuego?</h5>
+            <a>Haz click aqui para ir a un juego aleatorio</a>
+            <h6 style={{ fontSize: "12px", color: "gray", paddingTop: "30px" }}>
               Escribenos tus preguntas, sugerencias o tus opiniones en nuestras
               redes :)
             </h6>
@@ -56,40 +54,28 @@ const Footer = () => (
 
           <hr className="clearfix w-100 d-md-none pb-0" />
 
-          <div className="col-md-3 mb-md-0 mb-3">
-            <h5 className="text-uppercase">Contacto</h5>
+          <div className="col-md-3 mb-md-0 mb-3" style={{ color: "white" }}>
+            <h5>Informacion</h5>
             <ul className="list-unstyled">
               <li>
-                Email : <a href="#!">starphygames@gmail.com</a>
+                <a href="#!">Sobre nosotros</a>
               </li>
               <li>
-                Twitter : <a href="#!">@StarphyGames</a>
+                <a href="#!">@StarphyGames</a>
               </li>
               <li>
-                Instagram : <a href="#!">@starphygames</a>
+                <a href="#!">@starphygames</a>
               </li>
               <li>
-                Tik Tok : <a href="#!">Starphy.com </a>
+                <a href="#!">Terminos y condiciones</a>
               </li>
             </ul>
           </div>
-
-          <div className="col-md-3 mb-md-0 mb-3">
-            <h5 className="text-uppercase">Soporte</h5>
-            <ul className="list-unstyled">
-              <li>
-                <a href="#!"></a>
-              </li>
-              <li>
-                <a href="#!">Link 2</a>
-              </li>
-              <li>
-                <a href="#!">Link 3</a>
-              </li>
-              <li>
-                <a href="#!">Link 4</a>
-              </li>
-            </ul>
+          <div className="col mt-md-0 mt-3">
+            <img
+              src="https://www.minecraft.net/content/dam/games/minecraft/game-characters/bees-mediablock-treebees.png"
+              style={{ height: "200px" }}
+            />
           </div>
         </div>
       </div>
