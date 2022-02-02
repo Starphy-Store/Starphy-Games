@@ -108,7 +108,7 @@ export default function Editdevprofile() {
     if (password == filterpass) {
       updateEmail(auth.currentUser.email, email)
         .then(() => {
-          updateDoc(doc(db, "users", auth.current.uid), {
+          updateDoc(doc(db, "users", auth.currentUser.uid), {
             email: email,
           });
 

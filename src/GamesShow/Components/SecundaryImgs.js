@@ -6,6 +6,7 @@ import "../GamesShow.css";
 import { useParams } from "react-router-dom";
 import firebase2 from "../../Home/Firebase2.js";
 import Star from "../../Assets/Star.png";
+import { Rating } from "@mui/material";
 
 import {
   query,
@@ -13,11 +14,14 @@ import {
   onSnapshot,
   getFirestore,
   getDocs,
+  updateDoc,
   getDoc,
   doc,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import { ArrowBarRight, ArrowBarUp } from "react-bootstrap-icons";
+import { toast, ToastContainer } from "react-toastify";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
@@ -25,14 +29,28 @@ const db = getFirestore(firebase2);
 const SecundaryImgs = () => {
   const { id } = useParams();
   const [user, setuser] = useState(false);
+  const [perfiluser, setPerfiluser] = useState([]);
+  toast.configure();
   const [game, setGame] = useState([]);
+  const [estrellas, setEstrellas] = useState(0);
 
   const filtrado = game.filter((x) => x.esunjuego == "si");
 
   const filtrado2 = filtrado.filter((x) => x.juego == id);
 
+  const mapeadocate = filtrado2.map((x) => x.categoria1);
+
+  const categoria = game.filter((x) => x.categoria1 == mapeadocate);
+
+  const filtradouser = perfiluser.filter((x) => x.uid == user);
+
+  const prueba = filtradouser.filter((x) => x);
+
+  console.log(filtradouser);
+
   function getGames() {
     const ref = query(collection(db, "games"));
+    const refe = query(collection(db, "users"));
 
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
@@ -40,6 +58,14 @@ const SecundaryImgs = () => {
         items.push(doc.data(), id);
       });
       setGame(items);
+    });
+
+    onSnapshot(refe, (querySnapshot) => {
+      const item = [];
+      querySnapshot.forEach((doc) => {
+        item.push(doc.data());
+      });
+      setPerfiluser(item);
     });
 
     onAuthStateChanged(auth, (user) => {
@@ -51,7 +77,30 @@ const SecundaryImgs = () => {
       }
     });
   }
-
+  console.log(auth.currentUser);
+  const SendRatingDB = () => {
+    if (auth.currentUser == null) {
+      toast.error("Hazte una cuenta para valorarlo", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+        limit: 2,
+      });
+    } else {
+      {
+        filtrado2.map((item) =>
+          updateDoc(doc(db, "users", auth.currentUser.uid), {
+            valoraciones: estrellas,
+          })
+        );
+      }
+    }
+  };
   useEffect(() => {
     getGames();
   }, []);
@@ -132,23 +181,55 @@ const SecundaryImgs = () => {
                     <h5
                       style={{ textAlign: "center", color: "lightgreen" }}
                       className="pt-4"
-                    >
-                      Tu ordenador puede jugarlo
-                    </h5>
+                    ></h5>
                     <hr></hr>
                     <Col>
-                      <h2 style={{ float: "left" }}>5.0</h2>
-                      <img src={Star} style={{ float: "right" }}></img>
-                      <img src={Star} style={{ float: "right" }}></img>
-                      <img src={Star} style={{ float: "right" }}></img>
-                      <img src={Star} style={{ float: "right" }}></img>
-                      <img src={Star} style={{ float: "right" }}></img>
+                      <h3>Valoraciones </h3>
+                      <Rating
+                        onBlur={(event, newValue) => {
+                          setEstrellas(newValue);
+                          SendRatingDB(event);
+                        }}
+                        name="size-large"
+                        defaultValue={2}
+                        size="large"
+                      />
                     </Col>
+                    <ToastContainer limit={1} />
                   </div>
                 </Row>
               </Col>
             </Col>
           </Row>
+        ))}
+      </Container>
+
+      <Container style={{ color: "white" }} className="pt-5">
+        <h2>Algunos juegos parecidos</h2>
+      </Container>
+      <Container className="d-flex">
+        {categoria.map((item) => (
+          <Link
+            to={`/GamesShow/${item.juego}`}
+            href="GamesInfo"
+            className="w-25"
+          >
+            <Container key={item.id}>
+              <Row>
+                <Col md={12}>
+                  <div className="profile-card-2 ">
+                    <img src={item.imagenportada} className="img-responsive" />
+                    <div className="background "></div>
+                    <div className="profile-name">{item.juego}</div>
+                    <div className="profile-username">{item.creator}</div>
+                    <div className="profile-icons">
+                      <h5>{dollarsign(item.precio)}</h5>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </Link>
         ))}
       </Container>
     </div>

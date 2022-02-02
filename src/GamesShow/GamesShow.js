@@ -4,6 +4,7 @@ import Slider from "../Components/Slider";
 import { Container, Row, Col, roundedCircle } from "react-bootstrap";
 import "./GamesShow.css";
 import SecundaryImgs from "./Components/SecundaryImgs";
+import Footer from "../Footer/Footer";
 
 function GamesShow() {
   return (
@@ -18,6 +19,7 @@ function GamesShow() {
       </Container>
       <div className="pt-5"></div>
       <SecundaryImgs />
+      <Footer></Footer>
     </>
   );
 }
