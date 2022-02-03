@@ -97,9 +97,11 @@ const Header = () => {
 
   //barra de busqueda
   const SearchGames = (e) => {
-    window.addEventListener("Enter", e);
+    e.preventDefault();
+
     setsearch(e.target.value);
     filterData(e.target.value);
+    console.log(e);
   };
 
   const filterData = (search) => {
@@ -114,6 +116,7 @@ const Header = () => {
       setresult(resultadosBusqueda);
     }
   };
+
   console.log(search);
   useEffect(() => {
     a();
@@ -152,10 +155,11 @@ const Header = () => {
                     className="me-2"
                     aria-label="Search"
                     onChange={SearchGames}
+                    onKeyPress={SearchGames}
                   />
                   <Search />
                   <Link to="/Home">
-                    <Button onKeyDown={SearchGames} variant="outline-light">
+                    <Button onKeyUp={() => SearchGames} variant="outline-light">
                       <Search />
                     </Button>
                   </Link>
@@ -174,13 +178,13 @@ const Header = () => {
                     className="me-2"
                     aria-label="Search"
                     onChange={SearchGames}
+                    onKeyPress={SearchGames}
                   />
-                  <Search />
+
                   <Link to={`/SearchPage/${search}`}>
-                    <Button
-                      onKeyDown={SearchGames}
-                      variant="outline-light"
-                    ></Button>
+                    <Button onKeyUp={() => SearchGames} variant="outline-light">
+                      <Search />
+                    </Button>
                   </Link>
                 </Form>
               </Nav>
