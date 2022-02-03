@@ -148,18 +148,21 @@ const Header = () => {
                 style={{ maxHeight: "100px" }}
                 navbarScroll
               >
-                <Form className="d-flex" style={{ width: "500px" }}>
+                <Form
+                  onSubmit={SearchGames}
+                  className="d-flex"
+                  style={{ width: "500px" }}
+                >
                   <FormControl
                     type="search"
                     placeholder="Que tienes ganas de jugar hoy?"
                     className="me-2"
                     aria-label="Search"
                     onChange={SearchGames}
-                    onKeyPress={SearchGames}
                   />
                   <Search />
                   <Link to="/Home">
-                    <Button onKeyUp={() => SearchGames} variant="outline-light">
+                    <Button type="submit" variant="outline-light">
                       <Search />
                     </Button>
                   </Link>
@@ -171,18 +174,21 @@ const Header = () => {
                 style={{ maxHeight: "100px" }}
                 navbarScroll
               >
-                <Form className="d-flex" style={{ width: "500px" }}>
+                <Form
+                  onSubmit={SearchGames}
+                  className="d-flex"
+                  style={{ width: "500px" }}
+                >
                   <FormControl
                     type="search"
                     placeholder="Que tienes ganas de jugar hoy?"
                     className="me-2"
                     aria-label="Search"
                     onChange={SearchGames}
-                    onKeyPress={SearchGames}
                   />
 
                   <Link to={`/SearchPage/${search}`}>
-                    <Button onKeyUp={() => SearchGames} variant="outline-light">
+                    <Button variant="outline-light" type="submit">
                       <Search />
                     </Button>
                   </Link>
