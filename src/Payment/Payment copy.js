@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router";
 import { ReactDOM } from "react-dom";
 import firebase2 from "../Home/Firebase2";
 
+import "react-toastify/dist/ReactToastify.css";
 import {
   query,
   collection,
@@ -24,6 +25,7 @@ import {
 } from "firebase/firestore";
 import { Button, Modal } from "react-bootstrap";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { toast, ToastContainer } from "react-toastify";
 
 const db = getFirestore(firebase2);
 const auth = getAuth(firebase2);
@@ -35,13 +37,20 @@ export default function Payment() {
   const [game, setGame] = useState([]);
   const [perfil, setPerfil] = useState([]);
   const [iduser, setId] = useState();
+  const [historial, setHistorial] = useState([]);
 
   const filtrado = game.filter((x) => x.esunjuego == "si");
   const filtrado2 = filtrado.filter((x) => x.juego == id);
   const mapprecio = filtrado2.map((x) => x.precio);
+  const mapeadogame = filtrado2.map((x) => x.juego);
 
   const filteruser = perfil.filter((x) => x.uid == iduser);
   const uiduser = filteruser.map((x) => x.uid);
+
+  const maphistory = historial.filter((x) =>
+    x.idusuariocompra.includes(iduser)
+  );
+  const mapjuegos = maphistory.map((x) => x.juegoscomprado);
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -75,6 +84,7 @@ export default function Payment() {
   function getGames() {
     const ref = query(collection(db, "games"));
     const refe = query(collection(db, "users"));
+    const refere = query(collection(db, "juegoscomprados"));
 
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
@@ -90,6 +100,13 @@ export default function Payment() {
       });
       setPerfil(ite);
     });
+    onSnapshot(refere, (querySnapshot) => {
+      const it = [];
+      querySnapshot.forEach((doc) => {
+        it.push(doc.data());
+      });
+      setHistorial(it);
+    });
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -104,9 +121,21 @@ export default function Payment() {
     getGames();
   }, []);
 
-  console.log(uiduser.toString());
+  console.log(mapjuegos.includes(mapeadogame.toString()));
+  console.log(mapeadogame.toString());
   const modaltrue = () => {
-    {
+    if (mapjuegos.includes(mapeadogame.toString())) {
+      toast.error("Ya esta tu libreria", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+    } else {
       filtrado2.map((item) =>
         addDoc(collection(db, "juegoscomprados"), {
           juegoscomprado: item.juego,
