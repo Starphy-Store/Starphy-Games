@@ -25,7 +25,7 @@ export default function DevProfile() {
   const filtradoperfilid = filtradoPerfil2.map((item) => item.uid);
   const filtrarJuego = juego.filter((x) => x.idprofile == filtradoperfilid);
   const contador = filtrarJuego.length;
-  console.log();
+
   function DevPerfil() {
     const ref = query(collection(db, "users"));
     const refgames = query(collection(db, "games"));
@@ -42,7 +42,6 @@ export default function DevProfile() {
       const item = [];
       querySnapshot.forEach((doc) => {
         item.push(doc.data());
-        console.log(item);
       });
       setJuegos(item);
     });

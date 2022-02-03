@@ -48,12 +48,10 @@ function DataIndex() {
     await uploadBytes(archivoRef, archivolocal);
 
     seturlDescargar(await getDownloadURL(archivoRef));
-    console.log(urlDescargar);
   }
 
   function CrearJuego(event) {
     event.preventDefault();
-    console.log("render");
 
     addDoc(collection(db, "games"), {
       descrip: Des,

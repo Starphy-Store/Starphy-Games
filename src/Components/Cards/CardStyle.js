@@ -41,7 +41,7 @@ const TopGames = function () {
       querySnapshot.forEach((doc) => {
         items.push(doc.data(), doc.id);
       });
-      console.log();
+
       setGame(items);
     });
 
@@ -51,7 +51,6 @@ const TopGames = function () {
       pusheado.push(lolitotequiero);
       setgameName(pusheado);
     }
-    console.log(tried);
   }
 
   useEffect(() => {
