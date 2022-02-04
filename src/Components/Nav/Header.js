@@ -131,7 +131,7 @@ const Header = () => {
             <Link to="/Home">
               <img
                 src={logo}
-                width="150"
+                width="135"
                 height="auto"
                 className="d-inline-block align-top mx-auto ml-auto"
                 alt="React Bootstrap logo"
@@ -160,7 +160,6 @@ const Header = () => {
                     aria-label="Search"
                     onChange={SearchGames}
                   />
-                  <Search />
                   <Link to="/Home">
                     <Button type="submit" variant="outline-light">
                       <Search />
@@ -177,7 +176,7 @@ const Header = () => {
                 <Form
                   onSubmit={SearchGames}
                   className="d-flex"
-                  style={{ width: "500px" }}
+                  style={{ width: "80%" }}
                 >
                   <FormControl
                     type="search"
@@ -188,9 +187,7 @@ const Header = () => {
                   />
 
                   <Link to={`/SearchPage/${search}`}>
-                    <Button variant="outline-light" type="submit">
-                      <Search />
-                    </Button>
+                    <Button variant="outline-light" type="submit"></Button>
                   </Link>
                 </Form>
               </Nav>
@@ -198,143 +195,151 @@ const Header = () => {
 
             <Container style={{ justifyContent: "right" }}>
               <Row>
-                <Col></Col>
-                <Col></Col>
-                <Col></Col>
-                <Col></Col>
-
                 {cua ? (
-                  <Col>
-                    {filtrado.map((item) => (
-                      <>
-                        <DropdownButton
-                          onSubmit={a}
-                          align="start"
-                          type="button"
-                          title={item.name}
-                          key={item.uid}
-                          id="dropdown-menu-align-start"
-                          variant="outline-light"
-                          style={{
-                            border: "0",
-                            color: "white",
-                          }}
-                        >
-                          {Dev.map((item) =>
-                            item.rol == "dev" ? (
-                              <>
-                                <Dropdown.Item eventKey="1">
-                                  <Link
-                                    to={`/DevProfile/${item.uid}`}
-                                    style={{
-                                      textDecoration: "none",
-                                      color: "black",
-                                    }}
-                                  >
-                                    Tu perfil
-                                  </Link>
-                                </Dropdown.Item>
-                                <Dropdown.Item eventKey="3">
-                                  <Link
-                                    to="/uploadgame"
-                                    style={{
-                                      textDecoration: "none",
-                                      color: "black",
-                                    }}
-                                  >
-                                    Sube tu juego
-                                  </Link>
-                                </Dropdown.Item>
-                              </>
-                            ) : (
-                              <Dropdown.Item eventKey="3">
-                                <Link
-                                  to="/EditDevProfile"
-                                  style={{
-                                    textDecoration: "none",
-                                    color: "black",
-                                  }}
-                                >
-                                  Edita tu perfil
-                                </Link>
-                              </Dropdown.Item>
-                            )
-                          )}
-
-                          <Dropdown.Item eventKey="3">
-                            <Link to="/EditProfile">Tu perfil</Link>
-                          </Dropdown.Item>
-                          <Dropdown.Item eventKey="2">
-                            <Link
-                              to="/library"
-                              style={{ textDecoration: "none", color: "black" }}
-                            >
-                              Libreria de juegos
-                            </Link>
-                          </Dropdown.Item>
-                          <Dropdown.Divider />
-                          <Dropdown.Item
-                            eventKey="4"
-                            onClick={() => {
-                              signOut(auth)
-                                .then(() => {
-                                  navigate("/Home");
-                                  window.location.reload(false);
-                                  // Sign-out successful.
-                                })
-                                .catch((error) => {
-                                  // An error happened.
-                                });
+                  <>
+                    <Col></Col>
+                    <Col></Col>
+                    <Col></Col>
+                    <Col></Col>
+                    <Col>
+                      {filtrado.map((item) => (
+                        <>
+                          <DropdownButton
+                            onSubmit={a}
+                            align="start"
+                            type="button"
+                            title={item.name}
+                            key={item.uid}
+                            id="dropdown-menu-align-start"
+                            variant="outline-light"
+                            style={{
+                              border: "0",
+                              color: "white",
                             }}
                           >
-                            Salir
-                          </Dropdown.Item>
-                        </DropdownButton>
-                      </>
-                    ))}
-                  </Col>
+                            {Dev.map((item) =>
+                              item.rol == "dev" ? (
+                                <>
+                                  <Dropdown.Item eventKey="1">
+                                    <Link
+                                      to={`/DevProfile/${item.uid}`}
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                      }}
+                                    >
+                                      Tu perfil
+                                    </Link>
+                                  </Dropdown.Item>
+                                  <Dropdown.Item eventKey="3">
+                                    <Link
+                                      to="/uploadgame"
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                      }}
+                                    >
+                                      Sube tu juego
+                                    </Link>
+                                  </Dropdown.Item>
+                                </>
+                              ) : (
+                                <Dropdown.Item eventKey="3">
+                                  <Link
+                                    to="/EditDevProfile"
+                                    style={{
+                                      textDecoration: "none",
+                                      color: "black",
+                                    }}
+                                  >
+                                    Edita tu perfil
+                                  </Link>
+                                </Dropdown.Item>
+                              )
+                            )}
+
+                            <Dropdown.Item eventKey="3">
+                              <Link to="/EditProfile">Tu perfil</Link>
+                            </Dropdown.Item>
+                            <Dropdown.Item eventKey="2">
+                              <Link
+                                to="/library"
+                                style={{
+                                  textDecoration: "none",
+                                  color: "black",
+                                }}
+                              >
+                                Libreria de juegos
+                              </Link>
+                            </Dropdown.Item>
+                            <Dropdown.Divider />
+                            <Dropdown.Item
+                              eventKey="4"
+                              onClick={() => {
+                                signOut(auth)
+                                  .then(() => {
+                                    navigate("/Home");
+                                    window.location.reload(false);
+                                    // Sign-out successful.
+                                  })
+                                  .catch((error) => {
+                                    // An error happened.
+                                  });
+                              }}
+                            >
+                              Salir
+                            </Dropdown.Item>
+                          </DropdownButton>
+                        </>
+                      ))}
+                    </Col>
+                  </>
                 ) : (
                   <>
-                    <Col md={5}>
-                      <Link to="/devregister" style={{ width: "180px" }}>
-                        <Button
-                          variant="outline-light"
-                          color="light"
-                          style={{ border: "0", color: "grey" }}
-                        >
-                          Publica tu juego
-                        </Button>
-                      </Link>
-                    </Col>
-                    <Col sm={6} md={1}>
-                      <Link to="/register">
-                        <Button
-                          variant="outline-light"
-                          style={{
-                            float: "right",
-                            border: "0",
-                          }}
-                        >
-                          Registarse
-                        </Button>
-                      </Link>
-                    </Col>
-                    <Col sm={6} md={3}>
-                      <Link to="/LoginUser">
-                        <Button
-                          variant="outline-light"
-                          style={{
-                            float: "right",
-                            width: "100%",
-                            textAlign: "center",
-                            border: "0",
-                          }}
-                          className=""
-                        >
-                          Inicia Sesion
-                        </Button>
-                      </Link>
-                    </Col>
+                    <Row>
+                      <Col sm={1} lg={2}></Col>
+                      <Col>
+                        <Link to="/devregister" style={{ width: "180px" }}>
+                          <Button
+                            variant="outline-light"
+                            color="light"
+                            style={{ border: "0", color: "grey" }}
+                          >
+                            Publica tu juego
+                          </Button>
+                        </Link>
+                      </Col>
+                      <Col sm={1} lg={1}></Col>
+                      <Col lg={2}>
+                        <Link to="/register">
+                          <Button
+                            variant="outline-light"
+                            style={{
+                              border: "0",
+                              float: "right",
+                            }}
+                          >
+                            Registarse
+                          </Button>
+                        </Link>
+                      </Col>
+                      <Col lg={3}>
+                        <Link to="/LoginUser">
+                          <Button
+                            variant="outline-light"
+                            style={{
+                              float: "right",
+                              width: "100%",
+                              textAlign: "center",
+                              border: "0",
+                            }}
+                            className=""
+                          >
+                            Inicia Sesion
+                          </Button>
+                        </Link>
+                      </Col>
+                    </Row>
                   </>
                 )}
               </Row>
