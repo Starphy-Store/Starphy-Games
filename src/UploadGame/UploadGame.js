@@ -253,7 +253,7 @@ export default function UploadGame() {
         <Header />
       </Container>
 
-      <Row>
+      <Row style={{ width: "100%" }}>
         <Col md={7}>
           <Form
             noValidate
@@ -438,7 +438,7 @@ export default function UploadGame() {
                 style={{ width: "100%", borderRadius: "5px" }}
               />
             </Form.Group>
-            {/* {isLoading ? (
+            {isLoading ? (
               <div>
                 <Loading />
                 <p>Espera a que carge su juego</p>
@@ -451,17 +451,16 @@ export default function UploadGame() {
             <p style={{ float: "right" }}>
               Asegurate que esta todo correcto...
             </p>
-            <p></p> */}
+            <p></p>
           </Form>
         </Col>
         {/* ----averiguar esta wea  */}
         <Col>
-          <h1>Vista previa</h1>
-
-          {/* <Container>
+          <Container>
             <Row>
               <Col md={8}>
-                <div className="profile-card-2 ">
+                <h2>Vista previa</h2>
+                <div className="profile-card-2">
                   <img className="img-responsive" src={urlImagenes} />
                   <div className="background "></div>
                   <div className="profile-name">{game}</div>
@@ -472,7 +471,7 @@ export default function UploadGame() {
                 </div>
               </Col>
             </Row>
-          </Container> */}
+          </Container>
         </Col>
       </Row>
     </>
