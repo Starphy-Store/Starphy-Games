@@ -20,7 +20,8 @@
   width: 100%;
   object-fit: cover;
   /* max-width: 100% */
-  background: linear-gradient(70deg, black, white);
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Dise%C3%B1o_sin_t%C3%ADtulo__7_-removebg-preview.png?alt=media&token=125448d6-ddd0-4f8c-9856-ff7ff77fae1e");
+  background-size: 100% 100%;
 }
 .img-responsive {
 }

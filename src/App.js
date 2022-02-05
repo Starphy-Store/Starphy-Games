@@ -136,60 +136,78 @@ function App() {
         <Route path="/SearchPage/:search" element={<SearchPage />} />
         <Route path="/SendEmail" element={<SendEmail />} />
         <Route path="/AboutUs" element={<AboutUs />} />
-        {/* CATEGORIAS */}
-        <Route path="/CategorySection/" element={<CategorySection />} />
-        <Route
-          path="/CategorySection/Acción"
-          element={<CategorySectionAccion />}
-        />
-        <Route path="/CategorySection/Arcade" element={<CategorySection />} />
-        <Route
-          path="/CategorySection/Estrategia"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/Cooperativo"
-          element={<CategorySection />}
-        />
-        <Route path="/CategorySection/Online" element={<CategorySection />} />
-        <Route
-          path="/CategorySection/Supervivencia"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/Simulación"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/BattleRoyale"
-          element={<CategorySection />}
-        />
-        <Route path="/CategorySection/RPG" element={<CategorySection />} />
-        <Route path="/CategorySection/Carreras" element={<CategorySection />} />
-        <Route path="/CategorySection/FPS" element={<CategorySection />} />
-        <Route path="/CategorySection/Puzle" element={<CategorySection />} />
-        <Route path="/CategorySection/Lucha" element={<CategorySection />} />
-        <Route path="/CategorySection/MMORPG" element={<CategorySection />} />
-        <Route path="/CategorySection/MOBA" element={<CategorySection />} />
-        v
-        <Route
-          path="/CategorySection/AgilidadMental"
-          element={<CategorySection />}
-        />
-        <Route path="/CategorySection/Shooter" element={<CategorySection />} />
-        <Route path="/CategorySection/Terror" element={<CategorySection />} />
-        <Route
-          path="/CategorySection/MundoAbierto"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/Minijuegos"
-          element={<CategorySection />}
-        />
-        <Route path="/CategorySection/Sigilo" element={<CategorySection />} />
         <Route
           path="/Terminosycondiciones"
           element={<TerminosyCondiciones />}
+        />
+        {/* CATEGORIAS */}
+        <Route
+          path="/CategorySection/:filterSigilo"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria2"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria3 "
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria4"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria5"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria6"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria7"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria8"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria9"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria10"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria11"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria12"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria13"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria15"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria15"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria16"
+          element={<CategorySection />}
+        />
+        <Route
+          path="/CategorySection/:categoria17"
+          element={<CategorySection />}
         />
         {Dev.map((item) =>
           item.rol == "dev" ? (

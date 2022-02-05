@@ -20,6 +20,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -239,222 +240,241 @@ export default function UploadGame() {
     QueryDB();
   }, []);
   //prueba
+  function dollarsign(input) {
+    if (input == "Gratis") {
+      return input;
+    } else {
+      return "$" + input;
+    }
+  }
   return (
     <>
-      <Header />
       <Container>
-        <Row>
-          <Col
-            style={{ justifyContent: "left", color: "white", width: "600px" }}
+        <Header />
+      </Container>
+
+      <Row>
+        <Col md={7}>
+          <Form
+            noValidate
+            validated={validated}
+            className="form-container needs-validation"
+            onSubmit={CrearJuego}
+            style={{ width: "100%" }}
           >
-            <h1>Datos para tu juego</h1>
-            <p> </p>
-            <Form
-              noValidate
-              validated={validated}
-              className="form-container needs-validation"
-              onSubmit={CrearJuego}
+            <Form.Group
+              className="mb-3"
+              controlId="formBasicPassword"
               style={{ width: "100%" }}
             >
-              <Form.Group
-                className="mb-3"
-                controlId="formBasicPassword"
-                style={{ width: "300px" }}
+              <Form.Label>Archivo rar de tu videojuego</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={CargarArchivo}
+                placeholder=""
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-4"
+              controlId="formBasicPassword"
+              style={{ width: "100%" }}
+            >
+              <Form.Label>Nombre del juego:</Form.Label>
+              <Form.Control
+                type="text"
+                value={game}
+                onChange={updategame}
+                minLength={1}
+                maxLength={25}
+                placeholder="Ingresa el nombre de un juego"
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Escribe un nickname
+              </Form.Control.Feedback>
+            </Form.Group>{" "}
+            <Form.Group
+              className="mb-3"
+              controlId="formBasicPassword"
+              style={{ width: "100%" }}
+            >
+              <Form.Label>Escoge 3 categorias</Form.Label>
+              <Form.Select
+                onChange={updatecategoria1}
+                required
+                aria-label="Default select example"
               >
-                <Form.Label>Archivo rar de tu videojuego</Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={CargarArchivo}
-                  placeholder=""
-                />
-              </Form.Group>
-              <Form.Group
-                className="mb-4"
-                controlId="formBasicPassword"
-                style={{ width: "500px" }}
+                <option>Selecciona una categoria</option>
+                <option value="Acción">Acción</option>
+                <option value="Arcade">Arcade</option>
+                <option value="Estrategia">Estrategia</option>
+                <option value="Cooperativo">Cooperativo</option>
+                <option value="Online">Online</option>
+                <option value="Supervivencia">Supervivencia</option>
+                <option value="Simulacion">Simulacion</option>
+                <option value="Battle Royale">Battle Royale</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="formBasicPassword"
+              style={{ width: "100%" }}
+            >
+              <Form.Select
+                onChange={updatecategoria2}
+                required
+                aria-label="Default select example"
               >
-                <Form.Label>Nombre del juego:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={game}
-                  onChange={updategame}
-                  placeholder="Ingresa el nombre de un juego"
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Escribe un nickname
-                </Form.Control.Feedback>
-              </Form.Group>{" "}
-              <Form.Group
-                className="mb-3"
-                controlId="formBasicPassword"
-                style={{ width: "400px" }}
+                <option>Selecciona una categoria</option>
+                <option value="Acción">Acción</option>
+                <option value="RPG">RPG</option>
+                <option value="Carreras">Carreras</option>
+                <option value="FPS">FPS</option>
+                <option value="Puzle">Puzle</option>
+                <option value="Lucha">Lucha</option>
+                <option value="MMORPG">MMORPG</option>
+                <option value="MOBA">MOBA</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="formBasicPassword"
+              style={{ width: "100%" }}
+            >
+              <Form.Select
+                onChange={updatecategoria3}
+                required
+                aria-label="Default select example"
               >
-                <Form.Label>Escoge 3 categorias</Form.Label>
-                <Form.Select
-                  onChange={updatecategoria1}
-                  required
-                  aria-label="Default select example"
-                >
-                  <option>Selecciona una categoria</option>
-                  <option value="Acción">Acción</option>
-                  <option value="Arcade">Arcade</option>
-                  <option value="Estrategia">Estrategia</option>
-                  <option value="Cooperativo">Cooperativo</option>
-                  <option value="Online">Online</option>
-                  <option value="Supervivencia">Supervivencia</option>
-                  <option value="Simulacion">Simulacion</option>
-                  <option value="Battle Royale">Battle Royale</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group
-                className="mb-3"
-                controlId="formBasicPassword"
-                style={{ width: "400px" }}
-              >
-                <Form.Select
-                  onChange={updatecategoria2}
-                  required
-                  aria-label="Default select example"
-                >
-                  <option>Selecciona una categoria</option>
-                  <option value="Acción">Acción</option>
-                  <option value="RPG">RPG</option>
-                  <option value="Carreras">Carreras</option>
-                  <option value="FPS">FPS</option>
-                  <option value="Puzle">Puzle</option>
-                  <option value="Lucha">Lucha</option>
-                  <option value="MMORPG">MMORPG</option>
-                  <option value="MOBA">MOBA</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group
-                className="mb-3"
-                controlId="formBasicPassword"
-                style={{ width: "400px" }}
-              >
-                <Form.Select
-                  onChange={updatecategoria3}
-                  required
-                  aria-label="Default select example"
-                >
-                  <option>Selecciona una categoria</option>
-                  <option value="RPG">RPG</option>
-                  <option value="Agilidad mental">Agilidad mental</option>
-                  <option value="Shooter">Shooter</option>
-                  <option value="Terror">Terror</option>
-                  <option value="Mundo abierto">Mundo abierto</option>
-                  <option value="Minijuegos">Minijuegos</option>
-                  <option value="Sigilo">Sigilo</option>
-                  <option value="Battle Royale">Battle Royale</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Imagen para la portada</Form.Label>
-                <Form.Control
-                  required
-                  type="file"
-                  onChange={CargarImagenes}
-                  placeholder=""
-                  style={{ width: "243px" }}
-                />
-              </Form.Group>
-              <Form.Group
-                className="mb-2"
-                controlId="formBasicPassword"
-                style={{ width: "243px" }}
-              >
-                <Form.Label>Imagenes de tu juego</Form.Label>
-                <Form.Control
-                  required
-                  type="file"
-                  onChange={CargarImagenes2}
-                  placeholder=""
-                />
-              </Form.Group>
-              <Form.Group
-                className="mb-2"
-                controlId="formBasicPassword"
-                style={{ width: "243px" }}
-              >
-                <Form.Label>Imagenes de tu juego 2</Form.Label>
-                <Form.Control
-                  required
-                  type="file"
-                  onChange={CargarImagenes3}
-                  placeholder=""
-                />
-              </Form.Group>
-              <Button
-                variant="dark"
-                className="add-btn"
-                onClick={añadirElemento}
-              >
-                +
-              </Button>
-              <Form.Group
-                className="mb-3"
-                controlId="formBasicEmail"
-                style={{ width: "400px", float: "right" }}
-              >
-                <Form.Label>
-                  Introduce el correo de tu paypal para recibir el dinero cuando
-                  esten comprado este juego
-                </Form.Label>
-                <Form.Control
-                  type="email"
-                  value={correopay}
-                  placeholder="Tu correo de paypal"
-                  onChange={updateCorreo}
-                />
-              </Form.Group>
-              <Form.Group
-                className="mb-3 mt-3"
-                controlId="formBasicEmail"
+                <option>Selecciona una categoria</option>
+                <option value="RPG">RPG</option>
+                <option value="Agilidad mental">Agilidad mental</option>
+                <option value="Shooter">Shooter</option>
+                <option value="Terror">Terror</option>
+                <option value="Mundo abierto">Mundo abierto</option>
+                <option value="Minijuegos">Minijuegos</option>
+                <option value="Sigilo">Sigilo</option>
+                <option value="Battle Royale">Battle Royale</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Imagen para la portada</Form.Label>
+              <Form.Control
+                required
+                type="file"
+                onChange={CargarImagenes}
+                placeholder=""
+                style={{ width: "100%" }}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-2"
+              controlId="formBasicPassword"
+              style={{ width: "100%" }}
+            >
+              <Form.Label>Imagenes de tu juego</Form.Label>
+              <Form.Control
+                required
+                type="file"
+                onChange={CargarImagenes2}
+                placeholder=""
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-2"
+              controlId="formBasicPassword"
+              style={{ width: "100%" }}
+            >
+              <Form.Label>Imagenes de tu juego 2</Form.Label>
+              <Form.Control
+                required
+                type="file"
+                onChange={CargarImagenes3}
+                placeholder=""
+              />
+            </Form.Group>
+            <Button variant="dark" className="add-btn" onClick={añadirElemento}>
+              +
+            </Button>
+            <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
+              <Form.Label>Precio</Form.Label>
+              <Form.Control
+                required
+                type="number"
+                min={0}
+                max={200}
+                onChange={updatevalor}
+                placeholder="7.99$"
                 style={{ width: "100px" }}
-              >
-                <Form.Label>Precio</Form.Label>
-                <Form.Control
-                  required
-                  type="number"
-                  min={0}
-                  max={200}
-                  onChange={updatevalor}
-                  placeholder="7.99$"
-                />
-                <Form.Control.Feedback type="invalid">
-                  Maximos 200
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Descripcion:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={Des}
-                  required
-                  onChange={updateDes}
-                  placeholder="Mi juego..."
-                  style={{ paddingBottom: "150px" }}
-                />
-              </Form.Group>
-              {isLoading ? (
-                <div>
-                  <Loading />
-                  <p>Espera a que carge su juego</p>
+              />
+
+              <Form.Control.Feedback type="invalid">
+                Maximos 200
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="formBasicEmail"
+              style={{ width: "100%", float: "right" }}
+            >
+              <Form.Label>Introduce el correo de tu paypal</Form.Label>
+              <Form.Control
+                type="email"
+                className=""
+                value={correopay}
+                placeholder="Tu correo de paypal"
+                onChange={updateCorreo}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label className="mt-5 pt-5">Descripcion</Form.Label>
+              <textarea
+                type="text"
+                value={Des}
+                required
+                onChange={updateDes}
+                placeholder="Mi juego..."
+                rows="6"
+                style={{ width: "100%", borderRadius: "5px" }}
+              />
+            </Form.Group>
+            {/* {isLoading ? (
+              <div>
+                <Loading />
+                <p>Espera a que carge su juego</p>
+              </div>
+            ) : (
+              <Button variant="success" type="submit" disabled={buttonEnable}>
+                Subir juego
+              </Button>
+            )}
+            <p style={{ float: "right" }}>
+              Asegurate que esta todo correcto...
+            </p>
+            <p></p> */}
+          </Form>
+        </Col>
+        {/* ----averiguar esta wea  */}
+        <Col>
+          <h1>Vista previa</h1>
+
+          {/* <Container>
+            <Row>
+              <Col md={8}>
+                <div className="profile-card-2 ">
+                  <img className="img-responsive" src={urlImagenes} />
+                  <div className="background "></div>
+                  <div className="profile-name">{game}</div>
+                  <div className="profile-username">{nombre}</div>
+                  <div className="profile-icons">
+                    <h5>{valor}</h5>
+                  </div>
                 </div>
-              ) : (
-                <Button variant="success" type="submit" disabled={buttonEnable}>
-                  Subir juego
-                </Button>
-              )}
-              <p style={{ float: "right" }}>
-                Asegurate que esta todo correcto...
-              </p>
-              <p></p>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
+              </Col>
+            </Row>
+          </Container> */}
+        </Col>
+      </Row>
     </>
   );
 }

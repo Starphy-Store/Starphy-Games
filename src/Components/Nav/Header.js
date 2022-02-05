@@ -201,6 +201,8 @@ const Header = () => {
                     <Col></Col>
                     <Col></Col>
                     <Col></Col>
+                    <Col></Col>
+                    <Col></Col>
                     <Col>
                       {filtrado.map((item) => (
                         <>
