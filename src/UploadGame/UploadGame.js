@@ -43,6 +43,7 @@ export default function UploadGame() {
   const [valor, setvalor] = useState(0);
   const [id, setId] = useState("");
   const [Juegos, setJuegos] = useState([]);
+  const [correopay, setCorreopay] = useState("");
 
   const [validated, setValidated] = useState(null);
 
@@ -196,12 +197,16 @@ export default function UploadGame() {
         videojuego: urlDescargar,
         idprofile: auth.currentUser.uid,
         creator: nombre,
+        correopay: correopay,
       });
     }
   }
 
   const updateDes = function (event) {
     setDes(event.target.value);
+  };
+  const updateCorreo = function (event) {
+    setCorreopay(event.target.value);
   };
   const updategame = function (event) {
     setgame(event.target.value);
@@ -388,19 +393,38 @@ export default function UploadGame() {
                 +
               </Button>
               <Form.Group
+                className="mb-3"
+                controlId="formBasicEmail"
+                style={{ width: "400px", float: "right" }}
+              >
+                <Form.Label>
+                  Introduce el correo de tu paypal para recibir el dinero cuando
+                  esten comprado este juego
+                </Form.Label>
+                <Form.Control
+                  type="email"
+                  value={correopay}
+                  placeholder="Tu correo de paypal"
+                  onChange={updateCorreo}
+                />
+              </Form.Group>
+              <Form.Group
                 className="mb-3 mt-3"
-                controlId="formBasicPassword"
+                controlId="formBasicEmail"
                 style={{ width: "100px" }}
               >
                 <Form.Label>Precio</Form.Label>
                 <Form.Control
                   required
                   type="number"
-                  value={valor}
-                  max={100}
+                  min={0}
+                  max={200}
                   onChange={updatevalor}
                   placeholder="7.99$"
                 />
+                <Form.Control.Feedback type="invalid">
+                  Maximos 200
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Descripcion:</Form.Label>

@@ -80,6 +80,17 @@ const Home = () => {
       <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
       <Recomendations1 />
       <h1>Juegos multijugador 👋</h1>
+      <Container
+        style={{ color: "white", justifyContent: "center", align: "center" }}
+      >
+        <a
+          href={""}
+          style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
+        >
+          Ver mas de esta categoria
+          <ArrowBarRight></ArrowBarRight>
+        </a>
+      </Container>
       <Container className="d-flex">
         {filteronline.map((item) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
@@ -102,9 +113,14 @@ const Home = () => {
         ))}
       </Container>
 
-      <h1>Juegos Cooperativo 🎊</h1>
-      <Container style={{ color: "white", justifyContent: "right" }}>
-        <a href="#">
+      <h1>Juegos Cooperativo</h1>
+      <Container
+        style={{ color: "white", justifyContent: "center", align: "center" }}
+      >
+        <a
+          href={""}
+          style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
+        >
           Ver mas de esta categoria
           <ArrowBarRight></ArrowBarRight>
         </a>
