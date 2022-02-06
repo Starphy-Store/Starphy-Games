@@ -125,8 +125,8 @@ const Header = () => {
 
   return (
     <div className="xd">
-      <Navbar expand="lg" className="header" variant="dark">
-        <Container fluid>
+      <Navbar expand="lg" className="header" variant="dark" fixed="top">
+        <Container>
           <Navbar.Brand href="#" className="ayudaa">
             <Link to="/Home">
               <img

@@ -33,16 +33,26 @@ const Home = () => {
 
   const filtros = game.filter((x) => x.esunjuego == "si");
 
+  const categorias = filtros.map(
+    (x) => x.categoria1 + x.categoria2 + x.categoria3
+  );
+
   const filteronline = filtros.filter((x) => {
     if (x.categoria1 == "Online") return true;
     if (x.categoria2 == "Online") return true;
     if (x.categoria3 == "Online") return true;
   });
+  const ruta = filteronline.map((x) => [(x.categoria1, x.categoria3)]);
+  console.log(ruta);
   const filtercoop = filtros.filter((x) => {
     if (x.categoria1 == "Cooperativo") return true;
     if (x.categoria2 == "Cooperativo") return true;
     if (x.categoria3 == "Cooperativo") return true;
   });
+  const rutacoop = filtercoop.map((x) => [
+    (x.categoria1, x.categoria2, x.categoria3),
+  ]);
+  console.log(filtercoop.map((x) => x.categoria2));
   const filteracc = filtros.filter((x) => {
     if (x.categoria1 == "Acción") return true;
     if (x.categoria2 == "Acción") return true;
@@ -159,12 +169,9 @@ const Home = () => {
   }
   return (
     <div>
-      <Container>
-        <Col>
-          <Header />
-        </Col>
-      </Container>
-      <Container>
+      <Header />
+
+      <Container style={{ paddingTop: "90px" }}>
         <SliderDelHome />
       </Container>
       <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
@@ -835,10 +842,7 @@ const Home = () => {
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
-        <a
-          href={`/CategorySection/${filterSigilo}`}
-          style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
-        >
+        <a style={{ paddingLeft: "42.5%", align: "center", color: "white" }}>
           Ver mas de esta categoria
           <ArrowBarRight></ArrowBarRight>
         </a>

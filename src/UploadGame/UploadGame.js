@@ -249,11 +249,8 @@ export default function UploadGame() {
   }
   return (
     <>
-      <Container>
-        <Header />
-      </Container>
-
-      <Row style={{ width: "100%" }}>
+      <Header />
+      <Row style={{ width: "100%", color: "white", paddingTop: "100px" }}>
         <Col md={7}>
           <Form
             noValidate

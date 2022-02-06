@@ -18,6 +18,8 @@ import firebase2 from "../Home/Firebase2.js";
 const db = getFirestore(firebase2);
 export default function CategorySection() {
   const { categoria1 } = useParams();
+  const { categoria2 } = useParams();
+  const { categoria3 } = useParams();
   const [game, setGame] = useState([]);
 
   const filtros = game.filter((x) => x.esunjuego == "si");
