@@ -169,9 +169,9 @@ const Home = () => {
       <Container style={{ paddingTop: "90px" }}>
         <SliderDelHome />
       </Container>
-      <h1 style={{ color: "white" }}>Los mejores juegos para ti</h1>
+      <h1 style={{ color: "white" }}>Los mejores juegos para ti 🔥</h1>
       <Recomendations1 />
-      <h1>Juegos multijugador 👋</h1>
+      <h1>Juegos multijugador 🤼‍♂️</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
@@ -205,7 +205,7 @@ const Home = () => {
         ))}
       </Container>
 
-      <h1>Juegos Cooperativo</h1>
+      <h1>Juegos Cooperativo 🐱‍🐉</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
@@ -307,7 +307,7 @@ const Home = () => {
         ))}
       </Container>
 
-      <h1>Juegos Simulacion 🌌</h1>
+      <h1>Juegos Simulacion 🛸</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
@@ -443,7 +443,7 @@ const Home = () => {
         ))}
       </Container>
 
-      <h1>Juegos Carreras 🏎</h1>
+      <h1>Juegos Carreras 🚦</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >

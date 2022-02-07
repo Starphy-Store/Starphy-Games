@@ -241,11 +241,15 @@ export default function UploadGame() {
   }, []);
   //prueba
   function dollarsign(input) {
-    if (input == "Gratis") {
-      return input;
+    if (input == 0) {
+      return "Gratis";
     } else {
       return "$" + input;
     }
+  }
+  function truncate(input) {
+    if (input.length > 10) return input.substring(0, 10) + "...";
+    else return input;
   }
   return (
     <>
@@ -456,19 +460,24 @@ export default function UploadGame() {
           <Container>
             <Row>
               <Col md={8}>
-                <h2>Vista previa</h2>
+                <h2>Vista previa :</h2>
+                <p></p>
+                Como se vera tu card
                 <div className="profile-card-2">
                   <img className="img-responsive" src={urlImagenes} />
                   <div className="background "></div>
-                  <div className="profile-name">{game}</div>
+                  <div className="profile-name">{truncate(game)}</div>
                   <div className="profile-username">{nombre}</div>
                   <div className="profile-icons">
-                    <h5>{valor}</h5>
+                    <h5>{dollarsign(valor)}</h5>
                   </div>
                 </div>
               </Col>
             </Row>
           </Container>
+
+          <h1></h1>
+          <p>Tu juego en gameshow</p>
         </Col>
       </Row>
     </>

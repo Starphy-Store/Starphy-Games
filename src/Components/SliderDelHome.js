@@ -21,9 +21,9 @@ function SliderDelHome() {
       >
         <Carousel.Item>
           <div className="carouselitem1">
-            <Container>
-              <h1>sexooooooo aaaaaa</h1>
-              <p style={{ textAlign: "center" }}>sexooooooo aaaaaa</p>
+            <Container style={{ width: "1000px" }}>
+              <h1>PayDay 2</h1>
+              <p style={{ textAlign: "center" }}>Agua</p>
             </Container>
           </div>
           <img
@@ -35,9 +35,9 @@ function SliderDelHome() {
         </Carousel.Item>
         <Carousel.Item>
           <div className="carouselitem1">
-            <Container>
-              <h1>sexooooooo aaaaaa</h1>
-              <p style={{ textAlign: "center" }}>sexooooooo aaaaaa</p>
+            <Container style={{ width: "1000px" }}>
+              <h1>Among us</h1>
+              <p style={{ textAlign: "center" }}>Publicalos</p>
             </Container>
           </div>
           <img
@@ -49,9 +49,9 @@ function SliderDelHome() {
         </Carousel.Item>
         <Carousel.Item>
           <div className="carouselitem1">
-            <Container>
-              <h1>sexooooooo aaaaaa</h1>
-              <p style={{ textAlign: "center" }}>sexooooooo aaaaaa</p>
+            <Container style={{ width: "1000px" }}>
+              <h1>The Witcher 3: Wild Hunter</h1>
+              <p style={{ textAlign: "center" }}>aaa 🐱‍🚀</p>
             </Container>
           </div>
           <img
