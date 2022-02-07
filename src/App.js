@@ -27,7 +27,9 @@ import BillPayment from "./Payment/BillPayment";
 import AboutUs from "./AboutUs/AboutUs";
 import TerminosyCondiciones from "./LegalAdvertisement/TerminosyCondiciones";
 import CategorySection from "./CategorySection/CategorySection";
-import CategorySectionAccion from "./CategorySection/CategorySection";
+import CategorySectionOnline from "./CategorySection/CategorySectionOnline";
+import CategorySectionArcade from "./CategorySection/CategorySectionArcade";
+import CategorySectionEstrategia from "./CategorySection/CategorySectionEstrategia";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -142,71 +144,7 @@ function App() {
         />
         {/* CATEGORIAS */}
         <Route
-          path="/CategorySection/:filterSigilo"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria2"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria3 "
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria4"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria5"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria6"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria7"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria8"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria9"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria10"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria11"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria12"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria13"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria15"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria15"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria16"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/:categoria17"
+          path="/CategorySection/:Cooperativo"
           element={<CategorySection />}
         />
         {Dev.map((item) =>

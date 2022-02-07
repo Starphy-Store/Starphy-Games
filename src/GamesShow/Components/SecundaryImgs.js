@@ -80,7 +80,7 @@ const SecundaryImgs = () => {
 
   const SendRatingDB = () => {
     if (auth.currentUser == null) {
-      toast.error("Hazte una cuenta para valorarlo", {
+      toast.error("Crea una cuenta para valorarlo", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

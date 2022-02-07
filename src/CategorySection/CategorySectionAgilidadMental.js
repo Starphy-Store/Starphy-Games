@@ -17,24 +17,17 @@ import {
 import firebase2 from "../Home/Firebase2.js";
 const db = getFirestore(firebase2);
 export default function CategorySection() {
-  const { Cooperativo } = useParams();
-  const { categoria2 } = useParams();
-  const { categoria3 } = useParams();
+  const { AgilidadMental } = useParams();
   const [game, setGame] = useState([]);
 
   const filtros = game.filter((x) => x.esunjuego == "si");
 
-  const filteronline = filtros.filter((x) => {
-    if (x.categoria1 == "Online") return true;
-    if (x.categoria2 == "Online") return true;
-    if (x.categoria3 == "Online") return true;
+  const filterAgilidadMental = filtros.filter((x) => {
+    if (x.categoria1 == AgilidadMental) return true;
+    if (x.categoria2 == AgilidadMental) return true;
+    if (x.categoria3 == AgilidadMental) return true;
   });
-  const filtercoop = filtros.filter((x) => {
-    if (x.categoria1 == Cooperativo) return true;
-    if (x.categoria2 == Cooperativo) return true;
-    if (x.categoria3 == Cooperativo) return true;
-  });
-  console.log();
+
   function getGames() {
     const ref = query(collection(db, "games"));
 
@@ -50,6 +43,7 @@ export default function CategorySection() {
   useEffect(() => {
     getGames();
   }, []);
+
   function dollarsign(input) {
     if (input == "Gratis") {
       return input;
@@ -60,8 +54,27 @@ export default function CategorySection() {
 
   return (
     <>
+      <Container>
+        <Header />
+        <h1 className="pb-3" style={{ Justify: "left" }}>
+          Juegos de {AgilidadMental}
+        </h1>
+        <h5
+          style={{
+            color: "white",
+            position: "absolute",
+            zIndex: "999",
+            backgroundColor: "#ff595e",
+            padding: "15px",
+            borderRadius: "20px 0px 20px 0",
+          }}
+        >
+          Juego de {AgilidadMental} mas popular:
+        </h5>
+        <Slider />
+      </Container>
       <Container className="d-flex pt-3">
-        {filtercoop.map((item) => (
+        {filterAgilidadMental.map((item) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
@@ -82,25 +95,6 @@ export default function CategorySection() {
         ))}
       </Container>
       );
-      <Container>
-        <Header />
-        <h1 className="pb-3" style={{ Justify: "left" }}>
-          Juegos de {Cooperativo}
-        </h1>
-        <h5
-          style={{
-            color: "white",
-            position: "absolute",
-            zIndex: "999",
-            backgroundColor: "#ff595e",
-            padding: "15px",
-            borderRadius: "20px 0px 20px 0",
-          }}
-        >
-          Juego de {Cooperativo} mas popular:
-        </h5>
-        <Slider />
-      </Container>
       <Footer />
     </>
   );

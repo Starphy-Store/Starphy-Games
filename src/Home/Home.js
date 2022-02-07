@@ -30,6 +30,7 @@ const db = getFirestore(firebase2);
 
 const Home = () => {
   const [game, setGame] = useState([]);
+  const [category, setCategory] = useState("");
 
   const filtros = game.filter((x) => x.esunjuego == "si");
 
@@ -42,31 +43,15 @@ const Home = () => {
     if (x.categoria2 == "Online") return true;
     if (x.categoria3 == "Online") return true;
   });
-  const ruta = filteronline.map((x) => [(x.categoria1, x.categoria3)]);
-  console.log(ruta);
   const filtercoop = filtros.filter((x) => {
     if (x.categoria1 == "Cooperativo") return true;
     if (x.categoria2 == "Cooperativo") return true;
     if (x.categoria3 == "Cooperativo") return true;
   });
-  const rutacoop = filtercoop.map((x) => [
-    (x.categoria1, x.categoria2, x.categoria3),
-  ]);
-  console.log(filtercoop.map((x) => x.categoria2));
-  const filteracc = filtros.filter((x) => {
-    if (x.categoria1 == "Acción") return true;
-    if (x.categoria2 == "Acción") return true;
-    if (x.categoria3 == "Acción") return true;
-  });
-  const filterarcade = filtros.filter((x) => {
+  const filterArcade = filtros.filter((x) => {
     if (x.categoria1 == "Arcade") return true;
     if (x.categoria2 == "Arcade") return true;
     if (x.categoria3 == "Arcade") return true;
-  });
-  const filterestrategia = filtros.filter((x) => {
-    if (x.categoria1 == "Estrategia") return true;
-    if (x.categoria2 == "Estrategia") return true;
-    if (x.categoria3 == "Estrategia") return true;
   });
   const filterSupervivencia = filtros.filter((x) => {
     if (x.categoria1 == "Supervivencia") return true;
@@ -83,6 +68,11 @@ const Home = () => {
     if (x.categoria2 == "Battle Royale") return true;
     if (x.categoria3 == "Battle Royale") return true;
   });
+  const filterAcción = filtros.filter((x) => {
+    if (x.categoria1 == "Acción") return true;
+    if (x.categoria2 == "Acción") return true;
+    if (x.categoria3 == "Acción") return true;
+  });
   const filterRPG = filtros.filter((x) => {
     if (x.categoria1 == "RPG") return true;
     if (x.categoria2 == "RPG") return true;
@@ -92,6 +82,11 @@ const Home = () => {
     if (x.categoria1 == "Carreras") return true;
     if (x.categoria2 == "Carreras") return true;
     if (x.categoria3 == "Carreras") return true;
+  });
+  const filterFPS = filtros.filter((x) => {
+    if (x.categoria1 == "FPS") return true;
+    if (x.categoria2 == "FPS") return true;
+    if (x.categoria3 == "FPS") return true;
   });
   const filterPuzle = filtros.filter((x) => {
     if (x.categoria1 == "Puzle") return true;
@@ -113,10 +108,10 @@ const Home = () => {
     if (x.categoria2 == "MOBA") return true;
     if (x.categoria3 == "MOBA") return true;
   });
-  const filterAgilidadmental = filtros.filter((x) => {
-    if (x.categoria1 == "Agilidad mental") return true;
-    if (x.categoria2 == "Agilidad mental") return true;
-    if (x.categoria3 == "Agilidad mental") return true;
+  const filterAgilidadMental = filtros.filter((x) => {
+    if (x.categoria1 == "Agilidad Mental") return true;
+    if (x.categoria2 == "Agilidad Mental") return true;
+    if (x.categoria3 == "Agilidad Mental") return true;
   });
   const filterShooter = filtros.filter((x) => {
     if (x.categoria1 == "Shooter") return true;
@@ -181,7 +176,7 @@ const Home = () => {
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Online"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -215,7 +210,7 @@ const Home = () => {
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Cooperativo"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -244,12 +239,12 @@ const Home = () => {
         ))}
       </Container>
 
-      <h1>Juegos Acción</h1>
+      <h1>Juegos Arcade 🎮</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Arcade"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -257,11 +252,11 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filteracc.map((item) => (
+        {filterArcade.map((item) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -277,78 +272,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos Arcade</h1>
+
+      <h1>Juegos Supervivencia 🏃‍♀️</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
-          style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
-        >
-          Ver mas de esta categoria
-          <ArrowBarRight></ArrowBarRight>
-        </a>
-      </Container>
-      <Container className="d-flex">
-        {filterarcade.map((item) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
-              <Row>
-                <Col md={12}>
-                  <div className="profile-card-2 ">
-                    <img src={item.imagenportada} className="img-responsive" />
-                    <div className="background "></div>
-                    <div className="profile-name">{item.juego}</div>
-                    <div className="profile-username">{item.creator}</div>
-                    <div className="profile-icons">
-                      <h5>{dollarsign(item.precio)}</h5>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Link>
-        ))}
-      </Container>
-      <h1>Juegos Estrategia</h1>
-      <Container
-        style={{ color: "white", justifyContent: "center", align: "center" }}
-      >
-        <a
-          href={""}
-          style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
-        >
-          Ver mas de esta categoria
-          <ArrowBarRight></ArrowBarRight>
-        </a>
-      </Container>
-      <Container className="d-flex">
-        {filterestrategia.map((item) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
-              <Row>
-                <Col md={12}>
-                  <div className="profile-card-2 ">
-                    <img src={item.imagenportada} className="img-responsive" />
-                    <div className="background "></div>
-                    <div className="profile-name">{item.juego}</div>
-                    <div className="profile-username">{item.creator}</div>
-                    <div className="profile-icons">
-                      <h5>{dollarsign(item.precio)}</h5>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Link>
-        ))}
-      </Container>
-      <h1>Juegos Supervivencia</h1>
-      <Container
-        style={{ color: "white", justifyContent: "center", align: "center" }}
-      >
-        <a
-          href={""}
+          href={`/CategorySection/${"Supervivencia"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -360,7 +290,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -376,12 +306,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos Simulacion</h1>
+
+      <h1>Juegos Simulacion 🌌</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Simulacion"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -393,7 +324,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -409,12 +340,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos Battle Royale</h1>
+
+      <h1>Juegos Battle Royale 🪓</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Battle Royale"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -426,7 +358,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -442,12 +374,47 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos RPG</h1>
+
+      <h1>Juegos Acción 👓</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Acción"}`}
+          style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
+        >
+          Ver mas de esta categoria
+          <ArrowBarRight></ArrowBarRight>
+        </a>
+      </Container>
+      <Container className="d-flex">
+        {filterAcción.map((item) => (
+          <Link to={`/GamesShow/${item.juego}`} className="w-25">
+            <Container key={item.id}>
+              <Row>
+                <Col md={212}>
+                  <div className="profile-card-2 ">
+                    <img src={item.imagenportada} className="img-responsive" />
+                    <div className="background "></div>
+                    <div className="profile-name">{item.juego}</div>
+                    <div className="profile-username">{item.creator}</div>
+                    <div className="profile-icons">
+                      <h5>{dollarsign(item.precio)}</h5>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </Link>
+        ))}
+      </Container>
+
+      <h1>Juegos RPG 🤪</h1>
+      <Container
+        style={{ color: "white", justifyContent: "center", align: "center" }}
+      >
+        <a
+          href={`/CategorySection/${"RPG"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -459,7 +426,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -475,12 +442,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos Carreras</h1>
+
+      <h1>Juegos Carreras 🏎</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Carreras"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -492,7 +460,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -508,12 +476,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos FPS</h1>
+
+      <h1>Juegos FPS 🌄</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"FPS"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -521,11 +490,11 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filteracc.map((item) => (
+        {filterFPS.map((item) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -541,12 +510,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos Puzle</h1>
+
+      <h1>Juegos Puzle 🧩</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Puzle"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -558,7 +528,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -574,12 +544,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos Lucha</h1>
+
+      <h1>Juegos Lucha 👊</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Lucha"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -591,7 +562,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -607,12 +578,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos MMORPG</h1>
+
+      <h1>Juegos MMORPG 👩‍💻</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"MMORPG"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -624,7 +596,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -640,12 +612,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos MOBA</h1>
+
+      <h1>Juegos MOBA 💻</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"MOBA"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -657,7 +630,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -673,12 +646,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos Agilidad mental</h1>
+
+      <h1>Juegos Agilidad Mental 🧠</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Agilidad Mental"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -686,11 +660,11 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterAgilidadmental.map((item) => (
+        {filterAgilidadMental.map((item) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -706,12 +680,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos shooter</h1>
+
+      <h1>Juegos Shooter 🎯</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Shooter"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -723,7 +698,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -739,12 +714,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos Terror</h1>
+
+      <h1>Juegos Terror 👻</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Terror"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -756,7 +732,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -772,12 +748,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos mundo abierto</h1>
+
+      <h1>Juegos Mundo Abierto 🌏</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Mundo Abierto"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -789,7 +766,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -805,12 +782,13 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos minijuegos</h1>
+
+      <h1>Juegos Minijuegos 🎱</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
         <a
-          href={""}
+          href={`/CategorySection/${"Minijuegos"}`}
           style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
         >
           Ver mas de esta categoria
@@ -822,7 +800,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -838,11 +816,15 @@ const Home = () => {
           </Link>
         ))}
       </Container>
-      <h1>Juegos sigilo</h1>
+
+      <h1>Juegos Sigilo 🐱‍👤</h1>
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
-        <a style={{ paddingLeft: "42.5%", align: "center", color: "white" }}>
+        <a
+          href={`/CategorySection/${"Sigilo"}`}
+          style={{ paddingLeft: "42.5%", align: "center", color: "white" }}
+        >
           Ver mas de esta categoria
           <ArrowBarRight></ArrowBarRight>
         </a>
@@ -852,7 +834,7 @@ const Home = () => {
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
             <Container key={item.id}>
               <Row>
-                <Col md={12}>
+                <Col md={212}>
                   <div className="profile-card-2 ">
                     <img src={item.imagenportada} className="img-responsive" />
                     <div className="background "></div>
@@ -868,6 +850,7 @@ const Home = () => {
           </Link>
         ))}
       </Container>
+
       <Footer></Footer>
     </div>
   );
