@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
 import Header from "../Components/Nav/Header";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Carousel } from "react-bootstrap";
 import firebase2 from "../../src/Home/Firebase2";
 import { initializeApp } from "firebase/app";
 import {
@@ -37,6 +37,7 @@ const db = getFirestore(firebase2);
 const storage = getStorage(app);
 
 export default function UploadGame() {
+  const [moreImages, setMoreImages] = React.useState(false);
   const auth = getAuth(app);
   const navigate = useNavigate();
   const [Des, setDes] = useState("");
@@ -53,11 +54,12 @@ export default function UploadGame() {
   const [categoria3, setcategoria3] = useState("");
 
   const [urlDescargar, seturlDescargar] = useState(null);
-  const [urlImagenes, seturlImagenes] = useState(null);
-  const [urlImagenes2, seturlImagenes2] = useState(null);
-  const [urlImagenes3, seturlImagenes3] = useState(null);
+  const [urlImagenes, seturlImagenes] = useState("");
+  const [urlImagenes2, seturlImagenes2] = useState("");
+  const [urlImagenes3, seturlImagenes3] = useState("");
 
   const [isLoading, setIsLoading] = useState(null);
+
   const [añadir, setañadir] = useState([
     <Form.Group className="mb-2" controlId="formBasicPassword">
       <Form.Label>Imagenes de tu juego</Form.Label>
@@ -84,6 +86,7 @@ export default function UploadGame() {
   }
 
   async function CargarImagenes(e) {
+    setIsLoading(true);
     const archivolocal = e.target.files[0];
 
     const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
@@ -91,9 +94,11 @@ export default function UploadGame() {
     await uploadBytes(archivoRef, archivolocal);
 
     seturlImagenes(await getDownloadURL(archivoRef));
+    setIsLoading(false);
   }
 
   async function CargarImagenes2(e) {
+    setIsLoading(true);
     const archivolocal = e.target.files[0];
 
     const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
@@ -101,9 +106,11 @@ export default function UploadGame() {
     await uploadBytes(archivoRef, archivolocal);
 
     seturlImagenes2(await getDownloadURL(archivoRef));
+    setIsLoading(false);
   }
 
   async function CargarImagenes3(e) {
+    setIsLoading(true);
     const archivolocal = e.target.files[0];
 
     const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
@@ -111,6 +118,7 @@ export default function UploadGame() {
     await uploadBytes(archivoRef, archivolocal);
 
     seturlImagenes3(await getDownloadURL(archivoRef));
+    setIsLoading(false);
   }
   function id2() {
     const ref = query(collection(db, "users"));
@@ -137,8 +145,12 @@ export default function UploadGame() {
   const isInvalid = (text) => !Boolean(text.trim());
 
   const buttonEnable = [
-    Des,
     game,
+    Des,
+    correopay,
+    categoria1,
+    categoria2,
+    categoria3,
     urlImagenes,
     urlImagenes2,
     urlImagenes3,
@@ -157,11 +169,11 @@ export default function UploadGame() {
       setJuegos(items);
     });
   };
-  console.log(mapNameGames.includes(game));
+  console.log(mapNameGames.includes(game.toLowerCase().trim()));
   async function CrearJuego(event) {
     event.preventDefault();
     console.log("render");
-    if (mapNameGames.includes(game)) {
+    if (mapNameGames.includes(game.toLowerCase().trim())) {
       toast.error("El nombre de ese juego esta en uso", {
         position: "top-right",
         autoClose: 5000,
@@ -212,9 +224,15 @@ export default function UploadGame() {
   const updategame = function (event) {
     setgame(event.target.value);
   };
+
   const updatevalor = function (event) {
-    setvalor(event.target.value);
+    if (event.target.value <= 200) {
+      setvalor(event.target.value);
+    } else {
+      return setvalor(200);
+    }
   };
+  console.log(valor);
   const updatecategoria1 = function (event) {
     setcategoria1(event.target.value);
   };
@@ -225,15 +243,14 @@ export default function UploadGame() {
     setcategoria3(event.target.value);
   };
 
-  const añadirElemento = () => {
-    setañadir([
-      ...añadir,
+  function AddImages() {
+    return (
       <Form.Group className="mb-2" controlId="formBasicPassword">
         <Form.Label>Imagenes de tu juego</Form.Label>
         <Form.Control required type="file" placeholder="" />
-      </Form.Group>,
-    ]);
-  };
+      </Form.Group>
+    );
+  }
 
   useEffect(() => {
     id2();
@@ -247,8 +264,9 @@ export default function UploadGame() {
       return "$" + input;
     }
   }
+
   function truncate(input) {
-    if (input.length > 10) return input.substring(0, 10) + "...";
+    if (input.length > 16) return input.substring(0, 16) + "...";
     else return input;
   }
   return (
@@ -256,10 +274,11 @@ export default function UploadGame() {
       <Header />
       <Row style={{ width: "100%", color: "white", paddingTop: "100px" }}>
         <Col md={7}>
+          <h1>Ingresa tus datos</h1>
           <Form
             noValidate
             validated={validated}
-            className="form-container needs-validation"
+            className="form-container needs-validation pt-3"
             onSubmit={CrearJuego}
             style={{ width: "100%" }}
           >
@@ -286,7 +305,7 @@ export default function UploadGame() {
                 value={game}
                 onChange={updategame}
                 minLength={1}
-                maxLength={25}
+                maxLength={30}
                 placeholder="Ingresa el nombre de un juego"
                 required
               />
@@ -361,6 +380,7 @@ export default function UploadGame() {
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Imagen para la portada</Form.Label>
               <Form.Control
+                accept="image/png,image/jpeg"
                 required
                 type="file"
                 onChange={CargarImagenes}
@@ -368,6 +388,7 @@ export default function UploadGame() {
                 style={{ width: "100%" }}
               />
             </Form.Group>
+            <hr />
             <Form.Group
               className="mb-2"
               controlId="formBasicPassword"
@@ -375,6 +396,7 @@ export default function UploadGame() {
             >
               <Form.Label>Imagenes de tu juego</Form.Label>
               <Form.Control
+                accept="image/png,image/jpeg"
                 required
                 type="file"
                 onChange={CargarImagenes2}
@@ -388,13 +410,19 @@ export default function UploadGame() {
             >
               <Form.Label>Imagenes de tu juego 2</Form.Label>
               <Form.Control
+                accept="image/png,image/jpeg"
                 required
                 type="file"
                 onChange={CargarImagenes3}
                 placeholder=""
               />
             </Form.Group>
-            <Button variant="dark" className="add-btn" onClick={añadirElemento}>
+            <AddImages show={moreImages} onHide={() => setMoreImages(false)} />
+            <Button
+              variant="dark"
+              className="add-btn"
+              onClick={() => setMoreImages(true)}
+            >
               +
             </Button>
             <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
@@ -405,10 +433,10 @@ export default function UploadGame() {
                 min={0}
                 max={200}
                 onChange={updatevalor}
+                value={valor}
                 placeholder="7.99$"
                 style={{ width: "100px" }}
               />
-
               <Form.Control.Feedback type="invalid">
                 Maximos 200
               </Form.Control.Feedback>
@@ -460,9 +488,8 @@ export default function UploadGame() {
           <Container>
             <Row>
               <Col md={8}>
-                <h2>Vista previa :</h2>
-                <p></p>
-                Como se vera tu card
+                <h1 className="pb-4">Vista previa :</h1>
+
                 <div className="profile-card-2">
                   <img className="img-responsive" src={urlImagenes} />
                   <div className="background "></div>
@@ -472,12 +499,73 @@ export default function UploadGame() {
                     <h5>{dollarsign(valor)}</h5>
                   </div>
                 </div>
+                <Carousel
+                  className="pt-4"
+                  indicators={false}
+                  style={{ borderRadius: "10px" }}
+                >
+                  {urlImagenes ? (
+                    <Carousel.Item>
+                      <img
+                        className="d-block w-100"
+                        src={urlImagenes}
+                        alt="First slide"
+                      />
+                      <h6>Primera imagen</h6>
+                    </Carousel.Item>
+                  ) : (
+                    <Carousel.Item>
+                      <img
+                        className="d-block w-100"
+                        src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Dise%C3%B1o%20sin%20t%C3%ADtulo%20(11).png?alt=media&token=8b38757c-fb20-408b-8382-8681c5d75c66"
+                        alt="Second slide"
+                      />
+                      <h6>Primera imagen</h6>
+                    </Carousel.Item>
+                  )}
+
+                  {urlImagenes2 ? (
+                    <Carousel.Item>
+                      <img
+                        className="d-block w-100"
+                        src={urlImagenes2}
+                        alt="Second slide"
+                      />
+                      <h6>Segunda imagen</h6>
+                    </Carousel.Item>
+                  ) : (
+                    <Carousel.Item>
+                      <img
+                        className="d-block w-100"
+                        src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Dise%C3%B1o%20sin%20t%C3%ADtulo%20(11).png?alt=media&token=8b38757c-fb20-408b-8382-8681c5d75c66"
+                        alt="Third slide"
+                      />
+                      <h6>Segunda imagen</h6>
+                    </Carousel.Item>
+                  )}
+                  {urlImagenes3 ? (
+                    <Carousel.Item>
+                      <img
+                        className="d-block w-100"
+                        src={urlImagenes3}
+                        alt="Third slide"
+                      />
+                      <h6>Tercera imagen</h6>
+                    </Carousel.Item>
+                  ) : (
+                    <Carousel.Item>
+                      <img
+                        className="d-block w-100"
+                        src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Dise%C3%B1o%20sin%20t%C3%ADtulo%20(11).png?alt=media&token=8b38757c-fb20-408b-8382-8681c5d75c66"
+                        alt="Third slide"
+                      />
+                      <h6>Tercera imagen</h6>
+                    </Carousel.Item>
+                  )}
+                </Carousel>
               </Col>
             </Row>
           </Container>
-
-          <h1></h1>
-          <p>Tu juego en gameshow</p>
         </Col>
       </Row>
     </>
