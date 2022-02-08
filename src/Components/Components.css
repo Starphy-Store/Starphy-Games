@@ -11,8 +11,31 @@ Nav.Link {
 .sliderImg {
   height: 100%;
   width: auto;
-  object-fit: cover;
 }
 .Takea {
   flex-direction: row;
+}
+.carouselitem1 {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  color: white;
+  background: rgb(23, 23, 23);
+  background: linear-gradient(
+    90deg,
+    rgba(23, 23, 23, 1) 2%,
+    rgba(23, 23, 23, 0.8717757366618523) 43%,
+    rgba(255, 255, 255, 0) 92%
+  );
+}
+
+.header {
+  background: rgb(23, 23, 23);
+  background: linear-gradient(
+    180deg,
+    rgba(23, 23, 23, 1) 0%,
+    rgba(23, 23, 23, 0.39838638091955536) 84%,
+    rgba(23, 23, 23, 0.17429674506521353) 94%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }

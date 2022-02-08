@@ -6,7 +6,7 @@
   position: relative;
   margin: 10px auto;
   cursor: pointer;
-  border-radius: 16px 16px 0px 0px;
+  border-radius: 10px;
   height: 400px;
   width: 100%;
   display: flex;
@@ -17,21 +17,19 @@
 .profile-card-2 img {
   transition: all linear 0.25s;
   height: 100%;
-  width: 100%;
-  object-fit: cover;
-  /* max-width: 100% */
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Dise%C3%B1o_sin_t%C3%ADtulo__7_-removebg-preview.png?alt=media&token=125448d6-ddd0-4f8c-9856-ff7ff77fae1e");
-  background-size: 90% 300px;
+  width: auto;
+  background: linear-gradient(70deg, black, white);
 }
 .img-responsive {
+  z-index: -1;
 }
 .profile-card-2 .profile-name {
   position: absolute;
   left: 30px;
   bottom: 70px;
   font-size: 30px;
-  color: whitesmoke;
-  z-index: 999;
+  color: #fff;
+
   font-weight: bold;
   transition: all linear 0.25s;
 }
@@ -40,53 +38,40 @@
   position: absolute;
   bottom: 43px;
   right: 30px;
-  color: whitesmoke;
+  color: #fff;
   transition: all linear 0.25s;
   font-weight: bold;
-  z-index: 999;
 }
 
 .profile-card-2 .profile-username {
   position: absolute;
   bottom: 50px;
   left: 30px;
-  color: whitesmoke;
+  color: #fff;
   font-size: 13px;
   transition: all linear 0.25s;
-  z-index: 999;
 }
 
 .profile-card-2 .profile-icons .fa {
   margin: 5px;
-  z-index: 999;
 }
 
 .profile-card-2:hover .profile-name {
   bottom: 80px;
-  z-index: 999;
 }
 
 .profile-card-2:hover .profile-username {
   bottom: 60px;
-  z-index: 999;
 }
 
 .profile-card-2:hover .profile-icons {
   margin-bottom: 10px;
-  z-index: 999;
 }
 
-.background {
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 61%,
-    rgba(23, 23, 23, 1) 100%
-  );
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: 100;
+.sexo {
+  background-color: aqua;
+  height: 100px;
+  z-index: 2;
 }
 
 body {

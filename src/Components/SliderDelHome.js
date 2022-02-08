@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { Carousel, Form } from "react-bootstrap";
+import { Carousel, Form, Container } from "react-bootstrap";
 import "./Components.css";
 
 //importacion de imagenes
@@ -14,12 +14,18 @@ function SliderDelHome() {
   return (
     <div className="sliderdelhome">
       <Carousel
-        variant="dark"
+        variant="light"
         indicators={false}
         style={{ zIndex: "0", borderRadius: "10px" }}
         className="carousel-inner"
       >
         <Carousel.Item>
+          <div className="carouselitem1">
+            <Container style={{ width: "1000px" }}>
+              <h1>PayDay 2</h1>
+              <p style={{ textAlign: "center" }}>Agua</p>
+            </Container>
+          </div>
           <img
             className="d-block"
             src={payday2}
@@ -28,6 +34,12 @@ function SliderDelHome() {
           />
         </Carousel.Item>
         <Carousel.Item>
+          <div className="carouselitem1">
+            <Container style={{ width: "1000px" }}>
+              <h1>Among us</h1>
+              <p style={{ textAlign: "center" }}>Publicalos</p>
+            </Container>
+          </div>
           <img
             className="d-block"
             src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Publica%20tus%20juegos%20gratis%20(1).png?alt=media&token=17af5675-45b7-4e7b-858e-70f5fbb6b3d1"
@@ -36,6 +48,12 @@ function SliderDelHome() {
           />
         </Carousel.Item>
         <Carousel.Item>
+          <div className="carouselitem1">
+            <Container style={{ width: "1000px" }}>
+              <h1>The Witcher 3: Wild Hunter</h1>
+              <p style={{ textAlign: "center" }}>aaa 🐱‍🚀</p>
+            </Container>
+          </div>
           <img
             className="d-block"
             src={thewitcher}
@@ -43,7 +61,6 @@ function SliderDelHome() {
             className="sliderImg"
           />
         </Carousel.Item>
-        4{" "}
       </Carousel>
     </div>
   );

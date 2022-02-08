@@ -27,7 +27,9 @@ import BillPayment from "./Payment/BillPayment";
 import AboutUs from "./AboutUs/AboutUs";
 import TerminosyCondiciones from "./LegalAdvertisement/TerminosyCondiciones";
 import CategorySection from "./CategorySection/CategorySection";
-import CategorySectionAccion from "./CategorySection/CategorySection";
+import CategorySectionOnline from "./CategorySection/CategorySectionOnline";
+import CategorySectionArcade from "./CategorySection/CategorySectionArcade";
+import CategorySectionEstrategia from "./CategorySection/CategorySectionEstrategia";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -136,60 +138,14 @@ function App() {
         <Route path="/SearchPage/:search" element={<SearchPage />} />
         <Route path="/SendEmail" element={<SendEmail />} />
         <Route path="/AboutUs" element={<AboutUs />} />
-        {/* CATEGORIAS */}
-        <Route path="/CategorySection/" element={<CategorySection />} />
-        <Route
-          path="/CategorySection/Acción"
-          element={<CategorySectionAccion />}
-        />
-        <Route path="/CategorySection/Arcade" element={<CategorySection />} />
-        <Route
-          path="/CategorySection/Estrategia"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/Cooperativo"
-          element={<CategorySection />}
-        />
-        <Route path="/CategorySection/Online" element={<CategorySection />} />
-        <Route
-          path="/CategorySection/Supervivencia"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/Simulación"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/BattleRoyale"
-          element={<CategorySection />}
-        />
-        <Route path="/CategorySection/RPG" element={<CategorySection />} />
-        <Route path="/CategorySection/Carreras" element={<CategorySection />} />
-        <Route path="/CategorySection/FPS" element={<CategorySection />} />
-        <Route path="/CategorySection/Puzle" element={<CategorySection />} />
-        <Route path="/CategorySection/Lucha" element={<CategorySection />} />
-        <Route path="/CategorySection/MMORPG" element={<CategorySection />} />
-        <Route path="/CategorySection/MOBA" element={<CategorySection />} />
-        v
-        <Route
-          path="/CategorySection/AgilidadMental"
-          element={<CategorySection />}
-        />
-        <Route path="/CategorySection/Shooter" element={<CategorySection />} />
-        <Route path="/CategorySection/Terror" element={<CategorySection />} />
-        <Route
-          path="/CategorySection/MundoAbierto"
-          element={<CategorySection />}
-        />
-        <Route
-          path="/CategorySection/Minijuegos"
-          element={<CategorySection />}
-        />
-        <Route path="/CategorySection/Sigilo" element={<CategorySection />} />
         <Route
           path="/Terminosycondiciones"
           element={<TerminosyCondiciones />}
+        />
+        {/* CATEGORIAS */}
+        <Route
+          path="/CategorySection/:Cooperativo"
+          element={<CategorySection />}
         />
         {Dev.map((item) =>
           item.rol == "dev" ? (
