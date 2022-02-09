@@ -43,6 +43,7 @@ export default function UploadGame() {
   const [Des, setDes] = useState("");
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState(0);
+  const [peso, setPeso] = useState("");
 
   const [id, setId] = useState("");
   const [Juegos, setJuegos] = useState([]);
@@ -77,49 +78,104 @@ export default function UploadGame() {
   async function CargarArchivo(e) {
     setIsLoading(true);
     const archivolocal = e.target.files[0];
+    if (archivolocal == undefined) {
+      toast.error("Elige un juego", {
+        position: "bottom-rigth",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+      setIsLoading(false);
+    } else {
+      const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
 
-    const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
+      await uploadBytes(archivoRef, archivolocal);
 
-    await uploadBytes(archivoRef, archivolocal);
+      await setPeso(archivolocal.size);
 
-    seturlDescargar(await getDownloadURL(archivoRef));
-    setIsLoading(false);
+      seturlDescargar(await getDownloadURL(archivoRef));
+      setIsLoading(false);
+    }
   }
-
+  console.log(peso);
   async function CargarImagenes(e) {
     setIsLoading(true);
     const archivolocal = e.target.files[0];
+    if (archivolocal == undefined) {
+      toast.error("Elige una foto", {
+        position: "bottom-rigth",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+      setIsLoading(false);
+    } else {
+      const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
 
-    const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+      await uploadBytes(archivoRef, archivolocal);
 
-    await uploadBytes(archivoRef, archivolocal);
-
-    seturlImagenes(await getDownloadURL(archivoRef));
-    setIsLoading(false);
+      seturlImagenes(await getDownloadURL(archivoRef));
+      setIsLoading(false);
+    }
   }
 
   async function CargarImagenes2(e) {
     setIsLoading(true);
     const archivolocal = e.target.files[0];
 
-    const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+    if (archivolocal == undefined) {
+      toast.error("Elige una foto", {
+        position: "bottom-rigth",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+      setIsLoading(false);
+    } else {
+      const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
 
-    await uploadBytes(archivoRef, archivolocal);
+      await uploadBytes(archivoRef, archivolocal);
 
-    seturlImagenes2(await getDownloadURL(archivoRef));
-    setIsLoading(false);
+      seturlImagenes2(await getDownloadURL(archivoRef));
+      setIsLoading(false);
+    }
   }
 
   async function CargarImagenes3(e) {
     setIsLoading(true);
     const archivolocal = e.target.files[0];
+    if (archivolocal == undefined) {
+      toast.error("Elige una foto", {
+        position: "bottom-rigth",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+      setIsLoading(false);
+    } else {
+      const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
 
-    const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+      await uploadBytes(archivoRef, archivolocal);
 
-    await uploadBytes(archivoRef, archivolocal);
-
-    seturlImagenes3(await getDownloadURL(archivoRef));
-    setIsLoading(false);
+      seturlImagenes3(await getDownloadURL(archivoRef));
+      setIsLoading(false);
+    }
   }
   function id2() {
     const ref = query(collection(db, "users"));
@@ -176,7 +232,7 @@ export default function UploadGame() {
     console.log("render");
     if (mapNameGames.includes(game.toLowerCase().trim())) {
       toast.error("El nombre de ese juego esta en uso", {
-        position: "top-right",
+        position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -188,7 +244,7 @@ export default function UploadGame() {
     } else {
       toast.success("Juego creado", {
         icon: "📨",
-        position: "top-right",
+        position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -212,6 +268,7 @@ export default function UploadGame() {
         idprofile: auth.currentUser.uid,
         creator: nombre,
         correopay: correopay,
+        almacenamiento: peso,
       });
     }
   }
@@ -248,24 +305,6 @@ export default function UploadGame() {
     id2();
     QueryDB();
   }, []);
-
-  function addInput() {
-    return (
-      <Form.Group
-        className="mb-2"
-        controlId="formBasicPassword"
-        style={{ width: "100%" }}
-      >
-        <Form.Label>Imagenes de tu juego</Form.Label>
-        <Form.Control
-          accept="image/png,image/jpeg"
-          required
-          type="file"
-          placeholder=""
-        />
-      </Form.Group>
-    );
-  }
 
   //prueba
   function dollarsign(input) {
@@ -427,11 +466,6 @@ export default function UploadGame() {
                 placeholder=""
               />
             </Form.Group>
-            <Form.Label>
-              <Button variant="dark" className="add-btn" onClick={addInput}>
-                +
-              </Button>
-            </Form.Label>
             <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
               <Form.Label>Precio</Form.Label>
               <Form.Control
@@ -453,7 +487,9 @@ export default function UploadGame() {
               controlId="formBasicEmail"
               style={{ width: "100%", float: "right" }}
             >
-              <Form.Label>Introduce el correo de tu paypal</Form.Label>
+              <Form.Label>
+                Introduce el correo de tu paypal para recibir los pagos
+              </Form.Label>
               <Form.Control
                 type="email"
                 className=""
@@ -484,9 +520,10 @@ export default function UploadGame() {
                 Subir juego
               </Button>
             )}
-            <p style={{ float: "right" }}>
-              Asegurate que esta todo correcto...
-            </p>
+            <h6 style={{ float: "right", color: "grey" }}>
+              Al subir este juego aceptas nuestros
+              <a href="/terminosycondiciones"> terminos y condiciones</a>
+            </h6>
             <p></p>
           </Form>
         </Col>
