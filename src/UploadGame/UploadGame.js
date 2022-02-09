@@ -37,12 +37,13 @@ const db = getFirestore(firebase2);
 const storage = getStorage(app);
 
 export default function UploadGame() {
-  const [moreImages, setMoreImages] = React.useState(false);
+  const [moreImages, setMoreImages] = React.useState(0);
   const auth = getAuth(app);
   const navigate = useNavigate();
   const [Des, setDes] = useState("");
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState(0);
+
   const [id, setId] = useState("");
   const [Juegos, setJuegos] = useState([]);
   const [correopay, setCorreopay] = useState("");
@@ -169,7 +170,7 @@ export default function UploadGame() {
       setJuegos(items);
     });
   };
-  console.log(mapNameGames.includes(game.toLowerCase().trim()));
+
   async function CrearJuego(event) {
     event.preventDefault();
     console.log("render");
@@ -224,15 +225,15 @@ export default function UploadGame() {
   const updategame = function (event) {
     setgame(event.target.value);
   };
-
+  console.log(valor);
   const updatevalor = function (event) {
     if (event.target.value <= 200) {
-      setvalor(event.target.value);
+      setvalor(parseInt(event.target.value).toFixed(2));
     } else {
       return setvalor(200);
     }
   };
-  console.log(valor);
+
   const updatecategoria1 = function (event) {
     setcategoria1(event.target.value);
   };
@@ -243,19 +244,29 @@ export default function UploadGame() {
     setcategoria3(event.target.value);
   };
 
-  function AddImages() {
-    return (
-      <Form.Group className="mb-2" controlId="formBasicPassword">
-        <Form.Label>Imagenes de tu juego</Form.Label>
-        <Form.Control required type="file" placeholder="" />
-      </Form.Group>
-    );
-  }
-
   useEffect(() => {
     id2();
     QueryDB();
   }, []);
+
+  function addInput() {
+    return (
+      <Form.Group
+        className="mb-2"
+        controlId="formBasicPassword"
+        style={{ width: "100%" }}
+      >
+        <Form.Label>Imagenes de tu juego</Form.Label>
+        <Form.Control
+          accept="image/png,image/jpeg"
+          required
+          type="file"
+          placeholder=""
+        />
+      </Form.Group>
+    );
+  }
+
   //prueba
   function dollarsign(input) {
     if (input == 0) {
@@ -264,7 +275,6 @@ export default function UploadGame() {
       return "$" + input;
     }
   }
-
   function truncate(input) {
     if (input.length > 16) return input.substring(0, 16) + "...";
     else return input;
@@ -380,7 +390,7 @@ export default function UploadGame() {
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Imagen para la portada</Form.Label>
               <Form.Control
-                accept="image/png,image/jpeg"
+                accept="image/*"
                 required
                 type="file"
                 onChange={CargarImagenes}
@@ -396,7 +406,7 @@ export default function UploadGame() {
             >
               <Form.Label>Imagenes de tu juego</Form.Label>
               <Form.Control
-                accept="image/png,image/jpeg"
+                accept="image/*"
                 required
                 type="file"
                 onChange={CargarImagenes2}
@@ -410,21 +420,18 @@ export default function UploadGame() {
             >
               <Form.Label>Imagenes de tu juego 2</Form.Label>
               <Form.Control
-                accept="image/png,image/jpeg"
+                accept="image/*"
                 required
                 type="file"
                 onChange={CargarImagenes3}
                 placeholder=""
               />
             </Form.Group>
-            <AddImages show={moreImages} onHide={() => setMoreImages(false)} />
-            <Button
-              variant="dark"
-              className="add-btn"
-              onClick={() => setMoreImages(true)}
-            >
-              +
-            </Button>
+            <Form.Label>
+              <Button variant="dark" className="add-btn" onClick={addInput}>
+                +
+              </Button>
+            </Form.Label>
             <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
               <Form.Label>Precio</Form.Label>
               <Form.Control
