@@ -156,8 +156,8 @@ const Home = () => {
   }, []);
 
   function dollarsign(input) {
-    if (input == "Gratis") {
-      return input;
+    if (input == 0) {
+      return "Gratis";
     } else {
       return "$" + input;
     }

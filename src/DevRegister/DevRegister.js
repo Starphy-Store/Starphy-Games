@@ -59,12 +59,24 @@ export default function DevRegister() {
 
   async function fileHandler(e) {
     const archivolocal = e.target.files[0];
+    if (archivolocal == undefined) {
+      toast.error("Elige una foto", {
+        position: "bottom-rigth",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+    } else {
+      const archivoRef = ref(storage, `imagenesProfile/${archivolocal.name}`);
 
-    const archivoRef = ref(storage, `imagenesProfile/${archivolocal.name}`);
+      await uploadBytes(archivoRef, archivolocal);
 
-    await uploadBytes(archivoRef, archivolocal);
-
-    seturlDescargar(await getDownloadURL(archivoRef));
+      seturlDescargar(await getDownloadURL(archivoRef));
+    }
   }
 
   const QueryDB = () => {
