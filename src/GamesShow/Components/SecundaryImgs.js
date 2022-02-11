@@ -183,6 +183,7 @@ const SecundaryImgs = () => {
                       className="pt-4"
                     ></h5>
                     <hr></hr>
+                    <h6>Peso: {item.almacenamiento.toFixed(2)}</h6>
                     <Col>
                       <h3>Valoraciones </h3>
                       <Rating

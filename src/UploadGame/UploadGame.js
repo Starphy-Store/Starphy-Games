@@ -93,14 +93,24 @@ export default function UploadGame() {
     } else {
       const archivoRef = ref(storage, `Juegos/${archivolocal.name}`);
 
-      await uploadBytes(archivoRef, archivolocal);
+      const almacen = archivolocal.size;
+      let calculo;
+      if (almacen < 1000000) {
+        calculo = almacen / 1000; //KB
+      } else if (almacen >= 1000000 && almacen <= 1000000000) {
+        calculo = almacen / 100000; //MB
+      } else if (almacen >= 1000000000) {
+        calculo = almacen / 1000000000; //GB
+      }
+      setPeso(calculo);
 
-      await setPeso(archivolocal.size);
+      await uploadBytes(archivoRef, archivolocal);
 
       seturlDescargar(await getDownloadURL(archivoRef));
       setIsLoading(false);
     }
   }
+
   console.log(peso);
   async function CargarImagenes(e) {
     setIsLoading(true);
@@ -314,6 +324,7 @@ export default function UploadGame() {
       return "$" + input;
     }
   }
+
   function truncate(input) {
     if (input.length > 16) return input.substring(0, 16) + "...";
     else return input;
