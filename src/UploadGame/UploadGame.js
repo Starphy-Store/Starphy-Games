@@ -95,12 +95,12 @@ export default function UploadGame() {
 
       const almacen = archivolocal.size;
       let calculo;
-      if (almacen <= 1000000) {
-        calculo = almacen / 10000;
-      } else if (almacen >= 100000) {
-        calculo = almacen / 1000;
-      } else if (almacen >= 1000000) {
-        calculo = almacen / 1000000;
+      if (almacen < 1000000) {
+        calculo = almacen / 1000; //KB
+      } else if (almacen >= 1000000 && almacen <= 1000000000) {
+        calculo = almacen / 100000; //MB
+      } else if (almacen >= 1000000000) {
+        calculo = almacen / 1000000000; //GB
       }
       setPeso(calculo);
 
