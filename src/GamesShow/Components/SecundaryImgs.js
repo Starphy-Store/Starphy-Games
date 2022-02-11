@@ -33,6 +33,10 @@ const SecundaryImgs = () => {
   toast.configure();
   const [game, setGame] = useState([]);
   const [estrellas, setEstrellas] = useState(0);
+  const [disk, setDisk] = useState("");
+  const [coma, setComa] = useState("");
+
+  console.log(disk);
 
   const filtrado = game.filter((x) => x.esunjuego == "si");
 
@@ -45,8 +49,6 @@ const SecundaryImgs = () => {
   const filtradouser = perfiluser.filter((x) => x.uid == user);
 
   const prueba = filtradouser.filter((x) => x);
-
-  console.log(filtradouser);
 
   function getGames() {
     const ref = query(collection(db, "games"));
@@ -101,8 +103,36 @@ const SecundaryImgs = () => {
       }
     }
   };
+  function pesoJuego() {
+    const mapePeso = filtrado2.map((x) => x.almacenamiento);
+    let PesoGame;
+    if (mapePeso <= 1000000) {
+      PesoGame = " KB";
+    } else if (mapePeso >= 1000000 && mapePeso <= 1000000000) {
+      PesoGame = " MB";
+    } else if (mapePeso >= 1000000000) {
+      PesoGame = " GB";
+    }
+    setDisk(PesoGame);
+  }
+
+  function Comapeso() {
+    const mapePeso = filtrado2.map((x) => x.almacenamiento);
+    let PesoGame;
+    if (mapePeso <= 1000000) {
+      PesoGame = mapePeso / 1000;
+    } else if (mapePeso >= 1000000 && mapePeso <= 1000000000) {
+      PesoGame = mapePeso / 100000;
+    } else if (mapePeso >= 1000000000) {
+      PesoGame = mapePeso / 1000000000;
+    }
+    setComa(PesoGame.toFixed(2));
+  }
+  console.log(coma);
   useEffect(() => {
     getGames();
+    pesoJuego();
+    Comapeso();
   }, []);
   function dollarsign(input) {
     if (input == "Gratis") {
@@ -111,6 +141,7 @@ const SecundaryImgs = () => {
       return "$" + input;
     }
   }
+
   return (
     <div>
       <Container className="GamesInfo">
@@ -183,7 +214,10 @@ const SecundaryImgs = () => {
                       className="pt-4"
                     ></h5>
                     <hr></hr>
-                    <h6>Peso: {item.almacenamiento.toFixed(2)}</h6>
+                    <h6>
+                      Peso: {coma}
+                      {disk}
+                    </h6>
                     <Col>
                       <h3>Valoraciones </h3>
                       <Rating
