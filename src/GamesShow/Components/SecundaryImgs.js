@@ -50,6 +50,10 @@ const SecundaryImgs = () => {
 
   const prueba = filtradouser.filter((x) => x);
 
+  console.log(filtrado2);
+
+  function paraelUndefined() {}
+
   function getGames() {
     const ref = query(collection(db, "games"));
     const refe = query(collection(db, "users"));
@@ -104,33 +108,34 @@ const SecundaryImgs = () => {
     }
   };
 
-  if (filtrado2 == null) {
-  } else {
-    async function Comapeso() {
-      let PesoGame;
-      if (mapePeso <= 1000000) {
-        PesoGame = mapePeso / 1000;
-      } else if (mapePeso >= 1000000 && mapePeso <= 1000000000) {
-        PesoGame = mapePeso / 100000;
-      } else if (mapePeso >= 1000000000) {
-        PesoGame = mapePeso / 1000000000;
-      }
-      setComa(PesoGame.toFixed(2));
+  async function Comapeso() {
+    let PesoGame;
+
+    if (mapePeso <= 1000000) {
+      PesoGame = mapePeso / 1000;
+    } else if (mapePeso >= 1000000 && mapePeso <= 1000000000) {
+      PesoGame = mapePeso / 100000;
+    } else if (mapePeso >= 1000000000) {
+      PesoGame = mapePeso / 1000000000;
     }
-    async function pesoJuego() {
-      let PesoGamee;
-      if (mapePeso <= 1000000) {
-        PesoGamee = " KB";
-      } else if (mapePeso >= 1000000 && mapePeso <= 1000000000) {
-        PesoGamee = " MB";
-      } else if (mapePeso >= 1000000000) {
-        PesoGamee = " GB";
-      }
-      setDisk(PesoGamee);
-    }
+    setComa(PesoGame.toFixed(2));
   }
+  async function pesoJuego() {
+    let PesoGamee;
+    if (mapePeso <= 1000000) {
+      PesoGamee = " KB";
+    } else if (mapePeso >= 1000000 && mapePeso <= 1000000000) {
+      PesoGamee = " MB";
+    } else if (mapePeso >= 1000000000) {
+      PesoGamee = " GB";
+    }
+    setDisk(PesoGamee);
+  }
+
   useEffect(() => {
     getGames();
+    Comapeso();
+    pesoJuego();
   }, []);
   function dollarsign(input) {
     if (input == 0) {
@@ -139,7 +144,7 @@ const SecundaryImgs = () => {
       return "$" + input;
     }
   }
-
+  console.log(filtrado2);
   return (
     <div>
       <Container className="GamesInfo">
@@ -212,7 +217,11 @@ const SecundaryImgs = () => {
                       className="pt-4"
                     ></h5>
                     <hr></hr>
-                    <h6>Peso:</h6>
+
+                    <h6>
+                      Peso: {coma} {disk}
+                    </h6>
+
                     <Col>
                       <h3>Valoraciones </h3>
                       <Rating
