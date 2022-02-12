@@ -29,7 +29,7 @@ const TopGames = function () {
   const [game, setGame] = useState([]);
   const [gameName, setgameName] = useState([]);
 
-  const filtros = game.filter((x) => x.esunjuego == "si");
+  const filtros = game.filter((x) => x.data.esunjuego == "si");
 
   const tried = filtros.map((x) => x.juego);
 
@@ -39,12 +39,11 @@ const TopGames = function () {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data(), doc.id);
+        items.push({ data: doc.data(), id: doc.id });
       });
 
       setGame(items);
     });
-
     if (tried.length >= 4) {
       const pusheado = [];
       const lolitotequiero = tried + "...";
@@ -72,7 +71,7 @@ const TopGames = function () {
     <>
       <Container className="d-flex">
         {filtros.map((item) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
             <Container key={item.id}>
               <Row>
                 <Col md={212}>

@@ -40,7 +40,7 @@ const SecundaryImgs = () => {
 
   const filtrado2 = filtrado.filter((x) => x.juego == id);
 
-  const mapePeso = filtrado2.map((x) => x.almacenamiento);
+  const mapePeso = filtrado2.map((x) => x.almacenamiento); // pero este mapePeso funciona bien
 
   const mapeadocate = filtrado2.map((x) => x.categoria1);
 
@@ -52,17 +52,16 @@ const SecundaryImgs = () => {
 
   console.log(filtrado2);
 
-  function paraelUndefined() {}
-
-  function getGames() {
+  async function getGames() {
     const ref = query(collection(db, "games"));
     const refe = query(collection(db, "users"));
 
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data(), id);
+        items.push({ data: doc.data(), id: doc.id });
       });
+      console.log(items);
       setGame(items);
     });
 
@@ -108,10 +107,11 @@ const SecundaryImgs = () => {
     }
   };
 
-  async function Comapeso() {
+  console.log(filtrado2);
+  function Comapeso() {
     let PesoGame;
-
     if (mapePeso <= 1000000) {
+      console.log();
       PesoGame = mapePeso / 1000;
     } else if (mapePeso >= 1000000 && mapePeso <= 1000000000) {
       PesoGame = mapePeso / 100000;
@@ -120,7 +120,7 @@ const SecundaryImgs = () => {
     }
     setComa(PesoGame.toFixed(2));
   }
-  async function pesoJuego() {
+  function pesoJuego() {
     let PesoGamee;
     if (mapePeso <= 1000000) {
       PesoGamee = " KB";
@@ -217,11 +217,7 @@ const SecundaryImgs = () => {
                       className="pt-4"
                     ></h5>
                     <hr></hr>
-
-                    <h6>
-                      Peso: {coma} {disk}
-                    </h6>
-
+                    <h6>Peso: {mapePeso}</h6>
                     <Col>
                       <h3>Valoraciones </h3>
                       <Rating
