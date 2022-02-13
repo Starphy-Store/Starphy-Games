@@ -33,7 +33,7 @@ const TopGames = function () {
 
   const tried = filtros.map((x) => x.juego);
 
-  function getGames() {
+  /*   function getGames() {
     const ref = query(collection(db, "games"));
 
     onSnapshot(ref, (querySnapshot) => {
@@ -43,17 +43,16 @@ const TopGames = function () {
       });
 
       setGame(items);
-    });
-    if (tried.length >= 4) {
-      const pusheado = [];
-      const lolitotequiero = tried + "...";
-      pusheado.push(lolitotequiero);
-      setgameName(pusheado);
-    }
+    }); */
+  if (tried.length >= 4) {
+    const pusheado = [];
+    const lolitotequiero = tried + "...";
+    pusheado.push(lolitotequiero);
+    setgameName(pusheado);
   }
 
   useEffect(() => {
-    getGames();
+    /* getGames(); */
   }, []);
   //Usar filter
   function truncate(input) {
@@ -67,8 +66,10 @@ const TopGames = function () {
       return "$" + input;
     }
   }
+
   return (
-    <>
+    <p>aaa</p>
+    /*     <>
       <Container className="d-flex">
         {filtros.map((item) => (
           <Link to={`/GamesShow/${item.id}`} className="w-25">
@@ -90,7 +91,7 @@ const TopGames = function () {
           </Link>
         ))}
       </Container>
-    </>
+    </> */
   );
 };
 

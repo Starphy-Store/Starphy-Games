@@ -22,6 +22,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { ArrowBarRight, ArrowBarUp } from "react-bootstrap-icons";
 import { toast, ToastContainer } from "react-toastify";
+import { data } from "jquery";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
@@ -31,38 +32,23 @@ const SecundaryImgs = () => {
   const [user, setuser] = useState(false);
   const [perfiluser, setPerfiluser] = useState([]);
   toast.configure();
-  const [game, setGame] = useState([]);
+  const [game, setGame] = useState({});
   const [estrellas, setEstrellas] = useState(0);
-  const [disk, setDisk] = useState("");
-  const [coma, setComa] = useState("");
-
-  const filtrado = game.filter((x) => x.esunjuego == "si");
-
-  const filtrado2 = filtrado.filter((x) => x.juego == id);
-
-  const mapePeso = filtrado2.map((x) => x.almacenamiento); // pero este mapePeso funciona bien
-
-  const mapeadocate = filtrado2.map((x) => x.categoria1);
-
-  const categoria = game.filter((x) => x.categoria1 == mapeadocate);
 
   const filtradouser = perfiluser.filter((x) => x.uid == user);
 
-  const prueba = filtradouser.filter((x) => x);
-
-  console.log(filtrado2);
+  console.log(game);
 
   async function getGames() {
-    const ref = query(collection(db, "games"));
+    const ref = doc(db, "games", id);
     const refe = query(collection(db, "users"));
 
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push({ data: doc.data(), id: doc.id });
+      getDoc(ref, id).then((data) => {
+        const juego = data.data();
+        const final = Comapeso(juego);
+        setGame({ ...final, id });
       });
-      console.log(items);
-      setGame(items);
     });
 
     onSnapshot(refe, (querySnapshot) => {
@@ -97,46 +83,38 @@ const SecundaryImgs = () => {
         limit: 2,
       });
     } else {
-      {
-        filtrado2.map((item) =>
-          updateDoc(doc(db, "users", auth.currentUser.uid), {
-            valoraciones: estrellas,
-          })
-        );
-      }
+      console.log("a");
     }
   };
 
-  console.log(filtrado2);
-  function Comapeso() {
+  function Comapeso(juego) {
     let PesoGame;
-    if (mapePeso <= 1000000) {
-      console.log();
-      PesoGame = mapePeso / 1000;
-    } else if (mapePeso >= 1000000 && mapePeso <= 1000000000) {
-      PesoGame = mapePeso / 100000;
-    } else if (mapePeso >= 1000000000) {
-      PesoGame = mapePeso / 1000000000;
+    let PesoSimbolo;
+    if (juego.almacenamiento <= 1000000) {
+      PesoGame = juego.almacenamiento / 1000;
+      PesoSimbolo = " No sirve tu juego";
+    } else if (
+      juego.almacenamiento >= 1000000 &&
+      juego.almacenamiento <= 1000000000
+    ) {
+      PesoGame = juego.almacenamiento / 100000;
+      PesoSimbolo = " MB";
+    } else if (juego.almacenamiento >= 1000000000) {
+      PesoGame = juego.almacenamiento / 1000000000;
+      PesoSimbolo = " GB";
     }
-    setComa(PesoGame.toFixed(2));
-  }
-  function pesoJuego() {
-    let PesoGamee;
-    if (mapePeso <= 1000000) {
-      PesoGamee = " KB";
-    } else if (mapePeso >= 1000000 && mapePeso <= 1000000000) {
-      PesoGamee = " MB";
-    } else if (mapePeso >= 1000000000) {
-      PesoGamee = " GB";
-    }
-    setDisk(PesoGamee);
+    const objeto = {
+      ...juego,
+      PesoGame: juego.almacenamiento
+        ? `${PesoGame.toFixed(2)} ${PesoSimbolo}`
+        : "A",
+    };
+    return objeto;
   }
 
   useEffect(() => {
     getGames();
-    Comapeso();
-    pesoJuego();
-  }, []);
+  }, [id]);
   function dollarsign(input) {
     if (input == 0) {
       return "Gratis";
@@ -144,106 +122,105 @@ const SecundaryImgs = () => {
       return "$" + input;
     }
   }
-  console.log(filtrado2);
+
   return (
     <div>
       <Container className="GamesInfo">
-        {filtrado2.map((item) => (
-          <Row>
-            <Col md={7}>
-              <GamesCarousel />
+        <Row>
+          <Col md={7}>
+            <GamesCarousel />
+            <h6 style={{ color: "grey" }} className="pt-4">
+              Categorias:
+            </h6>
+            <h6>
+              {game.categoria1} | {game.categoria2} | {game.categoria3}
+            </h6>
+            <Row className="pt-3">
               <h6 style={{ color: "grey" }} className="pt-4">
-                Categorias:
+                Descripcion:
+              </h6>
+              <h6>{game.descrip}</h6>
+              <h6 style={{ color: "grey" }} className="pt-4">
+                Desarrolladora:
               </h6>
               <h6>
-                {item.categoria1} | {item.categoria2} | {item.categoria3}
+                <a
+                  href={`/DevProfile/${game.idprofile}`}
+                  style={{ color: "white" }}
+                >
+                  {game.creator}
+                </a>
               </h6>
-              <Row className="pt-3">
-                <h6 style={{ color: "grey" }} className="pt-4">
-                  Descripcion:
-                </h6>
-                <h6>{item.descrip}</h6>
-                <h6 style={{ color: "grey" }} className="pt-4">
-                  Desarrolladora:
-                </h6>
-                <h6>
-                  <a
-                    href={`/DevProfile/${item.idprofile}`}
-                    style={{ color: "white" }}
-                  >
-                    {item.creator}
-                  </a>
-                </h6>
+            </Row>
+          </Col>
+          <Col md={5}>
+            <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "20px" }}>
+              <Row>
+                <img
+                  src={game.imagenportada}
+                  className="banner"
+                  style={{
+                    width: "100%",
+                    heigth: "300px",
+                    objectFit: "cover",
+                  }}
+                />
+                <div className="GamesPayment pt-4">
+                  <h4>{dollarsign(game.precio)}</h4>
+
+                  {user ? (
+                    <Link to={`/payment/${game.juego}`}>
+                      <Button
+                        variant="light"
+                        size="lg"
+                        style={{ width: "100%" }}
+                      >
+                        Comprar ahora
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link to={"/Loginuser"}>
+                      <Button
+                        variant="light"
+                        size="lg"
+                        style={{ width: "100%" }}
+                      >
+                        Comprar ahora
+                      </Button>
+                    </Link>
+                  )}
+                  <h5
+                    style={{ textAlign: "center", color: "lightgreen" }}
+                    className="pt-4"
+                  ></h5>
+                  <hr></hr>
+                  <h6>Peso: {game.PesoGame}</h6>
+                  <Col>
+                    <h3>Valoraciones </h3>
+                    <Rating
+                      onChange={(event, newValue) => {
+                        setEstrellas(newValue);
+                        SendRatingDB(event);
+                      }}
+                      name="size-large"
+                      defaultValue={2}
+                      size="large"
+                    />
+                  </Col>
+                  <ToastContainer limit={1} />
+                </div>
               </Row>
             </Col>
-            <Col md={5}>
-              <Col style={{ backgroundColor: "#1f1f1f", borderRadius: "20px" }}>
-                <Row>
-                  <img
-                    src={item.imagenportada}
-                    className="banner"
-                    style={{
-                      width: "100%",
-                      heigth: "300px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <div className="GamesPayment pt-4">
-                    <h4>{dollarsign(item.precio)}</h4>
-
-                    {user ? (
-                      <Link to={`/payment/${item.juego}`}>
-                        <Button
-                          variant="light"
-                          size="lg"
-                          style={{ width: "100%" }}
-                        >
-                          Comprar ahora
-                        </Button>
-                      </Link>
-                    ) : (
-                      <Link to={"/Loginuser"}>
-                        <Button
-                          variant="light"
-                          size="lg"
-                          style={{ width: "100%" }}
-                        >
-                          Comprar ahora
-                        </Button>
-                      </Link>
-                    )}
-                    <h5
-                      style={{ textAlign: "center", color: "lightgreen" }}
-                      className="pt-4"
-                    ></h5>
-                    <hr></hr>
-                    <h6>Peso: {mapePeso}</h6>
-                    <Col>
-                      <h3>Valoraciones </h3>
-                      <Rating
-                        onChange={(event, newValue) => {
-                          setEstrellas(newValue);
-                          SendRatingDB(event);
-                        }}
-                        name="size-large"
-                        defaultValue={2}
-                        size="large"
-                      />
-                    </Col>
-                    <ToastContainer limit={1} />
-                  </div>
-                </Row>
-              </Col>
-            </Col>
-          </Row>
-        ))}
+          </Col>
+        </Row>
       </Container>
 
+      {/* 
       <Container style={{ color: "white" }} className="pt-5">
         <h2>Algunos juegos parecidos</h2>
       </Container>
       <Container className="d-flex">
-        {categoria.map((item) => (
+        {categoria.map((game) => (
           <Link
             to={`/GamesShow/${item.juego}`}
             href="GamesInfo"
@@ -266,7 +243,7 @@ const SecundaryImgs = () => {
             </Container>
           </Link>
         ))}
-      </Container>
+      </Container>*/}
     </div>
   );
 };

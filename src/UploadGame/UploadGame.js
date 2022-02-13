@@ -188,6 +188,7 @@ export default function UploadGame() {
       setIsLoading(false);
     }
   }
+
   function id2() {
     const ref = query(collection(db, "users"));
 

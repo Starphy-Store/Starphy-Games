@@ -162,6 +162,7 @@ const Home = () => {
       return "$" + input;
     }
   }
+
   return (
     <div>
       <Header />
@@ -184,9 +185,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filteronline.map((item) => (
+        {filteronline.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -206,6 +207,7 @@ const Home = () => {
       </Container>
 
       <h1>Juegos Cooperativo 🐱‍🐉</h1>
+
       <Container
         style={{ color: "white", justifyContent: "center", align: "center" }}
       >
@@ -218,9 +220,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filtercoop.map((item) => (
+        {filtercoop.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={12}>
                   <div className="profile-card-2 ">
@@ -252,9 +254,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterArcade.map((item) => (
+        {filterArcade.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -286,9 +288,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterSupervivencia.map((item) => (
+        {filterSupervivencia.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -320,9 +322,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterSimulacion.map((item) => (
+        {filterSimulacion.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -354,9 +356,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterBattleRoyale.map((item) => (
+        {filterBattleRoyale.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -388,9 +390,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterAcción.map((item) => (
+        {filterAcción.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -422,9 +424,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterRPG.map((item) => (
+        {filterRPG.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -456,9 +458,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterCarreras.map((item) => (
+        {filterCarreras.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -490,9 +492,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterFPS.map((item) => (
+        {filterFPS.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -524,9 +526,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterPuzle.map((item) => (
+        {filterPuzle.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -558,9 +560,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterLucha.map((item) => (
+        {filterLucha.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -592,9 +594,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterMMORPG.map((item) => (
+        {filterMMORPG.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -626,9 +628,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterMOBA.map((item) => (
+        {filterMOBA.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -660,9 +662,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterAgilidadMental.map((item) => (
+        {filterAgilidadMental.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -694,9 +696,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterShooter.map((item) => (
+        {filterShooter.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -728,9 +730,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterTerror.map((item) => (
+        {filterTerror.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -762,9 +764,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterMundoAbierto.map((item) => (
+        {filterMundoAbierto.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -796,9 +798,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterMinijuegos.map((item) => (
+        {filterMinijuegos.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -830,9 +832,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterSigilo.map((item) => (
+        {filterSigilo.map((item, index) => (
           <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id}>
+            <Container key={index}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
