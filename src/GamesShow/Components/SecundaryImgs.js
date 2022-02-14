@@ -22,7 +22,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { ArrowBarRight, ArrowBarUp } from "react-bootstrap-icons";
 import { toast, ToastContainer } from "react-toastify";
-import { data } from "jquery";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);

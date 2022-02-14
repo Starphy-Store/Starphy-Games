@@ -65,7 +65,6 @@ export default function EditProfile() {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,
           className: "dark-toast",
         });
         // Password reset email sent!
