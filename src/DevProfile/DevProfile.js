@@ -56,8 +56,8 @@ export default function DevProfile() {
     else return input;
   }
   function dollarsign(input) {
-    if (input == "Gratis") {
-      return input;
+    if (input == 0) {
+      return "Gratis";
     } else {
       return "$" + input;
     }

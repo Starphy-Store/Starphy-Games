@@ -10,12 +10,10 @@ import {
   doc,
 } from "firebase/firestore";
 import { Carousel, Form } from "react-bootstrap";
-import "./Components.css";
-import firebase2 from "../Home/Firebase2";
+import "../../Components/Components.css";
+import firebase2 from "../../Home/Firebase2";
 
 //importacion de imagenes
-
-import MinecraftImg from "../Assets/MinecraftImg.jpg";
 
 const db = getFirestore(firebase2);
 
@@ -54,12 +52,20 @@ function Slider() {
           className="carousel-inner"
         >
           <Carousel.Item>
-            <img
+            <iframe
+              style={{ width: "100%", height: "100%" }}
+              src="https://www.youtube.com/embed/NN-9SQXoi50"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+            {/* <img
               className="d-block w-100 h-70"
               src={item.imagenjuego}
               className="sliderImg"
               alt="First slide"
-            />
+            /> */}
           </Carousel.Item>
           <Carousel.Item>
             <img

@@ -21,6 +21,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import ReactPlayer from "react-player";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -187,6 +188,7 @@ export default function UploadGame() {
       setIsLoading(false);
     }
   }
+
   function id2() {
     const ref = query(collection(db, "users"));
 
@@ -295,7 +297,7 @@ export default function UploadGame() {
   console.log(valor);
   const updatevalor = function (event) {
     if (event.target.value <= 200) {
-      setvalor(parseInt(event.target.value).toFixed(2));
+      setvalor(parseInt(event.target.value));
     } else {
       return setvalor(200);
     }
@@ -345,7 +347,7 @@ export default function UploadGame() {
             <Form.Group
               className="mb-3"
               controlId="formBasicPassword"
-              style={{ width: "100%" }}
+              style={{ width: "41%" }}
             >
               <Form.Label>Archivo rar de tu videojuego</Form.Label>
               <Form.Control
@@ -357,7 +359,7 @@ export default function UploadGame() {
             <Form.Group
               className="mb-4"
               controlId="formBasicPassword"
-              style={{ width: "100%" }}
+              style={{ width: "54%" }}
             >
               <Form.Label>Nombre del juego:</Form.Label>
               <Form.Control
@@ -376,7 +378,7 @@ export default function UploadGame() {
             <Form.Group
               className="mb-3"
               controlId="formBasicPassword"
-              style={{ width: "100%" }}
+              style={{ width: "60%" }}
             >
               <Form.Label>Escoge 3 categorias</Form.Label>
               <Form.Select
@@ -398,7 +400,7 @@ export default function UploadGame() {
             <Form.Group
               className="mb-3"
               controlId="formBasicPassword"
-              style={{ width: "100%" }}
+              style={{ width: "60%" }}
             >
               <Form.Select
                 onChange={updatecategoria2}
@@ -406,9 +408,9 @@ export default function UploadGame() {
                 aria-label="Default select example"
               >
                 <option>Selecciona una categoria</option>
-                <option value="Acción">Acción</option>
-                <option value="RPG">RPG</option>
                 <option value="Carreras">Carreras</option>
+                <option value="RPG">RPG</option>
+                <option value="Acción">Acción</option>
                 <option value="FPS">FPS</option>
                 <option value="Puzle">Puzle</option>
                 <option value="Lucha">Lucha</option>
@@ -419,7 +421,7 @@ export default function UploadGame() {
             <Form.Group
               className="mb-3"
               controlId="formBasicPassword"
-              style={{ width: "100%" }}
+              style={{ width: "60%" }}
             >
               <Form.Select
                 onChange={updatecategoria3}
@@ -445,14 +447,14 @@ export default function UploadGame() {
                 type="file"
                 onChange={CargarImagenes}
                 placeholder=""
-                style={{ width: "100%" }}
+                style={{ width: "41%" }}
               />
             </Form.Group>
             <hr />
             <Form.Group
               className="mb-2"
               controlId="formBasicPassword"
-              style={{ width: "100%" }}
+              style={{ width: "41%" }}
             >
               <Form.Label>Imagenes de tu juego</Form.Label>
               <Form.Control
@@ -466,7 +468,7 @@ export default function UploadGame() {
             <Form.Group
               className="mb-2"
               controlId="formBasicPassword"
-              style={{ width: "100%" }}
+              style={{ width: "41%" }}
             >
               <Form.Label>Imagenes de tu juego 2</Form.Label>
               <Form.Control
@@ -479,24 +481,20 @@ export default function UploadGame() {
             </Form.Group>
             <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
               <Form.Label>Precio</Form.Label>
+              <h6 style={{ color: "grey" }}>Maximo $200</h6>
               <Form.Control
                 required
                 type="number"
-                min={0}
-                max={200}
                 onChange={updatevalor}
                 value={valor}
                 placeholder="7.99$"
                 style={{ width: "100px" }}
               />
-              <Form.Control.Feedback type="invalid">
-                Maximos 200
-              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group
               className="mb-3"
               controlId="formBasicEmail"
-              style={{ width: "100%", float: "right" }}
+              style={{ width: "80%" }}
             >
               <Form.Label>
                 Introduce el correo de tu paypal para recibir los pagos
@@ -511,6 +509,7 @@ export default function UploadGame() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label className="mt-5 pt-5">Descripcion</Form.Label>
+
               <textarea
                 type="text"
                 value={Des}
@@ -618,6 +617,11 @@ export default function UploadGame() {
                     </Carousel.Item>
                   )}
                 </Carousel>
+                <ReactPlayer
+                  url="https://www.youtube.com/watch?v=V7IUtUsfARA"
+                  width="120%"
+                  height="40%"
+                />
               </Col>
             </Row>
           </Container>
