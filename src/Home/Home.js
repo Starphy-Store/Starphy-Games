@@ -167,7 +167,7 @@ const Home = () => {
     <div>
       <Header />
 
-      <Container style={{ paddingTop: "90px" }}>
+      <Container style={{ paddingTop: "90px", border: "1px solid red" }}>
         <SliderDelHome />
       </Container>
       <h1 style={{ color: "white" }}>Los mejores juegos para ti 🔥</h1>

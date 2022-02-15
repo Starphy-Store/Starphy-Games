@@ -12,7 +12,7 @@ import thewitcher from "../Assets/thewitcher.jpg";
 
 function SliderDelHome() {
   return (
-    <div className="sliderdelhome">
+    <div className="sliderdelhome" style={{ border: "1px solid red" }}>
       <Carousel
         variant="light"
         indicators={false}

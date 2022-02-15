@@ -27,6 +27,7 @@ import {
   getFirestore,
   query,
   onSnapshot,
+  getDoc,
 } from "firebase/firestore";
 import firebase2 from "../../Home/Firebase2";
 import { event } from "jquery";
@@ -49,39 +50,36 @@ const db = getFirestore(firebase2);
 const user = auth.currentUser;
 
 const Header = () => {
-  const [cua, setcua] = useState(false);
-  const [users, setusers] = useState([]);
+  const [cua, setcua] = useState("");
+  const [users, setusers] = useState({});
   const [juegos, setjuegos] = useState([]);
   const [search, setsearch] = useState("");
   const [result, setresult] = useState("");
 
   const navigate = useNavigate();
 
-  const filtrado = users.filter((x) => x.uid == cua);
-  const Dev = filtrado.filter((x) => x.rol == "dev");
-
-  function a() {
-    const ref = query(collection(db, "users"));
-
-    onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
-      });
-
-      setusers(items);
-    });
-
+  async function a() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const item = [];
         const uids = user.uid;
         item.push(uids);
-        setcua(item);
+        setcua(item.toString());
       }
+    });
+
+    const ref = await doc(db, "users", cua);
+
+    onSnapshot(ref, (querySnapshot) => {
+      getDoc(ref, cua).then((data) => {
+        const usuario = data.data();
+        console.log(usuario);
+        setusers({ ...usuario, cua });
+      });
     });
   }
 
+  console.log(users);
   function b() {
     const ref = query(collection(db, "games"));
 
@@ -121,7 +119,7 @@ const Header = () => {
   useEffect(() => {
     a();
     b();
-  }, []);
+  }, [cua]);
 
   return (
     <div className="xd">
@@ -204,96 +202,78 @@ const Header = () => {
                     <Col></Col>
                     <Col></Col>
                     <Col>
-                      {filtrado.map((item) => (
-                        <>
-                          <DropdownButton
-                            onSubmit={a}
-                            align="start"
-                            type="button"
-                            title={item.name}
-                            key={item.uid}
-                            id="dropdown-menu-align-start"
-                            variant="outline-light"
-                            style={{
-                              border: "0",
-                              color: "white",
-                            }}
-                          >
-                            {Dev.map((item) =>
-                              item.rol == "dev" ? (
-                                <>
-                                  <Dropdown.Item eventKey="1">
-                                    <Link
-                                      to={`/DevProfile/${item.uid}`}
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                      }}
-                                    >
-                                      Tu perfil
-                                    </Link>
-                                  </Dropdown.Item>
-                                  <Dropdown.Item eventKey="3">
-                                    <Link
-                                      to="/uploadgame"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                      }}
-                                    >
-                                      Sube tu juego
-                                    </Link>
-                                  </Dropdown.Item>
-                                </>
-                              ) : (
-                                <Dropdown.Item eventKey="3">
-                                  <Link
-                                    to="/EditDevProfile"
-                                    style={{
-                                      textDecoration: "none",
-                                      color: "black",
-                                    }}
-                                  >
-                                    Edita tu perfil
-                                  </Link>
-                                </Dropdown.Item>
-                              )
-                            )}
-
-                            <Dropdown.Item eventKey="3">
-                              <Link to="/EditProfile">Tu perfil</Link>
-                            </Dropdown.Item>
-                            <Dropdown.Item eventKey="2">
+                      <>
+                        <DropdownButton
+                          onSubmit={a}
+                          align="start"
+                          type="button"
+                          title={users.name}
+                          key={users.uid}
+                          id="dropdown-menu-align-start"
+                          variant="outline-light"
+                          style={{
+                            border: "0",
+                            color: "white",
+                          }}
+                        >
+                          <>
+                            <Dropdown.Item eventKey="1">
                               <Link
-                                to="/library"
+                                to={`/DevProfile/${users.uid}`}
                                 style={{
                                   textDecoration: "none",
                                   color: "black",
                                 }}
                               >
-                                Libreria de juegos
+                                Tu perfil
                               </Link>
                             </Dropdown.Item>
-                            <Dropdown.Divider />
-                            <Dropdown.Item
-                              eventKey="4"
-                              onClick={() => {
-                                signOut(auth)
-                                  .then(() => {
-                                    navigate("/Home");
-                                    window.location.reload(false);
-                                    // Sign-out successful.
-                                  })
-                                  .catch((error) => {
-                                    // An error happened.
-                                  });
+                            <Dropdown.Item eventKey="3">
+                              <Link
+                                to="/uploadgame"
+                                style={{
+                                  textDecoration: "none",
+                                  color: "black",
+                                }}
+                              >
+                                Sube tu juego
+                              </Link>
+                            </Dropdown.Item>
+                          </>
+
+                          <Dropdown.Item eventKey="3">
+                            <Link to="/EditProfile">Tu perfil</Link>
+                          </Dropdown.Item>
+                          <Dropdown.Item eventKey="2">
+                            <Link
+                              to="/library"
+                              style={{
+                                textDecoration: "none",
+                                color: "black",
                               }}
                             >
-                              Salir
-                            </Dropdown.Item>
-                          </DropdownButton>
-                        </>
-                      ))}
+                              Libreria de juegos
+                            </Link>
+                          </Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item
+                            eventKey="4"
+                            onClick={() => {
+                              signOut(auth)
+                                .then(() => {
+                                  navigate("/Home");
+                                  window.location.reload(false);
+                                  // Sign-out successful.
+                                })
+                                .catch((error) => {
+                                  // An error happened.
+                                });
+                            }}
+                          >
+                            Salir
+                          </Dropdown.Item>
+                        </DropdownButton>
+                      </>
                     </Col>
                   </>
                 ) : (
