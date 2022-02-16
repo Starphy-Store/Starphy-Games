@@ -5,6 +5,8 @@ import { useParams } from "react-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   collection,
+  doc,
+  getDoc,
   getFirestore,
   onSnapshot,
   query,
@@ -16,56 +18,80 @@ const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
 
 function Library() {
-  const [perfil, setPerfil] = useState([]);
-  const [id, setId] = useState([]);
-  const [juegos, setJuegos] = useState([]);
-  const [juegosbuy, setJuegobuy] = useState([]);
+  const [perfil, setPerfil] = useState({});
+  const [id, setId] = useState("");
+  const [juegos, setJuegos] = useState({});
+  const [juegosbuy, setJuegobuy] = useState({});
 
-  const filtradoperfil = perfil.filter((x) => x.uid == id);
-  const idperfil = filtradoperfil.map((x) => x.uid);
+  //compra
 
-  const filterbuy = juegosbuy.filter((x) => x.idusuariocompra == idperfil);
+  /*   const filterbuy = juegosbuy.filter((x) => x.idusuariocompra == perfil.uid);
   const filtradojueguito = filterbuy.map((x) => x.juegoscomprado);
 
-  const filtradojuego = juegos.filter((x) =>
-    filtradojueguito.includes(x.juego)
-  );
+  const filtradojuego = juegos.filter(
+    (x) => filtradojueguito.includes(x.juego) //juego
+  ); */
 
-  function getGames() {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const item = [];
+      const uids = user.uid;
+      item.push(uids);
+      setId(item.toString());
+    }
+  });
+
+  async function getGames() {
+    const refe = await doc(db, "users", id);
     const ref = query(collection(db, "games"));
-    const refe = query(collection(db, "users"));
     const refere = query(collection(db, "juegoscomprados"));
+
+    onSnapshot(refe, (querySnapshot) => {
+      getDoc(refe, id).then((data) => {
+        const usuario = data.data();
+
+        setPerfil({ ...usuario, id });
+      });
+    });
+
+    onSnapshot(refere, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const { nombrecreador, preciodeljuego, enviarpago, ...rest } =
+          doc.data();
+        let pureba;
+        if (rest.idusuariocompra == perfil.uid) {
+          pureba = rest;
+        }
+        console.log(juegosbuy);
+        setJuegobuy({ ...pureba });
+      });
+    });
 
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+        const {
+          categoria1,
+          categoria2,
+          categoria3,
+          creator,
+          descrip,
+          imagenjuego,
+          imagenjuego2,
+          precio,
+          correopay,
+          almacenamiento,
+
+          ...rest
+        } = doc.data();
+
+        items.push(rest);
       });
+      const filtrado = items.filter((items) => {
+        return items.juego == juegosbuy.juegoscomprado;
+      });
+
       setJuegos(items);
-    });
-    onSnapshot(refe, (querySnapshot) => {
-      const ite = [];
-      querySnapshot.forEach((doc) => {
-        ite.push(doc.data());
-      });
-      setPerfil(ite);
-    });
-
-    onSnapshot(refere, (querySnapshot) => {
-      const cagaste = [];
-      querySnapshot.forEach((doc) => {
-        cagaste.push(doc.data());
-      });
-      setJuegobuy(cagaste);
-    });
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setId(item);
-      }
     });
   }
 
@@ -80,7 +106,7 @@ function Library() {
         <h1 style={{ textAlign: "left" }}> Tu libreria </h1>
         <hr style={{ color: "white" }} />
       </Container>
-      {filterbuy.length == 0 ? (
+      {juegosbuy == 0 ? (
         <>
           <Container>
             <h2 style={{ color: "white" }} className="pt-3">
@@ -93,32 +119,29 @@ function Library() {
         </>
       ) : (
         <Container className="d-flex">
-          {filtradojuego.map((item) => (
-            <>
-              <a href={item.videojuego}>
-                <Container key={item.id}>
-                  <Row>
-                    <Col md={12}>
-                      <div className="profile-card-2 ">
-                        <img
-                          src={item.imagenportada}
-                          className="img-responsive"
-                        />
-                        <div className="background "></div>
-                        <div className="profile-name">{item.juego}</div>
-                        <div className="profile-icons">
-                          <h6>Da click para empezar la descarga</h6>
-                        </div>
+          <>
+            <a href={juegos.videojuego}>
+              <Container>
+                <Row>
+                  <Col md={12}>
+                    <div className="profile-card-2 ">
+                      <img
+                        src={juegos.imagenportada}
+                        className="img-responsive"
+                      />
+                      <div className="background "></div>
+                      <div className="profile-name">{juegos.juego}</div>
+                      <div className="profile-icons">
+                        <h6>Da click para empezar la descarga</h6>
                       </div>
-                    </Col>
-                  </Row>
-                </Container>
-              </a>
-            </>
-          ))}
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </a>
+          </>
         </Container>
       )}
-      )
     </>
   );
 }

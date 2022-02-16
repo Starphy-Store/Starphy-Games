@@ -9,9 +9,10 @@ Nav.Link {
   width: 100%;
 }
 .sliderImg {
-  height: 100%;
+  height: 100px;
   width: auto;
 }
+
 .Takea {
   flex-direction: row;
 }

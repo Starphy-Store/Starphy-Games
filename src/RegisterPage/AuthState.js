@@ -20,7 +20,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 export function logout() {
-  console.log("ok perfecto");
   signOut(auth)
     .then(() => {
       // Sign-out successful.

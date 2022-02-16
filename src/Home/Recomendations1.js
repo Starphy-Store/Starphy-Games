@@ -14,20 +14,19 @@ import {
   query,
 } from "firebase/firestore";
 import firebase2 from "./Firebase2";
-import { data } from "jquery";
 
 const db = getFirestore(firebase2);
-function Recomendations1(props) {
+function Recomendations1() {
   const [games, setGames] = useState([]);
 
-  console.log(games);
   function getGames() {
     const ref = query(collection(db, "games"));
 
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push({ data: doc.data(), id: doc.id });
+        const { videojuego, ...rest } = doc.data();
+        items.push({ data: rest, id: doc.id });
       });
       setGames(items);
     });

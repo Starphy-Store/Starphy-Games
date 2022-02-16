@@ -34,7 +34,7 @@ export default function CategorySection() {
     if (x.categoria2 == Cooperativo) return true;
     if (x.categoria3 == Cooperativo) return true;
   });
-  console.log();
+
   function getGames() {
     const ref = query(collection(db, "games"));
 

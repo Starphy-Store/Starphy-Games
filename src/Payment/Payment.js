@@ -54,9 +54,7 @@ export default function Payment() {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture;
         },
-        onError: (err) => {
-          console.log(err);
-        },
+        onError: (err) => {},
       })
       .render(paypal.current);
   }, []);

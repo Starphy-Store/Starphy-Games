@@ -12,7 +12,7 @@ import thewitcher from "../Assets/thewitcher.jpg";
 
 function SliderDelHome() {
   return (
-    <div className="sliderdelhome" style={{ border: "1px solid red" }}>
+    <div className="sliderdelhome">
       <Carousel
         variant="light"
         indicators={false}
@@ -21,7 +21,7 @@ function SliderDelHome() {
       >
         <Carousel.Item>
           <div className="carouselitem1">
-            <Container style={{ width: "1000px" }}>
+            <Container>
               <h1>PayDay 2</h1>
               <p style={{ textAlign: "center" }}>Agua</p>
             </Container>

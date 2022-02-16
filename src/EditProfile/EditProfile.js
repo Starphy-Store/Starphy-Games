@@ -50,13 +50,12 @@ export default function EditProfile() {
 
   const filtrado = name.filter((x) => x.uid == id);
   const filtradonombre = filtrado.map((x) => x.name);
-  console.log(filtrado);
+
   const SendEmail = function (e) {
     e.preventDefault();
 
     sendPasswordResetEmail(auth, auth.currentUser.email)
       .then(() => {
-        console.log("golaaaa");
         toast.success("Revisa tu email ", {
           icon: "👾",
           position: "top-right",
@@ -94,9 +93,7 @@ export default function EditProfile() {
   }
 
   const tmpDate = new Date();
-  console.log();
 
-  console.log(date);
   const GuardarCambios = async function (e) {
     e.preventDefault();
 
@@ -106,7 +103,6 @@ export default function EditProfile() {
         FechaDeModificacion: date,
       });
     } else {
-      console.log("No");
       toast.warning("Ya has ", {
         icon: "⛔",
         position: "top-right",
@@ -149,7 +145,6 @@ export default function EditProfile() {
   useEffect(() => {
     EditarPerfil();
   }, []);
-  console.log(filtrado);
 
   return (
     <>

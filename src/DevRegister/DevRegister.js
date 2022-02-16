@@ -152,13 +152,12 @@ export default function DevRegister() {
           const user = userCredential.emailReg;
 
           // ...
-          console.log("si claro");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           // ..
-          console.log("no sory");
+
           toast.error("Ya existe esa cuenta", {
             position: "top-right",
             autoClose: 5000,

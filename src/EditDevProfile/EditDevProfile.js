@@ -42,14 +42,11 @@ export default function Editdevprofile() {
   const filterid = filtradoPerfil.filter((x) => x.uid == id);
   const filterpass = filterid.map((x) => x.pass);
 
-  console.log(filterid);
-
   const SendEmail = function (e) {
     e.preventDefault();
 
     sendPasswordResetEmail(auth, auth.currentUser.email)
       .then(() => {
-        console.log("golaaaa");
         toast.success("Revisa tu email ", {
           icon: "👾",
           position: "top-right",
@@ -128,7 +125,6 @@ export default function Editdevprofile() {
         })
 
         .catch((error) => {
-          console.log("nofunciona");
           toast.error("Ya existe ese correo", {
             icon: "😮",
             position: "top-right",
@@ -144,7 +140,6 @@ export default function Editdevprofile() {
           // ...
         });
     } else {
-      console.log("contraseña erronea");
     }
   };
   useEffect(() => {

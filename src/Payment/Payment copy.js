@@ -121,8 +121,6 @@ export default function Payment() {
     getGames();
   }, []);
 
-  console.log(mapjuegos.includes(mapeadogame.toString()));
-  console.log(mapeadogame.toString());
   const modaltrue = () => {
     if (mapjuegos.includes(mapeadogame.toString())) {
       toast.error("Juego agregado a tu libreria 👌", {

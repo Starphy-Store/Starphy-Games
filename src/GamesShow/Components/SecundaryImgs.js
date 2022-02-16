@@ -36,15 +36,14 @@ const SecundaryImgs = () => {
 
   const filtradouser = perfiluser.filter((x) => x.uid == user);
 
-  console.log(game);
-
   async function getGames() {
     const ref = doc(db, "games", id);
     const refe = query(collection(db, "users"));
 
     onSnapshot(ref, (querySnapshot) => {
       getDoc(ref, id).then((data) => {
-        const juego = data.data();
+        const { videojuego, ...rest } = data.data();
+        const juego = rest;
         const final = Comapeso(juego);
         setGame({ ...final, id });
       });
@@ -82,7 +81,6 @@ const SecundaryImgs = () => {
         limit: 2,
       });
     } else {
-      console.log("a");
     }
   };
 
@@ -106,7 +104,7 @@ const SecundaryImgs = () => {
       ...juego,
       PesoGame: juego.almacenamiento
         ? `${PesoGame.toFixed(2)} ${PesoSimbolo}`
-        : "A",
+        : " Aun esta en desarrollo ",
     };
     return objeto;
   }

@@ -112,7 +112,6 @@ export default function UploadGame() {
     }
   }
 
-  console.log(peso);
   async function CargarImagenes(e) {
     setIsLoading(true);
     const archivolocal = e.target.files[0];
@@ -241,7 +240,7 @@ export default function UploadGame() {
 
   async function CrearJuego(event) {
     event.preventDefault();
-    console.log("render");
+
     if (mapNameGames.includes(game.toLowerCase().trim())) {
       toast.error("El nombre de ese juego esta en uso", {
         position: "bottom-left",
@@ -294,7 +293,7 @@ export default function UploadGame() {
   const updategame = function (event) {
     setgame(event.target.value);
   };
-  console.log(valor);
+
   const updatevalor = function (event) {
     if (event.target.value <= 200) {
       setvalor(parseInt(event.target.value));
