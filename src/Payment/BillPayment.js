@@ -70,7 +70,6 @@ export default function Payment() {
   const filtrado2 = filtrado.filter((x) => x.juego == id);
   const filteruser = perfil.filter((x) => x.uid == iduser);
 
-  console.log(filteruser);
   function getGames() {
     const ref = query(collection(db, "games"));
     const refe = query(collection(db, "users"));

@@ -80,11 +80,9 @@ function Register() {
     }
 
     event.preventDefault();
-    console.log("funciona?");
 
     await createUserWithEmailAndPassword(auth, emailReg, passwordReg)
       .then((userCredential) => {
-        console.log(auth);
         toast.info("Verifique su correo electronico", {
           icon: "📨",
           position: "top-right",
@@ -122,13 +120,12 @@ function Register() {
         const user = userCredential.emailReg;
 
         // ...
-        console.log("si claro");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // ..
-        console.log("no sory");
+
         toast.error("Ya existe esa cuenta", {
           position: "top-right",
           autoClose: 5000,
@@ -191,8 +188,6 @@ function Register() {
             navigate("/Home");
           }, 5000);
         }
-
-        console.log("Inicio correctamente");
       })
       .catch((error) => {
         // Handle Errors here.

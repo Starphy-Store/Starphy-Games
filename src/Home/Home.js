@@ -34,10 +34,6 @@ const Home = () => {
 
   const filtros = game.filter((x) => x.esunjuego == "si");
 
-  const categorias = filtros.map(
-    (x) => x.categoria1 + x.categoria2 + x.categoria3
-  );
-
   const filteronline = filtros.filter((x) => {
     if (x.categoria1 == "Online") return true;
     if (x.categoria2 == "Online") return true;
@@ -145,9 +141,9 @@ const Home = () => {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data(), doc.id);
+        const { videojuego, ...rest } = doc.data();
+        items.push(rest);
       });
-
       setGame(items);
     });
   }
@@ -167,7 +163,7 @@ const Home = () => {
     <div>
       <Header />
 
-      <Container style={{ paddingTop: "90px", border: "1px solid red" }}>
+      <Container style={{ height: "600px" }}>
         <SliderDelHome />
       </Container>
       <h1 style={{ color: "white" }}>Los mejores juegos para ti 🔥</h1>

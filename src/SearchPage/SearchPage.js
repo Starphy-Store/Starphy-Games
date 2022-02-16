@@ -28,8 +28,6 @@ export default function SearchPage() {
     }
   });
 
-  console.log(filtrado2);
-
   function getGames() {
     const ref = query(collection(db, "games"));
 

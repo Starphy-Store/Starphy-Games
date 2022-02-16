@@ -73,13 +73,12 @@ const Header = () => {
     onSnapshot(ref, (querySnapshot) => {
       getDoc(ref, cua).then((data) => {
         const usuario = data.data();
-        console.log(usuario);
+
         setusers({ ...usuario, cua });
       });
     });
   }
 
-  console.log(users);
   function b() {
     const ref = query(collection(db, "games"));
 
@@ -99,7 +98,6 @@ const Header = () => {
 
     setsearch(e.target.value);
     filterData(e.target.value);
-    console.log(e);
   };
 
   const filterData = (search) => {
@@ -115,14 +113,13 @@ const Header = () => {
     }
   };
 
-  console.log(search);
   useEffect(() => {
     a();
     b();
   }, [cua]);
 
   return (
-    <div className="xd">
+    <div className="xd" style={{ paddingBottom: "100px" }}>
       <Navbar expand="lg" className="header" variant="dark" fixed="top">
         <Container>
           <Navbar.Brand href="#" className="ayudaa">

@@ -13,12 +13,8 @@ export default function ContactUs() {
         "user_iFFXolpdLWitDZI7daA9L"
       )
       .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
+        (result) => {},
+        (error) => {}
       );
   }
   return (

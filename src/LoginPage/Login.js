@@ -52,7 +52,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [id, setId] = useState([]);
-  console.log(id);
+
   const navigate = useNavigate();
 
   function ids() {
@@ -75,7 +75,6 @@ function Login() {
             // Signed in a
 
             onAuthStateChanged(auth, (user) => {
-              console.log(user);
               if (user.emailVerified) {
                 const uid = user.uid;
                 setTimeout(() => {
@@ -97,7 +96,6 @@ function Login() {
 
             const user = userCredential.user;
             // ...
-            console.log(user);
           })
           /* alerta de error*/
           .catch((error) => {
@@ -114,7 +112,6 @@ function Login() {
             });
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(errorCode + errorMessage);
           })
       );
     });
@@ -166,8 +163,6 @@ function Login() {
             FechaDeModificacion: null,
           });
         }
-        console.log(user.uid);
-        console.log("Inicio correctamente");
       })
       .catch((error) => {
         // Handle Errors here.
