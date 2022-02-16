@@ -55,18 +55,17 @@ function Library() {
     });
 
     onSnapshot(refere, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const { nombrecreador, preciodeljuego, enviarpago, ...rest } =
-          doc.data();
-        let pureba;
-        if (rest.idusuariocompra == perfil.uid) {
-          pureba = rest;
-        }
-        console.log(juegosbuy);
-        setJuegobuy({ ...pureba });
+      const juegoscomprados = querySnapshot.docs.map((doc) => {
+        const { idusuariocompra, juegoscomprado } = doc.data();
+        return { idusuariocompra, juegoscomprado };
       });
+      const filtradojuegos = juegoscomprados.filter(
+        (juego) => juego.idusuariocompra == perfil.uid
+      );
+      setJuegobuy(filtradojuegos);
     });
 
+    console.log(juegosbuy);
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
@@ -87,10 +86,10 @@ function Library() {
 
         items.push(rest);
       });
-      const filtrado = items.filter((items) => {
-        return items.juego == juegosbuy.juegoscomprado;
-      });
-
+      const filtrado = items.filter(
+        (juego2) => juego2.juego == juegosbuy.juegoscomprado
+      );
+      console.log(filtrado);
       setJuegos(items);
     });
   }
