@@ -23,15 +23,6 @@ function Library() {
   const [juegos, setJuegos] = useState({});
   const [juegosbuy, setJuegobuy] = useState({});
 
-  //compra
-
-  /*   const filterbuy = juegosbuy.filter((x) => x.idusuariocompra == perfil.uid);
-  const filtradojueguito = filterbuy.map((x) => x.juegoscomprado);
-
-  const filtradojuego = juegos.filter(
-    (x) => filtradojueguito.includes(x.juego) //juego
-  ); */
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const item = [];
@@ -40,6 +31,8 @@ function Library() {
       setId(item.toString());
     }
   });
+
+  function getUser() {}
 
   async function getGames() {
     const refe = await doc(db, "users", id);
@@ -62,13 +55,12 @@ function Library() {
       const filtradojuegos = juegoscomprados.filter(
         (juego) => juego.idusuariocompra == perfil.uid
       );
+
       setJuegobuy(filtradojuegos);
     });
 
-    console.log(juegosbuy);
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
+      const AllGames = querySnapshot.docs.map((doc) => {
         const {
           categoria1,
           categoria2,
@@ -83,17 +75,19 @@ function Library() {
 
           ...rest
         } = doc.data();
-
-        items.push(rest);
+        return { ...rest };
       });
-      const filtrado = items.filter(
-        (juego2) => juego2.juego == juegosbuy.juegoscomprado
+
+      const Mapeado = juegosbuy.map((x) => x.juegoscomprado);
+      const FiltradoJuego = AllGames.filter((x) =>
+        Mapeado.some((m) => x.juego === m)
       );
-      console.log(filtrado);
-      setJuegos(items);
+
+      setJuegos(FiltradoJuego);
     });
   }
-
+  console.log(juegos);
+  console.log(perfil);
   useEffect(() => {
     getGames();
   }, []);
