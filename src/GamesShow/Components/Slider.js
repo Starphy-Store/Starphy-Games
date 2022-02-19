@@ -18,23 +18,20 @@ import firebase2 from "../../Home/Firebase2";
 const db = getFirestore(firebase2);
 
 function Slider() {
-  const { id } = useParams([]);
+  const { id } = useParams();
 
-  const [game, setGame] = useState([]);
-
-  const filtrado = game.filter((x) => x.esunjuego == "si");
-
-  const filtrado2 = filtrado.filter((x) => x.juego == id);
+  const [game, setGame] = useState({});
 
   function getGames() {
-    const ref = query(collection(db, "games"));
+    const ref = doc(db, "games", id);
 
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data(), id);
+      getDoc(ref, id).then((data) => {
+        const { videojuego, ...rest } = data.data();
+        const juego = rest;
+
+        setGame({ ...juego, id });
       });
-      setGame(items);
     });
   }
 
@@ -44,48 +41,46 @@ function Slider() {
 
   return (
     <div className="Slider">
-      {filtrado2.map((item) => (
-        <Carousel
-          variant="dark"
-          indicators={false}
-          style={{ zIndex: "0", borderRadius: "10px" }}
-          className="carousel-inner"
-        >
-          <Carousel.Item>
-            <iframe
-              style={{ width: "100%", height: "100%" }}
-              src="https://www.youtube.com/embed/NN-9SQXoi50"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-            {/* <img
+      <Carousel
+        variant="dark"
+        indicators={false}
+        style={{ zIndex: "0", borderRadius: "10px" }}
+        className="carousel-inner"
+      >
+        <Carousel.Item>
+          <iframe
+            style={{ width: "100%", height: "100%" }}
+            src="https://www.youtube.com/embed/NN-9SQXoi50"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          {/* <img
               className="d-block w-100 h-70"
               src={item.imagenjuego}
               className="sliderImg"
               alt="First slide"
             /> */}
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100 h-70"
-              src={item.imagenjuego2}
-              alt="Second slide"
-              className="sliderImg"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100 h-70"
-              src={item.imagenjuego3}
-              alt="Second slide"
-              className="sliderImg"
-            />
-          </Carousel.Item>
-          4{" "}
-        </Carousel>
-      ))}
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100 h-70"
+            src={game.imagenjuego}
+            alt="Second slide"
+            className="sliderImg"
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100 h-70"
+            src={game.imagenjuego2}
+            alt="Second slide"
+            className="sliderImg"
+          />
+        </Carousel.Item>
+        4{" "}
+      </Carousel>
     </div>
   );
 }

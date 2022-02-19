@@ -32,12 +32,10 @@ function Library() {
     }
   });
 
-  function getUser() {}
-
   async function getGames() {
     const refe = await doc(db, "users", id);
-    const ref = query(collection(db, "games"));
     const refere = query(collection(db, "juegoscomprados"));
+    const ref = query(collection(db, "games"));
 
     onSnapshot(refe, (querySnapshot) => {
       getDoc(refe, id).then((data) => {
@@ -90,7 +88,7 @@ function Library() {
   console.log(perfil);
   useEffect(() => {
     getGames();
-  }, []);
+  }, [id]);
 
   return (
     <>
