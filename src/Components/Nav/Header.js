@@ -58,28 +58,27 @@ const Header = () => {
 
   const navigate = useNavigate();
 
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const item = [];
+      const uids = user.uid;
+      item.push(uids);
+      setcua(item.toString());
+    }
+  });
   async function a() {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setcua(item.toString());
-      }
-    });
-
     const ref = await doc(db, "users", cua);
 
     onSnapshot(ref, (querySnapshot) => {
       getDoc(ref, cua).then((data) => {
         const usuario = data.data();
 
-        setusers({ ...usuario, cua });
+        setusers({ ...usuario });
       });
     });
   }
 
-  function b() {
+  async function b() {
     const ref = query(collection(db, "games"));
 
     onSnapshot(ref, (querySnapshot) => {
