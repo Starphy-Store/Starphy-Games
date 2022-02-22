@@ -34,8 +34,6 @@ const SecundaryImgs = () => {
   const [game, setGame] = useState({});
   const [estrellas, setEstrellas] = useState(0);
 
-  const filtradouser = perfiluser.filter((x) => x.uid == user);
-
   async function getGames() {
     const ref = doc(db, "games", id);
     const refe = query(collection(db, "users"));

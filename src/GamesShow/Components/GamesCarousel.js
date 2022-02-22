@@ -16,23 +16,20 @@ import {
 const db = getFirestore(firebase2);
 
 function GamesCarousel() {
-  const { id } = useParams([]);
+  const { id } = useParams();
 
-  const [game, setGame] = useState([]);
-
-  const filtrado = game.filter((x) => x.esunjuego == "si");
-
-  const filtrado2 = filtrado.filter((x) => x.juego == id);
+  const [game, setGame] = useState({});
 
   function getGames() {
-    const ref = query(collection(db, "games"));
+    const ref = doc(db, "games", id);
 
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data(), id);
+      getDoc(ref, id).then((data) => {
+        const { videojuego, ...rest } = data.data();
+        const juego = rest;
+        console.log(juego);
+        setGame({ ...juego, id });
       });
-      setGame(items);
     });
   }
 
@@ -42,55 +39,47 @@ function GamesCarousel() {
 
   return (
     <div>
-      {filtrado2.map((item) => (
-        <Carousel indicators={false} className="pb-4 minicarousel">
-          <Carousel.Item>
-            <Row>
-              <Col md={4}>
-                <img src={item.imagenjuego} className="GamesCarouselImg"></img>
-              </Col>
-              <Col md={4}>
-                <img src={item.imagenjuego2} className="GamesCarouselImg"></img>
-              </Col>
-              <Col md={4}>
-                <img src={item.imagenjuego3} className="GamesCarouselImg"></img>
-              </Col>
-            </Row>
-          </Carousel.Item>
-          <Carousel.Item>
-            <Row>
-              <Col md={4}>
-                <img
-                  src={item.imagenportada}
-                  className="GamesCarouselImg"
-                ></img>
-              </Col>
-              <Col md={4}>
-                <img src={item.imagenjuego} className="GamesCarouselImg"></img>
-              </Col>
-              <Col md={4}>
-                <img src={item.imagenjuego2} className="GamesCarouselImg"></img>
-              </Col>
-            </Row>
-          </Carousel.Item>
-          <Carousel.Item>
-            <Row>
-              <Col md={4}>
-                <img
-                  src={item.imagenportada}
-                  className="GamesCarouselImg"
-                ></img>
-              </Col>
-              <Col md={4}>
-                <img src={item.imagenjuego} className="GamesCarouselImg"></img>
-              </Col>
-              <Col md={4}>
-                <img src={item.imagenjuego2} className="GamesCarouselImg"></img>
-              </Col>
-            </Row>
-          </Carousel.Item>
-        </Carousel>
-      ))}
+      <Carousel indicators={false} className="pb-4 minicarousel">
+        <Carousel.Item>
+          <Row>
+            <Col md={4}>
+              <img src={game.imagenjuego} className="GamesCarouselImg"></img>
+            </Col>
+            <Col md={4}>
+              <img src={game.imagenportada} className="GamesCarouselImg"></img>
+            </Col>
+            <Col md={4}>
+              <img src={game.imagenjuego2} className="GamesCarouselImg"></img>
+            </Col>
+          </Row>
+        </Carousel.Item>
+        <Carousel.Item>
+          <Row>
+            <Col md={4}>
+              <img src={game.imagenjuego2} className="GamesCarouselImg"></img>
+            </Col>
+            <Col md={4}>
+              <img src={game.imagenjuego} className="GamesCarouselImg"></img>
+            </Col>
+            <Col md={4}>
+              <img src={game.imagenportada} className="GamesCarouselImg"></img>
+            </Col>
+          </Row>
+        </Carousel.Item>
+        <Carousel.Item>
+          <Row>
+            <Col md={4}>
+              <img src={game.imagenportada} className="GamesCarouselImg"></img>
+            </Col>
+            <Col md={4}>
+              <img src={game.imagenjuego} className="GamesCarouselImg"></img>
+            </Col>
+            <Col md={4}>
+              <img src={game.imagenjuego2} className="GamesCarouselImg"></img>
+            </Col>
+          </Row>
+        </Carousel.Item>
+      </Carousel>
     </div>
   );
 }
