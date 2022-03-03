@@ -18,6 +18,7 @@ import {
   updateDoc,
   addDoc,
   where,
+  getDoc,
 } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
 import "../EditProfile/editprofile.css";
@@ -37,19 +38,19 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(firebase2);
 export default function EditProfile() {
+  toast.configure();
   const [id, setId] = useState("");
   const auth = getAuth(app);
-  const [name, setName] = useState([]);
+  const [name, setName] = useState({});
   const [Nombre, setNombre] = useState("");
 
   const current = new Date();
 
-  const date = `${current.getDate()}/${
-    current.getMonth() + 1
-  }/${current.getFullYear()}`;
+  const date = new Date();
 
-  const filtrado = name.filter((x) => x.uid == id);
-  const filtradonombre = filtrado.map((x) => x.name);
+  useEffect(() => {
+    EditarPerfil();
+  }, [id]);
 
   const SendEmail = function (e) {
     e.preventDefault();
@@ -93,17 +94,17 @@ export default function EditProfile() {
   }
 
   const tmpDate = new Date();
-
+  console.log(name.FechaDeModificacion);
   const GuardarCambios = async function (e) {
     e.preventDefault();
 
-    if (filtrado.FechaDeModificacion < addDaysToDate(tmpDate, 14)) {
+    if (name.FechaDeModificacion > addDaysToDate(tmpDate, 14)) {
       await updateDoc(doc(db, "users", auth.currentUser.uid), {
         name: Nombre,
         FechaDeModificacion: date,
       });
     } else {
-      toast.warning("Ya has ", {
+      toast.warning("Tienes que esperar hasta esta fecha ", {
         icon: "⛔",
         position: "top-right",
         autoClose: 5000,
@@ -117,34 +118,23 @@ export default function EditProfile() {
     }
   };
 
-  function EditarPerfil() {
-    const ref = query(collection(db, "users"));
-
+  onAuthStateChanged(auth, (user) => {
+    setId(user.uid);
+  });
+  async function EditarPerfil() {
+    const ref = doc(db, "users", id);
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
-      });
+      getDoc(ref, id).then((data) => {
+        const { email, pass, photoProfile, rol, uid, ...rest } = data.data();
 
-      setName(items);
-    });
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setId(item);
-      }
+        setName({ ...rest });
+      });
     });
   }
 
   const updateNombre = function (event) {
     setNombre(event.target.value);
   };
-
-  useEffect(() => {
-    EditarPerfil();
-  }, []);
 
   return (
     <>
@@ -176,9 +166,9 @@ export default function EditProfile() {
                 maxLength={50}
                 type="text"
                 placeholder="nombredeusuario"
-                value={Nombre}
                 onChange={updateNombre}
               />
+              <ToastContainer limit={2} />
             </Form.Group>
 
             <p />

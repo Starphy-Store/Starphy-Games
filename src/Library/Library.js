@@ -5,59 +5,57 @@ import { useParams } from "react-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   collection,
-  doc,
-  getDoc,
   getFirestore,
   onSnapshot,
   query,
 } from "firebase/firestore";
 import firebase2 from "../Home/Firebase2";
 import { Link } from "react-router-dom";
+import { Filter } from "react-bootstrap-icons";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
 
 function Library() {
-  const [perfil, setPerfil] = useState({});
-  const [id, setId] = useState("");
   const [juegos, setJuegos] = useState({});
-  const [juegosbuy, setJuegobuy] = useState({});
+  const [juegosbuy, setJuegobuy] = useState([]);
+  const [id, setId] = useState(null);
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const item = [];
-      const uids = user.uid;
-      item.push(uids);
-      setId(item.toString());
-    }
-  });
+  useEffect(() => {
+    getUser();
+    getGames();
+  }, [id]);
+
+  useEffect(() => {
+    getAllGames();
+  }, [juegosbuy]);
+
+  function getUser() {
+    onAuthStateChanged(auth, (user) => {
+      setId(user.uid);
+    });
+  }
 
   async function getGames() {
-    const refe = await doc(db, "users", id);
-    const refere = query(collection(db, "juegoscomprados"));
-    const ref = query(collection(db, "games"));
+    const Ref = query(collection(db, "juegoscomprados"));
 
-    onSnapshot(refe, (querySnapshot) => {
-      getDoc(refe, id).then((data) => {
-        const usuario = data.data();
-
-        setPerfil({ ...usuario, id });
-      });
-    });
-
-    onSnapshot(refere, (querySnapshot) => {
-      const juegoscomprados = querySnapshot.docs.map((doc) => {
+    onSnapshot(Ref, (querySnapshot) => {
+      const JuegosComprados = querySnapshot.docs.map((doc) => {
         const { idusuariocompra, juegoscomprado } = doc.data();
         return { idusuariocompra, juegoscomprado };
       });
-      const filtradojuegos = juegoscomprados.filter(
-        (juego) => juego.idusuariocompra == perfil.uid
+
+      const FiltradoJuegos = JuegosComprados.filter(
+        (juegos) => juegos.idusuariocompra == id
       );
-
-      setJuegobuy(filtradojuegos);
+      console.log(FiltradoJuegos);
+      setJuegobuy(FiltradoJuegos);
     });
+  }
+  async function getAllGames() {
+    const Refere = query(collection(db, "games"));
 
-    onSnapshot(ref, (querySnapshot) => {
+    onSnapshot(Refere, (querySnapshot) => {
       const AllGames = querySnapshot.docs.map((doc) => {
         const {
           categoria1,
@@ -75,20 +73,14 @@ function Library() {
         } = doc.data();
         return { ...rest };
       });
-
-      const Mapeado = juegosbuy.map((x) => x.juegoscomprado);
-      const FiltradoJuego = AllGames.filter((x) =>
+      const Mapeado = juegosbuy.map((X) => X.juegoscomprado);
+      const FilterGames = AllGames.filter((x) =>
         Mapeado.some((m) => x.juego === m)
       );
-
-      setJuegos(FiltradoJuego);
+      console.log(FilterGames);
+      setJuegos(FilterGames);
     });
   }
-  console.log(juegos);
-  console.log(perfil);
-  useEffect(() => {
-    getGames();
-  }, [id]);
 
   return (
     <>
@@ -111,25 +103,27 @@ function Library() {
       ) : (
         <Container className="d-flex">
           <>
-            <a href={juegos.videojuego}>
-              <Container>
-                <Row>
-                  <Col md={12}>
-                    <div className="profile-card-2 ">
-                      <img
-                        src={juegos.imagenportada}
-                        className="img-responsive"
-                      />
-                      <div className="background "></div>
-                      <div className="profile-name">{juegos.juego}</div>
-                      <div className="profile-icons">
-                        <h6>Da click para empezar la descarga</h6>
+            {juegos.map((item) => (
+              <a href={item.videojuego}>
+                <Container>
+                  <Row>
+                    <Col md={12}>
+                      <div className="profile-card-2 ">
+                        <img
+                          src={item.imagenportada}
+                          className="img-responsive"
+                        />
+                        <div className="background "></div>
+                        <div className="profile-name">{item.juego}</div>
+                        <div className="profile-icons">
+                          <h6>Da click para empezar la descarga</h6>
+                        </div>
                       </div>
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </a>
+                    </Col>
+                  </Row>
+                </Container>
+              </a>
+            ))}
           </>
         </Container>
       )}
