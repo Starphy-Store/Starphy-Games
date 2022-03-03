@@ -55,6 +55,7 @@ const Header = () => {
   const [juegos, setjuegos] = useState([]);
   const [search, setsearch] = useState("");
   const [result, setresult] = useState("");
+  const [sugerencias, setSugerencias] = useState([]);
 
   const navigate = useNavigate();
 
@@ -78,16 +79,32 @@ const Header = () => {
     });
   }
 
-  async function b() {
+  async function getGames() {
     const ref = query(collection(db, "games"));
 
     onSnapshot(ref, (querySnapshot) => {
-      const juegodb = [];
-      querySnapshot.forEach((doc) => {
-        juegodb.push(doc.data());
-      });
+      const AllGames = querySnapshot.docs.map((doc) => {
+        const {
+          categoria1,
+          categoria2,
+          categoria3,
+          creator,
+          descrip,
+          imagenjuego,
+          imagenjuego2,
+          precio,
+          correopay,
+          almacenamiento,
+          esunjuego,
+          imagenportada,
+          videojuego,
+          idprofile,
 
-      setjuegos(juegodb);
+          ...rest
+        } = doc.data();
+        return { ...rest };
+      });
+      setjuegos(AllGames);
     });
   }
 
@@ -96,25 +113,29 @@ const Header = () => {
     e.preventDefault();
 
     setsearch(e.target.value);
+
     filterData(e.target.value);
   };
 
   const filterData = (search) => {
+    const NombreJuegos = juegos.map((Name) => Name.juego);
     var resultadosBusqueda = juegos.filter((x) => {
       if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
-        return x === true;
+        return x;
       }
     });
+
     if (search === "") {
       setresult([]);
     } else {
+      setSugerencias(resultadosBusqueda);
       setresult(resultadosBusqueda);
     }
   };
 
   useEffect(() => {
     a();
-    b();
+    getGames();
   }, [cua]);
 
   return (
