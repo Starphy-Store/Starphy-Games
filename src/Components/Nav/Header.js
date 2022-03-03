@@ -102,12 +102,12 @@ const Header = () => {
 
           ...rest
         } = doc.data();
-        return { ...rest };
+        return { ...rest, id: doc.id };
       });
       setjuegos(AllGames);
     });
   }
-
+  console.log(juegos);
   //barra de busqueda
   const SearchGames = (e) => {
     e.preventDefault();
@@ -185,24 +185,55 @@ const Header = () => {
             ) : (
               <Nav
                 className="me-auto my-2 my-lg-0 md:w-full"
-                style={{ maxHeight: "100px" }}
+                style={{ maxHeight: "38px" }}
                 navbarScroll
               >
                 <Form
                   onSubmit={SearchGames}
                   className="d-flex"
-                  style={{ width: "80%" }}
+                  style={{ width: "756px" }}
                 >
                   <FormControl
                     type="search"
                     placeholder="Que tienes ganas de jugar hoy?"
                     className="me-2"
                     aria-label="Search"
+                    style={{ position: "absolute" }}
                     onChange={SearchGames}
                   />
-
+                  {sugerencias == "" ? (
+                    <Dropdown className="me-2" variant="outline-light">
+                      No hay resultado de : {search}
+                    </Dropdown>
+                  ) : (
+                    sugerencias.map((item, i) => (
+                      <Nav>
+                        <Form>
+                          <Col>
+                            <Dropdown
+                              id="dropdown-menu-align-start"
+                              className="me-2"
+                              variant="outline-light"
+                              style={{
+                                border: "0",
+                                color: "white",
+                              }}
+                            >
+                              <Dropdown.Item>
+                                <Link to={`/GamesShow/${item.id}`}>
+                                  {item.juego}
+                                </Link>
+                              </Dropdown.Item>
+                            </Dropdown>
+                          </Col>
+                        </Form>
+                      </Nav>
+                    ))
+                  )}
                   <Link to={`/SearchPage/${search}`}>
-                    <Button variant="outline-light" type="submit"></Button>
+                    <Button variant="outline-light" type="submit">
+                      <Search />
+                    </Button>
                   </Link>
                 </Form>
               </Nav>

@@ -30,106 +30,104 @@ const db = getFirestore(firebase2);
 
 const Home = () => {
   const [game, setGame] = useState([]);
-  const [category, setCategory] = useState("");
 
-  const filtros = game.filter((x) => x.esunjuego == "si");
-
-  const filteronline = filtros.filter((x) => {
+  const filteronline = game.filter((x) => {
     if (x.categoria1 == "Online") return true;
     if (x.categoria2 == "Online") return true;
     if (x.categoria3 == "Online") return true;
   });
-  const filtercoop = filtros.filter((x) => {
+
+  const filtercoop = game.filter((x) => {
     if (x.categoria1 == "Cooperativo") return true;
     if (x.categoria2 == "Cooperativo") return true;
     if (x.categoria3 == "Cooperativo") return true;
   });
-  const filterArcade = filtros.filter((x) => {
+  const filterArcade = game.filter((x) => {
     if (x.categoria1 == "Arcade") return true;
     if (x.categoria2 == "Arcade") return true;
     if (x.categoria3 == "Arcade") return true;
   });
-  const filterSupervivencia = filtros.filter((x) => {
+  const filterSupervivencia = game.filter((x) => {
     if (x.categoria1 == "Supervivencia") return true;
     if (x.categoria2 == "Supervivencia") return true;
     if (x.categoria3 == "Supervivencia") return true;
   });
-  const filterSimulacion = filtros.filter((x) => {
+  const filterSimulacion = game.filter((x) => {
     if (x.categoria1 == "Simulacion") return true;
     if (x.categoria2 == "Simulacion") return true;
     if (x.categoria3 == "Simulacion") return true;
   });
-  const filterBattleRoyale = filtros.filter((x) => {
+  const filterBattleRoyale = game.filter((x) => {
     if (x.categoria1 == "Battle Royale") return true;
     if (x.categoria2 == "Battle Royale") return true;
     if (x.categoria3 == "Battle Royale") return true;
   });
-  const filterAcción = filtros.filter((x) => {
+  const filterAcción = game.filter((x) => {
     if (x.categoria1 == "Acción") return true;
     if (x.categoria2 == "Acción") return true;
     if (x.categoria3 == "Acción") return true;
   });
-  const filterRPG = filtros.filter((x) => {
+  const filterRPG = game.filter((x) => {
     if (x.categoria1 == "RPG") return true;
     if (x.categoria2 == "RPG") return true;
     if (x.categoria3 == "RPG") return true;
   });
-  const filterCarreras = filtros.filter((x) => {
+  const filterCarreras = game.filter((x) => {
     if (x.categoria1 == "Carreras") return true;
     if (x.categoria2 == "Carreras") return true;
     if (x.categoria3 == "Carreras") return true;
   });
-  const filterFPS = filtros.filter((x) => {
+  const filterFPS = game.filter((x) => {
     if (x.categoria1 == "FPS") return true;
     if (x.categoria2 == "FPS") return true;
     if (x.categoria3 == "FPS") return true;
   });
-  const filterPuzle = filtros.filter((x) => {
+  const filterPuzle = game.filter((x) => {
     if (x.categoria1 == "Puzle") return true;
     if (x.categoria2 == "Puzle") return true;
     if (x.categoria3 == "Puzle") return true;
   });
-  const filterLucha = filtros.filter((x) => {
+  const filterLucha = game.filter((x) => {
     if (x.categoria1 == "Lucha") return true;
     if (x.categoria2 == "Lucha") return true;
     if (x.categoria3 == "Lucha") return true;
   });
-  const filterMMORPG = filtros.filter((x) => {
+  const filterMMORPG = game.filter((x) => {
     if (x.categoria1 == "MMORPG") return true;
     if (x.categoria2 == "MMORPG") return true;
     if (x.categoria3 == "MMORPG") return true;
   });
-  const filterMOBA = filtros.filter((x) => {
+  const filterMOBA = game.filter((x) => {
     if (x.categoria1 == "MOBA") return true;
     if (x.categoria2 == "MOBA") return true;
     if (x.categoria3 == "MOBA") return true;
   });
-  const filterAgilidadMental = filtros.filter((x) => {
+  const filterAgilidadMental = game.filter((x) => {
     if (x.categoria1 == "Agilidad Mental") return true;
     if (x.categoria2 == "Agilidad Mental") return true;
     if (x.categoria3 == "Agilidad Mental") return true;
   });
-  const filterShooter = filtros.filter((x) => {
+  const filterShooter = game.filter((x) => {
     if (x.categoria1 == "Shooter") return true;
     if (x.categoria2 == "Shooter") return true;
     if (x.categoria3 == "Shooter") return true;
   });
-  const filterTerror = filtros.filter((x) => {
+  const filterTerror = game.filter((x) => {
     if (x.categoria1 == "Terror") return true;
     if (x.categoria2 == "Terror") return true;
     if (x.categoria3 == "Terror") return true;
   });
-  const filterMundoAbierto = filtros.filter((x) => {
+  const filterMundoAbierto = game.filter((x) => {
     if (x.categoria1 == "Mundo Abierto") return true;
     if (x.categoria2 == "Mundo Abierto") return true;
     if (x.categoria3 == "Mundo Abierto") return true;
   });
-  const filterMinijuegos = filtros.filter((x) => {
+  const filterMinijuegos = game.filter((x) => {
     if (x.categoria1 == "Minijuegos") return true;
     if (x.categoria2 == "Minijuegos") return true;
     if (x.categoria3 == "Minijuegos") return true;
   });
-  const filterSigilo = filtros.filter((x) => {
+  const filterSigilo = game.filter((x) => {
     if (x.categoria1 == "Sigilo") return true;
     if (x.categoria2 == "Sigilo") return true;
     if (x.categoria3 == "Sigilo") return true;
@@ -142,7 +140,7 @@ const Home = () => {
       const items = [];
       querySnapshot.forEach((doc) => {
         const { videojuego, ...rest } = doc.data();
-        items.push(rest);
+        items.push({ ...rest, id: doc.id });
       });
       setGame(items);
     });
@@ -150,7 +148,7 @@ const Home = () => {
   useEffect(() => {
     getGames();
   }, []);
-
+  console.log(game);
   function dollarsign(input) {
     if (input == 0) {
       return "Gratis";
@@ -181,9 +179,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filteronline.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filteronline.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -216,9 +214,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filtercoop.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filtercoop.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={12}>
                   <div className="profile-card-2 ">
@@ -250,9 +248,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterArcade.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterArcade.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -284,9 +282,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterSupervivencia.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterSupervivencia.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -318,9 +316,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterSimulacion.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterSimulacion.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -352,9 +350,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterBattleRoyale.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterBattleRoyale.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -386,9 +384,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterAcción.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterAcción.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -420,9 +418,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterRPG.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterRPG.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -454,9 +452,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterCarreras.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterCarreras.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -488,9 +486,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterFPS.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterFPS.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -522,9 +520,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterPuzle.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterPuzle.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -556,9 +554,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterLucha.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterLucha.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -590,9 +588,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterMMORPG.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterMMORPG.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -624,9 +622,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterMOBA.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterMOBA.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -658,9 +656,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterAgilidadMental.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterAgilidadMental.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -692,9 +690,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterShooter.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterShooter.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -726,9 +724,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterTerror.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterTerror.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -760,9 +758,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterMundoAbierto.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterMundoAbierto.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -794,9 +792,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterMinijuegos.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterMinijuegos.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
@@ -828,9 +826,9 @@ const Home = () => {
         </a>
       </Container>
       <Container className="d-flex">
-        {filterSigilo.map((item, index) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={index}>
+        {filterSigilo.map((item) => (
+          <Link to={`/GamesShow/${item.id}`} className="w-25">
+            <Container key={item.id}>
               <Row>
                 <Col md={212}>
                   <div className="profile-card-2 ">
