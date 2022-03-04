@@ -107,7 +107,7 @@ const Header = () => {
       setjuegos(AllGames);
     });
   }
-  console.log(juegos);
+
   //barra de busqueda
   const SearchGames = (e) => {
     e.preventDefault();
@@ -118,13 +118,23 @@ const Header = () => {
   };
 
   const filterData = (search) => {
-    const NombreJuegos = juegos.map((Name) => Name.juego);
     var resultadosBusqueda = juegos.filter((x) => {
+      if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
+        return x.juego.charAt(0).toUpperCase() + x.juego.slice();
+      }
+    });
+
+    var ResultadoParaUpperCase = juegos.filter((x) => {
       if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
         return x;
       }
     });
 
+    const UpperCaseJuegos = ResultadoParaUpperCase.filter(
+      (Nombre) => Nombre.juego.charAt(0).toUpperCase() + Nombre.juego.slice(1)
+    );
+
+    console.log(resultadosBusqueda);
     if (search === "") {
       setresult([]);
     } else {
@@ -198,41 +208,27 @@ const Header = () => {
                     placeholder="Que tienes ganas de jugar hoy?"
                     className="me-2"
                     aria-label="Search"
-                    style={{ position: "absolute" }}
                     onChange={SearchGames}
                   />
-                  {sugerencias == "" ? (
-                    <Dropdown className="me-2" variant="outline-light">
-                      No hay resultado de : {search}
-                    </Dropdown>
-                  ) : (
-                    sugerencias.map((item, i) => (
-                      <Nav>
-                        <Form>
-                          <Col>
-                            <Dropdown
-                              id="dropdown-menu-align-start"
-                              className="me-2"
-                              variant="outline-light"
-                              style={{
-                                border: "0",
-                                color: "white",
-                              }}
-                            >
-                              <Dropdown.Item>
-                                <Link to={`/GamesShow/${item.id}`}>
-                                  {item.juego}
-                                </Link>
-                              </Dropdown.Item>
-                            </Dropdown>
-                          </Col>
-                        </Form>
-                      </Nav>
-                    ))
-                  )}
+
                   <Link to={`/SearchPage/${search}`}>
                     <Button variant="outline-light" type="submit">
                       <Search />
+                      {sugerencias == "" ? (
+                        <Dropdown className="me-2" variant="outline-light">
+                          No hay resultado de : {search}
+                        </Dropdown>
+                      ) : (
+                        sugerencias.map((item, i) => (
+                          <Dropdown
+                            key={i}
+                            className="mpg"
+                            variant="outline-light"
+                          >
+                            {item.juego}
+                          </Dropdown>
+                        ))
+                      )}
                     </Button>
                   </Link>
                 </Form>

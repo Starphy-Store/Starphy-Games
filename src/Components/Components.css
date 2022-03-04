@@ -30,6 +30,10 @@ Nav.Link {
   );
 }
 
+.mpg {
+  text-transform: initial;
+}
+
 .header {
   background: rgb(23, 23, 23);
   background: linear-gradient(
