@@ -130,19 +130,19 @@ const Header = () => {
       }
     });
 
-    const UpperCaseJuegos = ResultadoParaUpperCase.filter(
+    const UpperCaseJuegos = ResultadoParaUpperCase.map(
       (Nombre) => Nombre.juego.charAt(0).toUpperCase() + Nombre.juego.slice(1)
     );
 
-    console.log(resultadosBusqueda);
+    console.log(UpperCaseJuegos);
     if (search === "") {
       setresult([]);
     } else {
-      setSugerencias(resultadosBusqueda);
-      setresult(resultadosBusqueda);
+      setSugerencias(UpperCaseJuegos);
+      setresult(ResultadoParaUpperCase);
     }
   };
-
+  console.log(result);
   useEffect(() => {
     a();
     getGames();
@@ -214,27 +214,25 @@ const Header = () => {
                   <Link to={`/SearchPage/${search}`}>
                     <Button variant="outline-light" type="submit">
                       <Search />
-                      {sugerencias == "" ? (
-                        <Dropdown className="me-2" variant="outline-light">
-                          No hay resultado de : {search}
-                        </Dropdown>
-                      ) : (
-                        sugerencias.map((item, i) => (
-                          <Dropdown
-                            key={i}
-                            className="mpg"
-                            variant="outline-light"
-                          >
-                            {item.juego}
-                          </Dropdown>
-                        ))
-                      )}
                     </Button>
                   </Link>
                 </Form>
               </Nav>
             )}
-
+            <Container>
+              {sugerencias == "" ? (
+                <Dropdown className="me-2" variant="outline-light">
+                  No hay resultado de : {search}
+                </Dropdown>
+              ) : (
+                sugerencias.map((item, i) => (
+                  <Dropdown key={i} className="mpg" variant="outline-light">
+                    {item}
+                    <Link to={`/GamesShow/${item}`}></Link>
+                  </Dropdown>
+                ))
+              )}
+            </Container>
             <Container style={{ justifyContent: "right" }}>
               <Row>
                 {cua ? (

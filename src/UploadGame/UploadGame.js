@@ -335,7 +335,7 @@ export default function UploadGame() {
       <Header />
       <Row style={{ width: "100%", color: "white", paddingTop: "100px" }}>
         <Col md={7}>
-          <h1>Ingresa tus datos</h1>
+          <h1>Ingresa la informacion de tu juego</h1>
           <Form
             noValidate
             validated={validated}

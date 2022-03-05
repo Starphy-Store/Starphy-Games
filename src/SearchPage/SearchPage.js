@@ -20,9 +20,7 @@ export default function SearchPage() {
   const { search } = useParams();
   const [game, setGame] = useState([]);
 
-  const filtrado = game.filter((x) => x.esunjuego == "si");
-
-  const filtrado2 = filtrado.filter((x) => {
+  const filtrado2 = game.filter((x) => {
     if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
       return x;
     }
@@ -34,7 +32,8 @@ export default function SearchPage() {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+        const { videojuego, ...rest } = doc.data();
+        items.push({ ...rest });
       });
       setGame(items);
     });
@@ -46,6 +45,14 @@ export default function SearchPage() {
   function truncate(input) {
     if (input.length > 20) return input.substring(0, 20) + "...";
     else return input;
+  }
+
+  function dollarsign(input) {
+    if (input == 0) {
+      return "Gratis";
+    } else {
+      return "$" + input;
+    }
   }
   return (
     <>
@@ -67,7 +74,7 @@ export default function SearchPage() {
                     <div className="profile-name">{truncate(item.juego)}</div>
                     <div className="profile-username">{item.creator}</div>
                     <div className="profile-icons">
-                      <h5>{item.precio}</h5>
+                      <h5>{dollarsign(item.precio)}</h5>
                     </div>
                   </div>
                 </Col>
