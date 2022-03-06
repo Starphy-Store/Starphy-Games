@@ -63,18 +63,16 @@ export default function UploadGame() {
 
   const [isLoading, setIsLoading] = useState(null);
 
-  const [añadir, setañadir] = useState([
-    <Form.Group className="mb-2" controlId="formBasicPassword">
-      <Form.Label>Imagenes de tu juego</Form.Label>
-      <Form.Control required type="file" placeholder="" />
-    </Form.Group>,
-  ]);
-  const [nombrecreador, setnombrecreador] = useState([]);
+  const [nombrecreador, setnombrecreador] = useState({});
+  console.log(id);
+  onAuthStateChanged(auth, (user) => {
+    setId(user.uid);
+  });
 
-  const filtrado = nombrecreador.filter((x) => x.uid == id);
-  const nombre = filtrado.map((item) => item.name);
-
-  const mapNameGames = Juegos.map((x) => x.juego);
+  useEffect(() => {
+    id2();
+    QueryDB();
+  }, [id]);
 
   async function CargarArchivo(e) {
     setIsLoading(true);
@@ -188,25 +186,16 @@ export default function UploadGame() {
     }
   }
 
-  function id2() {
-    const ref = query(collection(db, "users"));
+  async function id2() {
+    const ref = doc(db, "users", id);
 
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+      getDoc(ref, id).then((doc) => {
+        const { email, FechaDeModificacion, photoProfile, pass, ...rest } =
+          doc.data();
+
+        setnombrecreador({ ...rest });
       });
-
-      setnombrecreador(items);
-    });
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setId(item);
-      }
     });
   }
 
@@ -232,16 +221,23 @@ export default function UploadGame() {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+        const { juego } = doc.data();
+        items.push(juego);
       });
       setJuegos(items);
     });
   };
-
+  console.log(Juegos.includes(game.toLowerCase().trim()));
+  if (Juegos.includes(game.toLowerCase().trim())) {
+    console.log("Mismo");
+  } else {
+    console.log("Adelante");
+  }
+  console.log(Juegos);
   async function CrearJuego(event) {
     event.preventDefault();
 
-    if (mapNameGames.includes(game.toLowerCase().trim())) {
+    if (Juegos.includes(game.toLowerCase().trim())) {
       toast.error("El nombre de ese juego esta en uso", {
         position: "bottom-left",
         autoClose: 5000,
@@ -252,6 +248,7 @@ export default function UploadGame() {
         progress: undefined,
         className: "dark-toast",
       });
+      console.log("Mismo");
     } else {
       toast.success("Juego creado", {
         icon: "📨",
@@ -277,7 +274,7 @@ export default function UploadGame() {
         categoria3: categoria3,
         videojuego: urlDescargar,
         idprofile: auth.currentUser.uid,
-        creator: nombre,
+        creator: nombrecreador.name,
         correopay: correopay,
         almacenamiento: peso,
       });
@@ -311,11 +308,6 @@ export default function UploadGame() {
   const updatecategoria3 = function (event) {
     setcategoria3(event.target.value);
   };
-
-  useEffect(() => {
-    id2();
-    QueryDB();
-  }, []);
 
   //prueba
   function dollarsign(input) {
@@ -547,7 +539,7 @@ export default function UploadGame() {
                   <img className="img-responsive" src={urlImagenes} />
                   <div className="background "></div>
                   <div className="profile-name">{truncate(game)}</div>
-                  <div className="profile-username">{nombre}</div>
+                  <div className="profile-username">{nombrecreador.name}</div>
                   <div className="profile-icons">
                     <h5>{dollarsign(valor)}</h5>
                   </div>

@@ -59,22 +59,21 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const item = [];
-      const uids = user.uid;
-      item.push(uids);
-      setcua(item.toString());
-    }
-  });
   async function a() {
+    onAuthStateChanged(auth, (user) => {
+      if (user == null) {
+      } else {
+        setcua(user.uid);
+      }
+    });
     const ref = await doc(db, "users", cua);
 
     onSnapshot(ref, (querySnapshot) => {
       getDoc(ref, cua).then((data) => {
-        const usuario = data.data();
+        const { FechaDeModificacion, email, photoProfile, pass, ...rest } =
+          data.data();
 
-        setusers({ ...usuario });
+        setusers({ ...rest });
       });
     });
   }

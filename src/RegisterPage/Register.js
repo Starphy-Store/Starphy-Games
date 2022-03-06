@@ -31,6 +31,8 @@ import {
   setDoc,
   currentUser,
   get,
+  query,
+  onSnapshot,
 } from "firebase/firestore";
 import { Database, set, ref } from "firebase/database";
 
@@ -58,20 +60,39 @@ function Register() {
   const [validated, setValidated] = useState(false);
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
+  const [validarName, setValidarName] = useState([]);
   const [emailReg, setEmailReg] = useState("");
-  const [id, setId] = useState([]);
-
-  function ids() {
+  const [id, setId] = useState("");
+  console.log(usernameReg);
+  function getId() {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setId(item);
+      if (user == null) {
+      } else {
+        setId(user.uid);
       }
+    });
+
+    const ref = query(collection(db, "users"));
+
+    onSnapshot(ref, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        const { name } = doc.data();
+
+        items.push({ name });
+      });
+      setValidarName(items);
     });
   }
 
+  const MapNames = validarName.map((Nombres) => Nombres.name);
+
+  if (MapNames.includes(usernameReg.toLowerCase().trim())) {
+    console.log("sipa");
+  } else {
+    console.log("No");
+  }
+  console.log(MapNames);
   async function Register(event) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -81,63 +102,74 @@ function Register() {
 
     event.preventDefault();
 
-    await createUserWithEmailAndPassword(auth, emailReg, passwordReg)
-      .then((userCredential) => {
-        toast.info("Verifique su correo electronico", {
-          icon: "📨",
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          className: "dark-toast",
-        });
-        setTimeout(() => {
-          navigate("/Home");
-        }, 5000);
-        setDoc(doc(db, "users", auth.currentUser.uid), {
-          name: usernameReg,
-          email: emailReg,
-          pass: passwordReg,
-          uid: auth.currentUser.uid,
-          rol: "user",
-          FechaDeModificacion: null,
-        });
-        // Signed in
-        sendEmailVerification(auth.currentUser).then(() => {
-          // Email verification sent!
+    if (validarName.includes(usernameReg.toLowerCase().trim())) {
+      toast.error("El nombre de ese juego esta en uso", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
+    } else {
+      await createUserWithEmailAndPassword(auth, emailReg, passwordReg)
+        .then((userCredential) => {
+          toast.info("Verifique su correo electronico", {
+            icon: "📨",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "dark-toast",
+          });
 
-          onAuthStateChanged(auth, (user) => {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            const uid = user.uid;
-            /* navigate("/loginUser"); */
-            // ...
+          setDoc(doc(db, "users", auth.currentUser.uid), {
+            name: usernameReg,
+            email: emailReg,
+            pass: passwordReg,
+            uid: auth.currentUser.uid,
+            rol: "user",
+            FechaDeModificacion: null,
+          });
+          // Signed in
+          sendEmailVerification(auth.currentUser).then(() => {
+            // Email verification sent!
+
+            onAuthStateChanged(auth, (user) => {
+              // User is signed in, see docs for a list of available properties
+              // https://firebase.google.com/docs/reference/js/firebase.User
+              const uid = user.uid;
+              /* navigate("/loginUser"); */
+              // ...
+            });
+          });
+          const user = userCredential.emailReg;
+
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+
+          toast.error("Ya existe esa cuenta", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+
+            className: "dark-toast",
           });
         });
-        const user = userCredential.emailReg;
-
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-
-        toast.error("Ya existe esa cuenta", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-
-          className: "dark-toast",
-        });
-      });
+    }
     setValidated(true);
   }
 
@@ -273,7 +305,7 @@ function Register() {
   };
 
   useEffect(() => {
-    ids();
+    getId();
   }, []);
 
   return (
