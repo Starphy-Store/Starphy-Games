@@ -44,7 +44,7 @@ function Library() {
         const { idusuariocompra, juegoscomprado } = doc.data();
         return { idusuariocompra, juegoscomprado };
       });
-
+      console.log(JuegosComprados);
       const FiltradoJuegos = JuegosComprados.filter(
         (juegos) => juegos.idusuariocompra == id
       );
@@ -71,13 +71,15 @@ function Library() {
 
           ...rest
         } = doc.data();
+
         return { ...rest };
       });
+
       const Mapeado = juegosbuy.map((X) => X.juegoscomprado);
       const FilterGames = AllGames.filter((x) =>
         Mapeado.some((m) => x.juego === m)
       );
-      console.log(FilterGames);
+      console.log(juegosbuy);
       setJuegos(FilterGames);
     });
   }

@@ -85,14 +85,6 @@ function Register() {
     });
   }
 
-  const MapNames = validarName.map((Nombres) => Nombres.name);
-
-  if (MapNames.includes(usernameReg.toLowerCase().trim())) {
-    console.log("sipa");
-  } else {
-    console.log("No");
-  }
-  console.log(MapNames);
   async function Register(event) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -102,7 +94,9 @@ function Register() {
 
     event.preventDefault();
 
-    if (validarName.includes(usernameReg.toLowerCase().trim())) {
+    const MapNames = validarName.map((Nombres) => Nombres.name);
+
+    if (MapNames.includes(usernameReg)) {
       toast.error("El nombre de ese juego esta en uso", {
         position: "bottom-left",
         autoClose: 5000,

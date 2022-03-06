@@ -227,17 +227,12 @@ export default function UploadGame() {
       setJuegos(items);
     });
   };
-  console.log(Juegos.includes(game.toLowerCase().trim()));
-  if (Juegos.includes(game.toLowerCase().trim())) {
-    console.log("Mismo");
-  } else {
-    console.log("Adelante");
-  }
+
   console.log(Juegos);
   async function CrearJuego(event) {
     event.preventDefault();
 
-    if (Juegos.includes(game.toLowerCase().trim())) {
+    if (Juegos.includes(game)) {
       toast.error("El nombre de ese juego esta en uso", {
         position: "bottom-left",
         autoClose: 5000,
