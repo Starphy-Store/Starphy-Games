@@ -9,6 +9,8 @@ import {
   query,
   onSnapshot,
   collection,
+  getDoc,
+  doc,
 } from "firebase/firestore";
 import firebase2 from "../Home/Firebase2";
 import { useParams } from "react-router";
@@ -20,22 +22,21 @@ export default function DevProfile() {
   const [perfil, setPerfil] = useState([]);
   const [juego, setJuegos] = useState([]);
 
-  const filtradoPerfil = perfil.filter((x) => x.rol == "dev");
-  const filtradoPerfil2 = filtradoPerfil.filter((x) => x.uid == idprofile);
-  const filtradoperfilid = filtradoPerfil2.map((item) => item.uid);
-  const filtrarJuego = juego.filter((x) => x.idprofile == filtradoperfilid);
+  const filtrarJuego = juego.filter((x) => x.idprofile == idprofile);
   const contador = filtrarJuego.length;
 
+  console.log(contador);
+
   function DevPerfil() {
-    const ref = query(collection(db, "users"));
     const refgames = query(collection(db, "games"));
+    const ref = doc(db, "users", idprofile);
 
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+      getDoc(ref, idprofile).then((data) => {
+        const { pass, email, uid, FechaDeModificacion, ...rest } = data.data();
+
+        setPerfil({ ...rest });
       });
-      setPerfil(items);
     });
 
     onSnapshot(refgames, (querySnapshot) => {
@@ -72,41 +73,49 @@ export default function DevProfile() {
   return (
     <>
       <Header />
-      {filtradoPerfil2.map((item) => (
-        <Container>
-          <Row className="pb-1">
-            <h1 className="pb-1">{item.name}</h1>
-          </Row>
-          <div style={{ position: "absolute", color: "gray" }}>
-            <h6 className="px-3 pt-3">{manzana(contador)}</h6>
-            <h6 className="px-3">+1.000 Descargas</h6>
-          </div>
-          <div className="IconBorder">
-            <img src={item.photoProfile} className="ImgIcon center"></img>
-          </div>
-        </Container>
-      ))}
+      <Container>
+        <Row className="pb-1">
+          <h1 className="pb-1">{perfil.name}</h1>
+        </Row>
+        <div style={{ position: "absolute", color: "gray" }}>
+          <h6 className="px-3 pt-3">{manzana(contador)}</h6>
+          <h6 className="px-3">+1.000 Descargas</h6>
+        </div>
+        <div className="IconBorder">
+          <img src={perfil.photoProfile} className="ImgIcon center"></img>
+        </div>
+      </Container>
 
       <Container className="d-flex pt-5">
-        {filtrarJuego.map((card) => (
-          <Link to={`/GamesShow/${card.juego}`} className="w-25">
-            <Container key={card.id}>
-              <Row>
-                <Col md={212}>
-                  <div className="profile-card-2 ">
-                    <img src={card.imagenportada} className="img-responsive" />
-                    <div className="background "></div>
-                    <div className="profile-name">{truncate(card.juego)}</div>
-                    <div className="profile-username">{card.creator}</div>
-                    <div className="profile-icons">
-                      <h5>{dollarsign(card.precio)}</h5>
+        {contador == 0 ? (
+          <Container>
+            <h1 style={{ textAlign: "left" }}> No tiene juegos publicados</h1>
+            <hr style={{ color: "white" }} />
+          </Container>
+        ) : (
+          filtrarJuego.map((card) => (
+            <Link to={`/GamesShow/${card.juego}`} className="w-25">
+              <Container key={card.id}>
+                <Row>
+                  <Col md={212}>
+                    <div className="profile-card-2 ">
+                      <img
+                        src={card.imagenportada}
+                        className="img-responsive"
+                      />
+                      <div className="background "></div>
+                      <div className="profile-name">{truncate(card.juego)}</div>
+                      <div className="profile-username">{card.creator}</div>
+                      <div className="profile-icons">
+                        <h5>{dollarsign(card.precio)}</h5>
+                      </div>
                     </div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Link>
-        ))}
+                  </Col>
+                </Row>
+              </Container>
+            </Link>
+          ))
+        )}
       </Container>
     </>
   );

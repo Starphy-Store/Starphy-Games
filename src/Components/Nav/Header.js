@@ -59,22 +59,21 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const item = [];
-      const uids = user.uid;
-      item.push(uids);
-      setcua(item.toString());
-    }
-  });
   async function a() {
+    onAuthStateChanged(auth, (user) => {
+      if (user == null) {
+      } else {
+        setcua(user.uid);
+      }
+    });
     const ref = await doc(db, "users", cua);
 
     onSnapshot(ref, (querySnapshot) => {
       getDoc(ref, cua).then((data) => {
-        const usuario = data.data();
+        const { FechaDeModificacion, email, photoProfile, pass, ...rest } =
+          data.data();
 
-        setusers({ ...usuario });
+        setusers({ ...rest });
       });
     });
   }
@@ -107,7 +106,7 @@ const Header = () => {
       setjuegos(AllGames);
     });
   }
-  console.log(juegos);
+
   //barra de busqueda
   const SearchGames = (e) => {
     e.preventDefault();
@@ -118,21 +117,31 @@ const Header = () => {
   };
 
   const filterData = (search) => {
-    const NombreJuegos = juegos.map((Name) => Name.juego);
     var resultadosBusqueda = juegos.filter((x) => {
+      if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
+        return x.juego.charAt(0).toUpperCase() + x.juego.slice();
+      }
+    });
+
+    var ResultadoParaUpperCase = juegos.filter((x) => {
       if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
         return x;
       }
     });
 
+    const UpperCaseJuegos = ResultadoParaUpperCase.map(
+      (Nombre) => Nombre.juego.charAt(0).toUpperCase() + Nombre.juego.slice(1)
+    );
+
+    console.log(UpperCaseJuegos);
     if (search === "") {
       setresult([]);
     } else {
-      setSugerencias(resultadosBusqueda);
-      setresult(resultadosBusqueda);
+      setSugerencias(UpperCaseJuegos);
+      setresult(ResultadoParaUpperCase);
     }
   };
-
+  console.log(result);
   useEffect(() => {
     a();
     getGames();
@@ -198,38 +207,9 @@ const Header = () => {
                     placeholder="Que tienes ganas de jugar hoy?"
                     className="me-2"
                     aria-label="Search"
-                    style={{ position: "absolute" }}
                     onChange={SearchGames}
                   />
-                  {sugerencias == "" ? (
-                    <Dropdown className="me-2" variant="outline-light">
-                      No hay resultado de : {search}
-                    </Dropdown>
-                  ) : (
-                    sugerencias.map((item, i) => (
-                      <Nav>
-                        <Form>
-                          <Col>
-                            <Dropdown
-                              id="dropdown-menu-align-start"
-                              className="me-2"
-                              variant="outline-light"
-                              style={{
-                                border: "0",
-                                color: "white",
-                              }}
-                            >
-                              <Dropdown.Item>
-                                <Link to={`/GamesShow/${item.id}`}>
-                                  {item.juego}
-                                </Link>
-                              </Dropdown.Item>
-                            </Dropdown>
-                          </Col>
-                        </Form>
-                      </Nav>
-                    ))
-                  )}
+
                   <Link to={`/SearchPage/${search}`}>
                     <Button variant="outline-light" type="submit">
                       <Search />
@@ -238,7 +218,20 @@ const Header = () => {
                 </Form>
               </Nav>
             )}
-
+            <Container>
+              {sugerencias == "" ? (
+                <Dropdown className="me-2" variant="outline-light">
+                  No hay resultado de : {search}
+                </Dropdown>
+              ) : (
+                sugerencias.map((item, i) => (
+                  <Dropdown key={i} className="mpg" variant="outline-light">
+                    {item}
+                    <Link to={`/GamesShow/${item}`}></Link>
+                  </Dropdown>
+                ))
+              )}
+            </Container>
             <Container style={{ justifyContent: "right" }}>
               <Row>
                 {cua ? (

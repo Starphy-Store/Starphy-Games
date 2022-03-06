@@ -90,6 +90,7 @@ export default function DevRegister() {
       setPerfiles(items);
     });
   };
+  console.log(filtradoNombre);
 
   async function RegisterDev(event) {
     const form = event.currentTarget;
