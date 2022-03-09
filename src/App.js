@@ -10,20 +10,17 @@ import CreatePass from "./LoginPage/CreatePassword.js";
 import Register from "./RegisterPage/Register.js";
 import Error404 from "./pages/Error404";
 import GamesShow from "./GamesShow/GamesShow";
-import CardStyle from "../src/Components/Cards/CardStyle";
 import Payment from "../src/Payment/PayCheckout";
 import DataIndex from "../src/DataIndex/DataIndex";
 import Library from "./Library/Library";
 import EditProfile from "./EditProfile/EditProfile";
 import DevProfile from "../src/DevProfile/DevProfile";
-import CardsBacanas from "../src/Components/CardsBacanas/CardsBacanas";
 import DevRegister from "../src/DevRegister/DevRegister";
 import Editdevprofile from "../src/EditDevProfile/EditDevProfile.js";
 import DownloadGame from "../src/DownloadGame/DownloadGame";
 import SearchPage from "../src/SearchPage/SearchPage";
 import UploadGame from "../src/UploadGame/UploadGame.js";
 import SendEmail from "./SendEmail/SendEmail";
-import BillPayment from "./Payment/BillPayment";
 import AboutUs from "./AboutUs/AboutUs";
 import TerminosyCondiciones from "./LegalAdvertisement/TerminosyCondiciones";
 import CategorySection from "./CategorySection/CategorySection";
@@ -113,7 +110,6 @@ function App() {
         )}
         <Route path="/Home" element={<Home />} />
         <Route path="/UsoDeSusDatos" element={<UsoDeSusDatos />} />
-        <Route path="/BillPayment" element={<BillPayment />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
         <Route path="/CreatePassword" element={<CreatePass />} />

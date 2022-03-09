@@ -120,7 +120,9 @@ export default function EditProfile() {
   };
 
   onAuthStateChanged(auth, (user) => {
-    setId(user.uid);
+    if (user.uid) {
+      setId(user.uid);
+    }
   });
   async function EditarPerfil() {
     const ref = doc(db, "users", id);
