@@ -25,7 +25,8 @@ export default function Footer() {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+        const { videojuego, ...rest } = doc.data();
+        items.push({ ...rest });
       });
       const randomGame = [items[Math.floor(Math.random() * items.length)]];
       setJuegos(randomGame);
@@ -56,7 +57,7 @@ export default function Footer() {
                       </a>
                     </li>
                     <li>
-                      <a href="#!" style={{ color: "white" }}>
+                      <a href="/UsoDeSusDatos" style={{ color: "white" }}>
                         Uso de su información
                       </a>
                     </li>

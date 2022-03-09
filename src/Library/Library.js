@@ -32,7 +32,9 @@ function Library() {
 
   function getUser() {
     onAuthStateChanged(auth, (user) => {
-      setId(user.uid);
+      if (user.uid == null) {
+        setId(user.uid);
+      }
     });
   }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../Components/Nav/Header";
 import { Form, Container, Col, Button, Row } from "react-bootstrap";
 import { useParams } from "react-router";
-import { collection, query, updateDoc } from "firebase/firestore";
+import { collection, getDoc, query, updateDoc } from "firebase/firestore";
 import { getFirestore, onSnapshot, doc } from "firebase/firestore";
 import firebase2 from "../Home/Firebase2";
 import ProfilePicture from "../Assets/icon.png";
@@ -15,6 +15,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import Footer from "../Footer/Footer";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -31,16 +32,22 @@ const auth = getAuth(app);
 const db = getFirestore(firebase2);
 
 export default function Editdevprofile() {
-  const [perfil, setPerfil] = useState([]);
-  const [id, setId] = useState([]);
+  toast.configure();
+  const [perfil, setPerfil] = useState({});
+  const [id, setId] = useState("");
+
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
 
-  const filtradoPerfil = perfil.filter((x) => x.rol == "dev");
-  const filterid = filtradoPerfil.filter((x) => x.uid == id);
-  const filterpass = filterid.map((x) => x.pass);
+  console.log(perfil);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setId(user.uid);
+    }
+  });
 
   const SendEmail = function (e) {
     e.preventDefault();
@@ -62,7 +69,7 @@ export default function Editdevprofile() {
         // ..
       })
       .catch((error) => {
-        toast.warning("NOOO", {
+        toast.warning("Ha ocurrido un error", {
           icon: "👾",
           position: "top-right",
           autoClose: 5000,
@@ -80,29 +87,21 @@ export default function Editdevprofile() {
   };
 
   async function devedit() {
-    const ref = query(collection(db, "users"));
+    const ref = doc(db, "users", id);
 
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+      getDoc(ref, id).then((data) => {
+        const { ...rest } = data.data();
+
+        setPerfil({ ...rest });
       });
-      setPerfil(items);
-    });
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setId(item);
-      }
     });
   }
 
   const EmailOnSubmit = (e) => {
     e.preventDefault();
 
-    if (password == filterpass) {
+    if (password == perfil.pass) {
       updateEmail(auth.currentUser.email, email)
         .then(() => {
           updateDoc(doc(db, "users", auth.currentUser.uid), {
@@ -140,11 +139,22 @@ export default function Editdevprofile() {
           // ...
         });
     } else {
+      toast.success("La contraseña no coincide", {
+        icon: "📨",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "dark-toast",
+      });
     }
   };
   useEffect(() => {
     devedit();
-  }, []);
+  }, [id]);
 
   const updateUsername = function (event) {
     setUsername(event.target.value);
@@ -164,82 +174,81 @@ export default function Editdevprofile() {
         <h1 className="pb-5">Edita tu perfil de desarrollador</h1>
       </Container>
 
-      {filterid.map((item) => (
-        <Container className="pt-5" style={{ color: "white" }}>
-          <Row>
-            <Col md={5}>
-              <Form onSubmit={EmailOnSubmit}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Editar nombre de desarrollador/a</Form.Label>
-                  <Form.Control
-                    onChange={updateUsername}
-                    type="text"
-                    placeholder={item.name}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Editar correo</Form.Label>
-                  <Form.Control
-                    onChange={updateEmail}
-                    type="email"
-                    placeholder={item.email}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Email incorrecto
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Contraseña para cambiar correo</Form.Label>
-                  <Form.Control
-                    onChange={updatePassword}
-                    type="password"
-                    placeholder="********"
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Contraseña Incorrecta
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Editar contraseña</Form.Label>
-                  <Button
-                    onClick={SendEmail}
-                    variant="outline-light"
-                    className="boton"
-                    type="submit"
-                  >
-                    Enviar correo para cambiar contraseña
-                  </Button>
-                </Form.Group>
-                <Form.Text className="text-muted">
-                  Nunca compartiremos tus credenciales con nadie .
-                </Form.Text>
-                <p />
-                <Button variant="primary" type="submit" className="mb-5">
-                  Guardar
-                </Button>
-              </Form>
-            </Col>
-            <Col md={1}></Col>
-            <Col md={5}>
-              <img
-                src={item.photoProfile}
-                style={{
-                  width: "250px",
-                  height: "auto",
-                  maxHeight: "250px",
-                  borderRadius: "20px",
-                }}
-              ></img>
-              <Form.Group controlId="formFile" className="mb-3 ">
-                <Form.Label className="pl-3 pt-3">
-                  Selecciona la nueva foto de tu desarrolladora
-                </Form.Label>
-                <Form.Control type="file" />
+      <Container className="pt-5" style={{ color: "white" }}>
+        <Row>
+          <Col md={5}>
+            <Form onSubmit={EmailOnSubmit}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Editar nombre de desarrollador/a</Form.Label>
+                <Form.Control
+                  onChange={updateUsername}
+                  type="text"
+                  placeholder={perfil.name}
+                />
               </Form.Group>
-            </Col>
-          </Row>
-        </Container>
-      ))}
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Editar correo</Form.Label>
+                <Form.Control
+                  onChange={updateEmail}
+                  type="email"
+                  placeholder={perfil.email}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Email incorrecto
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Contraseña para cambiar correo</Form.Label>
+                <Form.Control
+                  onChange={updatePassword}
+                  type="password"
+                  placeholder="********"
+                />
+                <Form.Control.Feedback type="invalid">
+                  Contraseña Incorrecta
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Editar contraseña</Form.Label>
+                <Button
+                  onClick={SendEmail}
+                  variant="outline-light"
+                  className="boton"
+                  type="submit"
+                >
+                  Enviar correo para cambiar contraseña
+                </Button>
+              </Form.Group>
+              <Form.Text className="text-muted">
+                Nunca compartiremos tus credenciales con nadie .
+              </Form.Text>
+              <p />
+              <Button variant="primary" type="submit" className="mb-5">
+                Guardar
+              </Button>
+            </Form>
+          </Col>
+          <Col md={1}></Col>
+          <Col md={5}>
+            <img
+              src={perfil.photoProfile}
+              style={{
+                width: "250px",
+                height: "auto",
+                maxHeight: "250px",
+                borderRadius: "20px",
+              }}
+            ></img>
+            <Form.Group controlId="formFile" className="mb-3 ">
+              <Form.Label className="pl-3 pt-3">
+                Selecciona la nueva foto de tu desarrolladora
+              </Form.Label>
+              <Form.Control type="file" />
+            </Form.Group>
+          </Col>
+        </Row>
+      </Container>
+      <Footer />
     </>
   );
 }

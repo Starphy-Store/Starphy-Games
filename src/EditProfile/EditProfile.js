@@ -23,6 +23,7 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import "../EditProfile/editprofile.css";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "../Footer/Footer";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -182,6 +183,7 @@ export default function EditProfile() {
         </Col>
         <Col md={8}></Col>
       </Container>
+      <Footer />
     </>
   );
 }

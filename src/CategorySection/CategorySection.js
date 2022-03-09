@@ -18,18 +18,10 @@ import firebase2 from "../Home/Firebase2.js";
 const db = getFirestore(firebase2);
 export default function CategorySection() {
   const { Cooperativo } = useParams();
-  const { categoria2 } = useParams();
-  const { categoria3 } = useParams();
+
   const [game, setGame] = useState([]);
 
-  const filtros = game.filter((x) => x.esunjuego == "si");
-
-  const filteronline = filtros.filter((x) => {
-    if (x.categoria1 == "Online") return true;
-    if (x.categoria2 == "Online") return true;
-    if (x.categoria3 == "Online") return true;
-  });
-  const filtercoop = filtros.filter((x) => {
+  const filtercoop = game.filter((x) => {
     if (x.categoria1 == Cooperativo) return true;
     if (x.categoria2 == Cooperativo) return true;
     if (x.categoria3 == Cooperativo) return true;
@@ -41,7 +33,9 @@ export default function CategorySection() {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data(), doc.id);
+        const { videojuego, esunjuego, imagenjuego, imagenjuego2, ...rest } =
+          doc.data();
+        items.push({ ...rest, id: doc.id });
       });
 
       setGame(items);
@@ -51,8 +45,8 @@ export default function CategorySection() {
     getGames();
   }, []);
   function dollarsign(input) {
-    if (input == "Gratis") {
-      return input;
+    if (input == 0) {
+      return "Gratis";
     } else {
       return "$" + input;
     }

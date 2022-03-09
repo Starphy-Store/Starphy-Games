@@ -20,9 +20,7 @@ export default function CategorySection() {
   const { Simulacion } = useParams();
   const [game, setGame] = useState([]);
 
-  const filtros = game.filter((x) => x.esunjuego == "si");
-
-  const filterSimulacion = filtros.filter((x) => {
+  const filterSimulacion = game.filter((x) => {
     if (x.categoria1 == Simulacion) return true;
     if (x.categoria2 == Simulacion) return true;
     if (x.categoria3 == Simulacion) return true;
@@ -34,9 +32,10 @@ export default function CategorySection() {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data(), doc.id);
+        const { videojuego, esunjuego, imagenjuego, imagenjuego2, ...rest } =
+          doc.data();
+        items.push({ ...rest, id: doc.id });
       });
-
       setGame(items);
     });
   }
@@ -45,8 +44,8 @@ export default function CategorySection() {
   }, []);
 
   function dollarsign(input) {
-    if (input == "Gratis") {
-      return input;
+    if (input == 0) {
+      return "Gratis";
     } else {
       return "$" + input;
     }

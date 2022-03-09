@@ -110,38 +110,35 @@ const Header = () => {
   //barra de busqueda
   const SearchGames = (e) => {
     e.preventDefault();
-
     setsearch(e.target.value);
+    const cadena = e.target.value.toLowerCase();
 
-    filterData(e.target.value);
-  };
+    let tmpArray = [];
+    const limite = juegos.length;
 
-  const filterData = (search) => {
-    var resultadosBusqueda = juegos.filter((x) => {
-      if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
-        return x.juego.charAt(0).toUpperCase() + x.juego.slice();
+    for (let index = 0; index < limite; index++) {
+      const nombres = juegos[index].juego
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      const patt = new RegExp(cadena);
+      const res = patt.test(nombres);
+      if (res) {
+        tmpArray.push(juegos[index]);
       }
-    });
+    }
 
-    var ResultadoParaUpperCase = juegos.filter((x) => {
-      if (x.juego.toString().toLowerCase().includes(search.toLowerCase())) {
-        return x;
-      }
-    });
-
-    const UpperCaseJuegos = ResultadoParaUpperCase.map(
+    const UpperCaseJuegos = tmpArray.map(
       (Nombre) => Nombre.juego.charAt(0).toUpperCase() + Nombre.juego.slice(1)
     );
-
-    console.log(UpperCaseJuegos);
-    if (search === "") {
+    if (cadena == "") {
       setresult([]);
     } else {
+      setresult(tmpArray);
       setSugerencias(UpperCaseJuegos);
-      setresult(ResultadoParaUpperCase);
     }
   };
-  console.log(result);
+  console.log(sugerencias);
   useEffect(() => {
     a();
     getGames();
@@ -219,16 +216,18 @@ const Header = () => {
               </Nav>
             )}
             <Container>
-              {sugerencias == "" ? (
-                <Dropdown className="me-2" variant="outline-light">
-                  No hay resultado de : {search}
-                </Dropdown>
+              {search == "" ? (
+                <p></p>
               ) : (
                 sugerencias.map((item, i) => (
-                  <Dropdown key={i} className="mpg" variant="outline-light">
-                    {item}
-                    <Link to={`/GamesShow/${item}`}></Link>
-                  </Dropdown>
+                  <p
+                    key={i}
+                    className="mpg"
+                    variant="outline-light"
+                    style={{ color: "white" }}
+                  >
+                    <Link to={`/SearchPage/${search}`}>{item}</Link>
+                  </p>
                 ))
               )}
             </Container>
@@ -283,8 +282,9 @@ const Header = () => {
                           </>
 
                           <Dropdown.Item eventKey="3">
-                            <Link to="/EditProfile">Tu perfil</Link>
+                            <Link to="/EditProfile">Tu perfil </Link>
                           </Dropdown.Item>
+
                           <Dropdown.Item eventKey="2">
                             <Link
                               to="/library"

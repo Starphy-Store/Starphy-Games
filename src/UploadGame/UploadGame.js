@@ -472,6 +472,8 @@ export default function UploadGame() {
                 required
                 type="number"
                 onChange={updatevalor}
+                step="0.01"
+                min="0.01"
                 value={valor}
                 placeholder="7.99$"
                 style={{ width: "100px" }}

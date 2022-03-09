@@ -27,9 +27,7 @@ import BillPayment from "./Payment/BillPayment";
 import AboutUs from "./AboutUs/AboutUs";
 import TerminosyCondiciones from "./LegalAdvertisement/TerminosyCondiciones";
 import CategorySection from "./CategorySection/CategorySection";
-import CategorySectionOnline from "./CategorySection/CategorySectionOnline";
-import CategorySectionArcade from "./CategorySection/CategorySectionArcade";
-import CategorySectionEstrategia from "./CategorySection/CategorySectionEstrategia";
+import UsoDeSusDatos from "./UsoDeSusDatos/UsoDeSusDatos";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -49,6 +47,8 @@ import {
   query,
   onSnapshot,
   collection,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -65,45 +65,32 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 function App() {
-  const [user, setuser] = useState(false);
-  const [perfil, setPerfil] = useState([]);
-  const [juego, setJuegos] = useState([]);
+  const [user, setuser] = useState("");
+  const [perfil, setPerfil] = useState({});
 
-  const filterId = perfil.filter((x) => x.uid == user);
-  const Dev = filterId.filter((x) => x.rol == "dev");
+  useEffect(() => {
+    a();
+  }, [user]);
 
-  function prueba() {
-    const ref = query(collection(db, "users"));
-    onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
-      });
-      setPerfil(items);
-    });
-
-    const refe = query(collection(db, "games"));
-    onSnapshot(refe, (querySnapshot) => {
-      const iteme = [];
-      querySnapshot.forEach((doc) => {
-        iteme.push(doc.data());
-      });
-      setJuegos(iteme);
-    });
-
+  async function a() {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setuser(item);
+      if (user == null) {
+      } else {
+        setuser(user.uid);
       }
+    });
+    const ref = await doc(db, "users", user);
+
+    onSnapshot(ref, (querySnapshot) => {
+      getDoc(ref, user).then((data) => {
+        const { FechaDeModificacion, email, photoProfile, pass, ...rest } =
+          data.data();
+
+        setPerfil({ ...rest });
+      });
     });
   }
 
-  useEffect(() => {
-    prueba();
-  }, []);
   return (
     <>
       <Routes>
@@ -125,6 +112,7 @@ function App() {
           <Route path="/LoginUser" element={<Login />} />
         )}
         <Route path="/Home" element={<Home />} />
+        <Route path="/UsoDeSusDatos" element={<UsoDeSusDatos />} />
         <Route path="/BillPayment" element={<BillPayment />} />
         <Route path="/LoginUser" element={<Login />} />
         <Route path="/RecoverPassword" element={<Recuperar />} />
@@ -147,14 +135,12 @@ function App() {
           path="/CategorySection/:Cooperativo"
           element={<CategorySection />}
         />
-        {Dev.map((item) =>
-          item.rol == "dev" ? (
-            <>
-              <Route path="/uploadgame" element={<UploadGame />} />)
-            </>
-          ) : (
-            <Route path="*" element={<Error404 />} />
-          )
+        {perfil.rol == "Dev" ? (
+          <>
+            <Route path="/uploadgame" element={<UploadGame />} />)
+          </>
+        ) : (
+          <Route path="*" element={<Error404 />} />
         )}
       </Routes>
     </>
