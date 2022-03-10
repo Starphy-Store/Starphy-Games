@@ -20,9 +20,7 @@ export default function CategorySection() {
   const { Minijuegos } = useParams();
   const [game, setGame] = useState([]);
 
-  const filtros = game.filter((x) => x.esunjuego == "si");
-
-  const filterMinijuegos = filtros.filter((x) => {
+  const filterMinijuegos = game.filter((x) => {
     if (x.categoria1 == Minijuegos) return true;
     if (x.categoria2 == Minijuegos) return true;
     if (x.categoria3 == Minijuegos) return true;
@@ -34,9 +32,10 @@ export default function CategorySection() {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data(), doc.id);
+        const { videojuego, esunjuego, imagenjuego, imagenjuego2, ...rest } =
+          doc.data();
+        items.push({ ...rest, id: doc.id });
       });
-
       setGame(items);
     });
   }
@@ -45,8 +44,8 @@ export default function CategorySection() {
   }, []);
 
   function dollarsign(input) {
-    if (input == "Gratis") {
-      return input;
+    if (input == 0) {
+      return "Gratis";
     } else {
       return "$" + input;
     }

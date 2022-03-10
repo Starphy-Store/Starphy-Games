@@ -85,12 +85,13 @@ export default function DevRegister() {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+        const { name, ...rest } = doc.data();
+        items.push({ name });
       });
+
       setPerfiles(items);
     });
   };
-  console.log(filtradoNombre);
 
   async function RegisterDev(event) {
     const form = event.currentTarget;

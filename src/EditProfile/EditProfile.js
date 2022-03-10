@@ -23,6 +23,7 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import "../EditProfile/editprofile.css";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "../Footer/Footer";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -119,7 +120,9 @@ export default function EditProfile() {
   };
 
   onAuthStateChanged(auth, (user) => {
-    setId(user.uid);
+    if (user.uid) {
+      setId(user.uid);
+    }
   });
   async function EditarPerfil() {
     const ref = doc(db, "users", id);
@@ -182,6 +185,7 @@ export default function EditProfile() {
         </Col>
         <Col md={8}></Col>
       </Container>
+      <Footer />
     </>
   );
 }
