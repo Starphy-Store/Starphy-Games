@@ -3,6 +3,7 @@ import Header from "../Components/Nav/Header";
 import { Container, Col, Card, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Footer from "../Footer/Footer";
 
 import {
   query,
@@ -54,6 +55,7 @@ export default function SearchPage() {
       return "$" + input;
     }
   }
+  console.log(filtrado2);
   return (
     <>
       <Header></Header>
@@ -62,27 +64,39 @@ export default function SearchPage() {
           Resultados de: {search}
         </h6>
       </Container>
-      <Container className="d-flex">
-        {filtrado2.map((item) => (
-          <Link to={`/GamesShow/${item.juego}`} className="w-25">
-            <Container key={item.id} fluid>
-              <Row>
-                <Col>
-                  <div className="profile-card-2 ">
-                    <img src={item.imagenportada} className="img-responsive" />
-                    <div className="background "></div>
-                    <div className="profile-name">{truncate(item.juego)}</div>
-                    <div className="profile-username">{item.creator}</div>
-                    <div className="profile-icons">
-                      <h5>{dollarsign(item.precio)}</h5>
+      {filtrado2 == 0 ? (
+        <Container>
+          <h4 style={{ color: "white" }} className="pt-3">
+            Lo sentimos no se han encontrado resultados...
+          </h4>
+        </Container>
+      ) : (
+        <Container className="d-flex">
+          {filtrado2.map((item) => (
+            <Link to={`/GamesShow/${item.juego}`} className="w-25">
+              <Container key={item.id} fluid>
+                <Row>
+                  <Col>
+                    <div className="profile-card-2 ">
+                      <img
+                        src={item.imagenportada}
+                        className="img-responsive"
+                      />
+                      <div className="background "></div>
+                      <div className="profile-name">{truncate(item.juego)}</div>
+                      <div className="profile-username">{item.creator}</div>
+                      <div className="profile-icons">
+                        <h5>{dollarsign(item.precio)}</h5>
+                      </div>
                     </div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Link>
-        ))}
-      </Container>
+                  </Col>
+                </Row>
+              </Container>
+            </Link>
+          ))}
+        </Container>
+      )}
+      <Footer style={{ position: "static" }}></Footer>
     </>
   );
 }

@@ -45,6 +45,7 @@ export default function UploadGame() {
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState(0);
   const [peso, setPeso] = useState("");
+  toast.configure();
 
   const [id, setId] = useState("");
   const [Juegos, setJuegos] = useState([]);
@@ -256,6 +257,7 @@ export default function UploadGame() {
         progress: undefined,
         className: "dark-toast",
       });
+
       addDoc(collection(db, "games"), {
         descrip: Des,
         juego: game,
@@ -273,6 +275,9 @@ export default function UploadGame() {
         correopay: correopay,
         almacenamiento: peso,
       });
+      setTimeout(() => {
+        navigate("/Home");
+      }, 5000);
     }
   }
 
@@ -605,8 +610,11 @@ export default function UploadGame() {
                     </Carousel.Item>
                   )}
                 </Carousel>
+                <h4 style={{ color: "white" }}>
+                  Implementar videos de Youtube
+                </h4>
                 <ReactPlayer
-                  url="https://www.youtube.com/watch?v=V7IUtUsfARA"
+                  url="https://youtu.be/p7dqmROKGIo"
                   width="120%"
                   height="40%"
                 />

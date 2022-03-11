@@ -33,7 +33,7 @@ export default function DevProfile() {
 
     onSnapshot(ref, (querySnapshot) => {
       getDoc(ref, idprofile).then((data) => {
-        const { pass, email, uid, FechaDeModificacion, ...rest } = data.data();
+        const { pass, email, FechaDeModificacion, ...rest } = data.data();
 
         setPerfil({ ...rest });
       });

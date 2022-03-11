@@ -97,9 +97,7 @@ function UsoDeSusDatos() {
           ¿Quién es el responsable del tratamiento de tus datos personales?
         </h2>
         <p></p>
-        <h6 style={{ color: "white", textAlign: "center" }}>
-          Leo e Ian en la india
-        </h6>
+        <h6 style={{ color: "white", textAlign: "center" }}>Starphy</h6>
       </Container>
       <Footer />
     </div>
