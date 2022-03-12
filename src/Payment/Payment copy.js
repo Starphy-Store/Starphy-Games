@@ -60,8 +60,6 @@ export default function Payment() {
   );
   const mapjuegos = maphistory.map((x) => x.juegoscomprado);
 
-  console.log(mapeadogame);
-
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal
@@ -130,7 +128,7 @@ export default function Payment() {
       setHistorial(FilterHistory);
     });
   }
-  console.log(historial);
+
   const modaltrue = () => {
     if (mapjuegos.includes(mapeadogame.toString())) {
       toast.error("Juego Ya Comprado 👌", {

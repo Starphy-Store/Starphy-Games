@@ -33,6 +33,7 @@ import firebase2 from "../../Home/Firebase2";
 import { event } from "jquery";
 import investigacion from "../../Assets/investigacion.png";
 import { Search, PeopleCircle } from "react-bootstrap-icons";
+import HeaderCategorias from "./HeaderCategorias";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -138,7 +139,7 @@ const Header = () => {
       setSugerencias(UpperCaseJuegos);
     }
   };
-  console.log(sugerencias);
+
   useEffect(() => {
     a();
     getGames();
@@ -353,6 +354,7 @@ const Header = () => {
               </Row>
             </Container>
           </Navbar.Collapse>
+          <HeaderCategorias />
         </Container>
       </Navbar>
     </div>

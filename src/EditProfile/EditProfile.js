@@ -95,7 +95,7 @@ export default function EditProfile() {
   }
 
   const tmpDate = new Date();
-  console.log(name.FechaDeModificacion);
+
   const GuardarCambios = async function (e) {
     e.preventDefault();
 

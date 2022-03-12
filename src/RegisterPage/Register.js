@@ -63,7 +63,7 @@ function Register() {
   const [validarName, setValidarName] = useState([]);
   const [emailReg, setEmailReg] = useState("");
   const [id, setId] = useState("");
-  console.log(usernameReg);
+
   function getId() {
     onAuthStateChanged(auth, (user) => {
       if (user == null) {

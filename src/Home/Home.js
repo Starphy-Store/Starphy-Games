@@ -148,7 +148,7 @@ const Home = () => {
   useEffect(() => {
     getGames();
   }, []);
-  console.log(game);
+
   function dollarsign(input) {
     if (input == 0) {
       return "Gratis";
