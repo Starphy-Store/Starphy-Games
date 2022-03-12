@@ -87,7 +87,7 @@ const SecundaryImgs = () => {
     let PesoSimbolo;
     if (juego.almacenamiento <= 1000000) {
       PesoGame = juego.almacenamiento / 1000;
-      PesoSimbolo = " No sirve tu juego";
+      PesoSimbolo = " Ocupa muy poco";
     } else if (
       juego.almacenamiento >= 1000000 &&
       juego.almacenamiento <= 1000000000

@@ -131,7 +131,7 @@ function App() {
           path="/CategorySection/:Cooperativo"
           element={<CategorySection />}
         />
-        {perfil.rol == "Dev" ? (
+        {perfil.rol == "dev" ? (
           <>
             <Route path="/uploadgame" element={<UploadGame />} />)
           </>

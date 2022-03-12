@@ -197,7 +197,7 @@ const Header = () => {
                 <Form
                   onSubmit={SearchGames}
                   className="d-flex"
-                  style={{ width: "756px" }}
+                  style={{ width: "500px" }}
                 >
                   <FormControl
                     type="search"
@@ -215,22 +215,7 @@ const Header = () => {
                 </Form>
               </Nav>
             )}
-            <Container>
-              {search == "" ? (
-                <p></p>
-              ) : (
-                sugerencias.map((item, i) => (
-                  <p
-                    key={i}
-                    className="mpg"
-                    variant="outline-light"
-                    style={{ color: "white" }}
-                  >
-                    <Link to={`/SearchPage/${search}`}>{item}</Link>
-                  </p>
-                ))
-              )}
-            </Container>
+
             <Container style={{ justifyContent: "right" }}>
               <Row>
                 {cua ? (
@@ -282,7 +267,7 @@ const Header = () => {
                           </>
 
                           <Dropdown.Item eventKey="3">
-                            <Link to="/EditProfile">Tu perfil </Link>
+                            <Link to="/EditDevProfile">Editar perfil </Link>
                           </Dropdown.Item>
 
                           <Dropdown.Item eventKey="2">
