@@ -27,7 +27,7 @@ function GamesCarousel() {
       getDoc(ref, id).then((data) => {
         const { videojuego, ...rest } = data.data();
         const juego = rest;
-        console.log(juego);
+
         setGame({ ...juego, id });
       });
     });

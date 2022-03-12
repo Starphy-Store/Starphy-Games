@@ -46,11 +46,11 @@ function Library() {
         const { idusuariocompra, juegoscomprado } = doc.data();
         return { idusuariocompra, juegoscomprado };
       });
-      console.log(JuegosComprados);
+
       const FiltradoJuegos = JuegosComprados.filter(
         (juegos) => juegos.idusuariocompra == id
       );
-      console.log(FiltradoJuegos);
+
       setJuegobuy(FiltradoJuegos);
     });
   }
@@ -81,7 +81,7 @@ function Library() {
       const FilterGames = AllGames.filter((x) =>
         Mapeado.some((m) => x.juego === m)
       );
-      console.log(juegosbuy);
+
       setJuegos(FilterGames);
     });
   }

@@ -55,7 +55,7 @@ export default function SearchPage() {
       return "$" + input;
     }
   }
-  console.log(filtrado2);
+
   return (
     <>
       <Header></Header>

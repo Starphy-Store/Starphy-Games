@@ -41,8 +41,6 @@ export default function Editdevprofile() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
 
-  console.log(perfil);
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setId(user.uid);

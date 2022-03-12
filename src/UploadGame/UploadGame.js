@@ -65,7 +65,7 @@ export default function UploadGame() {
   const [isLoading, setIsLoading] = useState(null);
 
   const [nombrecreador, setnombrecreador] = useState({});
-  console.log(id);
+
   onAuthStateChanged(auth, (user) => {
     setId(user.uid);
   });
@@ -229,7 +229,6 @@ export default function UploadGame() {
     });
   };
 
-  console.log(Juegos);
   async function CrearJuego(event) {
     event.preventDefault();
 
@@ -244,7 +243,6 @@ export default function UploadGame() {
         progress: undefined,
         className: "dark-toast",
       });
-      console.log("Mismo");
     } else {
       toast.success("Juego creado", {
         icon: "📨",

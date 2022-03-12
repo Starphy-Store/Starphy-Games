@@ -25,8 +25,6 @@ export default function DevProfile() {
   const filtrarJuego = juego.filter((x) => x.idprofile == idprofile);
   const contador = filtrarJuego.length;
 
-  console.log(contador);
-
   function DevPerfil() {
     const refgames = query(collection(db, "games"));
     const ref = doc(db, "users", idprofile);

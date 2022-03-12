@@ -26,11 +26,10 @@ function Slider() {
     const ref = doc(db, "games", id);
 
     onSnapshot(ref, (querySnapshot) => {
-      getDoc(ref, id).then((data) => {
-        const { videojuego, ...rest } = data.data();
-        const juego = rest;
+      getDoc(ref, id).then((doc) => {
+        const { videojuego, ...rest } = doc.data();
 
-        setGame({ ...juego, id });
+        setGame({ ...rest, id });
       });
     });
   }
