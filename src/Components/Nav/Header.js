@@ -354,7 +354,6 @@ const Header = () => {
               </Row>
             </Container>
           </Navbar.Collapse>
-          <HeaderCategorias />
         </Container>
       </Navbar>
     </div>
