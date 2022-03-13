@@ -20,12 +20,12 @@ function SliderDelHome() {
         className="carousel-inner"
       >
         <Carousel.Item>
-          <div className="carouselitem1">
+          {/* <div className="carouselitem1">
             <Container>
               <h1>PayDay 2</h1>
               <p style={{ textAlign: "center" }}>Agua</p>
             </Container>
-          </div>
+          </div> */}
           <img
             className="d-block"
             src={payday2}
@@ -34,13 +34,13 @@ function SliderDelHome() {
           />
         </Carousel.Item>
         <Carousel.Item>
-          <div className="carouselitem1">
+          <{/* div className="carouselitem1">
             <Container style={{ width: "1000px" }}>
               <h1>Among us</h1>
               <p style={{ textAlign: "center" }}>Publicalos</p>
             </Container>
-          </div>
-          <img
+          </div> */} 
+          <img 
             className="d-block"
             src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Publica%20tus%20juegos%20gratis%20(1).png?alt=media&token=17af5675-45b7-4e7b-858e-70f5fbb6b3d1"
             alt="Second slide"
@@ -48,12 +48,12 @@ function SliderDelHome() {
           />
         </Carousel.Item>
         <Carousel.Item>
-          <div className="carouselitem1">
+          {/* <div className="carouselitem1">
             <Container style={{ width: "1000px" }}>
               <h1>The Witcher 3: Wild Hunter</h1>
               <p style={{ textAlign: "center" }}>aaa 🐱‍🚀</p>
             </Container>
-          </div>
+          </div> */}
           <img
             className="d-block"
             src={thewitcher}
