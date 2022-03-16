@@ -348,7 +348,6 @@ export default function UploadGame() {
     setcategoria3(event.target.value);
   };
 
-  //prueba
   function dollarsign(input) {
     if (input == 0) {
       return "Gratis";
