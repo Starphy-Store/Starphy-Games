@@ -54,20 +54,13 @@ function Slider() {
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
-          ></iframe>
-          {/* <img
-              className="d-block w-100 h-70"
-              src={item.imagenjuego}
-              className="sliderImg"
-              alt="First slide"
-            /> */}
+          />
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100 h-70"
             src={game.imagenjuego}
             alt="Second slide"
-            className="sliderImg"
           />
         </Carousel.Item>
         <Carousel.Item>
@@ -75,10 +68,9 @@ function Slider() {
             className="d-block w-100 h-70"
             src={game.imagenjuego2}
             alt="Second slide"
-            className="sliderImg"
           />
         </Carousel.Item>
-        4{" "}
+        4
       </Carousel>
     </div>
   );

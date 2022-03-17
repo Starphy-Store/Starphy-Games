@@ -70,6 +70,7 @@ function Library() {
           precio,
           correopay,
           almacenamiento,
+          videojuego,
 
           ...rest
         } = doc.data();
