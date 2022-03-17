@@ -29,7 +29,7 @@ const db = getFirestore(firebase2);
 const SecundaryImgs = () => {
   const { id } = useParams();
   const [user, setuser] = useState(false);
-  const [perfiluser, setPerfiluser] = useState([]);
+
   toast.configure();
   const [game, setGame] = useState({});
   const [estrellas, setEstrellas] = useState(0);
@@ -47,24 +47,13 @@ const SecundaryImgs = () => {
       });
     });
 
-    onSnapshot(refe, (querySnapshot) => {
-      const item = [];
-      querySnapshot.forEach((doc) => {
-        item.push(doc.data());
-      });
-      setPerfiluser(item);
-    });
-
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setuser(item);
+        setuser(user.uid);
       }
     });
   }
-
+  console.log(id);
   const SendRatingDB = () => {
     if (auth.currentUser == null) {
       toast.error("Crea una cuenta para valorarlo", {
@@ -164,7 +153,7 @@ const SecundaryImgs = () => {
                   <h4>{dollarsign(game.precio)}</h4>
 
                   {user ? (
-                    <Link to={`/payment/${game.juego}`}>
+                    <Link to={`/payment/${id}`}>
                       <Button
                         variant="light"
                         size="lg"

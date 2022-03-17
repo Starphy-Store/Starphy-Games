@@ -34,11 +34,13 @@ export default function Payment() {
   toast.configure();
   const [modalShow, setModalShow] = React.useState(false);
   const { id } = useParams();
-  const navigate = useNavigate();
+
   const [game, setGame] = useState([]);
 
   const [iduser, setId] = useState("");
   const [historial, setHistorial] = useState([]);
+
+  console.log(game.precio);
 
   useEffect(() => {
     getGames();
@@ -51,8 +53,6 @@ export default function Payment() {
   });
 
   //Juego
-  const mapprecio = game.map((x) => x.precio);
-  const mapeadogame = game.map((x) => x.juego);
 
   //Historial
   const maphistory = historial.filter((x) =>
@@ -91,13 +91,12 @@ export default function Payment() {
   }
 
   async function getGames() {
-    const ref = query(collection(db, "games"));
+    const ref = doc(db, "games", id);
 
     const refere = query(collection(db, "juegoscomprados"));
 
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
+      getDoc(ref, id).then((data) => {
         const {
           videojuego,
           imagenjuego2,
@@ -108,12 +107,10 @@ export default function Payment() {
           categoria2,
           categoria3,
           ...rest
-        } = doc.data();
-        items.push({ ...rest });
-      });
-      const FilterGame = items.filter((x) => x.juego == id);
+        } = data.data();
 
-      setGame(FilterGame);
+        setGame({ ...rest });
+      });
     });
 
     onSnapshot(refere, (querySnapshot) => {
@@ -130,7 +127,7 @@ export default function Payment() {
   }
 
   const modaltrue = () => {
-    if (mapjuegos.includes(mapeadogame.toString())) {
+    if (mapjuegos.includes(game.juego)) {
       toast.error("Juego Ya Comprado 👌", {
         position: "top-right",
         autoClose: 5000,
@@ -142,28 +139,26 @@ export default function Payment() {
         className: "dark-toast",
       });
     } else {
-      game.map((item) =>
-        addDoc(collection(db, "juegoscomprados"), {
-          juegoscomprado: item.juego,
-          idusuariocompra: iduser,
-          preciodeljuego: item.precio,
-          enviarpago: item.idprofile,
-          nombrecreador: item.creator,
-        })
-      );
+      addDoc(collection(db, "juegoscomprados"), {
+        juegoscomprado: game.juego,
+        idusuariocompra: iduser,
+        preciodeljuego: game.precio,
+        enviarpago: game.idprofile,
+        nombrecreador: game.creator,
+      });
     }
   };
 
-  if (mapjuegos.includes(mapeadogame.toString())) {
+  if (mapjuegos.includes(game.juego)) {
     return (
       <Container>
         <p></p>
         <Button variant="success" size="lg" style={{ width: "90%" }}>
-          Ya lo tienes
+          Lo tienes en la biblioteca
         </Button>
       </Container>
     );
-  } else if (mapprecio.includes(0)) {
+  } else if (game.precio == 0) {
     return (
       <Button
         onClick={modaltrue}
@@ -185,40 +180,38 @@ export default function Payment() {
       <PayPalScriptProvider
         options={{ "client-id": process.env.REACT_APP_APIPAYPAL }}
       >
-        {game.map((item) => (
-          <PayPalButtons
-            style={{
-              layout: "vertical",
-            }}
-            disabled={false}
-            createOrder={(data, actions) => {
-              return actions.order.create({
-                purchase_units: [
-                  {
-                    amount: {
-                      currency_code: "USD",
-                      value: item.precio,
-                    },
+        <PayPalButtons
+          style={{
+            layout: "vertical",
+          }}
+          disabled={false}
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    currency_code: "USD",
+                    value: game.precio,
                   },
-                ],
-              });
-            }}
-            onApprove={(data, actions) => {
-              return actions.order.capture().then((details) => {
-                const name = details.payer.name.given_name;
-                setModalShow(true);
+                },
+              ],
+            });
+          }}
+          onApprove={(data, actions) => {
+            return actions.order.capture().then((details) => {
+              const name = details.payer.name.given_name;
+              setModalShow(true);
 
-                addDoc(collection(db, "juegoscomprados"), {
-                  juegoscomprado: item.juego,
-                  idusuariocompra: iduser,
-                  preciodeljuego: item.precio,
-                  enviarpago: item.idprofile,
-                  nombrecreador: item.creator,
-                });
+              addDoc(collection(db, "juegoscomprados"), {
+                juegoscomprado: game.juego,
+                idusuariocompra: iduser,
+                preciodeljuego: game.precio,
+                enviarpago: game.idprofile,
+                nombrecreador: game.creator,
               });
-            }}
-          />
-        ))}
+            });
+          }}
+        />
       </PayPalScriptProvider>
     </>
   );
