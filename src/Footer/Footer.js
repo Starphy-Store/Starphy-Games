@@ -79,7 +79,7 @@ export default function Footer() {
 
                 <a style={{ color: "white" }} href={`/GamesShow/${item.id}`}>
                   <p>
-                    Haz click aqui para ir a un juego aleatorio{" "}
+                    Haz click aqui para ir a un juego aleatorio
                     <ArrowClockwise />
                   </p>
                 </a>

@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   Drawer,
@@ -38,70 +39,71 @@ function HeaderCategorias() {
           </DrawerHeader>
 
           <DrawerBody>
-            <Container textAlign="right" p="6">
+            <Container textAlign="right" p="10">
               <a href="/CategorySection/Acción">
-                <Text fontSize="2xl">Acción 🛸</Text>
+                <Text fontSize="xl">Acción 🛸</Text>
               </a>
+
               <a href="/CategorySection/Cooperativo">
-                <h4>Cooperativo 🐱‍🐉</h4>
+                <Text fontSize="xl">Cooperativo 🐱‍🐉</Text>
               </a>
               <a href={`/CategorySection/Online`}>
-                <h4>Online 🤼‍♂️</h4>
+                <Text fontSize="xl">Online 🤼‍♂️</Text>
               </a>
               <a href="/CategorySection/Arcade">
-                <h4>Arcade 🎮</h4>
+                <Text fontSize="xl">Arcade 🎮</Text>
               </a>
               <a href="/CategorySection/Estrategia">
-                <h4>Estrategia 🌌</h4>
+                <Text fontSize="xl">Estrategia 🌌</Text>
               </a>
               <a href="/CategorySection/BattleRoyale">
-                <h4>Battle Royale 🪓</h4>
+                <Text fontSize="xl">Battle Royale 🪓</Text>
               </a>
               <a href="/CategorySection/Puzzle">
-                <h4>Puzzle 🧩</h4>
+                <Text fontSize="xl">Puzzle 🧩</Text>
               </a>
               <a href="/CategorySection/AgilidadMental">
-                <h4>Agilidad Mental 🧠</h4>
+                <Text fontSize="xl">Agilidad Mental 🧠</Text>
               </a>
               <a href="/CategorySection/Carreras">
-                <h4>Carreras 🚦</h4>
+                <Text fontSize="xl">Carreras 🚦</Text>
               </a>
               <a href="/CategorySection/Lucha">
-                <h4>Lucha 👊</h4>
+                <Text fontSize="xl">Lucha 👊</Text>
               </a>
 
               <a href="/CategorySection/Shooter">
-                <h4>Shooter 🎯</h4>
+                <Text fontSize="xl">Shooter 🎯</Text>
               </a>
               <a href="/CategorySection/Sigilo">
-                <h4>Sigilo 🐱‍👤</h4>
+                <Text fontSize="xl">Sigilo 🐱‍👤</Text>
               </a>
               <a href="/CategorySection/Terror">
-                <h4>Terror 👻</h4>
+                <Text fontSize="xl">Terror 👻</Text>
               </a>
               <a href="/CategorySection/MOBA">
-                <h4>MOBA 💻</h4>
+                <Text fontSize="xl">MOBA 💻</Text>
               </a>
               <a href="/CategorySection/MundoAbierto">
-                <h4>Mundo Abierto 🌏</h4>
+                <Text fontSize="xl">Mundo Abierto 🌏</Text>
               </a>
               <a href="/CategorySection/RPG">
-                <h4>RPG 🤪</h4>
+                <Text fontSize="xl">RPG 🤪</Text>
               </a>
               <a href="/CategorySection/FPS">
-                <h4>FPS 🌄</h4>
+                <Text fontSize="xl">FPS 🌄</Text>
               </a>
               <a href="/CategorySection/Minijuegos">
-                <h4>Minijuegos 🎱</h4>
+                <Text fontSize="xl">Minijuegos 🎱</Text>
               </a>
               <a href="/CategorySection/MMORPG">
-                <h4>MMORPG 👩‍💻</h4>
+                <Text fontSize="xl">MMORPG 👩‍💻</Text>
               </a>
               <a href="/CategorySection/Simulacion">
-                <h4>Simulacion 🛸</h4>
+                <Text fontSize="xl">Simulacion 🛸</Text>
               </a>
               <a href="/CategorySection/Supervivencia">
-                <h4>Supervivencia 🏃‍♀️</h4>
+                <Text fontSize="xl">Supervivencia 🏃‍♀️</Text>
               </a>
             </Container>
           </DrawerBody>
