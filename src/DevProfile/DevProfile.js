@@ -25,8 +25,6 @@ export default function DevProfile() {
   const filtrarJuego = juego.filter((x) => x.idprofile == idprofile);
   const contador = filtrarJuego.length;
 
-  console.log(contador);
-
   function DevPerfil() {
     const refgames = query(collection(db, "games"));
     const ref = doc(db, "users", idprofile);
@@ -42,8 +40,17 @@ export default function DevProfile() {
     onSnapshot(refgames, (querySnapshot) => {
       const item = [];
       querySnapshot.forEach((doc) => {
-        item.push(doc.data());
+        const {
+          videojuego,
+          imagenjuego,
+          imagenjuego2,
+          esunjuego,
+          descrip,
+          ...rest
+        } = doc.data();
+        item.push(rest);
       });
+      console.log(item);
       setJuegos(item);
     });
   }

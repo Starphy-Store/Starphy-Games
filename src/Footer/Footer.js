@@ -26,7 +26,7 @@ export default function Footer() {
       const items = [];
       querySnapshot.forEach((doc) => {
         const { videojuego, ...rest } = doc.data();
-        items.push({ ...rest });
+        items.push({ ...rest, id: doc.id });
       });
       const randomGame = [items[Math.floor(Math.random() * items.length)]];
       setJuegos(randomGame);
@@ -77,7 +77,7 @@ export default function Footer() {
                   No puedes escoger un videojuego ?
                 </h5>
 
-                <a style={{ color: "white" }} href={`/GamesShow/${item.juego}`}>
+                <a style={{ color: "white" }} href={`/GamesShow/${item.id}`}>
                   <p>
                     Haz click aqui para ir a un juego aleatorio{" "}
                     <ArrowClockwise />

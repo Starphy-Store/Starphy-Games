@@ -85,7 +85,7 @@ export default function DevRegister() {
     onSnapshot(ref, (querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
-        const { name, ...rest } = doc.data();
+        const { name } = doc.data();
         items.push({ name });
       });
 

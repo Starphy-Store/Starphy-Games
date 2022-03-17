@@ -23,24 +23,34 @@ export default function PayCheckout() {
   const { id } = useParams();
   const [juegos, setJuegos] = useState([]);
 
-  const filtrado = juegos.filter((x) => x.esunjuego == "si");
+  /*   const filtrado = juegos.filter((x) => x.esunjuego == "si"); */
 
-  const filtrado2 = filtrado.filter((x) => x.juego == id);
-
+  /*   const filtrado2 = filtrado.filter((x) => x.juego == id); */
+  console.log(juegos);
   function dameJuegos() {
-    const ref = query(collection(db, "games"));
+    const ref = doc(db, "games", id);
 
     onSnapshot(ref, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data(), id);
+      getDoc(ref, id).then((data) => {
+        const {
+          videojuego,
+          imagenjuego2,
+          imagenjuego,
+          esunjuego,
+          descrip,
+          categoria1,
+          categoria2,
+          categoria3,
+          ...rest
+        } = data.data();
+
+        setJuegos({ ...rest });
       });
-      setJuegos(items);
     });
   }
 
   function changebuttons(value) {
-    if (value == "Gratis") {
+    if (value == "lavidaentera") {
       return (
         <Button variant="success" size="lg" style={{ width: "90%" }}>
           Descargar ahora
@@ -63,50 +73,48 @@ export default function PayCheckout() {
   }, []);
   return (
     <div>
-      {filtrado2.map((item) => (
-        <Container
-          style={{
-            backgroundColor: "white",
-            height: "92vh",
-            borderRadius: "15px",
-            marginTop: "4vh",
-          }}
-        >
-          <Row>
-            <Col style={{ width: "70vw" }} className="pt-5">
-              <h6>Metodos de pago 💰</h6>
-              <Col>
-                <img
-                  src={item.imagenportada}
-                  style={{
-                    width: "auto",
-                    height: "300px",
-                    objectFit: "cover",
-                    borderRadius: "10px",
-                  }}
-                />
+      <Container
+        style={{
+          backgroundColor: "white",
+          height: "92vh",
+          borderRadius: "15px",
+          marginTop: "4vh",
+        }}
+      >
+        <Row>
+          <Col style={{ width: "70vw" }} className="pt-5">
+            <h6>Metodos de pago 💰</h6>
+            <Col>
+              <img
+                src={juegos.imagenportada}
+                style={{
+                  width: "auto",
+                  height: "300px",
+                  objectFit: "cover",
+                  borderRadius: "10px",
+                }}
+              />
 
-                <h2 className="pt-3">{item.juego}</h2>
+              <h2 className="pt-3">{juegos.juego}</h2>
 
-                <h6>{item.creator}</h6>
-              </Col>
-              <Col>
-                <hr />
-                <h3 className="pt-2" style={{ alignText: "rigth" }}>
-                  Precio: {item.precio}
-                </h3>
-              </Col>
+              <h6>{juegos.creator}</h6>
             </Col>
             <Col>
-              <Link to="/home">
-                <h6>Regresar</h6>
-              </Link>
-              {/* <BillPayment /> */}
-              <div>{changebuttons(item.precio)}</div>
+              <hr />
+              <h3 className="pt-2" style={{ alignText: "rigth" }}>
+                Precio: {dollarsign(juegos.precio)}
+              </h3>
             </Col>
-          </Row>
-        </Container>
-      ))}
+          </Col>
+          <Col>
+            <Link to="/home">
+              <h6>Regresar</h6>
+            </Link>
+            {/* <BillPayment /> */}
+            <div>{changebuttons(juegos.precio)}</div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 //https://react-bootstrap.github.io/layout/grid/
 //https://react-bootstrap.netlify.app/components/carousel/#carousels
 
+import { Skeleton } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Carousel, Container, Row, Col } from "react-bootstrap";
 import CardStyle from "../Components/Cards/CardStyle";
