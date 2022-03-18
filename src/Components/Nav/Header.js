@@ -262,6 +262,9 @@ const Header = () => {
                               </Link>
                             </Dropdown.Item>
                             <Dropdown.Divider />
+                            <Dropdown.Item eventKey="3">
+                              <Link to="/Ayuda">Ayuda </Link>
+                            </Dropdown.Item>
                             <Dropdown.Item
                               eventKey="4"
                               onClick={() => {

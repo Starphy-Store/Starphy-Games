@@ -1,4 +1,3 @@
-import { textAlign } from "@mui/system";
 import React from "react";
 import { Col, Container } from "react-bootstrap";
 import Header from "../Components/Nav/Header";
