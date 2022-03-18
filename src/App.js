@@ -25,6 +25,7 @@ import AboutUs from "./AboutUs/AboutUs";
 import TerminosyCondiciones from "./LegalAdvertisement/TerminosyCondiciones";
 import CategorySection from "./CategorySection/CategorySection";
 import UsoDeSusDatos from "./UsoDeSusDatos/UsoDeSusDatos";
+import HelpMe from "./Components/Nav/HelpMe";
 
 //importacion del bootstrap y del css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -120,6 +121,7 @@ function App() {
         <Route path="/DownloadGame" element={<DownloadGame />} />
         <Route path="/editdevprofile" element={<Editdevprofile />} />
         <Route path="/SearchPage/:search" element={<SearchPage />} />
+        <Route path="/Ayuda" element={<HelpMe />} />
         <Route path="/SendEmail" element={<SendEmail />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route
