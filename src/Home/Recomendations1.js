@@ -4,6 +4,7 @@
 
 import { Skeleton } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { Badge } from "@chakra-ui/react";
 import { Carousel, Container, Row, Col } from "react-bootstrap";
 import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
@@ -53,7 +54,7 @@ function Recomendations1() {
     <Carousel variant="ligth" indicators={false} className="mt-3">
       <Carousel.Item>
         <Container className="d-flex">
-          {games.slice(0, 4).map(({ data, id }) => (
+          {games.slice(0, 5).map(({ data, id }) => (
             <Link to={`/GamesShow/${id}`} className="w-25">
               <Container key={id}>
                 <Row>
@@ -79,7 +80,7 @@ function Recomendations1() {
       </Carousel.Item>
       <Carousel.Item>
         <Container className="d-flex">
-          {games.slice(4, 8).map(({ data, id }) => (
+          {games.slice(5, 10).map(({ data, id }) => (
             <Link to={`/GamesShow/${id}`} className="w-25">
               <Container key={id}>
                 <Row>

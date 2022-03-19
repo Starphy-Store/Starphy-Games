@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.8.6",
+    "@chakra-ui/theme": "^1.14.0",
     "@emailjs/browser": "^3.4.0",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
