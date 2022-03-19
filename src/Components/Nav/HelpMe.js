@@ -1,15 +1,23 @@
-import { Text } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Badge } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import Header from "./Header";
 
 function HelpMe() {
   return (
     <>
       <Header />
-      <Container style={{ textAlign: "center" }}>
-        <Text>porqe poli </Text>
+      <Heading color="white" fontSize="40px">
+        <h1>joder buenos dias</h1>
+      </Heading>
+      <Container centerContent>
+        <p>aaaaaaa</p>
       </Container>
+      <Badge ml="1" fontSize="0.8em" colorScheme="green">
+        New
+      </Badge>
+      <Badge colorScheme="green">Success</Badge>
     </>
   );
 }
