@@ -16,12 +16,22 @@ import {
 } from "firebase/firestore";
 import Loading from "../Home/spinner";
 
-import { toast, ToastContainer } from "react-toastify";
+import Resizer from "react-image-file-resizer";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  ChakraProvider,
+  CloseButton,
+  useToast,
+} from "@chakra-ui/react";
+import { width } from "@mui/system";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -45,7 +55,8 @@ export default function UploadGame() {
   const [game, setgame] = useState("");
   const [valor, setvalor] = useState(0);
   const [peso, setPeso] = useState("");
-  toast.configure();
+
+  const toast = useToast();
 
   const [id, setId] = useState("");
   const [Juegos, setJuegos] = useState([]);
@@ -65,6 +76,22 @@ export default function UploadGame() {
   const [isLoading, setIsLoading] = useState(null);
 
   const [nombrecreador, setnombrecreador] = useState({});
+
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        300,
+        400,
+        "JPEG",
+        80,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "base64"
+      );
+    });
 
   onAuthStateChanged(auth, (user) => {
     setId(user.uid);
@@ -113,19 +140,40 @@ export default function UploadGame() {
 
   async function CargarImagenes(e) {
     setIsLoading(true);
+    const img = new Image();
     const archivolocal = e.target.files[0];
+    const alto = await resizeFile(archivolocal);
+    const bajo = (img.src = alto);
+
+    console.log(bajo);
+
     if (archivolocal == undefined) {
-      toast.error("Elige una foto", {
-        position: "bottom-rigth",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "dark-toast",
+      toast({
+        title: "Elige una portada",
+        status: "error",
+        isClosable: true,
       });
       setIsLoading(false);
+    } else if (
+      archivolocal.clientWidth <= 74 &&
+      archivolocal.clientHeight <= 105
+    ) {
+      console.log("Resolucion minima 74 x 105");
+      toast({
+        title: "Resolucion minima 74 x 105",
+        status: "error",
+        isClosable: true,
+      });
+    } else if (
+      archivolocal.clientWidth >= 210 &&
+      archivolocal.clientHeight >= 297
+    ) {
+      console.log("Resolucion maxima 210 x 297");
+      toast({
+        title: "Resolucion maxima 210 x 297",
+        status: "error",
+        isClosable: true,
+      });
     } else {
       const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
 
@@ -323,6 +371,7 @@ export default function UploadGame() {
   return (
     <>
       <Header />
+
       <Row style={{ width: "100%", color: "white", paddingTop: "100px" }}>
         <Col md={7}>
           <h1>Ingresa la informacion de tu juego</h1>

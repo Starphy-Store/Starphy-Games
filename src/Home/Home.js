@@ -161,7 +161,7 @@ const Home = () => {
     <div>
       <Header />
 
-      <Container style={{ height: "600px" }}>
+      <Container style={{ height: "auto" }}>
         <SliderDelHome />
       </Container>
       <h1 style={{ color: "white" }}>Los mejores juegos para ti 🔥</h1>
