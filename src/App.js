@@ -103,7 +103,7 @@ function App() {
         <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         {user && <Route path="/EditProfile" element={<EditProfile />} />}
-        {user && <Route path="/library" element={<Library />} />}
+        <Route path="/library" element={<Library />} />
         {user ? (
           <Route path="/Payment/:id" element={<Payment />} />
         ) : (

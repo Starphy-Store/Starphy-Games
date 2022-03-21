@@ -64,8 +64,7 @@ const Header = () => {
 
   async function a() {
     onAuthStateChanged(auth, (user) => {
-      if (user == null) {
-      } else {
+      if (user) {
         setcua(user.uid);
       }
     });
@@ -80,7 +79,7 @@ const Header = () => {
       });
     });
   }
-
+  console.log(users);
   async function getGames() {
     const ref = query(collection(db, "games"));
 
@@ -147,7 +146,7 @@ const Header = () => {
   }, [cua]);
 
   return (
-    <ChakraProvider>
+    <>
       <div className="xd" style={{ paddingBottom: "100px" }}>
         <Navbar expand="lg" className="header" variant="dark" fixed="top">
           <Container>
@@ -188,7 +187,7 @@ const Header = () => {
                     onChange={SearchGames}
                   />
 
-                  <Link to="/Home">
+                  <Link to={`/SearchPage/${search}`}>
                     <Button type="submit" variant="outline-light">
                       <Search />
                     </Button>
@@ -206,84 +205,140 @@ const Header = () => {
                       <Col></Col>
                       <Col></Col>
                       <Col></Col>
-                      <Col>
-                        <>
-                          <DropdownButton
-                            onSubmit={a}
-                            align="start"
-                            type="button"
-                            title={users.name}
-                            key={users.uid}
-                            id="dropdown-menu-align-start"
-                            variant="outline-light"
-                            style={{
-                              border: "0",
-                              color: "white",
-                            }}
-                          >
-                            <>
-                              <Dropdown.Item eventKey="1">
-                                <Link
-                                  to={`/DevProfile/${users.uid}`}
-                                  style={{
-                                    textDecoration: "none",
-                                    color: "black",
-                                  }}
-                                >
-                                  Tu perfil
-                                </Link>
-                              </Dropdown.Item>
-                              <Dropdown.Item eventKey="3">
-                                <Link
-                                  to="/uploadgame"
-                                  style={{
-                                    textDecoration: "none",
-                                    color: "black",
-                                  }}
-                                >
-                                  Sube tu juego
-                                </Link>
-                              </Dropdown.Item>
-                            </>
-
-                            <Dropdown.Item eventKey="3">
-                              <Link to="/EditDevProfile">Editar perfil </Link>
-                            </Dropdown.Item>
-
-                            <Dropdown.Item eventKey="2">
-                              <Link
-                                to="/library"
-                                style={{
-                                  textDecoration: "none",
-                                  color: "black",
-                                }}
-                              >
-                                Libreria de juegos
-                              </Link>
-                            </Dropdown.Item>
-                            <Dropdown.Divider />
-                            <Dropdown.Item eventKey="3">
-                              <Link to="/Ayuda">Ayuda </Link>
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                              eventKey="4"
-                              onClick={() => {
-                                signOut(auth)
-                                  .then(() => {
-                                    navigate("/Home");
-                                    window.location.reload(false);
-                                    // Sign-out successful.
-                                  })
-                                  .catch((error) => {
-                                    // An error happened.
-                                  });
+                      {users.rol == "user" ? (
+                        <Col>
+                          <>
+                            <DropdownButton
+                              onSubmit={a}
+                              align="start"
+                              type="button"
+                              title={users.name}
+                              key={users.uid}
+                              id="dropdown-menu-align-start"
+                              variant="outline-light"
+                              style={{
+                                border: "0",
+                                color: "white",
                               }}
                             >
-                              Salir
-                            </Dropdown.Item>
-                          </DropdownButton>
-                        </>
-                      </Col>
+                              <Dropdown.Item eventKey="3">
+                                <Link to="/EditProfile">Editar perfil </Link>
+                              </Dropdown.Item>
+
+                              <Dropdown.Item eventKey="2">
+                                <Link
+                                  to="/library"
+                                  style={{
+                                    textDecoration: "none",
+                                    color: "black",
+                                  }}
+                                >
+                                  Libreria de juegos
+                                </Link>
+                              </Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item eventKey="3">
+                                <Link to="/Ayuda">Ayuda </Link>
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                eventKey="4"
+                                onClick={() => {
+                                  signOut(auth)
+                                    .then(() => {
+                                      navigate("/Home");
+                                      window.location.reload(false);
+                                      // Sign-out successful.
+                                    })
+                                    .catch((error) => {
+                                      // An error happened.
+                                    });
+                                }}
+                              >
+                                Salir
+                              </Dropdown.Item>
+                            </DropdownButton>
+                          </>
+                        </Col>
+                      ) : (
+                        <Col>
+                          <>
+                            <DropdownButton
+                              onSubmit={a}
+                              align="start"
+                              type="button"
+                              title={users.name}
+                              key={users.uid}
+                              id="dropdown-menu-align-start"
+                              variant="outline-light"
+                              style={{
+                                border: "0",
+                                color: "white",
+                              }}
+                            >
+                              <>
+                                <Dropdown.Item eventKey="1">
+                                  <Link
+                                    to={`/DevProfile/${users.uid}`}
+                                    style={{
+                                      textDecoration: "none",
+                                      color: "black",
+                                    }}
+                                  >
+                                    Tu perfil
+                                  </Link>
+                                </Dropdown.Item>
+                                <Dropdown.Item eventKey="3">
+                                  <Link
+                                    to="/uploadgame"
+                                    style={{
+                                      textDecoration: "none",
+                                      color: "black",
+                                    }}
+                                  >
+                                    Sube tu juego
+                                  </Link>
+                                </Dropdown.Item>
+                              </>
+
+                              <Dropdown.Item eventKey="3">
+                                <Link to="/EditDevProfile">Editar perfil </Link>
+                              </Dropdown.Item>
+
+                              <Dropdown.Item eventKey="2">
+                                <Link
+                                  to="/library"
+                                  style={{
+                                    textDecoration: "none",
+                                    color: "black",
+                                  }}
+                                >
+                                  Libreria de juegos
+                                </Link>
+                              </Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item eventKey="3">
+                                <Link to="/Ayuda">Ayuda </Link>
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                eventKey="4"
+                                onClick={() => {
+                                  signOut(auth)
+                                    .then(() => {
+                                      navigate("/Home");
+                                      window.location.reload(false);
+                                      // Sign-out successful.
+                                    })
+                                    .catch((error) => {
+                                      // An error happened.
+                                    });
+                                }}
+                              >
+                                Salir
+                              </Dropdown.Item>
+                            </DropdownButton>
+                          </>
+                        </Col>
+                      )}
                     </>
                   ) : (
                     <>
@@ -351,7 +406,7 @@ const Header = () => {
           <Text style={{ color: "black" }}>{item.juego}</Text>
         </Box>
       ))}
-    </ChakraProvider>
+    </>
   );
 };
 

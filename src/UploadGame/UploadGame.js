@@ -130,8 +130,7 @@ export default function UploadGame() {
 
   async function CargarImagenes(e) {
     setIsLoading(true);
-    let imgHeight;
-    let imgWidth;
+
     let img = new Image();
     const archivolocal = e.target.files[0];
     const alto = await resizeFile(archivolocal);
@@ -139,10 +138,6 @@ export default function UploadGame() {
     img.src = alto;
 
     img.onload = async function () {
-      alert(this.width + " " + this.height);
-      imgHeight = img.height;
-      const imgWidth = img.width;
-
       if (archivolocal == undefined) {
         toast({
           title: "Elige una portada",

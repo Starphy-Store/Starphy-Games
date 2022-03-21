@@ -36,6 +36,7 @@
     "firebase-admin": "^10.0.2",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
+    "iframe-resizer-react": "^1.1.0",
     "jquery": "^3.6.0",
     "morgan": "^1.10.0",
     "node-mandrill": "^1.0.1",
