@@ -73,7 +73,7 @@ function Recomendations1() {
                       <div className="profile-name">{truncate(data.juego)}</div>
                       <div className="profile-username">
                         <ChakraProvider>
-                          <Badge colorScheme="green">New</Badge>
+                          <Badge colorScheme="green">New </Badge>
                         </ChakraProvider>
 
                         {data.creator}
@@ -103,7 +103,13 @@ function Recomendations1() {
                       />
                       <div className="background "></div>
                       <div className="profile-name">{truncate(data.juego)}</div>
-                      <div className="profile-username">{data.creator}</div>
+
+                      <div className="profile-username">
+                        <ChakraProvider>
+                          <Badge colorScheme="green">New </Badge>
+                        </ChakraProvider>
+                        {data.creator}
+                      </div>
                       <div className="profile-icons">
                         <h5>{dollarsign(data.precio)}</h5>
                       </div>
