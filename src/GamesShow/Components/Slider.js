@@ -9,7 +9,7 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
-import { Carousel, Form } from "react-bootstrap";
+import { Carousel, Container, Form } from "react-bootstrap";
 import "../../Components/Components.css";
 import firebase2 from "../../Home/Firebase2";
 
@@ -48,7 +48,7 @@ function Slider() {
       >
         <Carousel.Item>
           <iframe
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "600px" }}
             src="https://www.youtube.com/embed/NN-9SQXoi50"
             title="YouTube video player"
             frameborder="0"

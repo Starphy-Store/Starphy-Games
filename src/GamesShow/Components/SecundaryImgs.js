@@ -6,7 +6,6 @@ import "../GamesShow.css";
 import { useParams } from "react-router-dom";
 import firebase2 from "../../Home/Firebase2.js";
 import Star from "../../Assets/Star.png";
-import { Rating } from "@mui/material";
 
 import {
   query,
@@ -54,22 +53,6 @@ const SecundaryImgs = () => {
     });
   }
   console.log(id);
-  const SendRatingDB = () => {
-    if (auth.currentUser == null) {
-      toast.error("Crea una cuenta para valorarlo", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "dark-toast",
-        limit: 2,
-      });
-    } else {
-    }
-  };
 
   function Comapeso(juego) {
     let PesoGame;
@@ -181,15 +164,6 @@ const SecundaryImgs = () => {
                   <h6>Peso: {game.PesoGame}</h6>
                   <Col>
                     <h3>Valoraciones </h3>
-                    <Rating
-                      onChange={(event, newValue) => {
-                        setEstrellas(newValue);
-                        SendRatingDB(event);
-                      }}
-                      name="size-large"
-                      defaultValue={2}
-                      size="large"
-                    />
                   </Col>
                   <ToastContainer limit={1} />
                 </div>
@@ -198,36 +172,6 @@ const SecundaryImgs = () => {
           </Col>
         </Row>
       </Container>
-
-      {/* 
-      <Container style={{ color: "white" }} className="pt-5">
-        <h2>Algunos juegos parecidos</h2>
-      </Container>
-      <Container className="d-flex">
-        {categoria.map((game) => (
-          <Link
-            to={`/GamesShow/${item.juego}`}
-            href="GamesInfo"
-            className="w-25"
-          >
-            <Container key={item.id}>
-              <Row>
-                <Col md={12}>
-                  <div className="profile-card-2 ">
-                    <img src={item.imagenportada} className="img-responsive" />
-                    <div className="background "></div>
-                    <div className="profile-name">{item.juego}</div>
-                    <div className="profile-username">{item.creator}</div>
-                    <div className="profile-icons">
-                      <h5>{dollarsign(item.precio)}</h5>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Link>
-        ))}
-      </Container>*/}
     </div>
   );
 };
