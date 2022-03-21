@@ -8,10 +8,8 @@ import {
   collection,
   onSnapshot,
   getFirestore,
-  getDocs,
   getDoc,
   doc,
-  setDoc,
   addDoc,
 } from "firebase/firestore";
 import Loading from "../Home/spinner";
@@ -22,15 +20,7 @@ import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  ChakraProvider,
-  CloseButton,
-  useToast,
-} from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { width } from "@mui/system";
 
 const firebaseConfig = {
@@ -81,9 +71,9 @@ export default function UploadGame() {
     new Promise((resolve) => {
       Resizer.imageFileResizer(
         file,
-        300,
-        400,
         "JPEG",
+        10000,
+        20000,
         80,
         0,
         (uri) => {
@@ -140,48 +130,51 @@ export default function UploadGame() {
 
   async function CargarImagenes(e) {
     setIsLoading(true);
-    const img = new Image();
+    let imgHeight;
+    let imgWidth;
+    let img = new Image();
     const archivolocal = e.target.files[0];
     const alto = await resizeFile(archivolocal);
-    const bajo = (img.src = alto);
 
-    console.log(bajo);
+    img.src = alto;
 
-    if (archivolocal == undefined) {
-      toast({
-        title: "Elige una portada",
-        status: "error",
-        isClosable: true,
-      });
-      setIsLoading(false);
-    } else if (
-      archivolocal.clientWidth <= 74 &&
-      archivolocal.clientHeight <= 105
-    ) {
-      console.log("Resolucion minima 74 x 105");
-      toast({
-        title: "Resolucion minima 74 x 105",
-        status: "error",
-        isClosable: true,
-      });
-    } else if (
-      archivolocal.clientWidth >= 210 &&
-      archivolocal.clientHeight >= 297
-    ) {
-      console.log("Resolucion maxima 210 x 297");
-      toast({
-        title: "Resolucion maxima 210 x 297",
-        status: "error",
-        isClosable: true,
-      });
-    } else {
-      const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+    img.onload = async function () {
+      alert(this.width + " " + this.height);
+      imgHeight = img.height;
+      const imgWidth = img.width;
 
-      await uploadBytes(archivoRef, archivolocal);
+      if (archivolocal == undefined) {
+        toast({
+          title: "Elige una portada",
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      } else if (img.width <= 74 && img.height <= 105) {
+        console.log("Resolucion minima 74 x 105");
+        toast({
+          title: "Resolucion minima 74 x 105",
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      } else if (img.width >= 210 && img.height >= 297) {
+        console.log("Resolucion maxima 210 x 297");
+        toast({
+          title: "Resolucion maxima 210 x 297",
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      } else {
+        const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
 
-      seturlImagenes(await getDownloadURL(archivoRef));
-      setIsLoading(false);
-    }
+        await uploadBytes(archivoRef, archivolocal);
+
+        seturlImagenes(await getDownloadURL(archivoRef));
+        setIsLoading(false);
+      }
+    };
   }
 
   async function CargarImagenes2(e) {

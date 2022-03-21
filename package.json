@@ -59,6 +59,7 @@
     "uuid": "^8.3.2",
     "videogame_search": "^1.0.2",
     "web-vitals": "^0.2.4",
+    "webpack": "^5.70.0",
     "wouter": "^2.8.0-alpha.2"
   },
   "scripts": {
@@ -84,5 +85,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
+    "react-refresh": "^0.11.0"
   }
 }
