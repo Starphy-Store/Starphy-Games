@@ -348,7 +348,6 @@ export default function UploadGame() {
     setcategoria3(event.target.value);
   };
 
-  //prueba
   function dollarsign(input) {
     if (input == 0) {
       return "Gratis";
@@ -364,7 +363,6 @@ export default function UploadGame() {
   return (
     <>
       <Header />
-
       <Row style={{ width: "100%", color: "white", paddingTop: "100px" }}>
         <Col md={7}>
           <h1>Ingresa la informacion de tu juego</h1>
