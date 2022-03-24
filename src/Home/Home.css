@@ -3,6 +3,10 @@
   background-size: 300px 500px;
 }
 
+.background-image {
+  background-color: rgb(150, 116, 3);
+}
+
 body {
   background-color: #171717;
 }

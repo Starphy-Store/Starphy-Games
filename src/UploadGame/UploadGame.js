@@ -20,7 +20,7 @@ import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-import { useToast } from "@chakra-ui/react";
+import { Textarea, useToast } from "@chakra-ui/react";
 import { width } from "@mui/system";
 
 const firebaseConfig = {
@@ -66,6 +66,8 @@ export default function UploadGame() {
   const [isLoading, setIsLoading] = useState(null);
 
   const [nombrecreador, setnombrecreador] = useState({});
+
+  const date = new Date();
 
   const resizeFile = (file) =>
     new Promise((resolve) => {
@@ -265,6 +267,10 @@ export default function UploadGame() {
     });
   };
 
+  const gameMayus = game.charAt(0).toUpperCase() + game.slice(1);
+
+  const tmpDate = new Date();
+
   async function CrearJuego(event) {
     event.preventDefault();
 
@@ -293,8 +299,9 @@ export default function UploadGame() {
       });
 
       addDoc(collection(db, "games"), {
+        FechaCreado: date,
         descrip: Des,
-        juego: game,
+        juego: gameMayus,
         precio: valor,
         esunjuego: "si",
         imagenportada: urlImagenes,
@@ -535,8 +542,7 @@ export default function UploadGame() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label className="mt-5 pt-5">Descripcion</Form.Label>
-
-              <textarea
+              <Textarea
                 type="text"
                 value={Des}
                 required
@@ -563,7 +569,7 @@ export default function UploadGame() {
             <p></p>
           </Form>
         </Col>
-        {/* ----averiguar esta wea  */}
+
         <Col>
           <Container>
             <Row>

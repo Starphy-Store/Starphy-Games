@@ -19,7 +19,7 @@ const db = getFirestore(firebase2);
 function Library() {
   const [juegos, setJuegos] = useState({});
   const [juegosbuy, setJuegobuy] = useState([]);
-  const [id, setId] = useState(null);
+  const [id, setId] = useState("");
 
   useEffect(() => {
     getUser();
@@ -32,7 +32,7 @@ function Library() {
 
   function getUser() {
     onAuthStateChanged(auth, (user) => {
-      if (user.uid == null) {
+      if (user.uid) {
         setId(user.uid);
       }
     });

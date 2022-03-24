@@ -188,7 +188,11 @@ const Header = () => {
                   />
 
                   <Link to={`/SearchPage/${search}`}>
-                    <Button type="submit" variant="outline-light">
+                    <Button
+                      style={{ height: "100%", width: "100%" }}
+                      type="submit"
+                      variant="outline-light"
+                    >
                       <Search />
                     </Button>
                   </Link>
@@ -221,24 +225,16 @@ const Header = () => {
                                 color: "white",
                               }}
                             >
-                              <Dropdown.Item eventKey="3">
-                                <Link to="/EditProfile">Editar perfil </Link>
+                              <Dropdown.Item eventKey="3" href="/EditProfile">
+                                Editar perfil
                               </Dropdown.Item>
 
-                              <Dropdown.Item eventKey="2">
-                                <Link
-                                  to="/library"
-                                  style={{
-                                    textDecoration: "none",
-                                    color: "black",
-                                  }}
-                                >
-                                  Libreria de juegos
-                                </Link>
+                              <Dropdown.Item eventKey="2" href="/library">
+                                Libreria de juegos
                               </Dropdown.Item>
                               <Dropdown.Divider />
-                              <Dropdown.Item eventKey="3">
-                                <Link to="/Ayuda">Ayuda </Link>
+                              <Dropdown.Item eventKey="3" href="/Ayuda">
+                                Ayuda
                               </Dropdown.Item>
                               <Dropdown.Item
                                 eventKey="4"
@@ -276,48 +272,30 @@ const Header = () => {
                               }}
                             >
                               <>
-                                <Dropdown.Item eventKey="1">
-                                  <Link
-                                    to={`/DevProfile/${users.uid}`}
-                                    style={{
-                                      textDecoration: "none",
-                                      color: "black",
-                                    }}
-                                  >
-                                    Tu perfil
-                                  </Link>
+                                <Dropdown.Item
+                                  eventKey="1"
+                                  href={`/DevProfile/${users.uid}`}
+                                >
+                                  Tu perfil
                                 </Dropdown.Item>
-                                <Dropdown.Item eventKey="3">
-                                  <Link
-                                    to="/uploadgame"
-                                    style={{
-                                      textDecoration: "none",
-                                      color: "black",
-                                    }}
-                                  >
-                                    Sube tu juego
-                                  </Link>
+                                <Dropdown.Item eventKey="3" href="/uploadgame">
+                                  Sube tu juego
                                 </Dropdown.Item>
                               </>
 
-                              <Dropdown.Item eventKey="3">
-                                <Link to="/EditDevProfile">Editar perfil </Link>
+                              <Dropdown.Item
+                                eventKey="3"
+                                href="/EditDevProfile"
+                              >
+                                Editar perfil
                               </Dropdown.Item>
 
-                              <Dropdown.Item eventKey="2">
-                                <Link
-                                  to="/library"
-                                  style={{
-                                    textDecoration: "none",
-                                    color: "black",
-                                  }}
-                                >
-                                  Libreria de juegos
-                                </Link>
+                              <Dropdown.Item eventKey="2" href="/library">
+                                Libreria de juegos
                               </Dropdown.Item>
                               <Dropdown.Divider />
-                              <Dropdown.Item eventKey="3">
-                                <Link to="/Ayuda">Ayuda </Link>
+                              <Dropdown.Item eventKey="3" href="/Ayuda">
+                                Ayuda
                               </Dropdown.Item>
                               <Dropdown.Item
                                 eventKey="4"
@@ -403,7 +381,9 @@ const Header = () => {
             marginRight: "480px",
           }}
         >
-          <Text style={{ color: "black" }}>{item.juego}</Text>
+          <Text style={{ color: "black" }}>
+            <Link to={`/SearchPage/${search}`}>{item.juego}</Link>
+          </Text>
         </Box>
       ))}
     </>

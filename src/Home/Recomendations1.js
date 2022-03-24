@@ -72,7 +72,14 @@ function Recomendations1() {
                       <div className="background "></div>
                       <div className="profile-name">{truncate(data.juego)}</div>
                       <div className="profile-username">
-                        <Badge colorScheme="green">New </Badge>
+                        <Badge
+                          colorScheme="green"
+                          variant="solid"
+                          fontSize="md"
+                          style={{ marginRight: "20px" }}
+                        >
+                          New
+                        </Badge>
 
                         {data.creator}
                       </div>
@@ -103,7 +110,14 @@ function Recomendations1() {
                       <div className="profile-name">{truncate(data.juego)}</div>
 
                       <div className="profile-username">
-                        <Badge colorScheme="green">New </Badge>
+                        <Badge
+                          colorScheme="green"
+                          variant="solid"
+                          fontSize="md"
+                          style={{ marginRight: "20px" }}
+                        >
+                          New
+                        </Badge>
 
                         {data.creator}
                       </div>

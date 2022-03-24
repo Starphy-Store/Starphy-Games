@@ -2,7 +2,7 @@ import "./error404.css";
 
 const Error404 = () => {
   return (
-    <figure>
+    <figure style={{ marginTop: "500px" }}>
       <div class="sad-mac"></div>
       <figcaption>
         <span class="sr-text">Error 404: Not Found</span>

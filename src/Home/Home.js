@@ -47,14 +47,6 @@ const Home = () => {
     getGames();
   }, []);
 
-  function dollarsign(input) {
-    if (input == 0) {
-      return "Gratis";
-    } else {
-      return "$" + input;
-    }
-  }
-
   return (
     <div>
       <Header />

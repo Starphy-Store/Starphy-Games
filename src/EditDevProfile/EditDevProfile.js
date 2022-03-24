@@ -137,7 +137,7 @@ export default function Editdevprofile() {
           // ...
         });
     } else {
-      toast.success("La contraseña no coincide", {
+      toast.error("La contraseña no coincide", {
         icon: "📨",
         position: "top-right",
         autoClose: 5000,
