@@ -40,6 +40,7 @@ import { Link, Redirect } from "wouter";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import firebase2 from "./Home/Firebase2";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import {
   getFirestore,
   query,
@@ -48,6 +49,7 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
+import { Container } from "react-bootstrap";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -100,7 +102,6 @@ function App() {
             </Link>
           }
         />
-        <Route path="*" element={<Error404 />} />
         <Route path="/GamesShow/:id" element={<GamesShow />} />
         {user && <Route path="/EditProfile" element={<EditProfile />} />}
         <Route path="/library" element={<Library />} />
@@ -138,8 +139,20 @@ function App() {
             <Route path="/uploadgame" element={<UploadGame />} />)
           </>
         ) : (
-          <Route path="*" element={<Error404 />} />
+          <Route
+            path="*"
+            element={
+              <Container style={{ marginTop: "400px" }} className="AppLoader">
+                <ScaleLoader color={"#FFFFFF"} size={150} />
+              </Container>
+            }
+          />
         )}
+        <Route
+          path="*"
+          element={<ScaleLoader color={"#123abc"} size={150} />}
+        />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </>
   );

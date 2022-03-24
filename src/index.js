@@ -5,7 +5,11 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import icon1 from "../src/Assets/icon1.png";
-import { ChakraProvider } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  ColorModeScript,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 <link
   rel="stylesheet"
@@ -17,6 +21,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+      <ColorModeScript initialColorMode="dark" />
       <ChakraProvider>
         <App />
       </ChakraProvider>

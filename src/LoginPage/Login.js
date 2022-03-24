@@ -29,6 +29,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import pepo from "../Assets/pepo.gif";
+import { useToast } from "@chakra-ui/toast";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -44,24 +45,23 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 function Login() {
   // Initialize Firebase
-  toast.configure();
+
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const provider2 = new FacebookAuthProvider();
   const [email, setEmail] = useState("");
+  const toaste = useToast();
+  toast.configure();
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-  const [id, setId] = useState([]);
+  const [id, setId] = useState("");
 
   const navigate = useNavigate();
 
   function ids() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const item = [];
-        const uids = user.uid;
-        item.push(uids);
-        setId(item);
+        setId(user.uid);
       }
     });
   }
@@ -76,7 +76,13 @@ function Login() {
 
             onAuthStateChanged(auth, (user) => {
               if (user.emailVerified) {
-                const uid = user.uid;
+                toaste({
+                  title: "Inicio de sesion correctamente",
+                  description: "Disfruta de nuestra web",
+                  status: "success",
+                  duration: 4000,
+                  isClosable: true,
+                });
                 setTimeout(() => {
                   navigate("/Home");
                 }, 1000);

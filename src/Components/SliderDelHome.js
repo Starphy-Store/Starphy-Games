@@ -9,6 +9,7 @@ import "../Components/Components.css";
 import MinecraftImg from "../Assets/MinecraftImg.jpg";
 import payday2 from "../Assets/payday2.jpg";
 import thewitcher from "../Assets/thewitcher.jpg";
+import { Badge } from "@chakra-ui/layout";
 
 function SliderDelHome() {
   return (
