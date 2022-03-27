@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
+import "./Components.css";
 import { Carousel, Form, Container } from "react-bootstrap";
 import "../Components/Components.css";
 
@@ -14,12 +14,7 @@ import { Badge } from "@chakra-ui/layout";
 function SliderDelHome() {
   return (
     <div className="sliderdelhome">
-      <Carousel
-        variant="light"
-        indicators={false}
-        style={{ borderRadius: "10px" }}
-        className="carousel-inner"
-      >
+      <Carousel variant="light" indicators={false} className="carousel-inner">
         <Carousel.Item>
           {/* <div className="carouselitem1">
             <Container style={{ width: "1000px" }}>
@@ -31,7 +26,9 @@ function SliderDelHome() {
             className="d-block sliderImg"
             src={payday2}
             alt="First slide"
-            style={{ height: "auto", width: "100%" }}
+            style={{ width: "100%", height: "100%" }}
+            /* style={{ width: "3840px", height: "2106px" }} */
+            /* style={{ height: "720px", width: "1280px" }} */
           />
         </Carousel.Item>
         <Carousel.Item>
@@ -45,7 +42,8 @@ function SliderDelHome() {
             className="d-block sliderImg"
             src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Publica%20tus%20juegos%20gratis%20(1).png?alt=media&token=17af5675-45b7-4e7b-858e-70f5fbb6b3d1"
             alt="Second slide"
-            style={{ height: "auto", width: "100%" }}
+            style={{ width: "100%", height: "100%" }}
+            /* style={{ width: "3840px", height: "2106px" }} */
           />
         </Carousel.Item>
         <Carousel.Item>
@@ -59,7 +57,8 @@ function SliderDelHome() {
             className="d-block sliderImg"
             src={thewitcher}
             alt="Third slide"
-            style={{ height: "auto", width: "100%" }}
+            style={{ width: "100%", height: "100%" }}
+            /* style={{ width: "3840px", height: "2106px" }} */
           />
         </Carousel.Item>
       </Carousel>

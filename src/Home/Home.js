@@ -48,17 +48,21 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#1A202C" }}>
       <Header />
+      <SliderDelHome />
+      <div
+        className="nose"
+        style={{
+          height: "30px",
+          width: "100%",
+          position: "absolute",
+          zIndex: "2000",
 
-      <Container style={{ height: "auto" }}>
-        <SliderDelHome />
-      </Container>
-      <h1 className="pt-5" style={{ color: "white" }}>
-        Los mejores juegos para ti 🔥
-      </h1>
+          marginTop: "-20px",
+        }}
+      ></div>
       <Recomendations1 />
-
       <Footer></Footer>
     </div>
   );

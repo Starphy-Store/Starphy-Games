@@ -176,53 +176,89 @@ export default function UploadGame() {
 
   async function CargarImagenes2(e) {
     setIsLoading(true);
+
+    let img = new Image();
     const archivolocal = e.target.files[0];
+    const alto = await resizeFile(archivolocal);
 
-    if (archivolocal == undefined) {
-      toast.error("Elige una foto", {
-        position: "bottom-rigth",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "dark-toast",
-      });
-      setIsLoading(false);
-    } else {
-      const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+    img.src = alto;
 
-      await uploadBytes(archivoRef, archivolocal);
+    img.onload = async function () {
+      if (archivolocal == undefined) {
+        toast({
+          title: "Elige una imagen",
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      } else if (img.width <= 480 && img.height <= 640) {
+        console.log("Resolucion minima 74 x 105");
+        toast({
+          title: "Resolucion minima 74 x 105",
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      } else if (img.width >= 720 && img.height >= 1280) {
+        console.log("Resolucion maxima 210 x 297");
+        toast({
+          title: "Resolucion maxima 210 x 297",
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      } else {
+        const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
 
-      seturlImagenes2(await getDownloadURL(archivoRef));
-      setIsLoading(false);
-    }
+        await uploadBytes(archivoRef, archivolocal);
+
+        seturlImagenes2(await getDownloadURL(archivoRef));
+        setIsLoading(false);
+      }
+    };
   }
 
   async function CargarImagenes3(e) {
     setIsLoading(true);
+    let img = new Image();
     const archivolocal = e.target.files[0];
-    if (archivolocal == undefined) {
-      toast.error("Elige una foto", {
-        position: "bottom-rigth",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "dark-toast",
-      });
-      setIsLoading(false);
-    } else {
-      const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+    const alto = await resizeFile(archivolocal);
 
-      await uploadBytes(archivoRef, archivolocal);
+    img.src = alto;
 
-      seturlImagenes3(await getDownloadURL(archivoRef));
-      setIsLoading(false);
-    }
+    img.onload = async function () {
+      if (archivolocal == undefined) {
+        toast({
+          title: "Elige una imagen",
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      } else if (img.width <= 74 && img.height <= 105) {
+        console.log("Resolucion minima 74 x 105");
+        toast({
+          title: "Resolucion minima 74 x 105",
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      } else if (img.width >= 210 && img.height >= 297) {
+        console.log("Resolucion maxima 210 x 297");
+        toast({
+          title: "Resolucion maxima 210 x 297",
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      } else {
+        const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+
+        await uploadBytes(archivoRef, archivolocal);
+
+        seturlImagenes3(await getDownloadURL(archivoRef));
+        setIsLoading(false);
+      }
+    };
   }
 
   async function id2() {

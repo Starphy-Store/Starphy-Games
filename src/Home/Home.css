@@ -8,5 +8,18 @@
 }
 
 body {
-  background-color: #171717;
+  background-color: red;
+}
+
+.nose {
+  background: rgb(26, 32, 44);
+  background: linear-gradient(
+    0deg,
+    rgba(26, 32, 44, 1) 67%,
+    rgba(26, 32, 44, 0.9530082296590511) 74%,
+    rgba(26, 32, 44, 0.8661734957654936) 79%,
+    rgba(26, 32, 44, 0) 100%,
+    rgba(26, 32, 44, 0.24992699716605393) 100%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
