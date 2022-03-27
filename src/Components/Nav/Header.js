@@ -147,7 +147,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="xd" style={{ paddingBottom: "100px" }}>
+      <div className="xd">
         <Navbar expand="lg" className="header" variant="dark" fixed="top">
           <Container>
             <Navbar.Brand href="#" className="ayudaa">

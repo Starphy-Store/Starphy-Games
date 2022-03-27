@@ -69,20 +69,19 @@ function Recomendations1() {
                         src={data.imagenportada}
                         className="img-responsive"
                       />
-                      <div className="background "></div>
-                      <div className="profile-name">{truncate(data.juego)}</div>
-                      <div className="profile-username">
+                      <div className="background ">
+                        {" "}
                         <Badge
                           colorScheme="green"
                           variant="solid"
-                          fontSize="md"
-                          style={{ marginRight: "20px" }}
+                          fontSize="lg"
+                          style={{ margin: "15px" }}
                         >
                           New
                         </Badge>
-
-                        {data.creator}
                       </div>
+                      <div className="profile-name">{truncate(data.juego)}</div>
+                      <div className="profile-username">{data.creator}</div>
                       <div className="profile-icons">
                         <h5>{dollarsign(data.precio)}</h5>
                       </div>
