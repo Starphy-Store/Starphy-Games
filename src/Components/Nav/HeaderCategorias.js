@@ -9,12 +9,16 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  Icon,
   Input,
   Link,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+
 import React from "react";
+import { Col } from "react-bootstrap";
 
 function HeaderCategorias() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,20 +26,21 @@ function HeaderCategorias() {
   return (
     <>
       <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Categorias 🚀
+        <Icon as={HamburgerIcon} w={6} h={6} />
       </Button>
       <Drawer
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
-        size={"xs"}
+        size={"sm"}
         finalFocusRef={btnRef}
+        style={{ paddingTop: "30px" }}
       >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader style={{ textAlign: "center" }} fontSize="3xl">
-            Categorias 🚀
+            Categorias 🤨
           </DrawerHeader>
 
           <DrawerBody>

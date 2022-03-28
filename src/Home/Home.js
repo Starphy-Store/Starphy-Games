@@ -24,6 +24,7 @@ import SliderDelHome from "../Components/SliderDelHome";
 
 //Slider de recomendaciones
 import Recomendations1 from "./Recomendations1";
+import Explorar from "./Explorar.js";
 
 //Slider juegos compatibles y descargables
 const db = getFirestore(firebase2);
@@ -48,7 +49,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ backgroundColor: "#1A202C" }}>
+    <div>
       <Header />
       <SliderDelHome />
       <div
@@ -57,12 +58,14 @@ const Home = () => {
           height: "30px",
           width: "100%",
           position: "absolute",
-          zIndex: "2000",
+          zIndex: "2",
 
           marginTop: "-20px",
         }}
       ></div>
       <Recomendations1 />
+
+      <Explorar />
       <Footer></Footer>
     </div>
   );

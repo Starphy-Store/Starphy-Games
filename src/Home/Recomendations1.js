@@ -6,6 +6,7 @@ import {
   ChakraProvider,
   Skeleton,
   theme,
+  Tooltip,
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -56,7 +57,12 @@ function Recomendations1() {
     else return input;
   }
   return (
-    <Carousel variant="ligth" indicators={false} className="mt-3">
+    <Carousel
+      variant="ligth"
+      indicators={false}
+      className="mt-3"
+      style={{ zIndex: "2" }}
+    >
       <Carousel.Item>
         <Container className="d-flex">
           {games.slice(0, 4).map(({ data, id }) => (
@@ -69,7 +75,7 @@ function Recomendations1() {
                         src={data.imagenportada}
                         className="img-responsive"
                       />
-                      <div className="background ">
+                      <div className="background">
                         {" "}
                         <Badge
                           colorScheme="green"
@@ -105,21 +111,19 @@ function Recomendations1() {
                         src={data.imagenportada}
                         className="img-responsive"
                       />
-                      <div className="background "></div>
-                      <div className="profile-name">{truncate(data.juego)}</div>
-
-                      <div className="profile-username">
+                      <div className="background ">
+                        {" "}
                         <Badge
                           colorScheme="green"
                           variant="solid"
-                          fontSize="md"
-                          style={{ marginRight: "20px" }}
+                          fontSize="lg"
+                          style={{ margin: "15px" }}
                         >
                           New
                         </Badge>
-
-                        {data.creator}
                       </div>
+                      <div className="profile-name">{truncate(data.juego)}</div>
+                      <div className="profile-username">{data.creator}</div>
                       <div className="profile-icons">
                         <h5>{dollarsign(data.precio)}</h5>
                       </div>
