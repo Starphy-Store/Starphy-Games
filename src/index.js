@@ -10,6 +10,7 @@ import {
   ColorModeScript,
   useColorModeValue,
 } from "@chakra-ui/react";
+import theme from "./theme.tsx";
 
 <link
   rel="stylesheet"
@@ -21,8 +22,7 @@ import {
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ColorModeScript initialColorMode="dark" />
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
     </BrowserRouter>

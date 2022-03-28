@@ -148,7 +148,18 @@ const Header = () => {
   return (
     <>
       <div className="xd">
-        <Navbar expand="lg" className="header" variant="dark" fixed="top">
+        <Navbar
+          expand="lg"
+          className="header"
+          variant="dark"
+          fixed="top"
+          style={{ zIndex: "4" }}
+        >
+          <Box p="6" style={{ position: "absolute" }}>
+            <Flex>
+              <HeaderCategorias />
+            </Flex>
+          </Box>
           <Container>
             <Navbar.Brand href="#" className="ayudaa">
               <Link to="/Home">
@@ -161,11 +172,7 @@ const Header = () => {
                 />
               </Link>
             </Navbar.Brand>
-            <Box p="6" style={{ marginRight: "20px" }}>
-              <Flex>
-                <HeaderCategorias />
-              </Flex>
-            </Box>
+
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
               {/* Barra de busqueda */}
@@ -379,6 +386,7 @@ const Header = () => {
             backgroundColor: "white",
             marginLeft: "437px",
             marginRight: "480px",
+            zIndex: "8",
           }}
         >
           <Text style={{ color: "black" }}>

@@ -21,6 +21,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { ArrowBarRight, ArrowBarUp } from "react-bootstrap-icons";
 import { toast, ToastContainer } from "react-toastify";
+import { Tooltip } from "@mui/material";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
@@ -59,7 +60,7 @@ const SecundaryImgs = () => {
     let PesoSimbolo;
     if (juego.almacenamiento <= 1000000) {
       PesoGame = juego.almacenamiento / 1000;
-      PesoSimbolo = " Ocupa muy poco";
+      PesoSimbolo = " KB";
     } else if (
       juego.almacenamiento >= 1000000 &&
       juego.almacenamiento <= 1000000000
@@ -91,7 +92,7 @@ const SecundaryImgs = () => {
   }
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#1A202C" }}>
       <Container className="GamesInfo">
         <Row>
           <Col md={7}>

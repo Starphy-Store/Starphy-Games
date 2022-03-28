@@ -16,15 +16,9 @@ function SliderDelHome() {
     <div className="sliderdelhome">
       <Carousel variant="light" indicators={false} className="carousel-inner">
         <Carousel.Item>
-          {/* <div className="carouselitem1">
-            <Container style={{ width: "1000px" }}>
-              <h1></h1>
-              <p style={{ textAlign: "center" }}></p>
-            </Container>
-          </div> */}
           <img
             className="d-block sliderImg"
-            src={payday2}
+            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Elden-Ring-new-screenshots-1.jpg?alt=media&token=ed00eb7a-3dbc-4a97-81aa-760b7b08811d"
             alt="First slide"
             style={{ width: "100%", height: "100%" }}
             /* style={{ width: "3840px", height: "2106px" }} */
@@ -32,30 +26,18 @@ function SliderDelHome() {
           />
         </Carousel.Item>
         <Carousel.Item>
-          {/* <div className="carouselitem1">
-            <Container style={{ width: "1000px" }}>
-              <h1></h1>
-              <p style={{ textAlign: "center" }}></p>
-            </Container>
-          </div> */}
           <img
             className="d-block sliderImg"
-            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Publica%20tus%20juegos%20gratis%20(1).png?alt=media&token=17af5675-45b7-4e7b-858e-70f5fbb6b3d1"
+            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Dise%C3%B1o%20sin%20t%C3%ADtulo%20(16).png?alt=media&token=e7333dc0-5395-42c7-a479-f37f20c20efc"
             alt="Second slide"
             style={{ width: "100%", height: "100%" }}
             /* style={{ width: "3840px", height: "2106px" }} */
           />
         </Carousel.Item>
         <Carousel.Item>
-          {/* <div className="carouselitem1">
-            <Container style={{ width: "1000px" }}>
-              <h1></h1>
-              <p style={{ textAlign: "center" }}></p>
-            </Container>
-          </div> */}
           <img
             className="d-block sliderImg"
-            src={thewitcher}
+            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/62412a3966938.jpg?alt=media&token=dac92c94-6ac7-4049-aaee-8637a1263d8d"
             alt="Third slide"
             style={{ width: "100%", height: "100%" }}
             /* style={{ width: "3840px", height: "2106px" }} */
