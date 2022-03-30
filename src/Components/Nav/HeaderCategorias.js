@@ -32,7 +32,7 @@ function HeaderCategorias() {
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
-        size={"sm"}
+        size={"xs"}
         finalFocusRef={btnRef}
         style={{ paddingTop: "30px" }}
       >

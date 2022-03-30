@@ -12,6 +12,7 @@ import {
 import firebase2 from "../Home/Firebase2";
 import { Link } from "react-router-dom";
 import { Filter } from "react-bootstrap-icons";
+import { Text } from "@chakra-ui/layout";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
@@ -91,47 +92,52 @@ function Library() {
     <>
       <Container>
         <Header />
-        <h1 style={{ textAlign: "left" }}> Tu libreria </h1>
-        <hr style={{ color: "white" }} />
       </Container>
-      {juegosbuy == 0 ? (
-        <>
-          <Container>
-            <h2 style={{ color: "white" }} className="pt-3">
-              No hay juegos por aqui...
-            </h2>
-          </Container>
-          <Container>
-            <p style={{ color: "white" }}>Anda mira uno que te guste :)</p>
-          </Container>
-        </>
-      ) : (
-        <Container className="d-flex">
+      <Container style={{ marginTop: "200px" }}>
+        <Text style={{ textAlign: "left", marginLeft: "25px" }} fontSize="6xl">
+          {" "}
+          Tu libreria{" "}
+        </Text>
+        <hr style={{ color: "white", marginBottom: "20px" }} />
+        {juegosbuy == 0 ? (
           <>
-            {juegos.map((item) => (
-              <a href={item.videojuego}>
-                <Container>
-                  <Row>
-                    <Col md={12}>
-                      <div className="profile-card-2 ">
-                        <img
-                          src={item.imagenportada}
-                          className="img-responsive"
-                        />
-                        <div className="background "></div>
-                        <div className="profile-name">{item.juego}</div>
-                        <div className="profile-icons">
-                          <h6>Da click para empezar la descarga</h6>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                </Container>
-              </a>
-            ))}
+            <Container>
+              <h2 style={{ color: "white" }} className="pt-3">
+                No hay juegos por aqui...
+              </h2>
+            </Container>
+            <Container>
+              <p style={{ color: "white" }}>Anda mira uno que te guste :)</p>
+            </Container>
           </>
-        </Container>
-      )}
+        ) : (
+          <Container className="d-flex">
+            <>
+              {juegos.map((item) => (
+                <a href={item.videojuego}>
+                  <Container>
+                    <Row>
+                      <Col md={12}>
+                        <div className="profile-card-2 ">
+                          <img
+                            src={item.imagenportada}
+                            className="img-responsive"
+                          />
+                          <div className="background "></div>
+                          <div className="profile-name">{item.juego}</div>
+                          <div className="profile-icons">
+                            <h6>Da click para empezar la descarga</h6>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Container>
+                </a>
+              ))}
+            </>
+          </Container>
+        )}
+      </Container>
     </>
   );
 }
