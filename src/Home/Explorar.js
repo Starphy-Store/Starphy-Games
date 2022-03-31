@@ -55,89 +55,184 @@ function Explorar() {
       <Heading fontSize="4xl" textAlign="center" marginTop="100px">
         Explorar 🤿
       </Heading>
-      <Carousel
+      <Container
         variant="ligth"
         indicators={false}
         className="mt-3"
         style={{ zIndex: "2" }}
       >
-        <Carousel.Item>
-          <Container className="d-flex">
-            {shuffledArray.slice(0, 4).map(({ data, id }) => (
-              <Link to={`/GamesShow/${id}`} className="w-25">
-                <Container key={id}>
-                  <Row>
-                    <Col md={212}>
-                      <div className="profile-card-2 ">
-                        <img
-                          src={data.imagenportada}
-                          className="img-responsive"
-                        />
-                        <div className="background">
-                          {" "}
-                          <Badge
-                            colorScheme="green"
-                            variant="solid"
-                            fontSize="lg"
-                            style={{ margin: "15px" }}
-                          >
-                            New
-                          </Badge>
-                        </div>
-                        <div className="profile-name">
-                          {truncate(data.juego)}
-                        </div>
-                        <div className="profile-username">{data.creator}</div>
-                        <div className="profile-icons">
-                          <h5>{dollarsign(data.precio)}</h5>
-                        </div>
+        <Container className="d-flex" style={{ zIndex: "2" }}>
+          {shuffledArray.slice(0, 4).map(({ data, id }) => (
+            <Link to={`/GamesShow/${id}`} className="w-25">
+              <Container key={id} style={{ zIndex: "2" }}>
+                <Row>
+                  <Col md={212}>
+                    <div className="profile-card-2 ">
+                      <img
+                        src={data.imagenportada}
+                        className="img-responsive"
+                      />
+                      <div className="background">
+                        {" "}
+                        <Badge
+                          colorScheme="green"
+                          variant="solid"
+                          fontSize="lg"
+                          style={{ margin: "15px" }}
+                        >
+                          New
+                        </Badge>
                       </div>
-                    </Col>
-                  </Row>
-                </Container>
-              </Link>
-            ))}
-          </Container>
-        </Carousel.Item>
-        <Carousel.Item>
-          <Container className="d-flex">
-            {shuffledArray.slice(4, 8).map(({ data, id }) => (
-              <Link to={`/GamesShow/${id}`} className="w-25">
-                <Container key={id}>
-                  <Row>
-                    <Col md={212}>
-                      <div className="profile-card-2 ">
-                        <img
-                          src={data.imagenportada}
-                          className="img-responsive"
-                        />
-                        <div className="background ">
-                          {" "}
-                          <Badge
-                            colorScheme="green"
-                            variant="solid"
-                            fontSize="lg"
-                            style={{ margin: "15px" }}
-                          >
-                            New
-                          </Badge>
-                        </div>
-                        <div className="profile-name">
-                          {truncate(data.juego)}
-                        </div>
-                        <div className="profile-username">{data.creator}</div>
-                        <div className="profile-icons">
-                          <h5>{dollarsign(data.precio)}</h5>
-                        </div>
+                      <div className="profile-name">{truncate(data.juego)}</div>
+                      <div className="profile-username">{data.creator}</div>
+                      <div className="profile-icons">
+                        <h5>{dollarsign(data.precio)}</h5>
                       </div>
-                    </Col>
-                  </Row>
-                </Container>
-              </Link>
-            ))}
-          </Container>
-        </Carousel.Item>
-      </Carousel>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </Link>
+          ))}
+        </Container>
+
+        <Container className="d-flex">
+          {shuffledArray.slice(4, 8).map(({ data, id }) => (
+            <Link to={`/GamesShow/${id}`} className="w-25">
+              <Container key={id}>
+                <Row>
+                  <Col md={212}>
+                    <div className="profile-card-2 ">
+                      <img
+                        src={data.imagenportada}
+                        className="img-responsive"
+                      />
+                      <div className="background ">
+                        {" "}
+                        <Badge
+                          colorScheme="green"
+                          variant="solid"
+                          fontSize="lg"
+                          style={{ margin: "15px" }}
+                        >
+                          New
+                        </Badge>
+                      </div>
+                      <div className="profile-name">{truncate(data.juego)}</div>
+                      <div className="profile-username">{data.creator}</div>
+                      <div className="profile-icons">
+                        <h5>{dollarsign(data.precio)}</h5>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </Link>
+          ))}
+        </Container>
+        <Container className="d-flex">
+          {shuffledArray.slice(8, 12).map(({ data, id }) => (
+            <Link to={`/GamesShow/${id}`} className="w-25">
+              <Container key={id}>
+                <Row>
+                  <Col md={212}>
+                    <div className="profile-card-2 ">
+                      <img
+                        src={data.imagenportada}
+                        className="img-responsive"
+                      />
+                      <div className="background">
+                        {" "}
+                        <Badge
+                          colorScheme="green"
+                          variant="solid"
+                          fontSize="lg"
+                          style={{ margin: "15px" }}
+                        >
+                          New
+                        </Badge>
+                      </div>
+                      <div className="profile-name">{truncate(data.juego)}</div>
+                      <div className="profile-username">{data.creator}</div>
+                      <div className="profile-icons">
+                        <h5>{dollarsign(data.precio)}</h5>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </Link>
+          ))}
+        </Container>
+        <Container className="d-flex">
+          {shuffledArray.slice(12, 16).map(({ data, id }) => (
+            <Link to={`/GamesShow/${id}`} className="w-25">
+              <Container key={id}>
+                <Row>
+                  <Col md={212}>
+                    <div className="profile-card-2 ">
+                      <img
+                        src={data.imagenportada}
+                        className="img-responsive"
+                      />
+                      <div className="background">
+                        {" "}
+                        <Badge
+                          colorScheme="green"
+                          variant="solid"
+                          fontSize="lg"
+                          style={{ margin: "15px" }}
+                        >
+                          New
+                        </Badge>
+                      </div>
+                      <div className="profile-name">{truncate(data.juego)}</div>
+                      <div className="profile-username">{data.creator}</div>
+                      <div className="profile-icons">
+                        <h5>{dollarsign(data.precio)}</h5>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </Link>
+          ))}
+        </Container>
+        <Container className="d-flex">
+          {shuffledArray.slice(16, 20).map(({ data, id }) => (
+            <Link to={`/GamesShow/${id}`} className="w-25">
+              <Container key={id} style={{ zIndex: "2" }}>
+                <Row>
+                  <Col md={212}>
+                    <div className="profile-card-2 ">
+                      <img
+                        src={data.imagenportada}
+                        className="img-responsive"
+                      />
+                      <div className="background">
+                        {" "}
+                        <Badge
+                          colorScheme="green"
+                          variant="solid"
+                          fontSize="lg"
+                          style={{ margin: "15px" }}
+                        >
+                          New
+                        </Badge>
+                      </div>
+                      <div className="profile-name">{truncate(data.juego)}</div>
+                      <div className="profile-username">{data.creator}</div>
+                      <div className="profile-icons">
+                        <h5>{dollarsign(data.precio)}</h5>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </Link>
+          ))}
+        </Container>
+      </Container>
     </>
   );
 }

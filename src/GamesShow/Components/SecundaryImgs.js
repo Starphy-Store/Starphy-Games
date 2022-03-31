@@ -22,6 +22,7 @@ import { initializeApp } from "firebase/app";
 import { ArrowBarRight, ArrowBarUp } from "react-bootstrap-icons";
 import { toast, ToastContainer } from "react-toastify";
 import { Tooltip } from "@mui/material";
+import { useToast } from "@chakra-ui/toast";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
@@ -29,6 +30,8 @@ const db = getFirestore(firebase2);
 const SecundaryImgs = () => {
   const { id } = useParams();
   const [user, setuser] = useState(false);
+
+  const toaste = useToast();
 
   toast.configure();
   const [game, setGame] = useState({});
@@ -147,15 +150,21 @@ const SecundaryImgs = () => {
                       </Button>
                     </Link>
                   ) : (
-                    <Link to={"/Loginuser"}>
-                      <Button
-                        variant="light"
-                        size="lg"
-                        style={{ width: "100%" }}
-                      >
-                        Comprar ahora
-                      </Button>
-                    </Link>
+                    <Button
+                      variant="light"
+                      size="lg"
+                      style={{ width: "100%" }}
+                      onClick={() => {
+                        toaste({
+                          title: "Necesitas una cuenta para comprarlo",
+                          status: "warning",
+                          isClosable: true,
+                          duration: 4000,
+                        });
+                      }}
+                    >
+                      Comprar ahora
+                    </Button>
                   )}
                   <h5
                     style={{ textAlign: "center", color: "lightgreen" }}

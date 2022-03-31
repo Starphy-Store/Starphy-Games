@@ -80,11 +80,13 @@ export default function DevProfile() {
   return (
     <>
       <Header />
-      <Container>
+      <Container style={{ marginTop: "100px" }}>
         <Row className="pb-1">
           <h1 className="pb-1">{perfil.name}</h1>
         </Row>
-        <div style={{ position: "absolute", color: "gray" }}>
+        <div
+          style={{ position: "absolute", color: "gray", marginTop: "170px" }}
+        >
           <h6 className="px-3 pt-3">{manzana(contador)}</h6>
           <h6 className="px-3">+1.000 Descargas</h6>
         </div>
@@ -100,28 +102,87 @@ export default function DevProfile() {
             <hr style={{ color: "white" }} />
           </Container>
         ) : (
-          filtrarJuego.map((card) => (
-            <Link to={`/GamesShow/${card.juego}`} className="w-25">
-              <Container key={card.id}>
-                <Row>
-                  <Col md={212}>
-                    <div className="profile-card-2 ">
-                      <img
-                        src={card.imagenportada}
-                        className="img-responsive"
-                      />
-                      <div className="background "></div>
-                      <div className="profile-name">{truncate(card.juego)}</div>
-                      <div className="profile-username">{card.creator}</div>
-                      <div className="profile-icons">
-                        <h5>{dollarsign(card.precio)}</h5>
-                      </div>
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </Link>
-          ))
+          <div>
+            <hr style={{ color: "white" }} />
+            <Container className="d-flex">
+              {filtrarJuego.slice(0, 4).map((card) => (
+                <Link to={`/GamesShow/${card.juego}`} className="w-25">
+                  <Container key={card.id}>
+                    <Row>
+                      <Col md={212}>
+                        <div className="profile-card-2 ">
+                          <img
+                            src={card.imagenportada}
+                            className="img-responsive"
+                          />
+                          <div className="background "></div>
+                          <div className="profile-name">
+                            {truncate(card.juego)}
+                          </div>
+                          <div className="profile-username">{card.creator}</div>
+                          <div className="profile-icons">
+                            <h5>{dollarsign(card.precio)}</h5>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Container>
+                </Link>
+              ))}
+            </Container>
+            <Container className="d-flex">
+              {filtrarJuego.slice(4, 8).map((card) => (
+                <Link to={`/GamesShow/${card.juego}`} className="w-25">
+                  <Container key={card.id}>
+                    <Row>
+                      <Col md={212}>
+                        <div className="profile-card-2 ">
+                          <img
+                            src={card.imagenportada}
+                            className="img-responsive"
+                          />
+                          <div className="background "></div>
+                          <div className="profile-name">
+                            {truncate(card.juego)}
+                          </div>
+                          <div className="profile-username">{card.creator}</div>
+                          <div className="profile-icons">
+                            <h5>{dollarsign(card.precio)}</h5>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Container>
+                </Link>
+              ))}
+            </Container>
+            <Container className="d-flex">
+              {filtrarJuego.slice(8, 12).map((card) => (
+                <Link to={`/GamesShow/${card.juego}`} className="w-25">
+                  <Container key={card.id}>
+                    <Row>
+                      <Col md={212}>
+                        <div className="profile-card-2 ">
+                          <img
+                            src={card.imagenportada}
+                            className="img-responsive"
+                          />
+                          <div className="background "></div>
+                          <div className="profile-name">
+                            {truncate(card.juego)}
+                          </div>
+                          <div className="profile-username">{card.creator}</div>
+                          <div className="profile-icons">
+                            <h5>{dollarsign(card.precio)}</h5>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Container>
+                </Link>
+              ))}
+            </Container>
+          </div>
         )}
       </Container>
     </>

@@ -160,7 +160,7 @@ const Header = () => {
               <HeaderCategorias />
             </Flex>
           </Box>
-          <Container>
+          <Container fluid>
             <Navbar.Brand href="#" className="ayudaa">
               <Link to="/Home">
                 <img
