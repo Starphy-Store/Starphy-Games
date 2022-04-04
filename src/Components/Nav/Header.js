@@ -161,7 +161,11 @@ const Header = () => {
             </Flex>
           </Box>
           <Container fluid>
-            <Navbar.Brand href="#" className="ayudaa">
+            <Navbar.Brand
+              href="#"
+              className="ayudaa"
+              style={{ marginLeft: "200px" }}
+            >
               <Link to="/Home">
                 <img
                   src={logo}
@@ -184,7 +188,7 @@ const Header = () => {
                 <Form
                   onSubmit={SearchGames}
                   className="d-flex"
-                  style={{ width: "450px" }}
+                  style={{ width: "450px", marginLeft: "120px" }}
                 >
                   <FormControl
                     type="search"
@@ -326,52 +330,50 @@ const Header = () => {
                       )}
                     </>
                   ) : (
-                    <>
-                      <Row>
-                        <Col sm={1} lg={1}></Col>
-                        <Col>
-                          <Link to="/devregister" style={{ width: "180px" }}>
-                            <Button
-                              variant="outline-light"
-                              color="light"
-                              style={{ border: "0", color: "grey" }}
-                            >
-                              Publica tu juego
-                            </Button>
-                          </Link>
-                        </Col>
-                        <Col sm={1} lg={1}></Col>
-                        <Col lg={2}>
-                          <Link to="/register">
-                            <Button
-                              variant="outline-light"
-                              style={{
-                                border: "0",
-                                float: "right",
-                              }}
-                            >
-                              Registarse
-                            </Button>
-                          </Link>
-                        </Col>
-                        <Col lg={5}>
-                          <Link to="/LoginUser">
-                            <Button
-                              variant="outline-light"
-                              style={{
-                                float: "right",
-                                width: "100%",
-                                textAlign: "center",
-                                border: "0",
-                              }}
-                              className=""
-                            >
-                              Inicia Sesion
-                            </Button>
-                          </Link>
-                        </Col>
-                      </Row>
-                    </>
+                    <Row>
+                      <Col sm={1} lg={1}></Col>
+                      <Col>
+                        <Link to="/devregister" style={{ width: "180px" }}>
+                          <Button
+                            variant="outline-light"
+                            color="light"
+                            style={{ border: "0", color: "grey" }}
+                          >
+                            Publica tu juego
+                          </Button>
+                        </Link>
+                      </Col>
+                      <Col sm={1} lg={1}></Col>
+                      <Col lg={2}>
+                        <Link to="/register">
+                          <Button
+                            variant="outline-light"
+                            style={{
+                              border: "0",
+                              float: "right",
+                            }}
+                          >
+                            Registarse
+                          </Button>
+                        </Link>
+                      </Col>
+                      <Col lg={5}>
+                        <Link to="/LoginUser">
+                          <Button
+                            variant="outline-light"
+                            style={{
+                              float: "right",
+                              width: "100%",
+                              textAlign: "center",
+                              border: "0",
+                            }}
+                            className=""
+                          >
+                            Inicia Sesion
+                          </Button>
+                        </Link>
+                      </Col>
+                    </Row>
                   )}
                 </Row>
               </Container>
