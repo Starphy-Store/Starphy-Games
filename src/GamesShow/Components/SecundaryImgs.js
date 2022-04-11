@@ -23,6 +23,7 @@ import { ArrowBarRight, ArrowBarUp } from "react-bootstrap-icons";
 import { toast, ToastContainer } from "react-toastify";
 import { Tooltip } from "@mui/material";
 import { useToast } from "@chakra-ui/toast";
+import Rating from "react-rating";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
@@ -30,6 +31,7 @@ const db = getFirestore(firebase2);
 const SecundaryImgs = () => {
   const { id } = useParams();
   const [user, setuser] = useState(false);
+  const [value, setValue] = useState(null);
 
   const toaste = useToast();
 
@@ -56,7 +58,7 @@ const SecundaryImgs = () => {
       }
     });
   }
-  console.log(id);
+  console.log(value);
 
   function Comapeso(juego) {
     let PesoGame;
@@ -174,6 +176,14 @@ const SecundaryImgs = () => {
                   <h6>Peso: {game.PesoGame}</h6>
                   <Col>
                     <h3>Valoraciones </h3>
+                    <Rating
+                      defaultValue={2}
+                      name="size-medium"
+                      onChange={(event, newValue) => {
+                        setValue(event);
+                        localStorage.setItem("Rating", JSON.stringify(event));
+                      }}
+                    />
                   </Col>
                   <ToastContainer limit={1} />
                 </div>

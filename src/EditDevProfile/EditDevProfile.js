@@ -186,11 +186,7 @@ export default function Editdevprofile() {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Editar correo</Form.Label>
-                <Form.Control
-                  onChange={updateEmail}
-                  type="email"
-                  placeholder={perfil.email}
-                />
+                <Form.Control onChange={updateEmail} type="email" />
                 <Form.Control.Feedback type="invalid">
                   Email incorrecto
                 </Form.Control.Feedback>

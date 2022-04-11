@@ -116,7 +116,8 @@ export default function Payment() {
     onSnapshot(refere, (querySnapshot) => {
       const it = [];
       querySnapshot.forEach((doc) => {
-        const { preciodeljuego, enviarpago, nombre, ...rest } = doc.data();
+        const { preciodeljuego, enviarpago, nombrecreador, ...rest } =
+          doc.data();
         it.push({ ...rest });
       });
 
