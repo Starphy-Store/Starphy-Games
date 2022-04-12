@@ -19,11 +19,14 @@ import {
   addDoc,
   where,
   getDoc,
+  Timestamp,
+  serverTimestamp,
 } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
 import "../EditProfile/editprofile.css";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../Footer/Footer";
+import { noConflict } from "jquery";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -44,10 +47,6 @@ export default function EditProfile() {
   const auth = getAuth(app);
   const [name, setName] = useState({});
   const [Nombre, setNombre] = useState("");
-
-  const current = new Date();
-
-  const date = new Date();
 
   useEffect(() => {
     EditarPerfil();
@@ -88,21 +87,26 @@ export default function EditProfile() {
         // ..
       });
   };
+
+  const date = new Date();
+
   function addDaysToDate(date, days) {
     let res = new Date(date);
     res.setDate(res.getDate() + days);
+
     return res;
   }
 
   const tmpDate = new Date();
+  const DateAccount = new Date(name.FechaDeModificacion);
 
   const GuardarCambios = async function (e) {
     e.preventDefault();
 
-    if (name.FechaDeModificacion > addDaysToDate(tmpDate, 14)) {
+    if (DateAccount > addDaysToDate(DateAccount, 14)) {
       await updateDoc(doc(db, "users", auth.currentUser.uid), {
         name: Nombre,
-        FechaDeModificacion: date,
+        FechaDeModificacion: tmpDate.getTime(),
       });
     } else {
       toast.warning("Tienes que esperar hasta esta fecha ", {
