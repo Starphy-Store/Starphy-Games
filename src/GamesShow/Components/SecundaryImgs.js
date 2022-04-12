@@ -23,7 +23,7 @@ import { ArrowBarRight, ArrowBarUp } from "react-bootstrap-icons";
 import { toast, ToastContainer } from "react-toastify";
 import { Tooltip } from "@mui/material";
 import { useToast } from "@chakra-ui/toast";
-import Rating from "react-rating";
+import { Rating } from "react-simple-star-rating";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
@@ -37,11 +37,9 @@ const SecundaryImgs = () => {
 
   toast.configure();
   const [game, setGame] = useState({});
-  const [estrellas, setEstrellas] = useState(0);
 
   async function getGames() {
     const ref = doc(db, "games", id);
-    const refe = query(collection(db, "users"));
 
     onSnapshot(ref, (querySnapshot) => {
       getDoc(ref, id).then((data) => {
@@ -95,6 +93,11 @@ const SecundaryImgs = () => {
       return "$" + input;
     }
   }
+
+  const handleRating = (rate) => {
+    setValue(rate);
+    sessionStorage.setItem(game.juego, JSON.stringify(rate));
+  };
 
   return (
     <div style={{ backgroundColor: "#1A202C" }}>
@@ -176,15 +179,22 @@ const SecundaryImgs = () => {
                   <h6>Peso: {game.PesoGame}</h6>
                   <Col>
                     <h3>Valoraciones </h3>
-                    <Rating
-                      defaultValue={2}
-                      name="size-medium"
-                      onChange={(event, newValue) => {
-                        setValue(event);
-                        localStorage.setItem("Rating", JSON.stringify(event));
-                      }}
-                    />
                   </Col>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Rating
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                      ratingValue={value}
+                      onClick={handleRating}
+                      size={30}
+                      transition
+                      allowHalfIcon
+                    />
+                  </div>
                   <ToastContainer limit={1} />
                 </div>
               </Row>

@@ -79,7 +79,7 @@ const Header = () => {
       });
     });
   }
-  console.log(users);
+
   async function getGames() {
     const ref = query(collection(db, "games"));
 

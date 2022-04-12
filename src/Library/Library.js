@@ -13,6 +13,7 @@ import firebase2 from "../Home/Firebase2";
 import { Link } from "react-router-dom";
 import { Filter } from "react-bootstrap-icons";
 import { Text } from "@chakra-ui/layout";
+import Footer from "../Footer/Footer";
 
 const auth = getAuth(firebase2);
 const db = getFirestore(firebase2);
@@ -110,9 +111,9 @@ function Library() {
             </Container>
           </>
         ) : (
-          <Container className="d-flex">
-            <>
-              {juegos.map((item) => (
+          <>
+            <Container className="d-flex">
+              {juegos.slice(0, 4).map((item) => (
                 <a href={item.videojuego}>
                   <Container>
                     <Row>
@@ -133,10 +134,34 @@ function Library() {
                   </Container>
                 </a>
               ))}
-            </>
-          </Container>
+            </Container>
+            <Container className="d-flex">
+              {juegos.slice(4, 8).map((item) => (
+                <a href={item.videojuego}>
+                  <Container>
+                    <Row>
+                      <Col md={12}>
+                        <div className="profile-card-2 ">
+                          <img
+                            src={item.imagenportada}
+                            className="img-responsive"
+                          />
+                          <div className="background "></div>
+                          <div className="profile-name">{item.juego}</div>
+                          <div className="profile-icons">
+                            <h6>Da click para empezar la descarga</h6>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Container>
+                </a>
+              ))}
+            </Container>
+          </>
         )}
       </Container>
+      <Footer />
     </>
   );
 }

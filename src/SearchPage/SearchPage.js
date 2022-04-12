@@ -71,30 +71,60 @@ export default function SearchPage() {
           </h4>
         </Container>
       ) : (
-        <Container className="d-flex">
-          {filtrado2.map((item) => (
-            <Link to={`/GamesShow/${item.juego}`} className="w-25">
-              <Container key={item.id} fluid>
-                <Row>
-                  <Col>
-                    <div className="profile-card-2 ">
-                      <img
-                        src={item.imagenportada}
-                        className="img-responsive"
-                      />
-                      <div className="background "></div>
-                      <div className="profile-name">{truncate(item.juego)}</div>
-                      <div className="profile-username">{item.creator}</div>
-                      <div className="profile-icons">
-                        <h5>{dollarsign(item.precio)}</h5>
+        <>
+          <Container className="d-flex">
+            {filtrado2.slice(0, 4).map((item) => (
+              <Link to={`/GamesShow/${item.juego}`} className="w-25">
+                <Container key={item.id} fluid>
+                  <Row>
+                    <Col>
+                      <div className="profile-card-2 ">
+                        <img
+                          src={item.imagenportada}
+                          className="img-responsive"
+                        />
+                        <div className="background "></div>
+                        <div className="profile-name">
+                          {truncate(item.juego)}
+                        </div>
+                        <div className="profile-username">{item.creator}</div>
+                        <div className="profile-icons">
+                          <h5>{dollarsign(item.precio)}</h5>
+                        </div>
                       </div>
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </Link>
-          ))}
-        </Container>
+                    </Col>
+                  </Row>
+                </Container>
+              </Link>
+            ))}
+          </Container>
+          <Container className="d-flex">
+            {filtrado2.slice(4, 8).map((item) => (
+              <Link to={`/GamesShow/${item.juego}`} className="w-25">
+                <Container key={item.id} fluid>
+                  <Row>
+                    <Col>
+                      <div className="profile-card-2 ">
+                        <img
+                          src={item.imagenportada}
+                          className="img-responsive"
+                        />
+                        <div className="background "></div>
+                        <div className="profile-name">
+                          {truncate(item.juego)}
+                        </div>
+                        <div className="profile-username">{item.creator}</div>
+                        <div className="profile-icons">
+                          <h5>{dollarsign(item.precio)}</h5>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
+              </Link>
+            ))}
+          </Container>
+        </>
       )}
       <Footer style={{ position: "static" }}></Footer>
     </>
