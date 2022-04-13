@@ -12,6 +12,7 @@ import {
 import { Carousel, Container, Form } from "react-bootstrap";
 import "../../Components/Components.css";
 import firebase2 from "../../Home/Firebase2";
+import ReactPlayer from "react-player";
 
 //importacion de imagenes
 
@@ -21,6 +22,7 @@ function Slider() {
   const { id } = useParams();
 
   const [game, setGame] = useState({});
+  const [duration, setDuration] = useState("");
 
   function getGames() {
     const ref = doc(db, "games", id);
@@ -33,6 +35,8 @@ function Slider() {
       });
     });
   }
+
+  console.log(duration);
 
   useEffect(() => {
     getGames();
@@ -47,13 +51,10 @@ function Slider() {
         className="carousel-inner"
       >
         <Carousel.Item>
-          <iframe
+          <ReactPlayer
+            url="https://www.youtube.com/embed/NN-9SQXoi50"
+            onDuration={setDuration}
             style={{ width: "100%", height: "600px" }}
-            src="https://www.youtube.com/embed/NN-9SQXoi50"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
           />
         </Carousel.Item>
         <Carousel.Item>

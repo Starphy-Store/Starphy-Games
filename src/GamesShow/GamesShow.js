@@ -14,7 +14,7 @@ function GamesShow() {
           <Header></Header>
         </Col>
       </Container>
-      <Container>
+      <Container style={{ paddingTop: "90px" }}>
         <Slider />
       </Container>
       <div className="pt-5"></div>
