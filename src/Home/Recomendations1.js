@@ -56,6 +56,58 @@ function Recomendations1() {
     if (input.length > 14) return input.substring(0, 14) + "...";
     else return input;
   }
+  function showTooltip(input) {
+    if (input.length > 14) return input;
+    else return "";
+  }
+  function Cards() {
+    return (
+      <Carousel.Item>
+        <Container className="d-flex">
+          {games.slice(4, 8).map(({ data, id }) => (
+            <Tooltip
+              label={showTooltip(data.juego)}
+              placement="bottom"
+              hasArrow
+            >
+              <Link to={`/GamesShow/${id}`} className="w-25">
+                <Container key={id}>
+                  <Row>
+                    <Col md={212}>
+                      <div className="profile-card-2 ">
+                        <img
+                          src={data.imagenportada}
+                          className="img-responsive"
+                        />
+                        <div className="background ">
+                          {" "}
+                          <Badge
+                            colorScheme="green"
+                            variant="solid"
+                            fontSize="lg"
+                            style={{ margin: "15px" }}
+                          >
+                            New
+                          </Badge>
+                        </div>
+                        <div className="profile-name">
+                          {truncate(data.juego)}
+                        </div>
+                        <div className="profile-username">{data.creator}</div>
+                        <div className="profile-icons">
+                          <h5>{dollarsign(data.precio)}</h5>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
+              </Link>
+            </Tooltip>
+          ))}
+        </Container>
+      </Carousel.Item>
+    );
+  }
   return (
     <Carousel
       variant="ligth"
@@ -66,75 +118,94 @@ function Recomendations1() {
       <Carousel.Item>
         <Container className="d-flex">
           {games.slice(0, 4).map(({ data, id }) => (
-            <Link to={`/GamesShow/${id}`} className="w-25">
-              <Container key={id}>
-                <Row>
-                  <Col md={212}>
-                    <div className="profile-card-2 ">
-                      <img
-                        src={data.imagenportada}
-                        className="img-responsive"
-                      />
-                      <div className="background">
-                        {" "}
-                        <Badge
-                          colorScheme="green"
-                          variant="solid"
-                          fontSize="lg"
-                          style={{ margin: "15px" }}
-                        >
-                          New
-                        </Badge>
+            <Tooltip
+              label={showTooltip(data.juego)}
+              placement="bottom"
+              hasArrow
+            >
+              <Link to={`/GamesShow/${id}`} className="w-25">
+                <Container key={id}>
+                  <Row>
+                    <Col md={212}>
+                      <div className="profile-card-2 ">
+                        <img
+                          src={data.imagenportada}
+                          className="img-responsive"
+                        />
+                        <div className="background">
+                          {" "}
+                          <Badge
+                            colorScheme="green"
+                            variant="solid"
+                            fontSize="lg"
+                            style={{ margin: "15px" }}
+                          >
+                            New
+                          </Badge>
+                        </div>
+                        <div className="profile-name">
+                          {truncate(data.juego)}
+                        </div>
+                        <div className="profile-username">{data.creator}</div>
+                        <div className="profile-icons">
+                          <h5>{dollarsign(data.precio)}</h5>
+                        </div>
                       </div>
-                      <div className="profile-name">{truncate(data.juego)}</div>
-                      <div className="profile-username">{data.creator}</div>
-                      <div className="profile-icons">
-                        <h5>{dollarsign(data.precio)}</h5>
-                      </div>
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </Link>
+                    </Col>
+                  </Row>
+                </Container>
+              </Link>
+            </Tooltip>
           ))}
         </Container>
       </Carousel.Item>
       <Carousel.Item>
         <Container className="d-flex">
           {games.slice(4, 8).map(({ data, id }) => (
-            <Link to={`/GamesShow/${id}`} className="w-25">
-              <Container key={id}>
-                <Row>
-                  <Col md={212}>
-                    <div className="profile-card-2 ">
-                      <img
-                        src={data.imagenportada}
-                        className="img-responsive"
-                      />
-                      <div className="background ">
-                        {" "}
-                        <Badge
-                          colorScheme="green"
-                          variant="solid"
-                          fontSize="lg"
-                          style={{ margin: "15px" }}
-                        >
-                          New
-                        </Badge>
+            <Tooltip
+              label={showTooltip(data.juego)}
+              placement="bottom"
+              hasArrow
+            >
+              <Link to={`/GamesShow/${id}`} className="w-25">
+                <Container key={id}>
+                  <Row>
+                    <Col md={212}>
+                      <div className="profile-card-2 ">
+                        <img
+                          src={data.imagenportada}
+                          className="img-responsive"
+                        />
+                        <div className="background ">
+                          {" "}
+                          <Badge
+                            colorScheme="green"
+                            variant="solid"
+                            fontSize="lg"
+                            style={{ margin: "15px" }}
+                          >
+                            New
+                          </Badge>
+                        </div>
+                        <div className="profile-name">
+                          {truncate(data.juego)}
+                        </div>
+                        <div className="profile-username">{data.creator}</div>
+                        <div className="profile-icons">
+                          <h5>{dollarsign(data.precio)}</h5>
+                        </div>
                       </div>
-                      <div className="profile-name">{truncate(data.juego)}</div>
-                      <div className="profile-username">{data.creator}</div>
-                      <div className="profile-icons">
-                        <h5>{dollarsign(data.precio)}</h5>
-                      </div>
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </Link>
+                    </Col>
+                  </Row>
+                </Container>
+              </Link>
+            </Tooltip>
           ))}
         </Container>
       </Carousel.Item>
+      <script type="text-javascript">
+        function sexo(){alert("alerta de sexo")}
+      </script>
     </Carousel>
   );
 }
