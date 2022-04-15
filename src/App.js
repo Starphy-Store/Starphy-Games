@@ -4,6 +4,7 @@ import "./App.css";
 
 //importacion de todo ajsaj
 import Home from "./Home/Home";
+import Header from "./Components/Nav/Header";
 import Login from "./LoginPage/Login";
 import Recuperar from "./LoginPage/Recover";
 import CreatePass from "./LoginPage/CreatePassword.js";
@@ -142,16 +143,21 @@ function App() {
           <Route
             path="*"
             element={
-              <Container style={{ marginTop: "400px" }} className="AppLoader">
-                <ScaleLoader color={"#FFFFFF"} size={150} />
-              </Container>
+              <>
+                <Header></Header>
+                <Container style={{ marginTop: "400px" }} className="AppLoader">
+                  <h5>Verifica tu correo electronico</h5>
+                  <h4>🥶</h4>
+                  {/* <ScaleLoader color={"#FFFFFF"} size={150} /> */}
+                </Container>
+              </>
             }
           />
         )}
-        <Route
+        {/* <Route
           path="*"
           element={<ScaleLoader color={"#123abc"} size={150} />}
-        />
+        /> */}
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>

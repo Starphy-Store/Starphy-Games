@@ -6,6 +6,7 @@ import {
   Twitter,
   ArrowClockwise,
 } from "react-bootstrap-icons";
+import { Center, Square, Circle } from "@chakra-ui/react";
 import "./Footer.css";
 import firebase2 from "../Home/Firebase2";
 import {
@@ -94,54 +95,56 @@ export default function Footer() {
                   Escribenos tus preguntas, sugerencias o tus opiniones en
                   nuestras redes :)
                 </h6>
-                <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=starphygames@gmail.com"
-                  style={{ color: "white" }}
-                >
-                  <Envelope
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      paddingRight: "10px",
-                    }}
-                  />
-                </a>
-                <a
-                  href="https://www.instagram.com/starphygames/"
-                  style={{ color: "white" }}
-                >
-                  <Instagram
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      paddingRight: "10px",
-                    }}
-                  />
-                </a>
-                <a
-                  href="https://twitter.com/StarphyGames"
-                  style={{ color: "white" }}
-                >
-                  <Twitter
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      paddingRight: "10px",
-                    }}
-                  />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@starphy.com"
-                  style={{ color: "white" }}
-                >
-                  <Tiktok
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      paddingRight: "10px",
-                    }}
-                  />
-                </a>
+                <div className="d-flex" style={{ margin: "40%" }}>
+                  <a
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=starphygames@gmail.com"
+                    style={{ color: "white" }}
+                  >
+                    <Envelope
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        paddingRight: "10px",
+                      }}
+                    />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/starphygames/"
+                    style={{ color: "white" }}
+                  >
+                    <Instagram
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        paddingRight: "10px",
+                      }}
+                    />
+                  </a>
+                  <a
+                    href="https://twitter.com/StarphyGames"
+                    style={{ color: "white" }}
+                  >
+                    <Twitter
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        paddingRight: "10px",
+                      }}
+                    />
+                  </a>
+                  <a
+                    href="https://www.tiktok.com/@starphy.com"
+                    style={{ color: "white" }}
+                  >
+                    <Tiktok
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        paddingRight: "10px",
+                      }}
+                    />
+                  </a>
+                </div>
               </div>
 
               <hr className="clearfix w-100 d-md-none pb-0" />
