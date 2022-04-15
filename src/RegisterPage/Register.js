@@ -35,6 +35,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { Database, set, ref } from "firebase/database";
+import { useToast } from "@chakra-ui/toast";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -53,6 +54,7 @@ function Register() {
   const auth = getAuth(app);
   toast.configure();
   const navigate = useNavigate();
+  const toaste = useToast();
 
   const provider = new GoogleAuthProvider();
   const provider2 = new FacebookAuthProvider();
@@ -97,7 +99,7 @@ function Register() {
     const MapNames = validarName.map((Nombres) => Nombres.name);
 
     if (MapNames.includes(usernameReg)) {
-      toast.error("El nombre de ese juego esta en uso", {
+      toast.error("El nombre esta en uso", {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -108,7 +110,7 @@ function Register() {
         className: "dark-toast",
       });
     } else {
-      await createUserWithEmailAndPassword(auth, emailReg, passwordReg)
+      createUserWithEmailAndPassword(auth, emailReg, passwordReg)
         .then((userCredential) => {
           toast.info("Verifique su correo electronico", {
             icon: "📨",
@@ -134,13 +136,18 @@ function Register() {
           sendEmailVerification(auth.currentUser).then(() => {
             // Email verification sent!
 
-            onAuthStateChanged(auth, (user) => {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/firebase.User
-              const uid = user.uid;
-              /* navigate("/loginUser"); */
-              // ...
-            });
+            if (userCredential.user.emailVerified == true) {
+              toaste({
+                title: "Inicio de sesion correctamente",
+                description: "Disfruta de nuestra web",
+                status: "success",
+                duration: 4000,
+                isClosable: true,
+              });
+              setTimeout(() => {
+                navigate("/Home");
+              }, 5000);
+            }
           });
           const user = userCredential.emailReg;
 

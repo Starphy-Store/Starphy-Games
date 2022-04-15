@@ -63,8 +63,8 @@ function Recomendations1() {
   function Cards() {
     return (
       <Carousel.Item>
-        <Container className="d-flex">
-          {games.slice(4, 8).map(({ data, id }) => (
+        <Container className="d-flex" fluid>
+          {games.slice(5, 10).map(({ data, id }) => (
             <Tooltip
               label={showTooltip(data.juego)}
               placement="bottom"
@@ -116,8 +116,8 @@ function Recomendations1() {
       style={{ zIndex: "2" }}
     >
       <Carousel.Item>
-        <Container className="d-flex">
-          {games.slice(0, 4).map(({ data, id }) => (
+        <Container className="d-flex" fluid>
+          {games.slice(0, 5).map(({ data, id }) => (
             <Tooltip
               label={showTooltip(data.juego)}
               placement="bottom"
@@ -203,9 +203,6 @@ function Recomendations1() {
           ))}
         </Container>
       </Carousel.Item>
-      <script type="text-javascript">
-        function sexo(){alert("alerta de sexo")}
-      </script>
     </Carousel>
   );
 }

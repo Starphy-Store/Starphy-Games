@@ -79,11 +79,12 @@
 }
 
 .background {
-  background: rgb(255, 255, 255);
+  background: rgb(26, 32, 44);
   background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 61%,
-    rgba(23, 23, 23, 1) 100%
+    356deg,
+    rgba(26, 32, 44, 1) 0%,
+    rgba(26, 32, 44, 0.5020278375021884) 39%,
+    rgba(255, 255, 255, 0) 100%
   );
   position: absolute;
   height: 100%;
