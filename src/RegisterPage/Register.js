@@ -133,21 +133,12 @@ function Register() {
             FechaDeModificacion: null,
           });
           // Signed in
-          sendEmailVerification(auth.currentUser).then(() => {
+          sendEmailVerification(auth.currentUser).then(async () => {
             // Email verification sent!
 
-            if (userCredential.user.emailVerified == true) {
-              toaste({
-                title: "Inicio de sesion correctamente",
-                description: "Disfruta de nuestra web",
-                status: "success",
-                duration: 4000,
-                isClosable: true,
-              });
-              setTimeout(() => {
-                navigate("/Home");
-              }, 5000);
-            }
+            setTimeout(() => {
+              navigate("/loginUser");
+            }, 5000);
           });
           const user = userCredential.emailReg;
 

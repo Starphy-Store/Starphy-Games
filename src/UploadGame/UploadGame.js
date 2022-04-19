@@ -139,39 +139,12 @@ export default function UploadGame() {
 
     img.src = alto;
 
-    img.onload = async function () {
-      if (archivolocal == undefined) {
-        toast({
-          title: "Elige una portada",
-          status: "error",
-          isClosable: true,
-        });
-        setIsLoading(false);
-      } else if (img.width <= 74 && img.height <= 105) {
-        console.log("Resolucion minima 74 x 105");
-        toast({
-          title: "Resolucion minima 74 x 105",
-          status: "error",
-          isClosable: true,
-        });
-        setIsLoading(false);
-      } else if (img.width >= 210 && img.height >= 297) {
-        console.log("Resolucion maxima 210 x 297");
-        toast({
-          title: "Resolucion maxima 210 x 297",
-          status: "error",
-          isClosable: true,
-        });
-        setIsLoading(false);
-      } else {
-        const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+    const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
 
-        await uploadBytes(archivoRef, archivolocal);
+    await uploadBytes(archivoRef, archivolocal);
 
-        seturlImagenes(await getDownloadURL(archivoRef));
-        setIsLoading(false);
-      }
-    };
+    seturlImagenes(await getDownloadURL(archivoRef));
+    setIsLoading(false);
   }
 
   async function CargarImagenes2(e) {
@@ -183,39 +156,12 @@ export default function UploadGame() {
 
     img.src = alto;
 
-    img.onload = async function () {
-      if (archivolocal == undefined) {
-        toast({
-          title: "Elige una imagen",
-          status: "error",
-          isClosable: true,
-        });
-        setIsLoading(false);
-      } else if (img.width <= 480 && img.height <= 640) {
-        console.log("Resolucion minima 74 x 105");
-        toast({
-          title: "Resolucion minima 74 x 105",
-          status: "error",
-          isClosable: true,
-        });
-        setIsLoading(false);
-      } else if (img.width >= 720 && img.height >= 1280) {
-        console.log("Resolucion maxima 210 x 297");
-        toast({
-          title: "Resolucion maxima 210 x 297",
-          status: "error",
-          isClosable: true,
-        });
-        setIsLoading(false);
-      } else {
-        const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+    const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
 
-        await uploadBytes(archivoRef, archivolocal);
+    await uploadBytes(archivoRef, archivolocal);
 
-        seturlImagenes2(await getDownloadURL(archivoRef));
-        setIsLoading(false);
-      }
-    };
+    seturlImagenes2(await getDownloadURL(archivoRef));
+    setIsLoading(false);
   }
 
   async function CargarImagenes3(e) {
@@ -226,39 +172,12 @@ export default function UploadGame() {
 
     img.src = alto;
 
-    img.onload = async function () {
-      if (archivolocal == undefined) {
-        toast({
-          title: "Elige una imagen",
-          status: "error",
-          isClosable: true,
-        });
-        setIsLoading(false);
-      } else if (img.width <= 74 && img.height <= 105) {
-        console.log("Resolucion minima 74 x 105");
-        toast({
-          title: "Resolucion minima 74 x 105",
-          status: "error",
-          isClosable: true,
-        });
-        setIsLoading(false);
-      } else if (img.width >= 210 && img.height >= 297) {
-        console.log("Resolucion maxima 210 x 297");
-        toast({
-          title: "Resolucion maxima 210 x 297",
-          status: "error",
-          isClosable: true,
-        });
-        setIsLoading(false);
-      } else {
-        const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+    const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
 
-        await uploadBytes(archivoRef, archivolocal);
+    await uploadBytes(archivoRef, archivolocal);
 
-        seturlImagenes3(await getDownloadURL(archivoRef));
-        setIsLoading(false);
-      }
-    };
+    seturlImagenes3(await getDownloadURL(archivoRef));
+    setIsLoading(false);
   }
 
   async function id2() {
@@ -322,18 +241,6 @@ export default function UploadGame() {
         className: "dark-toast",
       });
     } else {
-      toast.success("Juego creado", {
-        icon: "📨",
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "dark-toast",
-      });
-
       addDoc(collection(db, "games"), {
         FechaCreado: date,
         descrip: Des,
