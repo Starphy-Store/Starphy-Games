@@ -11,7 +11,7 @@ function GamesShow() {
     <>
       <Container>
         <Col>
-          <Header></Header>
+          <Header id="header"></Header>
         </Col>
       </Container>
       <Container style={{ paddingTop: "90px" }}>

@@ -50,7 +50,7 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      <Header name="top" />
       <SliderDelHome />
       <div
         className="nose"
@@ -63,6 +63,7 @@ const Home = () => {
           marginTop: "-20px",
         }}
       ></div>
+
       <Recomendations1 />
 
       <Explorar />

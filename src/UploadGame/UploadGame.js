@@ -369,6 +369,22 @@ export default function UploadGame() {
                 <option value="Supervivencia">Supervivencia</option>
                 <option value="Simulacion">Simulacion</option>
                 <option value="Battle Royale">Battle Royale</option>
+                <option value="Carreras">Carreras</option>
+                <option value="Acción">Acción</option>
+                <option value="FPS">FPS</option>
+                <option value="Puzle">Puzle</option>
+                <option value="Lucha">Lucha</option>
+                <option value="MMORPG">MMORPG</option>
+                <option value="MOBA">MOBA</option>
+                <option value="RPG">RPG</option>
+                <option value="Agilidad mental">Agilidad mental</option>
+                <option value="Shooter">Shooter</option>
+                <option value="Terror">Terror</option>
+                <option value="Mundo abierto">Mundo abierto</option>
+                <option value="Minijuegos">Minijuegos</option>
+                <option value="Sigilo">Sigilo</option>
+                <option value="Battle Royale">Battle Royale</option>
+                <option value="Construccion">Construccion</option>
               </Form.Select>
             </Form.Group>
             <Form.Group
@@ -382,14 +398,29 @@ export default function UploadGame() {
                 aria-label="Default select example"
               >
                 <option>Selecciona una categoria</option>
+                <option value="Acción">Acción</option>
+                <option value="Arcade">Arcade</option>
+                <option value="Estrategia">Estrategia</option>
+                <option value="Cooperativo">Cooperativo</option>
+                <option value="Online">Online</option>
+                <option value="Supervivencia">Supervivencia</option>
+                <option value="Simulacion">Simulacion</option>
+                <option value="Battle Royale">Battle Royale</option>
                 <option value="Carreras">Carreras</option>
-                <option value="RPG">RPG</option>
                 <option value="Acción">Acción</option>
                 <option value="FPS">FPS</option>
                 <option value="Puzle">Puzle</option>
                 <option value="Lucha">Lucha</option>
                 <option value="MMORPG">MMORPG</option>
                 <option value="MOBA">MOBA</option>
+                <option value="RPG">RPG</option>
+                <option value="Agilidad mental">Agilidad mental</option>
+                <option value="Shooter">Shooter</option>
+                <option value="Terror">Terror</option>
+                <option value="Mundo abierto">Mundo abierto</option>
+                <option value="Minijuegos">Minijuegos</option>
+                <option value="Sigilo">Sigilo</option>
+                <option value="Battle Royale">Battle Royale</option>
               </Form.Select>
             </Form.Group>
             <Form.Group
@@ -403,6 +434,21 @@ export default function UploadGame() {
                 aria-label="Default select example"
               >
                 <option>Selecciona una categoria</option>
+                <option value="Acción">Acción</option>
+                <option value="Arcade">Arcade</option>
+                <option value="Estrategia">Estrategia</option>
+                <option value="Cooperativo">Cooperativo</option>
+                <option value="Online">Online</option>
+                <option value="Supervivencia">Supervivencia</option>
+                <option value="Simulacion">Simulacion</option>
+                <option value="Battle Royale">Battle Royale</option>
+                <option value="Carreras">Carreras</option>
+                <option value="Acción">Acción</option>
+                <option value="FPS">FPS</option>
+                <option value="Puzle">Puzle</option>
+                <option value="Lucha">Lucha</option>
+                <option value="MMORPG">MMORPG</option>
+                <option value="MOBA">MOBA</option>
                 <option value="RPG">RPG</option>
                 <option value="Agilidad mental">Agilidad mental</option>
                 <option value="Shooter">Shooter</option>
