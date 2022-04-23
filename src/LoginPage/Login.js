@@ -2,7 +2,9 @@
 /* https://firebase.google.com/docs/auth/web/facebook-login 
    https://firebase.google.com/docs/auth/web/google-signin*/
 
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Alert, Row, Col } from "react-bootstrap";
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { FaFacebook, FaGoogle } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
@@ -259,15 +261,9 @@ function Login() {
   return (
     <div className="main-container">
       <div className="main">
-        <h1>Bienvenido a Starphy</h1>
-        <hr
-          style={{
-            color: "white",
-            width: "50%",
-            margin: "auto",
-            marginTop: "15px",
-          }}
-        ></hr>{" "}
+        <h1 style={{ fontSize: "40px", paddingTop: "80px" }}>
+          Bienvenido a Starphy
+        </h1>
         {/* onSubmit={(e)=>e.preventDefault()} */}
         <Form onSubmit={probar} className="form-container">
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -322,12 +318,7 @@ function Login() {
             </div>
           </Form.Group>
           <div className="d-grid my-5 ">
-            <Button
-              style={{ backgroundColor: "#69c0a1" }}
-              type="submit"
-              size="lg"
-              id="ingreso"
-            >
+            <Button colorScheme="teal" type="submit" size="lg" id="ingreso">
               Iniciar sesion
             </Button>
           </div>
@@ -335,15 +326,30 @@ function Login() {
         <p className="text-center" style={{ color: "#C4C4C4" }}>
           O inicia sesion con
         </p>
-        <div className="buttons-content">
-          <Button onClick={fasebuk} className="buttons">
-            <img className="me-2" src={facebook} alt="facebook-icon" />
-            Facebook
-          </Button>
-          <Button onClick={gugle} className="buttons">
-            <img className="me-2" src={google} alt="google-icon" />
-            Google
-          </Button>
+        <div className="buttons-content pb-2">
+          <Row className="mt-2">
+            <Col>
+              <Button
+                colorScheme="blue"
+                onClick={fasebuk}
+                leftIcon={<FaFacebook />}
+                width="150px"
+              >
+                Facebook
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                leftIcon={<FaGoogle />}
+                onClick={gugle}
+                colorScheme="teal"
+                variant="solid"
+                width="150px"
+              >
+                Google
+              </Button>
+            </Col>
+          </Row>
         </div>
         <p className="text-center mt-5 text-light">
           ¿Todavia no tienes una cuenta?{" "}

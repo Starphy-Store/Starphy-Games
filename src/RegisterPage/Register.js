@@ -1,4 +1,4 @@
-import { Form, Button, Alert, Toast } from "react-bootstrap";
+import { Form, /* Button */ Alert, Toast, Row, Col } from "react-bootstrap";
 
 import { toast, ToastContainer } from "react-toastify";
 import React, { useEffect, useState } from "react";
@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import Validate from "./Validate";
 import "react-toastify/dist/ReactToastify.css";
 //Se va a usar el mismo css para ahorrar codigo
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 import "../LoginPage/login.css";
 import { eyeIcon, facebook, google } from "../LoginPage/assets/index";
@@ -304,24 +306,33 @@ function Register() {
   return (
     <div className="main-container">
       <div className="main">
-        <h1>Bienvenido a Starphy</h1>
-        <hr
-          style={{
-            color: "white",
-            width: "50%",
-            margin: "auto",
-            marginTop: "15px",
-          }}
-        ></hr>{" "}
+        <h1 style={{ fontSize: "40px", paddingTop: "80px" }}>
+          Bienvenido a Starphy
+        </h1>
         <div className="buttons-content mt-5">
-          <Button onClick={fasebuk} className="buttons">
-            <img className="me-2" src={facebook} alt="facebook-icon" />
-            Facebook
-          </Button>
-          <Button onClick={gugle} className="buttons">
-            <img className="me-2" src={google} alt="google-icon" />
-            Google
-          </Button>
+          <Row>
+            <Col>
+              <Button
+                colorScheme="blue"
+                onClick={fasebuk}
+                leftIcon={<FaFacebook />}
+                width="150px"
+              >
+                Facebook
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                leftIcon={<FaGoogle />}
+                onClick={gugle}
+                colorScheme="teal"
+                variant="solid"
+                width="150px"
+              >
+                Google
+              </Button>
+            </Col>
+          </Row>
         </div>
         <p className="text-center mt-3" style={{ color: "#C4C4C4" }}>
           O registrate con
@@ -341,7 +352,6 @@ function Register() {
               required
               type="name"
               placeholder="Ingresa tu apodo"
-              style={{ backgroundColor: "#C4C4C4" }}
               value={usernameReg}
               onChange={updateUsername}
               maxLength={30}
@@ -403,9 +413,9 @@ function Register() {
               </Form.Control.Feedback>
             </div>
           </Form.Group>
-          <div className="d-grid my-5 ">
+          <div className="d-grid my-4 ">
             <Button
-              style={{ backgroundColor: "#69c0a1" }}
+              colorScheme="teal"
               type="submit"
               size="lg"
               id="ingreso"
