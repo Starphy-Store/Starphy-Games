@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Form, Container, Button, Alert, Toast } from "react-bootstrap";
+import { Form, Container, Alert, Toast } from "react-bootstrap";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import "../RegisterPage/notify.css";
 import { useNavigate } from "react-router-dom";
@@ -115,6 +116,7 @@ export default function DevRegister() {
     } else {
       createUserWithEmailAndPassword(auth, emailReg, passwordReg)
         .then((userCredential) => {
+          console.log();
           toast.info("Verifique su correo electronico", {
             icon: "📨",
             position: "top-right",
@@ -136,30 +138,18 @@ export default function DevRegister() {
             FechaDeModificacion: null,
           });
           // Signed in
-          sendEmailVerification(auth.currentUser).then(() => {
+          sendEmailVerification(auth.currentUser).then(async () => {
             // Email verification sent!
 
-            onAuthStateChanged(auth, (user) => {
-              setTimeout(() => {
+            setTimeout(() => {
+              if (userCredential.user.emailVerified == true) {
                 navigate("/Home");
-              }, 5000);
-
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/firebase.User
-              const uid = user.uid;
-              /* navigate("/loginUser"); */
-              // ...
-            });
+              }
+            }, 5000);
           });
           const user = userCredential.emailReg;
-
-          // ...
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-
           toast.error("Ya existe esa cuenta", {
             position: "top-right",
             autoClose: 5000,
@@ -194,7 +184,9 @@ export default function DevRegister() {
     <>
       <div className="main-container">
         <div className="main">
-          <h1>Bienvenido a Starphy</h1>
+          <h1 style={{ fontSize: "40px", paddingTop: "80px" }}>
+            Publica ahora mismo tu juego
+          </h1>
           <hr
             style={{
               color: "white",
@@ -210,7 +202,7 @@ export default function DevRegister() {
             className="form-container needs-validation"
           >
             <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label className="ms-3 mt-3" style={{ color: "#E5E5E5" }}>
+              <Form.Label className="ms-3 mt-3">
                 Registra tu desarrolladora
               </Form.Label>{" "}
               <Form.Control
@@ -291,7 +283,8 @@ export default function DevRegister() {
             </Form.Group>
             <div className="d-grid my-5 ">
               <Button
-                style={{ backgroundColor: "#69c0a1" }}
+                colorScheme="teal"
+                /* style={{ backgroundColor: "#69c0a1" }} */
                 type="submit"
                 size="lg"
                 id="ingreso"

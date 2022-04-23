@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import GamesCarousel from "./GamesCarousel";
 import { Link } from "react-router-dom";
 import "../GamesShow.css";
+import { FaFacebook } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import firebase2 from "../../Home/Firebase2.js";
 import Star from "../../Assets/Star.png";
@@ -38,6 +40,11 @@ const SecundaryImgs = () => {
   toast.configure();
   const [game, setGame] = useState({});
 
+  const estrellas = parseInt(
+    localStorage.getItem(game.juego, JSON.stringify(value))
+  );
+  console.log(estrellas);
+
   async function getGames() {
     const ref = doc(db, "games", id);
 
@@ -56,7 +63,6 @@ const SecundaryImgs = () => {
       }
     });
   }
-  console.log(value);
 
   function Comapeso(juego) {
     let PesoGame;
@@ -96,11 +102,11 @@ const SecundaryImgs = () => {
 
   const handleRating = (rate) => {
     setValue(rate);
-    sessionStorage.setItem(game.juego, JSON.stringify(rate));
+    localStorage.setItem(game.juego, JSON.stringify(rate));
   };
 
   return (
-    <div style={{ backgroundColor: "#1A202C" }}>
+    <div /* style={{ backgroundColor: "white" }} */>
       <Container className="GamesInfo">
         <Row>
           <Col md={7}>
@@ -178,23 +184,34 @@ const SecundaryImgs = () => {
                   <hr></hr>
                   <h6>Peso: {game.PesoGame}</h6>
                   <Col>
-                    <h3>Valoraciones </h3>
+                    <h3 className="pt-3">Valoraciones </h3>
                   </Col>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Rating
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                      ratingValue={value}
-                      onClick={handleRating}
-                      size={30}
-                      transition
-                      allowHalfIcon
-                    />
-                  </div>
+
+                  {/* <Rating
+                    style={{
+                      display: "inline",
+                      justifyContent: "space-between",
+                    }}
+                    ratingValue={value}
+                    onClick={handleRating}
+                    size={30}
+                    transition
+                    allowHalfIcon
+                  /> */}
+                  <Rating
+                    className="pt-3 pb-4"
+                    transition
+                    allowHalfIcon
+                    ratingValue={estrellas}
+                    onClick={handleRating}
+                    fullIcon={
+                      <FaStar size={30} style={{ display: "inline" }} />
+                    }
+                    emptyIcon={
+                      <FaRegStar size={30} style={{ display: "inline" }} />
+                    }
+                  />
+
                   <ToastContainer limit={1} />
                 </div>
               </Row>

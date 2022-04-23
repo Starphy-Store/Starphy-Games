@@ -333,11 +333,15 @@ const Header = () => {
                     <Row>
                       <Col sm={1} lg={1}></Col>
                       <Col>
-                        <Link to="/devregister" style={{ width: "180px" }}>
+                        <Link to="/devregister" style={{ width: "190px" }}>
                           <Button
                             variant="outline-light"
                             color="light"
-                            style={{ border: "0", color: "grey" }}
+                            style={{
+                              border: "0",
+                              color: "grey",
+                              fontSize: "14px",
+                            }}
                           >
                             Publica tu juego
                           </Button>
