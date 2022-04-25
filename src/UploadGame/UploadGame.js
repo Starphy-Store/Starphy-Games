@@ -62,10 +62,13 @@ export default function UploadGame() {
   const [urlImagenes, seturlImagenes] = useState("");
   const [urlImagenes2, seturlImagenes2] = useState("");
   const [urlImagenes3, seturlImagenes3] = useState("");
+  const [urlImagenes4, seturlImagenes4] = useState("");
 
   const [isLoading, setIsLoading] = useState(null);
 
   const [nombrecreador, setnombrecreador] = useState({});
+
+  const [show, setShow] = useState(false);
 
   const date = new Date();
 
@@ -177,6 +180,22 @@ export default function UploadGame() {
     await uploadBytes(archivoRef, archivolocal);
 
     seturlImagenes3(await getDownloadURL(archivoRef));
+    setIsLoading(false);
+  }
+
+  async function CargarImagenes4(e) {
+    setIsLoading(true);
+    let img = new Image();
+    const archivolocal = e.target.files[0];
+    const alto = await resizeFile(archivolocal);
+
+    img.src = alto;
+
+    const archivoRef = ref(storage, `ImagenesJuegos/${archivolocal.name}`);
+
+    await uploadBytes(archivoRef, archivolocal);
+
+    seturlImagenes4(await getDownloadURL(archivoRef));
     setIsLoading(false);
   }
 
@@ -304,7 +323,6 @@ export default function UploadGame() {
     else return input;
   }
   function renderForms() {
-    console.log("hola");
     return <h1>sexo aaaaaaa</h1>;
   }
 
@@ -501,8 +519,28 @@ export default function UploadGame() {
                 onChange={CargarImagenes3}
                 placeholder=""
               />
-              <Button onClick={renderForms}></Button>
             </Form.Group>
+            {show ? (
+              <>
+                <Form.Group
+                  className="mb-2"
+                  controlId="formBasicPassword"
+                  style={{ width: "41%" }}
+                >
+                  <Form.Label>Imagenes de tu juego 3</Form.Label>
+                  <Form.Control
+                    accept="image/*"
+                    required
+                    type="file"
+                    onChange={CargarImagenes4}
+                    placeholder=""
+                  />
+                </Form.Group>
+                <Button onClick={() => setShow(!show)}>-</Button>
+              </>
+            ) : (
+              <Button onClick={() => setShow(!show)}>+</Button>
+            )}
             <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
               <Form.Label>Precio</Form.Label>
               <h6 style={{ color: "grey" }}>Maximo $200</h6>
@@ -534,7 +572,7 @@ export default function UploadGame() {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label className="mt-5 pt-5">Descripcion</Form.Label>
+              <Form.Label>Descripcion</Form.Label>
               <Textarea
                 type="text"
                 value={Des}
