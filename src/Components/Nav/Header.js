@@ -225,7 +225,7 @@ const Header = () => {
                           <>
                             <DropdownButton
                               onSubmit={a}
-                              align="start"
+                              align="end"
                               type="button"
                               title={users.name}
                               key={users.uid}
@@ -271,7 +271,7 @@ const Header = () => {
                           <>
                             <DropdownButton
                               onSubmit={a}
-                              align="start"
+                              align="end"
                               type="button"
                               title={users.name}
                               key={users.uid}

@@ -224,8 +224,6 @@ export default function UploadGame() {
 
   const gameMayus = game.charAt(0).toUpperCase() + game.slice(1);
 
-  const tmpDate = new Date();
-
   async function CrearJuego(event) {
     event.preventDefault();
 
@@ -305,6 +303,11 @@ export default function UploadGame() {
     if (input.length > 16) return input.substring(0, 16) + "...";
     else return input;
   }
+  function renderForms() {
+    console.log("hola");
+    return <h1>sexo aaaaaaa</h1>;
+  }
+
   return (
     <>
       <Header />
@@ -498,6 +501,7 @@ export default function UploadGame() {
                 onChange={CargarImagenes3}
                 placeholder=""
               />
+              <Button onClick={renderForms}></Button>
             </Form.Group>
             <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
               <Form.Label>Precio</Form.Label>
