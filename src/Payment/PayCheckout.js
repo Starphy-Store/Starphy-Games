@@ -26,7 +26,7 @@ export default function PayCheckout() {
   /*   const filtrado = juegos.filter((x) => x.esunjuego == "si"); */
 
   /*   const filtrado2 = filtrado.filter((x) => x.juego == id); */
-  console.log(juegos);
+
   function dameJuegos() {
     const ref = doc(db, "games", id);
 
