@@ -25,7 +25,7 @@ export default function CategorySection() {
     if (x.categoria2 == Acción) return true;
     if (x.categoria3 == Acción) return true;
   });
-
+  console.log(Acción);
   function getGames() {
     const ref = query(collection(db, "games"));
 
@@ -34,6 +34,7 @@ export default function CategorySection() {
       querySnapshot.forEach((doc) => {
         const { videojuego, esunjuego, imagenjuego, imagenjuego2, ...rest } =
           doc.data();
+
         items.push({ ...rest, id: doc.id });
       });
       setGame(items);
@@ -53,8 +54,8 @@ export default function CategorySection() {
 
   return (
     <>
+      <Header />
       <Container>
-        <Header />
         <h1 className="pb-3" style={{ Justify: "left" }}>
           Juegos de {Acción}
         </h1>
@@ -68,7 +69,7 @@ export default function CategorySection() {
             borderRadius: "20px 0px 20px 0",
           }}
         >
-          Juego de {Acción} mas popular:
+          Juego de {Acción} mas popular :
         </h5>
         <Slider />
       </Container>
@@ -93,7 +94,6 @@ export default function CategorySection() {
           </Link>
         ))}
       </Container>
-      );
       <Footer />
     </>
   );
