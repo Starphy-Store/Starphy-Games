@@ -589,11 +589,16 @@ export default function UploadGame() {
                 <p>Espera a que carge su juego</p>
               </div>
             ) : (
-              <Button variant="success" type="submit" disabled={buttonEnable}>
+              <Button
+                variant="success"
+                type="submit"
+                disabled={buttonEnable}
+                style={{ marginBottom: "10px" }}
+              >
                 Subir juego
               </Button>
             )}
-            <h6 style={{ float: "right", color: "grey" }}>
+            <h6 style={{ float: "right", color: "grey", marginBottom: "50px" }}>
               Al subir este juego aceptas nuestros
               <a href="/terminosycondiciones"> terminos y condiciones</a>
             </h6>

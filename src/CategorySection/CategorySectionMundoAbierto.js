@@ -53,8 +53,8 @@ export default function CategorySection() {
 
   return (
     <>
+      <Header />
       <Container>
-        <Header />
         <h1 className="pb-3" style={{ Justify: "left" }}>
           Juegos de {MundoAbierto}
         </h1>

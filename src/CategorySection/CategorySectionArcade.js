@@ -34,7 +34,7 @@ export default function CategorySection() {
       querySnapshot.forEach((doc) => {
         const { videojuego, esunjuego, imagenjuego, imagenjuego2, ...rest } =
           doc.data();
-        items.push({ ...rest, id: doc.id });
+        items.push({ data: rest, id: doc.id });
       });
       setGame(items);
     });
@@ -51,10 +51,20 @@ export default function CategorySection() {
     }
   }
 
+  function truncate(input) {
+    if (input.length > 14) return input.substring(0, 14) + "...";
+    else return input;
+  }
+
+  function showTooltip(input) {
+    if (input.length > 14) return input;
+    else return "";
+  }
+
   return (
     <>
+      <Header />
       <Container>
-        <Header />
         <h1 className="pb-3" style={{ Justify: "left" }}>
           Juegos de {Arcade}
         </h1>
@@ -93,7 +103,6 @@ export default function CategorySection() {
           </Link>
         ))}
       </Container>
-      );
       <Footer />
     </>
   );
