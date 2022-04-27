@@ -18,7 +18,6 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 
 import React from "react";
-import { Col } from "react-bootstrap";
 
 function HeaderCategorias() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,8 +38,12 @@ function HeaderCategorias() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader style={{ textAlign: "center" }} fontSize="3xl">
-            Categorias 🤨
+          <DrawerHeader
+            style={{ textAlign: "center", marginTop: "25px" }}
+            fontSize="3xl"
+            as="u"
+          >
+            Categorias
           </DrawerHeader>
 
           <DrawerBody>
