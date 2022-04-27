@@ -13,7 +13,13 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 import "../LoginPage/login.css";
-import { eyeIcon, facebook, google } from "../LoginPage/assets/index";
+import {
+  eyeIcon,
+  facebook,
+  google,
+  eyeOpen,
+  eyeClose,
+} from "../LoginPage/assets/index";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -394,7 +400,7 @@ function Register() {
                   setShow(!show);
                 }}
               >
-                <img className="eye-icon" src={eyeIcon} />
+                <img className="eye-icon" src={eyeOpen} />
               </button>
 
               <Form.Control
