@@ -187,30 +187,43 @@ const SecundaryImgs = () => {
                     <h3 className="pt-3">Valoraciones </h3>
                   </Col>
 
-                  {/* <Rating
-                    style={{
-                      display: "inline",
-                      justifyContent: "space-between",
-                    }}
-                    ratingValue={value}
-                    onClick={handleRating}
-                    size={30}
-                    transition
-                    allowHalfIcon
-                  /> */}
-                  <Rating
-                    className="pt-3 pb-4"
-                    transition
-                    allowHalfIcon
-                    ratingValue={estrellas}
-                    onClick={handleRating}
-                    fullIcon={
-                      <FaStar size={30} style={{ display: "inline" }} />
-                    }
-                    emptyIcon={
-                      <FaRegStar size={30} style={{ display: "inline" }} />
-                    }
-                  />
+                  {user == null ? (
+                    <Rating
+                      className="pb-4"
+                      transition
+                      allowHalfIcon
+                      ratingValue={estrellas}
+                      onClick={handleRating}
+                      fullIcon={
+                        <FaStar size={30} style={{ display: "inline" }} />
+                      }
+                      emptyIcon={
+                        <FaRegStar size={30} style={{ display: "inline" }} />
+                      }
+                    />
+                  ) : (
+                    <Rating
+                      className="pb-4"
+                      transition
+                      allowHalfIcon
+                      ratingValue={estrellas}
+                      onClick={() => {
+                        toaste({
+                          title:
+                            "Necesitas una cuenta para darle una valoracion",
+                          status: "warning",
+                          isClosable: true,
+                          duration: 3000,
+                        });
+                      }}
+                      fullIcon={
+                        <FaStar size={30} style={{ display: "inline" }} />
+                      }
+                      emptyIcon={
+                        <FaRegStar size={30} style={{ display: "inline" }} />
+                      }
+                    />
+                  )}
 
                   <ToastContainer limit={1} />
                 </div>
