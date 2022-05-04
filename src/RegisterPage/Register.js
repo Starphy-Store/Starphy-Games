@@ -74,6 +74,10 @@ function Register() {
   const [emailReg, setEmailReg] = useState("");
   const [id, setId] = useState("");
 
+  /**
+   * It gets the user's ID, then it queries the database for the user's name, and then it sets the name
+   * to the state.
+   */
   function getId() {
     onAuthStateChanged(auth, (user) => {
       if (user == null) {
@@ -95,6 +99,12 @@ function Register() {
     });
   }
 
+  /**
+   * It checks if the username is already in use, if it is, it shows a toast, if it isn't, it creates a
+   * user with the email and password, then it sends an email verification, then it creates a document in
+   * the database with the user's information, then it navigates to the login page.
+   * @param event - The event that triggered the function.
+   */
   async function Register(event) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
