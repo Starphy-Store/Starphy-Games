@@ -9,7 +9,18 @@ import { useNavigate } from "react-router-dom";
 import Validate from "./Validate";
 import "react-toastify/dist/ReactToastify.css";
 //Se va a usar el mismo css para ahorrar codigo
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import {
+  Button,
+  ButtonGroup,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 import "../LoginPage/login.css";
@@ -73,6 +84,8 @@ function Register() {
   const [validarName, setValidarName] = useState([]);
   const [emailReg, setEmailReg] = useState("");
   const [id, setId] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const finalRef = React.useRef();
 
   /**
    * It gets the user's ID, then it queries the database for the user's name, and then it sets the name
@@ -100,7 +113,7 @@ function Register() {
   }
 
   /**
-   * It checks if the username is already in use, if it is, it shows a toast, if it isn't, it creates a
+   * It checks if the username is already in use, if it is, it shows a toas`12t, if it isn't, it creates a
    * user with the email and password, then it sends an email verification, then it creates a document in
    * the database with the user's information, then it navigates to the login page.
    * @param event - The event that triggered the function.
@@ -183,10 +196,8 @@ function Register() {
     setValidated(true);
   }
 
-  const gugle = async function (event) {
-    event.preventDefault();
-
-    await signInWithPopup(auth, provider)
+  const gugle = function (event) {
+    signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -330,22 +341,68 @@ function Register() {
             <Col>
               <Button
                 colorScheme="blue"
-                onClick={fasebuk}
+                onClick={() => {
+                  onOpen();
+                  fasebuk();
+                }}
                 leftIcon={<FaFacebook />}
                 width="150px"
               >
                 Facebook
+                <Modal
+                  finalFocusRef={finalRef}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                >
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader style={{ textAlign: "center" }}>
+                      AVISO IMPORTANTE
+                    </ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      Al crear una cuenta con facebook, solo puedes iniciar
+                      sesion con la red social que la haya hecho, de lo
+                      contrario le dara un error de cuenta no existente
+                    </ModalBody>
+
+                    <ModalFooter></ModalFooter>
+                  </ModalContent>
+                </Modal>
               </Button>
             </Col>
             <Col>
               <Button
                 leftIcon={<FaGoogle />}
-                onClick={gugle}
+                onClick={() => {
+                  onOpen();
+                  gugle();
+                }}
                 colorScheme="teal"
                 variant="solid"
                 width="150px"
               >
                 Google
+                <Modal
+                  finalFocusRef={finalRef}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                >
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader style={{ textAlign: "center" }}>
+                      AVISO IMPORTANTE
+                    </ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      Al crear una cuenta con Facebook o Google, solo puedes
+                      iniciar sesion con la red social que la haya hecho, de lo
+                      contrario le dara un error de cuenta no existente
+                    </ModalBody>
+
+                    <ModalFooter></ModalFooter>
+                  </ModalContent>
+                </Modal>
               </Button>
             </Col>
           </Row>
