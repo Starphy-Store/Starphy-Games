@@ -70,7 +70,33 @@ export default function CategorySection() {
         >
           Juego de {AgilidadMental} mas popular:
         </h5>
-        <Slider />
+        <Carousel
+          style={{ width: "100%", borderRadius: "20px" }}
+          className="carousel-inner"
+          indicators={false}
+        >
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/ImagenesJuegos%2F02_caso_cordoba_df_003.jpg?alt=media&token=4520c2d1-0a12-4f8c-bdcf-0cef221cc0e6"
+              alt="First slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/ImagenesJuegos%2F1560171797_999980_1560171929_noticia_normal.jpg?alt=media&token=91d26f8f-657e-488f-adc2-674ee7c27b18"
+              alt="Second slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/ImagenesJuegos%2F16lrtfwgjsf51.jpg?alt=media&token=838a823b-411b-449b-8ad4-acbaf9ea4dfb"
+              alt="Third slide"
+            />
+          </Carousel.Item>
+        </Carousel>
       </Container>
       <Container className="d-flex pt-3">
         {filterAgilidadMental.map((item) => (

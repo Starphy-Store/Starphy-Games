@@ -514,10 +514,20 @@ function Register() {
                 color: "white",
                 textDecoration: "none",
               }}
-              to="/crearcuenta"
             >
               {" "}
               Inicia sesión
+            </a>
+          </button>
+        </p>
+        <p className="text-center " style={{ marginTop: "10px" }}>
+          <button
+            onClick={() => {
+              navigate("/terminosycondiciones");
+            }}
+          >
+            <a to="/terminosycondiciones">
+              <u>Términos y Condiciones</u>
             </a>
           </button>
         </p>
