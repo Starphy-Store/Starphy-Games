@@ -18,7 +18,7 @@ function SliderDelHome() {
         <Carousel.Item>
           <img
             className="d-block sliderImg"
-            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Elden-Ring-new-screenshots-1.jpg?alt=media&token=ed00eb7a-3dbc-4a97-81aa-760b7b08811d"
+            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/cyberpunk-town-futuristic-1460355-wallhere.com.jpg?alt=media&token=73e9f610-1a7f-4988-9f53-ee9d3b8b7e94"
             alt="First slide"
             style={{ width: "100%", height: "100%" }}
             /* style={{ width: "3840px", height: "2106px" }} */
@@ -28,7 +28,7 @@ function SliderDelHome() {
         <Carousel.Item>
           <img
             className="d-block sliderImg"
-            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Dise%C3%B1o%20sin%20t%C3%ADtulo%20(16).png?alt=media&token=e7333dc0-5395-42c7-a479-f37f20c20efc"
+            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Darek-Zabrocki-Robin-Hood-artwork-concept-art-Templar-knight-1505645-wallhere.com.jpg?alt=media&token=053041f5-a86c-43de-b62c-5fc312e813c0"
             alt="Second slide"
             style={{ width: "100%", height: "100%" }}
             /* style={{ width: "3840px", height: "2106px" }} */

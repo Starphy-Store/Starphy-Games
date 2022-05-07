@@ -43,7 +43,6 @@ const SecundaryImgs = () => {
   const estrellas = parseInt(
     localStorage.getItem(game.juego, JSON.stringify(value))
   );
-  console.log(estrellas);
 
   async function getGames() {
     const ref = doc(db, "games", id);
