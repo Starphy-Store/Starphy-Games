@@ -20,7 +20,7 @@ import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-import { Textarea, useToast } from "@chakra-ui/react";
+import { Textarea, useToast, Text } from "@chakra-ui/react";
 import { width } from "@mui/system";
 
 const firebaseConfig = {
@@ -599,8 +599,10 @@ export default function UploadGame() {
               </Button>
             )}
             <h6 style={{ float: "right", color: "grey", marginBottom: "50px" }}>
-              Al subir este juego aceptas nuestros
-              <a href="/terminosycondiciones"> terminos y condiciones</a>
+              Al subir este juego aceptas nuestros{" "}
+              <Text href="/terminosycondiciones" as="u">
+                terminos y condiciones
+              </Text>
             </h6>
             <p></p>
           </Form>
@@ -685,14 +687,6 @@ export default function UploadGame() {
                     </Carousel.Item>
                   )}
                 </Carousel>
-                <h4 style={{ color: "white" }}>
-                  Implementar videos de Youtube
-                </h4>
-                <ReactPlayer
-                  url="https://youtu.be/p7dqmROKGIo"
-                  width="120%"
-                  height="40%"
-                />
               </Col>
             </Row>
           </Container>
