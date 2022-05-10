@@ -183,7 +183,7 @@ export default function DevRegister() {
   return (
     <>
       <div className="main-container">
-        <div className="main">
+        <div className="main" style={{ marginBottom: "50px" }}>
           <h1 style={{ fontSize: "40px", paddingTop: "80px" }}>
             Publica ahora mismo tu juego
           </h1>

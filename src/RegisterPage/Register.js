@@ -332,10 +332,18 @@ function Register() {
 
   return (
     <div className="main-container">
-      <div className="main">
+      <div className="main" style={{ marginBottom: "50px" }}>
         <h1 style={{ fontSize: "40px", paddingTop: "80px" }}>
           Bienvenido a Starphy
         </h1>
+        <hr
+          style={{
+            color: "white",
+            width: "50%",
+            margin: "auto",
+            marginTop: "15px",
+          }}
+        ></hr>
         <div className="buttons-content mt-5">
           <Row>
             <Col>
