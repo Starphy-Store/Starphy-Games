@@ -9,6 +9,7 @@ import {
   sendPasswordResetEmail,
   reauthenticateWithCredential,
 } from "firebase/auth";
+import { useToast } from "@chakra-ui/toast";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -28,35 +29,35 @@ const app = initializeApp(firebaseConfig);
 function Login() {
   const auth = getAuth(app);
   const [email, setEmail] = useState("");
-  const user = auth.currentUser;
-  const navigate = useNavigate();
 
-  const recoverPassword = function () {
+  const toast = useToast();
+
+  function recoverPassword(event) {
+    event.preventDefault();
+
     sendPasswordResetEmail(auth, email)
       .then(() => {
+        toast({
+          title: "Revisa tu email para recuperar su cuenta",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+
         // Password reset email sent!
         // ..
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
+        toast({
+          title: "Introduce un email valido",
+          status: "error",
+          duration: "3000",
+          isClosable: true,
+        });
       });
-  };
+  }
   const updateEmail = function (event) {
     setEmail(event.target.value);
-  };
-
-  const promptForCredentials = function () {
-    const credential = promptForCredentials();
-    reauthenticateWithCredential(user, credential)
-      .then(() => {
-        // User re-authenticated.
-      })
-      .catch((error) => {
-        // An error ocurred
-        // ...
-      });
   };
 
   return (
@@ -86,27 +87,6 @@ function Login() {
             >
               Recuperar contraseña
             </Button>
-            <button /* todo esto el volver */
-              onClick={() => {
-                navigate("/Home");
-              }}
-              className="Back"
-            >
-              <a
-                style={{
-                  background: "transparent",
-                  fontWeight: "999",
-                  color: "white",
-                  textDecoration: "underline",
-                  position: "relative",
-                  bottom: "640px",
-                  right: "57vw",
-                }}
-              >
-                {" "}
-                Volver
-              </a>
-            </button>
           </div>
         </Form>
       </div>

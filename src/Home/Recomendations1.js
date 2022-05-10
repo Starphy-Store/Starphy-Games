@@ -160,7 +160,7 @@ function Recomendations1() {
         </Container>
       </Carousel.Item>
       <Carousel.Item>
-        <Container className="d-flex">
+        <Container className="d-flex" fluid>
           {games.slice(4, 8).map(({ data, id }) => (
             <Tooltip
               label={showTooltip(data.juego)}

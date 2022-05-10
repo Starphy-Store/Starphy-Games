@@ -61,7 +61,7 @@ function Explorar() {
         className="mt-3"
         style={{ zIndex: "2" }}
       >
-        <Container className="d-flex" style={{ zIndex: "2" }}>
+        <Container className="d-flex" style={{ zIndex: "2" }} fluid>
           {shuffledArray.slice(0, 4).map(({ data, id }) => (
             <Link to={`/GamesShow/${id}`} className="w-25">
               <Container key={id} style={{ zIndex: "2" }}>
@@ -96,7 +96,7 @@ function Explorar() {
           ))}
         </Container>
 
-        <Container className="d-flex">
+        <Container className="d-flex" fluid>
           {shuffledArray.slice(4, 8).map(({ data, id }) => (
             <Link to={`/GamesShow/${id}`} className="w-25">
               <Container key={id}>
@@ -130,7 +130,7 @@ function Explorar() {
             </Link>
           ))}
         </Container>
-        <Container className="d-flex">
+        <Container className="d-flex" fluid>
           {shuffledArray.slice(8, 12).map(({ data, id }) => (
             <Link to={`/GamesShow/${id}`} className="w-25">
               <Container key={id}>
@@ -164,7 +164,7 @@ function Explorar() {
             </Link>
           ))}
         </Container>
-        <Container className="d-flex">
+        <Container className="d-flex" fluid>
           {shuffledArray.slice(12, 16).map(({ data, id }) => (
             <Link to={`/GamesShow/${id}`} className="w-25">
               <Container key={id}>
@@ -198,7 +198,7 @@ function Explorar() {
             </Link>
           ))}
         </Container>
-        <Container className="d-flex">
+        <Container className="d-flex" fluid>
           {shuffledArray.slice(16, 20).map(({ data, id }) => (
             <Link to={`/GamesShow/${id}`} className="w-25">
               <Container key={id} style={{ zIndex: "2" }}>
