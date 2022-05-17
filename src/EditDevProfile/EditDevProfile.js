@@ -214,7 +214,7 @@ export default function Editdevprofile() {
                 </Button>
               </Form.Group>
               <Form.Text className="text-muted">
-                Nunca compartiremos tus credenciales con nadie .
+                Nunca compartiremos tus credenciales con nadie.
               </Form.Text>
               <p />
               <Button variant="primary" type="submit" className="mb-5">

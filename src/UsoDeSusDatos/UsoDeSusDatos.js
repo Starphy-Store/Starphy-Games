@@ -7,7 +7,7 @@ function UsoDeSusDatos() {
   return (
     <div>
       <Header />
-      <Container>
+      <Container style={{ paddingTop: "100px" }}>
         <h1 style={{ color: "white" }}>Para que usamos su información</h1>
 
         <h4 style={{ color: "grey", textAlign: "center" }}>

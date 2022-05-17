@@ -9,7 +9,7 @@ function HelpMe() {
     <>
       <Header />
       <Heading color="white" fontSize="40px">
-        <h1>joder buenos dias</h1>
+        <Text>Soporte</Text>
       </Heading>
       <Container centerContent>
         <p>aaaaaaa</p>
