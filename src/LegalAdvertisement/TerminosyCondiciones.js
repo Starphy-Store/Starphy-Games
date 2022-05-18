@@ -6,8 +6,8 @@ import { Container } from "react-bootstrap";
 export default function TerminosyCondiciones() {
   return (
     <>
-      <Container style={{ color: "white" }}>
-        <Header></Header>
+      <Header></Header>
+      <Container style={{ color: "white", paddingTop: "100px" }}>
         <h1>Términos y Condiciones</h1>
         <ul>
           <li>
