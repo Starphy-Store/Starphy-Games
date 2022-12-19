@@ -181,7 +181,7 @@ const SecundaryImgs = () => {
                     className="pt-4"
                   ></h5>
                   <hr></hr>
-                  <h6>Peso: {game.PesoGame}</h6>
+                  <h6>Almacenamiento: {game.PesoGame}</h6>
                   <Col>
                     <h3 className="pt-3">Valoraciones </h3>
                   </Col>

@@ -137,12 +137,12 @@ function App() {
         />
         {perfil.rol == "dev" ? (
           <>
-            <Route path="/uploadgame" element={<UploadGame />} />)
+            <Route path="/uploadgame" element={<UploadGame />} />
           </>
         ) : (
           <Route
             path="*"
-            element={
+            element={setTimeout(() => {
               <>
                 <Header></Header>
                 <Container style={{ marginTop: "400px" }} className="AppLoader">
@@ -150,8 +150,8 @@ function App() {
                   <h4>🥶</h4>
                   {/* <ScaleLoader color={"#FFFFFF"} size={150} /> */}
                 </Container>
-              </>
-            }
+              </>;
+            }, 2000)}
           />
         )}
         {/* <Route

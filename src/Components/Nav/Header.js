@@ -197,16 +197,27 @@ const Header = () => {
                     aria-label="Search"
                     onChange={SearchGames}
                   />
-
-                  <Link to={`/SearchPage/${search}`}>
-                    <Button
-                      style={{ height: "100%", width: "100%" }}
-                      type="submit"
-                      variant="outline-light"
-                    >
-                      <Search />
-                    </Button>
-                  </Link>
+                  {search == "" ? (
+                    <Link to={`/Home`}>
+                      <Button
+                        style={{ height: "100%", width: "100%" }}
+                        type=""
+                        variant="outline-light"
+                      >
+                        <Search />
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link to={`/SearchPage/${search}`}>
+                      <Button
+                        style={{ height: "100%", width: "100%" }}
+                        type="submit"
+                        variant="outline-light"
+                      >
+                        <Search />
+                      </Button>
+                    </Link>
+                  )}
                 </Form>
               </Nav>
 
@@ -385,21 +396,6 @@ const Header = () => {
           </Container>
         </Navbar>
       </div>
-      {sugerencias.map((item) => (
-        <Box
-          style={{
-            color: "white",
-            backgroundColor: "white",
-            marginLeft: "437px",
-            marginRight: "480px",
-            zIndex: "8",
-          }}
-        >
-          <Text style={{ color: "black" }}>
-            <Link to={`/SearchPage/${search}`}>{item.juego}</Link>
-          </Text>
-        </Box>
-      ))}
     </>
   );
 };
