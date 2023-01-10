@@ -93,7 +93,7 @@ export default function CategorySection() {
           </Link>
         ))}
       </Container>
-      );
+
       <Footer />
     </>
   );

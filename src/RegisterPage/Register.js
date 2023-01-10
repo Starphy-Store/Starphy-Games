@@ -91,6 +91,7 @@ function Register() {
    * It gets the user's ID, then it queries the database for the user's name, and then it sets the name
    * to the state.
    */
+
   function getId() {
     onAuthStateChanged(auth, (user) => {
       if (user == null) {
@@ -100,6 +101,8 @@ function Register() {
     });
 
     const ref = query(collection(db, "users"));
+
+    //GET Names DONE
 
     onSnapshot(ref, (querySnapshot) => {
       const items = [];

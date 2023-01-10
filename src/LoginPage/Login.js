@@ -67,10 +67,16 @@ function Login() {
       }
     });
   }
+
+  //LOGIN FROM THE CLIENT SIDE, WHY I CANT IN THE BACK SIDE.
   function probar(event) {
     event.preventDefault();
 
-    setPersistence(auth, browserSessionPersistence).then(() => {
+    setPersistence(
+      auth,
+      browserSessionPersistence,
+      signInWithEmailAndPassword
+    ).then(() => {
       return (
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
@@ -102,7 +108,6 @@ function Login() {
               }
             });
 
-            const user = userCredential.user;
             // ...
           })
           /* alerta de error*/
@@ -118,6 +123,7 @@ function Login() {
               progress: undefined,
               className: "dark-toast",
             });
+
             const errorCode = error.code;
             const errorMessage = error.message;
           })

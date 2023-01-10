@@ -18,7 +18,7 @@ function SliderDelHome() {
         <Carousel.Item>
           <img
             className="d-block sliderImg"
-            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/cyberpunk-town-futuristic-1460355-wallhere.com.jpg?alt=media&token=73e9f610-1a7f-4988-9f53-ee9d3b8b7e94"
+            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/62412a3966938%20(1).jpg?alt=media&token=49a932f2-a00b-410f-b739-41d1c871ceda"
             alt="First slide"
             style={{ width: "100%", height: "100%" }}
             /* style={{ width: "3840px", height: "2106px" }} */
@@ -28,7 +28,7 @@ function SliderDelHome() {
         <Carousel.Item>
           <img
             className="d-block sliderImg"
-            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/Darek-Zabrocki-Robin-Hood-artwork-concept-art-Templar-knight-1505645-wallhere.com.jpg?alt=media&token=053041f5-a86c-43de-b62c-5fc312e813c0"
+            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/62412a3966938%20(2).jpg?alt=media&token=8b855a46-e1db-4751-ba3b-352eb3ab35f1"
             alt="Second slide"
             style={{ width: "100%", height: "100%" }}
             /* style={{ width: "3840px", height: "2106px" }} */
@@ -37,7 +37,7 @@ function SliderDelHome() {
         <Carousel.Item>
           <img
             className="d-block sliderImg"
-            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/62412a3966938.jpg?alt=media&token=dac92c94-6ac7-4049-aaee-8637a1263d8d"
+            src="https://firebasestorage.googleapis.com/v0/b/usuarios-b78e1.appspot.com/o/62412a3966938%20(3).jpg?alt=media&token=e226cc22-306a-467f-ae70-d70adcc38291"
             alt="Third slide"
             style={{ width: "100%", height: "100%" }}
             /* style={{ width: "3840px", height: "2106px" }} */

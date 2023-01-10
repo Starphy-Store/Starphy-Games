@@ -80,6 +80,7 @@ export default function DevRegister() {
     }
   }
 
+  //GET Names DONE
   const QueryDB = () => {
     const ref = query(collection(db, "users"));
 

@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Badge, Stack } from "@chakra-ui/layout";
-import { Carousel, Container, Row, Col } from "react-bootstrap";
+import { Carousel, Container, Row, Col, CarouselItem } from "react-bootstrap";
 import CardStyle from "../Components/Cards/CardStyle";
 import "./Home.css";
 import { Link } from "react-router-dom";
@@ -117,7 +117,7 @@ function Recomendations1() {
     >
       <Carousel.Item>
         <Container className="d-flex" fluid>
-          {games.slice(0, 5).map(({ data, id }) => (
+          {games.slice(0, 4).map(({ data, id }) => (
             <Tooltip
               label={showTooltip(data.juego)}
               placement="bottom"
@@ -136,9 +136,10 @@ function Recomendations1() {
                           {" "}
                           <Badge
                             colorScheme="green"
-                            variant="solid"
                             fontSize="lg"
                             style={{ margin: "15px" }}
+                            backgroundColor="green"
+                            color="white"
                           >
                             New
                           </Badge>
