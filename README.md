@@ -1,5 +1,4 @@
 
-# Contenido del README.md
 # 🌟 Starphy
 
 
