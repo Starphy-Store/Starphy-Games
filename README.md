@@ -65,9 +65,8 @@ En la siguiente imagen se muestra un ejemplo de la interfaz del proyecto, donde 
 
 ---
 
-## ⚙️ Instalación y ejecución
+👨‍💻 Autor
 
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/tuusuario/starphy.git
-   cd starphy
+**Desarrollado por:** Ian y Leo
+
+📧 Contacto: ianjosejf@gmail.com
