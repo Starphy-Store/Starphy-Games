@@ -9,7 +9,7 @@ El objetivo principal es facilitar la **búsqueda, adquisición y exploración d
 
 ---
 
-## 🚀 Características principales
+## 💡 Características principales
 
 - 🎮 Amplio catálogo de videojuegos para PC  
 - 🧭 Interfaz moderna e intuitiva  
