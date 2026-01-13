@@ -66,6 +66,7 @@ En la siguiente imagen se muestra un ejemplo de la interfaz del proyecto, donde 
 
 👨‍💻 Autor
 
+**API pública:** [Starphy Firebase API](https://github.com/Starphy-Store/FirebaseAPI)  
 **Desarrollado por:** Ian y Leo
 
 📧 Contacto: ianjosejf@gmail.com
